@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
 
-public class Stats : MonoBehaviour
+[System.Serializable]
+public class SaveData
 {
     public int Health;
-
 }

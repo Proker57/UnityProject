@@ -100,6 +100,52 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Global"",
+            ""id"": ""eef72f26-747c-494b-b426-d1dd3aaadbb3"",
+            ""actions"": [
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b8b5aa7-f712-43fe-af50-9e6e20f379f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Load"",
+                    ""type"": ""Button"",
+                    ""id"": ""6bd1b8e1-b991-45f1-bdd6-6b694006bd9d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""21b80cb9-eb54-40e3-ab32-a5df982bbdd2"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02a65c27-391d-4607-9400-9fb173e14925"",
+                    ""path"": ""<Keyboard>/f9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Load"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -109,6 +155,10 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_PlayerInGame_Movement = m_PlayerInGame.FindAction("Movement", throwIfNotFound: true);
         m_PlayerInGame_Jump = m_PlayerInGame.FindAction("Jump", throwIfNotFound: true);
         m_PlayerInGame_Crouch = m_PlayerInGame.FindAction("Crouch", throwIfNotFound: true);
+        // Global
+        m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
+        m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
+        m_Global_Load = m_Global.FindAction("Load", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -203,10 +253,56 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         }
     }
     public PlayerInGameActions @PlayerInGame => new PlayerInGameActions(this);
+
+    // Global
+    private readonly InputActionMap m_Global;
+    private IGlobalActions m_GlobalActionsCallbackInterface;
+    private readonly InputAction m_Global_Save;
+    private readonly InputAction m_Global_Load;
+    public struct GlobalActions
+    {
+        private @PlayerInput m_Wrapper;
+        public GlobalActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Save => m_Wrapper.m_Global_Save;
+        public InputAction @Load => m_Wrapper.m_Global_Load;
+        public InputActionMap Get() { return m_Wrapper.m_Global; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GlobalActions set) { return set.Get(); }
+        public void SetCallbacks(IGlobalActions instance)
+        {
+            if (m_Wrapper.m_GlobalActionsCallbackInterface != null)
+            {
+                @Save.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
+                @Load.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
+                @Load.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
+                @Load.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
+            }
+            m_Wrapper.m_GlobalActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
+                @Load.started += instance.OnLoad;
+                @Load.performed += instance.OnLoad;
+                @Load.canceled += instance.OnLoad;
+            }
+        }
+    }
+    public GlobalActions @Global => new GlobalActions(this);
     public interface IPlayerInGameActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+    }
+    public interface IGlobalActions
+    {
+        void OnSave(InputAction.CallbackContext context);
+        void OnLoad(InputAction.CallbackContext context);
     }
 }
