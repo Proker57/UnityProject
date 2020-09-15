@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
+#pragma warning disable 649
+    public bool IsGrounded;
     [SerializeField] private float _jumpForce;
-
     [Header("Ground Collision")]
     [SerializeField] private LayerMask _ground;
     [SerializeField] private Transform _leftGroundChecker;
     [SerializeField] private Transform _rightGroundChecker;
-    [SerializeField] private float distance;
+    [SerializeField] private float _distance;
     private Vector2 _jumpVector;
-
-    public bool isGrounded;
-
     private Player _player;
+#pragma warning restore 649
 
     private void Awake()
     {
@@ -35,7 +34,7 @@ public class Jump : MonoBehaviour
 
     private void Jump_started()
     {
-        if (isGrounded == true)
+        if (IsGrounded == true)
         {
             _jumpVector = new Vector2(0, _jumpForce);
             _player.Rigidbody2D.AddForce(_jumpVector, ForceMode2D.Impulse);
@@ -46,21 +45,21 @@ public class Jump : MonoBehaviour
     {
         Vector2 leftOrigin = _leftGroundChecker.position;
         Vector2 rightOrigin = _rightGroundChecker.position;
-        Vector2 direction = new Vector2(0, -distance);
+        Vector2 direction = new Vector2(0, -_distance);
 
         // TODO delete debug ray of jump
         Debug.DrawRay(leftOrigin, direction, Color.green, 0.8f);
         Debug.DrawRay(rightOrigin, direction, Color.yellow, 0.8f);
 
-        RaycastHit2D leftHit = Physics2D.Raycast(leftOrigin, direction, distance, _ground);
-        RaycastHit2D rightHit = Physics2D.Raycast(rightOrigin, direction, distance, _ground);
+        RaycastHit2D leftHit = Physics2D.Raycast(leftOrigin, direction, _distance, _ground);
+        RaycastHit2D rightHit = Physics2D.Raycast(rightOrigin, direction, _distance, _ground);
         if (leftHit.collider != null || rightHit.collider != null)
         {
-            isGrounded = true;
+            IsGrounded = true;
         }
         else
         {
-            isGrounded = false;
+            IsGrounded = false;
         }
     }
 }

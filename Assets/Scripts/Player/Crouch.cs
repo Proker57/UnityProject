@@ -7,16 +7,16 @@ using UnityEngine.PlayerLoop;
 
 public class Crouch : MonoBehaviour
 {
+#pragma warning disable 649
     public bool IsCrouched;
     public bool HasCeiling;
-
+    [SerializeField] private float _distance;
     public Transform LeftCeilingChecker;
     public Transform RightCeilingChecker;
     public LayerMask Ground;
 
-    [SerializeField] private float _distance;
-
     private Player _player;
+#pragma warning restore 649
 
     private void Awake()
     {
@@ -31,15 +31,15 @@ public class Crouch : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 leftOrigin = LeftCeilingChecker.position;
-        Vector2 rightOrigin = RightCeilingChecker.position;
+        Vector2 leftCeilingOrigin = LeftCeilingChecker.position;
+        Vector2 rightCeilingOrigin = RightCeilingChecker.position;
         Vector2 direction = new Vector2(0, _distance);
 
         // TODO delete debug ray of jump
-        Debug.DrawRay(leftOrigin, direction, Color.red, 0.8f);
-        Debug.DrawRay(rightOrigin, direction, Color.blue, 0.8f);
-        RaycastHit2D leftCeilingHit = Physics2D.Raycast(leftOrigin, direction, _distance, Ground);
-        RaycastHit2D rightCeilingHit = Physics2D.Raycast(rightOrigin, direction, _distance, Ground);
+        Debug.DrawRay(leftCeilingOrigin, direction, Color.red, 0.8f);
+        Debug.DrawRay(rightCeilingOrigin, direction, Color.blue, 0.8f);
+        RaycastHit2D leftCeilingHit = Physics2D.Raycast(leftCeilingOrigin, direction, _distance, Ground);
+        RaycastHit2D rightCeilingHit = Physics2D.Raycast(rightCeilingOrigin, direction, _distance, Ground);
         if (leftCeilingHit.collider != null || rightCeilingHit.collider != null)
         {
             HasCeiling = true;

@@ -6,20 +6,22 @@ using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
+#pragma warning disable 649
     private static SceneLoader _sceneLoader = null;
-
+    [Header("Starting scene point")]
     [SerializeField] private string _nextSceneName;
     [Header("Loading Screen fields")]
-    [Tooltip("Add Loading Screen Game Object from 'Main' scene")] [SerializeField]
-    private GameObject _loadingScreen;
-    [Tooltip("Add Progress Bar Slider from 'Main' scene")] [SerializeField]
-    private Slider _progressBar;
-    [Tooltip("Add Circle Sprite from 'Main' scene")] [SerializeField]
-    private GameObject _loadingCircleSprite;
+    [Tooltip("Add Loading Screen Game Object from 'Main' scene")]
+    [SerializeField] private GameObject _loadingScreen;
+    [Tooltip("Add Progress Bar Slider from 'Main' scene")]
+    [SerializeField] private Slider _progressBar;
+    [Tooltip("Add Circle Sprite from 'Main' scene")]
+    [SerializeField] private GameObject _loadingCircleSprite;
 
     private string _currentSceneName;
     private AsyncOperation _resourceUnloadTaskAsync;
     private AsyncOperation _sceneLoadTaskAsync;
+#pragma warning restore 649
 
     private enum SceneState
     {
