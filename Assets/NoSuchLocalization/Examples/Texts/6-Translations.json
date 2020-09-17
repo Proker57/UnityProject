@@ -1,0 +1,26 @@
+﻿  {
+    "title": {
+      "English": "Import from JSON files",
+      "Persian": "از فایل JSON وارد کنید",
+      "Chinese": "从JSON文件导入",
+      "Spanish": "Importar desde archivos JSON",
+      "Arabic": "استيراد من ملفات JSON",
+      "Portuguese": "Importar de arquivos JSON"
+    },
+    "back": {
+      "English": "Back",
+      "Persian": "بازگشت",
+      "Chinese": "背部",
+      "Spanish": "atrás",
+      "Arabic": "عودة",
+      "Portuguese": "Costas"
+    },
+    "content": {
+      "English": "This translated text comes from a JSON file.",
+      "Persian": "این متن ترجمه شده از یک پرونده JSON تهیه شده است.",
+      "Chinese": "此翻译的文本来自JSON文件。",
+      "Spanish": "Este texto traducido proviene de un archivo JSON.",
+      "Arabic": "هذا النص المترجم يأتي من ملف JSON.",
+      "Portuguese": "Este texto traduzido vem de um arquivo JSON."
+    }
+  }

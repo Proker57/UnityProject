@@ -1,0 +1,22 @@
+{
+    "name": "NoSuchLocalizationLite-Editor",
+    "references": [
+        "GUID:af5c2a49889c43143868333e6082e6f6",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll",
+        "NoSuchLocalizationCore.dll",
+        "NoSuchLocalizationCore-Editor.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
