@@ -1,6 +1,8 @@
 using System;
+using DG.Tweening;
 using NoSuchStudio.Localization;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MainMenu : MonoBehaviour
 {
@@ -8,10 +10,7 @@ public class MainMenu : MonoBehaviour
     [Header("Toggle visibility of GameObjects")]
     [SerializeField] private GameObject _mainMenuButton;
     [SerializeField] private GameObject _optionsPanel;
-    [Header("Fog")]
-    [SerializeField] private GameObject _fog1;
-    [SerializeField] private GameObject _fog2;
-    [SerializeField] private float _scrollSpeed = 2;
+
 #pragma warning restore 649
 
     public void StartNewGame(String sceneName)

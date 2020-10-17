@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -13,6 +14,12 @@ public class Movement : MonoBehaviour
     private float _movementDirection;
     private bool _isRunning;
     private bool _isLookingRight;
+    [SerializeField] private bool _isMaxSpeedLimiterOn = true;
+    public bool IsMaxSpeedLimiterOn
+    {
+        get => _isMaxSpeedLimiterOn;
+        set => _isMaxSpeedLimiterOn = value;
+    }
     private float Tolerance = 0;
 
     [Space, Header("Player sprite with bones")]
@@ -44,7 +51,10 @@ public class Movement : MonoBehaviour
             _player.Rigidbody2D.AddForce(_direction, ForceMode2D.Force);
         }
 
-        MaxVelocityLimiter();
+        if (_isMaxSpeedLimiterOn == true)
+        {
+            MaxVelocityLimiter();
+        }
         StopMovementLerp();
     }
 

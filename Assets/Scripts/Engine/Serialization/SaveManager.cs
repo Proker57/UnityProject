@@ -10,7 +10,7 @@ public class SaveManager
 
     public void Save()
     {
-        var dir = Application.persistentDataPath + fileName;
+        var dir = System.IO.Path.Combine(Application.persistentDataPath, fileName);
 
         var bf = new BinaryFormatter();
         var file = File.Open(dir, FileMode.OpenOrCreate);

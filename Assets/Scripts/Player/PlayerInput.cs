@@ -41,6 +41,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""4fea6292-4651-4017-ac5d-f2c4cbfdaa9d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -96,6 +104,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5075144f-10b3-493c-81f0-cbfa6be6429e"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -155,6 +174,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_PlayerInGame_Movement = m_PlayerInGame.FindAction("Movement", throwIfNotFound: true);
         m_PlayerInGame_Jump = m_PlayerInGame.FindAction("Jump", throwIfNotFound: true);
         m_PlayerInGame_Crouch = m_PlayerInGame.FindAction("Crouch", throwIfNotFound: true);
+        m_PlayerInGame_Dash = m_PlayerInGame.FindAction("Dash", throwIfNotFound: true);
         // Global
         m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
         m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
@@ -211,6 +231,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerInGame_Movement;
     private readonly InputAction m_PlayerInGame_Jump;
     private readonly InputAction m_PlayerInGame_Crouch;
+    private readonly InputAction m_PlayerInGame_Dash;
     public struct PlayerInGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -218,6 +239,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerInGame_Movement;
         public InputAction @Jump => m_Wrapper.m_PlayerInGame_Jump;
         public InputAction @Crouch => m_Wrapper.m_PlayerInGame_Crouch;
+        public InputAction @Dash => m_Wrapper.m_PlayerInGame_Dash;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -236,6 +258,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Crouch.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
+                @Dash.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_PlayerInGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +274,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -299,6 +327,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
     public interface IGlobalActions
     {
