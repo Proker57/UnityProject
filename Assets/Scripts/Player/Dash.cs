@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Dash : MonoBehaviour
@@ -8,6 +9,7 @@ public class Dash : MonoBehaviour
     [SerializeField] private int _yVector = 0;
     [SerializeField] private float _speedLimiterTimer = 0.1f;
     [SerializeField] private float _dashTimer = 1f;
+    [SerializeField] private float _ghostTrailTimer = 0.1f;
     [SerializeField] private bool _isDashable = true;
     public bool IsDashable
     {
@@ -16,6 +18,7 @@ public class Dash : MonoBehaviour
     }
     private Player _player;
     private Vector2 _dashVector;
+    [SerializeField] private List<GameObject> _ghostTrails;
 
     private void Awake()
     {
@@ -31,6 +34,7 @@ public class Dash : MonoBehaviour
     {
         if (_isDashable == true)
         {
+            GhostTrailOn();
             _player.Movement.IsMaxSpeedLimiterOn = false;
             _isDashable = false;
             // TODO delete -1 (-1 now is a right side)
@@ -40,6 +44,16 @@ public class Dash : MonoBehaviour
             StartCoroutine(WaitAndSetSpeedLimiter(_speedLimiterTimer));
             StartCoroutine(WaitAndSetDashable(_dashTimer));
         }
+    }
+
+    private void GhostTrailOn()
+    {
+        StartCoroutine(WaitAndGhostOn(_ghostTrailTimer));
+    }
+
+    public void GhostTrailOff()
+    {
+
     }
 
     IEnumerator WaitAndSetSpeedLimiter(float time)
@@ -52,5 +66,23 @@ public class Dash : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         _isDashable = true;
+    }
+
+    IEnumerator WaitAndGhostOn(float time)
+    {
+        var _distanceBetweenGhosts = 0.1f;
+        var alphaindex = 0.2f;
+        foreach (var ghost in _ghostTrails)
+        {
+            yield return new WaitForSeconds(time);
+            var currentPostion = new Vector3(transform.position.x - _distanceBetweenGhosts, transform.position.y, transform.position.z);
+            ghost.transform.position = currentPostion;
+            var alpha = ghost.GetComponent<SpriteRenderer>().color;
+            alpha.a -= alphaindex;
+            ghost.GetComponent<SpriteRenderer>().color = alpha;
+            ghost.SetActive(true);
+            _distanceBetweenGhosts += 0.2f;
+            alphaindex += 0.2f;
+        }
     }
 }

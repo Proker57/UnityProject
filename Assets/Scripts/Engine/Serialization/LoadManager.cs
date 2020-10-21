@@ -14,7 +14,7 @@ public class LoadManager
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open( fileName, FileMode.Open);
-            SaveData saveData = (SaveData) bf.Deserialize(file);
+            SaveManager.SaveData saveData = (SaveManager.SaveData) bf.Deserialize(file);
             file.Close();
 
             RestoreSaveData(saveData);
@@ -22,7 +22,7 @@ public class LoadManager
         }
     }
 
-    private void RestoreSaveData(SaveData saveData)
+    private void RestoreSaveData(SaveManager.SaveData saveData)
     {
         Stats stats = new Stats();
 
