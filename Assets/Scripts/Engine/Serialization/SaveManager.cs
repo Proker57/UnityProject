@@ -14,7 +14,6 @@ public class SaveManager
         SaveEvent?.Invoke();
 
         var dir = Application.persistentDataPath + fileName;
-        Debug.Log(Application.persistentDataPath);
 
         var bf = new BinaryFormatter();
         var file = File.Open(dir, FileMode.OpenOrCreate);
@@ -23,13 +22,12 @@ public class SaveManager
         // TODO Save array of objects
         bf.Serialize(file, saveData);
         file.Close();
-        Debug.Log("File closed");
     }
 
     [System.Serializable]
     public class SaveData
     {
         // TODO Do save better
-        public int Health = 1;
+        public static int Health;
     }
 }

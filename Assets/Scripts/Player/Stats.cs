@@ -16,8 +16,7 @@ public class Stats : MonoBehaviour
 
     public void StoreData()
     {
-        _data.Health = Health;
-        Debug.Log("Stats_Saved");
+        SaveManager.SaveData.Health = Health;
     }
 
     public void LoadData()

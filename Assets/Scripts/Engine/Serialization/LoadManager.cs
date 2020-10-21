@@ -26,6 +26,6 @@ public class LoadManager
     {
         Stats stats = new Stats();
 
-        stats.Health = saveData.Health;
+        stats.Health = SaveManager.SaveData.Health;
     }
 }
