@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -8,11 +6,11 @@ namespace BOYAREngine
 {
     public class SaveManager
     {
-        const string fileName = "/Save.sosi";
+        private const string FileName = "/Save.sosi";
 
         public void Save(PlayerData data)
         {
-            var dir = Application.persistentDataPath + fileName;
+            var dir = Application.persistentDataPath + FileName;
 
             var bf = new BinaryFormatter();
             var file = File.Open(dir, FileMode.OpenOrCreate);
@@ -27,6 +25,8 @@ namespace BOYAREngine
         private void FillData(SaveData save, PlayerData data)
         {
             save.Health = data.Health;
+            save.XPosition = data.XPosition;
+            save.YPosition = data.YPosition;
         }
 
         [System.Serializable]
@@ -34,6 +34,8 @@ namespace BOYAREngine
         {
             // TODO Do save better
             public int Health;
+            public float XPosition;
+            public float YPosition;
         }
     }
 }

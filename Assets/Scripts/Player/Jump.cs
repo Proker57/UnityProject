@@ -7,13 +7,14 @@ namespace BOYAREngine
     public class Jump : MonoBehaviour
     {
 #pragma warning disable 649
-        public bool IsGrounded;
         [SerializeField] private float _jumpForce;
+        [SerializeField] private float _distance;
         [Header("Ground Collision")]
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Transform _leftGroundChecker;
         [SerializeField] private Transform _rightGroundChecker;
-        [SerializeField] private float _distance;
+        [Space]
+        public bool IsGrounded;
         private Vector2 _jumpVector;
         private Player _player;
 #pragma warning restore 649

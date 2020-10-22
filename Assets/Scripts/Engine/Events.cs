@@ -2,7 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Events
+namespace BOYAREngine
 {
-    public delegate void SaveEvent();
+    public class Events
+    {
+        public delegate void SaveDelegate();
+        public static SaveDelegate Save;
+
+        public delegate void LoadDelegate();
+        public static LoadDelegate Load;
+    }
 }
+

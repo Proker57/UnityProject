@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -8,26 +6,28 @@ namespace BOYAREngine
 {
     public class LoadManager
     {
-        const string fileName = "/Save.sosi";
+        private const string FileName = "/Save.sosi";
 
         public void Load()
         {
-            if (File.Exists(fileName) == true)
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                FileStream file = File.Open(fileName, FileMode.Open);
-                SaveManager.SaveData saveData = (SaveManager.SaveData)bf.Deserialize(file);
-                file.Close();
+            var dir = Application.persistentDataPath + FileName;
+            if (File.Exists(dir) == false) return;
+            var bf = new BinaryFormatter();
+            var file = File.Open(dir, FileMode.Open);
+            var saveData = (SaveManager.SaveData)bf.Deserialize(file);
+            file.Close();
 
-                LoadData(saveData);
-                Debug.Log("Loaded");
-            }
+            LoadData(saveData);
         }
 
         public void LoadData(SaveManager.SaveData saveData)
         {
-            //Stats stats = new Stats();
-            //stats.Health = SaveManager.SaveData.Health;
+            if (Object.FindObjectOfType<Player>() == null) return;
+            var stats = Object.FindObjectOfType<Player>().GetComponent<Stats>().PlayerData;
+
+            stats.Health = saveData.Health;
+            stats.XPosition = saveData.XPosition;
+            stats.YPosition = saveData.YPosition;
         }
     }
 }

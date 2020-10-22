@@ -15,7 +15,7 @@ namespace BOYAREngine
 
 #pragma warning restore 649
 
-        public void StartNewGame(String sceneName)
+        public void StartNewGame(string sceneName)
         {
             SceneLoader.SwitchScene(sceneName);
         }
@@ -37,7 +37,7 @@ namespace BOYAREngine
             _optionsPanel.SetActive(false);
         }
 
-        public void SetLanguage(String language)
+        public void SetLanguage(string language)
         {
             LocalizationService.CurrentLocale = language;
         }

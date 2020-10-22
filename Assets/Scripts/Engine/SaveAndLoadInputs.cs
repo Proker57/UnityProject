@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Contexts;
 using UnityEngine;
 
 namespace BOYAREngine
@@ -25,14 +21,14 @@ namespace BOYAREngine
 
         private void Save_started()
         {
-            Debug.Log("Save");
-            PlayerData playerData = FindObjectOfType<Player>().GetComponent<Stats>().PlayerData;
+            Events.Save();
+            var playerData = FindObjectOfType<Player>().GetComponent<Stats>().PlayerData;
             _saveManager.Save(playerData);
         }
 
         private void Load_started()
         {
-            Debug.Log("Load");
+            Events.Load();
             _loadManager.Load();
         }
 
