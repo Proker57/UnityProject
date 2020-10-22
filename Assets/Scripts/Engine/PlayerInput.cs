@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Player/PlayerInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Engine/PlayerInput.inputactions'
 
 using System;
 using System.Collections;
@@ -32,7 +32,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""id"": ""4956d367-40bd-44af-9bbb-e78e2cdf6e1a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Crouch"",

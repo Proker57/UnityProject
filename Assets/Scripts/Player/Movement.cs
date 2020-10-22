@@ -41,7 +41,7 @@ namespace BOYAREngine
             _movementDirection = _player.Input.PlayerInGame.Movement.ReadValue<float>();
             _direction = new Vector2(_movementDirection * _speedRun, 0);
 
-            FlipSprite(_movementDirection);
+            FlipSprite();
             ChangeAnimation(_isRunning);
         }
 
@@ -83,7 +83,7 @@ namespace BOYAREngine
             }
         }
 
-        private void FlipSprite(float direction)
+        private void FlipSprite()
         {
             if (_movementDirection > 0)
             {

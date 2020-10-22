@@ -53,6 +53,7 @@ namespace BOYAREngine
 
             if (HasCeiling == false && IsCrouched == false)
             {
+                IsCrouched = false;
                 StopCrouch();
             }
         }
