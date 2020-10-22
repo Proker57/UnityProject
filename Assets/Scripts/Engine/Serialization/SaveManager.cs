@@ -4,30 +4,36 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class SaveManager
+namespace BOYAREngine
 {
-    const string fileName = "/Save.sosi";
-    public static event Events.SaveEvent SaveEvent;
-
-    public void Save()
+    public class SaveManager
     {
-        SaveEvent?.Invoke();
+        const string fileName = "/Save.sosi";
 
-        var dir = Application.persistentDataPath + fileName;
+        public void Save(PlayerData data)
+        {
+            var dir = Application.persistentDataPath + fileName;
 
-        var bf = new BinaryFormatter();
-        var file = File.Open(dir, FileMode.OpenOrCreate);
-        var saveData = new SaveData();
+            var bf = new BinaryFormatter();
+            var file = File.Open(dir, FileMode.OpenOrCreate);
+            var saveData = new SaveData();
+            FillData(saveData, data);
 
-        // TODO Save array of objects
-        bf.Serialize(file, saveData);
-        file.Close();
-    }
+            // TODO Save array of objects
+            bf.Serialize(file, saveData);
+            file.Close();
+        }
 
-    [System.Serializable]
-    public class SaveData
-    {
-        // TODO Do save better
-        public static int Health;
+        private void FillData(SaveData save, PlayerData data)
+        {
+            save.Health = data.Health;
+        }
+
+        [System.Serializable]
+        public class SaveData
+        {
+            // TODO Do save better
+            public int Health;
+        }
     }
 }

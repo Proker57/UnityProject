@@ -3,30 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
-public class Stats : MonoBehaviour
+namespace BOYAREngine
 {
-    public int Health;
-
-    private PlayerData _data = new PlayerData();
-
-    private void Start()
+    public class Stats : MonoBehaviour
     {
-        SaveManager.SaveEvent += StoreData;
+        public PlayerData PlayerData = new PlayerData();
     }
 
-    public void StoreData()
+    [System.Serializable]
+    public class PlayerData
     {
-        SaveManager.SaveData.Health = Health;
-    }
-
-    public void LoadData()
-    {
-        Health = _data.Health;
+        public int Health = 10;
     }
 }
 
-[System.Serializable]
-public class PlayerData
-{
-    public int Health;
-}
+
+

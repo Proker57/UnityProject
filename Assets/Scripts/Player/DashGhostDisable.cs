@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashGhostDisable : MonoBehaviour
+namespace BOYAREngine
 {
-    private Player _player;
-
-    private void Awake()
+    public class DashGhostDisable : MonoBehaviour
     {
-        _player = GetComponent<Player>();
-    }
+        private Player _player;
 
-    public void Disable()
-    {
-        gameObject.SetActive(false);
+        private void Awake()
+        {
+            _player = GetComponent<Player>();
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

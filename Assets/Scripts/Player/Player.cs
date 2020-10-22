@@ -3,48 +3,51 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+namespace BOYAREngine
 {
-    public PlayerInput Input;
-    public Rigidbody2D Rigidbody2D;
-    public Jump Jump;
-    public BoxCollider2D LowCollider;
-    public CapsuleCollider2D HighCollider;
-    public Animator Animator;
-    public Dash Dash;
-    public Movement Movement;
-
-    private void Awake()
+    public class Player : MonoBehaviour
     {
-        Input = new PlayerInput();
-        Rigidbody2D = GetComponent<Rigidbody2D>();
-        Jump = GetComponent<Jump>();
-        LowCollider = GetComponent<BoxCollider2D>();
-        HighCollider = GetComponent<CapsuleCollider2D>();
-        Animator = GetComponent<Animator>();
-        Dash = GetComponent<Dash>();
-        Movement = GetComponent<Movement>();
-    }
+        public PlayerInput Input;
+        public Rigidbody2D Rigidbody2D;
+        public Jump Jump;
+        public BoxCollider2D LowCollider;
+        public CapsuleCollider2D HighCollider;
+        public Animator Animator;
+        public Dash Dash;
+        public Movement Movement;
 
-    private void OnEnable()
-    {
-        Input.Enable();
-        Jump.enabled = true;
-        LowCollider.enabled = true;
-        HighCollider.enabled = true;
-        Animator.enabled = true;
-        Dash.enabled = true;
-        Movement.enabled = true;
-    }
+        private void Awake()
+        {
+            Input = Inputs.Input;
+            Rigidbody2D = GetComponent<Rigidbody2D>();
+            Jump = GetComponent<Jump>();
+            LowCollider = GetComponent<BoxCollider2D>();
+            HighCollider = GetComponent<CapsuleCollider2D>();
+            Animator = GetComponent<Animator>();
+            Dash = GetComponent<Dash>();
+            Movement = GetComponent<Movement>();
+        }
 
-    private void OnDisable()
-    {
-        Input.Disable();
-        Jump.enabled = false;
-        LowCollider.enabled = false;
-        HighCollider.enabled = false;
-        Animator.enabled = false;
-        Dash.enabled = false;
-        Movement.enabled = false;
+        private void OnEnable()
+        {
+            Input.Enable();
+            Jump.enabled = true;
+            LowCollider.enabled = true;
+            HighCollider.enabled = true;
+            Animator.enabled = true;
+            Dash.enabled = true;
+            Movement.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            Input.Disable();
+            Jump.enabled = false;
+            LowCollider.enabled = false;
+            HighCollider.enabled = false;
+            Animator.enabled = false;
+            Dash.enabled = false;
+            Movement.enabled = false;
+        }
     }
 }

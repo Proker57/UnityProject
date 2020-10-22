@@ -4,28 +4,30 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class LoadManager
+namespace BOYAREngine
 {
-    const string fileName = "/Save.sosi";
-
-    public void Load()
+    public class LoadManager
     {
-        if (File.Exists(fileName) == true)
+        const string fileName = "/Save.sosi";
+
+        public void Load()
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open( fileName, FileMode.Open);
-            SaveManager.SaveData saveData = (SaveManager.SaveData) bf.Deserialize(file);
-            file.Close();
+            if (File.Exists(fileName) == true)
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(fileName, FileMode.Open);
+                SaveManager.SaveData saveData = (SaveManager.SaveData)bf.Deserialize(file);
+                file.Close();
 
-            RestoreSaveData(saveData);
-            Debug.Log("Loaded");
+                LoadData(saveData);
+                Debug.Log("Loaded");
+            }
         }
-    }
 
-    private void RestoreSaveData(SaveManager.SaveData saveData)
-    {
-        Stats stats = new Stats();
-
-        stats.Health = SaveManager.SaveData.Health;
+        public void LoadData(SaveManager.SaveData saveData)
+        {
+            //Stats stats = new Stats();
+            //stats.Health = SaveManager.SaveData.Health;
+        }
     }
 }
