@@ -36,6 +36,7 @@ namespace BOYAREngine
         private void Dash_started()
         {
             if (_isDashable != true) return;
+            Events.Dash(_dashTimer);
             _player.Movement.IsMaxSpeedLimiterOn = false;
             _isDashable = false;
             // TODO delete -1 (-1 now is a right side)
@@ -56,6 +57,7 @@ namespace BOYAREngine
         {
             yield return new WaitForSeconds(time);
             _isDashable = true;
+            Events.DashReady();
         }
 
         private IEnumerator WaitAndGhostOn(float time)

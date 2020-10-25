@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BOYAREngine
@@ -7,21 +5,18 @@ namespace BOYAREngine
     public class Jump : MonoBehaviour
     {
 #pragma warning disable 649
-        [SerializeField] private float _jumpForce;
-        private float _distance = 0.1f;
+        [SerializeField] private float _jumpForce;                  // 3
+        [SerializeField] private float jumpTime = 0.3f;             // 0.3
+        private float _jumpTimeCounter;
+        private float _distance = 0.1f;                             // 0.1f
         [Header("Ground Collision")]
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Transform _leftGroundChecker;
         [SerializeField] private Transform _rightGroundChecker;
-
+        private Player _player;
         [Space]
         [SerializeField] private bool _isJumping;
         [SerializeField] private bool _isGrounded;
-        private Player _player;
-
-        // TODO MarioJump
-        [SerializeField] private float jumpTime = 0.3f;
-        private float jumpTimeCounter;
         private bool _isStoppedJumping;
 #pragma warning restore 649
 
@@ -32,8 +27,7 @@ namespace BOYAREngine
 
         private void Start()
         {
-            // TODO MarioJump
-            jumpTimeCounter = jumpTime;
+            _jumpTimeCounter = jumpTime;
 
             _player.Input.PlayerInGame.Jump.started += _ => Jump_started();
             _player.Input.PlayerInGame.Jump.canceled += _ => Jump_canceled();
@@ -42,10 +36,9 @@ namespace BOYAREngine
         // TODO MarioJump Update
         private void Update()
         {
-            // MarioJump
             if (_isGrounded == true)
             {
-                jumpTimeCounter = jumpTime;
+                _jumpTimeCounter = jumpTime;
             }
         }
 
@@ -55,10 +48,14 @@ namespace BOYAREngine
 
             if (_isJumping == true && _isStoppedJumping == false)
             {
-                if (jumpTimeCounter > 0)
+                if (_jumpTimeCounter > 0)
                 {
                     _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _jumpForce);
-                    jumpTimeCounter -= Time.deltaTime;
+                    _jumpTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    _isJumping = false;
                 }
             }
         }
@@ -68,9 +65,6 @@ namespace BOYAREngine
             if (_isGrounded == true && _player.Crouch.HasCeiling == false)
             {
                 _isJumping = true;
-                // TODO MarioJump
-                //var jumpVector = new Vector2(_player.Rigidbody2D.velocity.x, _jumpForce);
-                //_player.Rigidbody2D.AddForce(jumpVector, ForceMode2D.Impulse);
                 _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
                 _isStoppedJumping = false;
             }
@@ -78,7 +72,7 @@ namespace BOYAREngine
 
         private void Jump_canceled()
         {
-            jumpTimeCounter = 0;
+            _jumpTimeCounter = 0;
             _isStoppedJumping = true;
             _isJumping = false;
         }
@@ -87,14 +81,14 @@ namespace BOYAREngine
         {
             Vector2 leftOrigin = _leftGroundChecker.position;
             Vector2 rightOrigin = _rightGroundChecker.position;
-            Vector2 direction = new Vector2(0, -_distance);
+            var direction = new Vector2(0, -_distance);
 
             // TODO delete debug ray of jump
             Debug.DrawRay(leftOrigin, direction, Color.green, 0.8f);
             Debug.DrawRay(rightOrigin, direction, Color.yellow, 0.8f);
 
-            RaycastHit2D leftHit = Physics2D.Raycast(leftOrigin, direction, _distance, _ground);
-            RaycastHit2D rightHit = Physics2D.Raycast(rightOrigin, direction, _distance, _ground);
+            var leftHit = Physics2D.Raycast(leftOrigin, direction, _distance, _ground);
+            var rightHit = Physics2D.Raycast(rightOrigin, direction, _distance, _ground);
             if (leftHit.collider != null || rightHit.collider != null)
             {
                 _isGrounded = true;

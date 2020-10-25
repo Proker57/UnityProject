@@ -11,6 +11,11 @@ namespace BOYAREngine
 
         public delegate void LoadDelegate();
         public static LoadDelegate Load;
+
+        public delegate void DashDelegate(float time);
+        public static DashDelegate Dash;
+        public delegate void DashReadyDelegate();
+        public static DashReadyDelegate DashReady;
     }
 }
 

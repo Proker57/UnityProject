@@ -933,7 +933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd5f8342c4b6c64fac42965c1e4f430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedRun: 700
+  _speed: 700
   _maxVelocity: 2
   _lerp: 0.2
   _isMaxSpeedLimiterOn: 1
@@ -951,7 +951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpForce: 3
-  _distance: 0.1
+  jumpTime: 0.3
   _ground:
     serializedVersion: 2
     m_Bits: 512
@@ -959,7 +959,6 @@ MonoBehaviour:
   _rightGroundChecker: {fileID: 1462566303}
   _isJumping: 0
   _isGrounded: 0
-  jumpTime: 0.3
 --- !u!61 &1691321472
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1002,7 +1001,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6df96ca39f3fe2f4cbbd9fd8a0e45ff2, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1021,6 +1020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 0}
   Jump: {fileID: 0}
+  Crouch: {fileID: 0}
   LowCollider: {fileID: 0}
   HighCollider: {fileID: 0}
   Animator: {fileID: 0}

@@ -12,7 +12,7 @@ namespace BOYAREngine
 #pragma warning disable 649
         public bool IsCrouched;
         public bool HasCeiling;
-        [SerializeField] private float _distance;
+        [SerializeField] private float _distance;   // 0.05f
         public Transform LeftCeilingChecker;
         public Transform RightCeilingChecker;
         public LayerMask Ground;
