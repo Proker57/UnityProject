@@ -21,13 +21,11 @@ namespace BOYAREngine
         private float _movementDirection;
         private bool _isRunning;
         private bool _isLookingRight;
-        [SerializeField] private bool _isMaxSpeedLimiterOn = true;
-        public bool IsMaxSpeedLimiterOn
-        {
-            get => _isMaxSpeedLimiterOn;
-            set => _isMaxSpeedLimiterOn = value;
-        }
-        private float Tolerance = 0;
+
+        [field: SerializeField]
+        public bool IsMaxSpeedLimiterOn { get; set; } = true;
+
+        private const float Tolerance = 0;
 
         [Space, Header("Player sprite with bones")]
         [SerializeField] private Transform _spriteTransform;
@@ -67,7 +65,7 @@ namespace BOYAREngine
                 _player.Rigidbody2D.AddForce(_direction, ForceMode2D.Force);
             }
 
-            if (_isMaxSpeedLimiterOn == true)
+            if (IsMaxSpeedLimiterOn == true)
             {
                 MaxVelocityLimiter();
             }

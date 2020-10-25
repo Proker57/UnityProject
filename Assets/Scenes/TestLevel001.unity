@@ -934,9 +934,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 700
+  _crouchSpeedMultiplier: 0.8
   _maxVelocity: 2
   _lerp: 0.2
-  _isMaxSpeedLimiterOn: 1
+  <IsMaxSpeedLimiterOn>k__BackingField: 1
   _spriteTransform: {fileID: 442415810}
 --- !u!114 &1691321471
 MonoBehaviour:
@@ -952,6 +953,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpForce: 3
   jumpTime: 0.3
+  JumpExtraCounts: 1
+  IsDoubleJumping: 0
   _ground:
     serializedVersion: 2
     m_Bits: 512
@@ -1115,7 +1118,7 @@ MonoBehaviour:
   _dashTimer: 1
   _ghostTrailTimer: 0.03
   _distanceBetweenGhosts: 0.1
-  _isDashable: 1
+  <IsDashable>k__BackingField: 1
   _ghostTrails:
   - {fileID: 2531897216669274338}
   - {fileID: 7376238930185085110}

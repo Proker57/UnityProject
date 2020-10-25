@@ -18,7 +18,7 @@ public class SceneLoader : MonoBehaviour
     [Tooltip("Add Circle Sprite from 'Main' scene")]
     [SerializeField] private GameObject _loadingCircleSprite;
 
-    private string _currentSceneName;
+    public string _currentSceneName;
     private AsyncOperation _resourceUnloadTaskAsync;
     private AsyncOperation _sceneLoadTaskAsync;
 #pragma warning restore 649

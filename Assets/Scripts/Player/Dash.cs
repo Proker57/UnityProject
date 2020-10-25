@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
@@ -13,12 +13,10 @@ namespace BOYAREngine
         [SerializeField] private float _dashTimer = 1f;
         [SerializeField] private float _ghostTrailTimer = 0.1f;
         [SerializeField] private float _distanceBetweenGhosts = 0.1f;
-        [SerializeField] private bool _isDashable = true;
-        public bool IsDashable
-        {
-            get => _isDashable;
-            set => _isDashable = value;
-        }
+
+        [field: SerializeField]
+        public bool IsDashable { get; set; } = true;
+
         private Player _player;
         private Vector2 _dashVector;
         [SerializeField] private List<GameObject> _ghostTrails;
@@ -28,23 +26,28 @@ namespace BOYAREngine
             _player = GetComponent<Player>();
         }
 
-        private void Start()
-        {
-            _player.Input.PlayerInGame.Dash.started += _ => Dash_started();
-        }
-
         private void Dash_started()
         {
-            if (_isDashable != true) return;
+            if (IsDashable != true) return;
             Events.Dash(_dashTimer);
             _player.Movement.IsMaxSpeedLimiterOn = false;
-            _isDashable = false;
+            IsDashable = false;
             // TODO delete -1 (-1 now is a right side)
             var spriteScaleX = _player.transform.GetChild(0).transform.localScale.x * -1;
             _dashVector = new Vector2(spriteScaleX * _xVectorMultiply, _yVector);
             _player.Rigidbody2D.AddForce(_dashVector, ForceMode2D.Impulse);
             StartCoroutine(WaitAndSetSpeedLimiter(_speedLimiterTimer));
             StartCoroutine(WaitAndSetDashable(_dashTimer));
+        }
+
+        private void OnEnable()
+        {
+            _player.Input.PlayerInGame.Dash.started += _ => Dash_started();
+        }
+
+        private void OnDisable()
+        {
+            _player.Input.PlayerInGame.Dash.started -= _ => Dash_started();
         }
 
         private IEnumerator WaitAndSetSpeedLimiter(float time)
@@ -56,7 +59,7 @@ namespace BOYAREngine
         private IEnumerator WaitAndSetDashable(float time)
         {
             yield return new WaitForSeconds(time);
-            _isDashable = true;
+            IsDashable = true;
             Events.DashReady();
         }
 

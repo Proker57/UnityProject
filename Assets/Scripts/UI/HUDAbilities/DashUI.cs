@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Image = UnityEngine.UI.Image;
 
 namespace BOYAREngine
 {
     [RequireComponent(typeof(Image))]
-    public class CooldownUI : MonoBehaviour
+    public class DashUI : MonoBehaviour
     {
         private float _cooldownTimer;
 
@@ -22,7 +21,7 @@ namespace BOYAREngine
             _slider = GetComponent<Slider>();
         }
 
-        private void DashCD(float cooldownTime)
+        private void DashCooldown(float cooldownTime)
         {
             _image.sprite = _cooldownSprite;
             _cooldownTimer = cooldownTime;
@@ -42,13 +41,13 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            Events.Dash += DashCD;
+            Events.Dash += DashCooldown;
             Events.DashReady += DashReady;
         }
 
         private void OnDisable()
         {
-            Events.Dash -= DashCD;
+            Events.Dash -= DashCooldown;
             Events.DashReady -= DashReady;
         }
 

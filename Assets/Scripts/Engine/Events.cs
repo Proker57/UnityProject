@@ -16,6 +16,11 @@ namespace BOYAREngine
         public static DashDelegate Dash;
         public delegate void DashReadyDelegate();
         public static DashReadyDelegate DashReady;
+
+        public delegate void DoubleJumpDelegate();
+        public static DoubleJumpDelegate DoubleJump;
+        public delegate void DoubleJumpReadyDelegate();
+        public static DoubleJumpReadyDelegate DoubleJumpReady;
     }
 }
 
