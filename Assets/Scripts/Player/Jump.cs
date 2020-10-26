@@ -14,7 +14,6 @@ namespace BOYAREngine
         [Header("Double jump")]
         [SerializeField]
         public int JumpExtraCounts;                                 // 1
-        public bool IsDoubleJumping;
         private int _jumpExtraCountDefault;
 
         [Header("Ground Collision")]
@@ -24,8 +23,9 @@ namespace BOYAREngine
 
         [Header("Jump logic")]
         [SerializeField] private bool _isJumping;
-        [SerializeField] private bool _isGrounded;
+        public bool IsDoubleJumping;
         private bool _isStoppedJumping;
+        [SerializeField] private bool _isGrounded;
 
         private Player _player;
 #pragma warning restore 649
@@ -74,20 +74,22 @@ namespace BOYAREngine
         {
             if (_isGrounded == true && _player.Crouch.HasCeiling == false)
             {
-                JumpExtraCounts--;
-                _isJumping = true;
-                _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
-                _isStoppedJumping = false;
+                JumpAction();
             }
             if (_isGrounded == false && JumpExtraCounts > 0)
             {
-                JumpExtraCounts--;
                 IsDoubleJumping = true;
                 Events.DoubleJump();
-                _isJumping = true;
-                _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
-                _isStoppedJumping = false;
+                JumpAction();
             }
+        }
+
+        private void JumpAction()
+        {
+            JumpExtraCounts--;
+            _isJumping = true;
+            _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
+            _isStoppedJumping = false;
         }
 
         private void Jump_canceled()
@@ -99,8 +101,8 @@ namespace BOYAREngine
 
         public void CheckGround()
         {
-            Vector2 leftOrigin = _leftGroundChecker.position;
-            Vector2 rightOrigin = _rightGroundChecker.position;
+            var leftOrigin = _leftGroundChecker.position;
+            var rightOrigin = _rightGroundChecker.position;
             var direction = new Vector2(0, -_distance);
 
             // TODO delete debug ray of jump

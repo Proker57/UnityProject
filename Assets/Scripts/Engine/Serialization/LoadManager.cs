@@ -25,9 +25,13 @@ namespace BOYAREngine
             if (Object.FindObjectOfType<Player>() == null) return;
             var stats = Object.FindObjectOfType<Player>().GetComponent<Stats>().PlayerData;
 
-            stats.Health = saveData.Health;
             stats.XPosition = saveData.XPosition;
             stats.YPosition = saveData.YPosition;
+
+            stats.Health = saveData.Health;
+            stats.MaxHealth = saveData.MaxHealth;
+            stats.Level = saveData.Level;
+            stats.EXP = saveData.EXP;
         }
     }
 }

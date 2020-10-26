@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace BOYAREngine
 {
     public class Events
@@ -21,6 +17,12 @@ namespace BOYAREngine
         public static DoubleJumpDelegate DoubleJump;
         public delegate void DoubleJumpReadyDelegate();
         public static DoubleJumpReadyDelegate DoubleJumpReady;
+
+        public delegate void GetXpDelegate(int expValue);
+        public static GetXpDelegate GetXp;
+
+        public delegate void GetDamageDelegate(int damageValue);
+        public static GetDamageDelegate GetDamage;
     }
 }
 

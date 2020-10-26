@@ -24,18 +24,26 @@ namespace BOYAREngine
 
         private void FillData(SaveData save, PlayerData data)
         {
-            save.Health = data.Health;
             save.XPosition = data.XPosition;
             save.YPosition = data.YPosition;
+
+            save.Health = data.Health;
+            save.MaxHealth = data.MaxHealth;
+            save.Level = data.Level;
+            save.EXP = data.EXP;
         }
 
         [System.Serializable]
         public class SaveData
         {
             // TODO Do save better
-            public int Health;
             public float XPosition;
             public float YPosition;
+
+            public int Health;
+            public int MaxHealth;
+            public int Level;
+            public int EXP;
         }
     }
 }

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace BOYAREngine
@@ -16,6 +13,7 @@ namespace BOYAREngine
         public Animator Animator;
         public Dash Dash;
         public Movement Movement;
+        public Stats Stats;
 
         private void Awake()
         {
@@ -28,6 +26,7 @@ namespace BOYAREngine
             Animator = GetComponent<Animator>();
             Dash = GetComponent<Dash>();
             Movement = GetComponent<Movement>();
+            Stats = GetComponent<Stats>();
         }
 
         private void OnEnable()
@@ -40,6 +39,7 @@ namespace BOYAREngine
             Animator.enabled = true;
             Dash.enabled = true;
             Movement.enabled = true;
+            Stats.enabled = true;
         }
 
         private void OnDisable()
@@ -52,6 +52,7 @@ namespace BOYAREngine
             Animator.enabled = false;
             Dash.enabled = false;
             Movement.enabled = false;
+            Stats.enabled = false;
         }
     }
 }
