@@ -39,6 +39,8 @@ namespace BOYAREngine
         private void LevelUp()
         {
             PlayerData.Level++;
+            PlayerData.EXP = 0;
+            MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
             PlayerData.MaxHealth = (int) (PlayerData.MaxHealth * 1.2f);
         }
 
