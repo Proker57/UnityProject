@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 namespace BOYAREngine
 {
-    public class HpBarUI : MonoBehaviour
+    public class ExpBarUI : MonoBehaviour
     {
         [SerializeField] private Image _image;
-        [SerializeField] private Text _text;
         private Player _player;
 
         private void Update()
@@ -17,12 +16,9 @@ namespace BOYAREngine
             }
 
             if (_player == null) return;
-            var currentHealth = _player.Stats.PlayerData.Health;
-            var maxHealth = _player.Stats.PlayerData.MaxHealth;
-            var fillHealthValue = (float) currentHealth / (float) maxHealth;
-
-            _image.fillAmount = fillHealthValue;
-            _text.text = currentHealth + "/" + maxHealth;
+            var currentExp = (float) _player.Stats.PlayerData.EXP;
+            var maxExp = (float)_player.Stats.MaxExp;
+            _image.fillAmount = currentExp / maxExp;
         }
     }
 }

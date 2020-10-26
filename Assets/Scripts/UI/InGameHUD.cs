@@ -13,7 +13,6 @@ public class InGameHUD : MonoBehaviour
         _uiManager = UI.GetComponent<UIManager>();
     }
 
-
     private void Update()
     {
         if (_sceneLoader._currentSceneName.Equals("Main") || _sceneLoader._currentSceneName.Equals("MainMenu"))

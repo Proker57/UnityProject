@@ -5,6 +5,12 @@ namespace BOYAREngine
     public class Stats : MonoBehaviour
     {
         public PlayerData PlayerData = new PlayerData();
+        public int MaxExp;
+
+        private void Start()
+        {
+            MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
+        }
 
         private void SavePosition()
         {
@@ -20,11 +26,11 @@ namespace BOYAREngine
 
         public void EXPCalculator(int expValue)
         {
-            var maxExp = (int) (PlayerData.Level * 100 * 1.2f);
+            MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
 
             PlayerData.EXP += expValue;
 
-            if (PlayerData.EXP >= maxExp)
+            if (PlayerData.EXP >= MaxExp)
             {
                 LevelUp();
             }
@@ -46,7 +52,7 @@ namespace BOYAREngine
             Events.Save += SavePosition;
             Events.Load += LoadPosition;
             Events.GetDamage += GetDamage;
-            Events.GetXp += EXPCalculator;
+            Events.GiveExp += EXPCalculator;
         }
 
         private void OnDisable()
@@ -54,7 +60,7 @@ namespace BOYAREngine
             Events.Save -= SavePosition;
             Events.Load -= LoadPosition;
             Events.GetDamage -= GetDamage;
-            Events.GetXp -= EXPCalculator;
+            Events.GiveExp -= EXPCalculator;
         }
     }
 

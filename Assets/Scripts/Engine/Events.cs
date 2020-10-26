@@ -18,8 +18,8 @@ namespace BOYAREngine
         public delegate void DoubleJumpReadyDelegate();
         public static DoubleJumpReadyDelegate DoubleJumpReady;
 
-        public delegate void GetXpDelegate(int expValue);
-        public static GetXpDelegate GetXp;
+        public delegate void GiveExpDelegate(int expValue);
+        public static GiveExpDelegate GiveExp;
 
         public delegate void GetDamageDelegate(int damageValue);
         public static GetDamageDelegate GetDamage;

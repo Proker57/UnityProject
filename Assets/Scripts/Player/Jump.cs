@@ -54,8 +54,6 @@ namespace BOYAREngine
 
         private void FixedUpdate()
         {
-            CheckGround();
-
             if (_isJumping == true && _isStoppedJumping == false)
             {
                 if (_jumpTimeCounter > 0)
@@ -68,6 +66,8 @@ namespace BOYAREngine
                     _isJumping = false;
                 }
             }
+
+            CheckGround();
         }
 
         private void Jump_started()
