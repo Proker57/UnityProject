@@ -28,7 +28,7 @@ namespace BOYAREngine
         private void Dash_started()
         {
             if (IsDashable != true) return;
-            Events.Dash(_dashTimer);
+            PlayerEvents.Dash(_dashTimer);
             _player.Movement.IsMaxSpeedLimiterOn = false;
             IsDashable = false;
             // TODO delete -1 (-1 now is a right side)
@@ -41,11 +41,13 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
+            HUDEvents.DashCheckIsActive(true);
             _player.Input.PlayerInGame.Dash.started += _ => Dash_started();
         }
 
         private void OnDisable()
         {
+            HUDEvents.DashCheckIsActive(false);
             _player.Input.PlayerInGame.Dash.started -= _ => Dash_started();
         }
 
@@ -59,7 +61,7 @@ namespace BOYAREngine
         {
             yield return new WaitForSeconds(time);
             IsDashable = true;
-            Events.DashReady();
+            PlayerEvents.DashReady();
         }
 
         private IEnumerator WaitAndGhostOn(float time)

@@ -5,12 +5,12 @@ public class InGameHUD : MonoBehaviour
 {
     [SerializeField] private GameObject UI;
     private SceneLoader _sceneLoader;
-    private UIManager _uiManager;
+    private UIManagerLegacy _uiManager;
 
     private void Start()
     {
         _sceneLoader = GetComponent<SceneLoader>();
-        _uiManager = UI.GetComponent<UIManager>();
+        _uiManager = UI.GetComponent<UIManagerLegacy>();
     }
 
     private void Update()

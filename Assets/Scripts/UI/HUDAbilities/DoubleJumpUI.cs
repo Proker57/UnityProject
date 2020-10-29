@@ -16,6 +16,17 @@ namespace BOYAREngine
             _image = GetComponent<Image>();
         }
 
+        private void OnEnable()
+        {
+            PlayerEvents.DoubleJump += ChangeCooldownIcon;
+            PlayerEvents.DoubleJumpReady += ChangeNormalIcon;
+        }
+        private void OnDisable()
+        {
+            PlayerEvents.DoubleJump -= ChangeCooldownIcon;
+            PlayerEvents.DoubleJumpReady -= ChangeNormalIcon;
+        }
+
         private void ChangeNormalIcon()
         {
             _image.sprite = _normalSprite;
@@ -24,17 +35,6 @@ namespace BOYAREngine
         private void ChangeCooldownIcon()
         {
             _image.sprite = _cooldownSprite;
-        }
-
-        private void OnEnable()
-        {
-            Events.DoubleJump += ChangeCooldownIcon;
-            Events.DoubleJumpReady += ChangeNormalIcon;
-        }
-        private void OnDisable()
-        {
-            Events.DoubleJump -= ChangeCooldownIcon;
-            Events.DoubleJumpReady -= ChangeNormalIcon;
         }
     }
 }

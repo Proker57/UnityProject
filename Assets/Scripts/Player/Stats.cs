@@ -54,7 +54,7 @@ namespace BOYAREngine
             Events.Save += SavePosition;
             Events.Load += LoadPosition;
             Events.GetDamage += GetDamage;
-            Events.GiveExp += EXPCalculator;
+            PlayerEvents.GiveExp += EXPCalculator;
         }
 
         private void OnDisable()
@@ -62,7 +62,7 @@ namespace BOYAREngine
             Events.Save -= SavePosition;
             Events.Load -= LoadPosition;
             Events.GetDamage -= GetDamage;
-            Events.GiveExp -= EXPCalculator;
+            PlayerEvents.GiveExp -= EXPCalculator;
         }
     }
 

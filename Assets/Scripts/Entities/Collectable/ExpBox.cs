@@ -6,10 +6,9 @@ namespace BOYAREngine
     {
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.name != "Player Collider") return;
-            Events.GiveExp(20);
+            if (collision.collider.name != "Low Collider") return;
+            PlayerEvents.GiveExp(20);
             gameObject.SetActive(false);
-            Debug.Log(collision.collider.name);
         }
     }
 }

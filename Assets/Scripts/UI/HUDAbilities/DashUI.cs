@@ -8,8 +8,10 @@ namespace BOYAREngine
     {
         private float _cooldownTimer;
 
+        [SerializeField] private GameObject _cooldownBar;
+        [SerializeField] private Image _fill;
         private Image _image;
-        private Slider _slider;
+        //private Slider _slider;
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _cooldownSprite;
         private bool _isOnCooldown;
@@ -17,15 +19,16 @@ namespace BOYAREngine
 
         private void Awake()
         {
+            _cooldownBar.SetActive(false);
             _image = GetComponent<Image>();
-            _slider = GetComponent<Slider>();
+            //_slider = GetComponent<Slider>();
         }
 
         private void DashCooldown(float cooldownTime)
         {
             _image.sprite = _cooldownSprite;
             _cooldownTimer = cooldownTime;
-            _slider.maxValue = _cooldownTimer;
+            //_slider.maxValue = _cooldownTimer;
             _isOnCooldown = true;
         }
 
@@ -41,24 +44,27 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            Events.Dash += DashCooldown;
-            Events.DashReady += DashReady;
+            PlayerEvents.Dash += DashCooldown;
+            PlayerEvents.DashReady += DashReady;
         }
 
         private void OnDisable()
         {
-            Events.Dash -= DashCooldown;
-            Events.DashReady -= DashReady;
+            PlayerEvents.Dash -= DashCooldown;
+            PlayerEvents.DashReady -= DashReady;
         }
 
         private void SliderCountdown()
         {
             if (_isOnCooldown == true)
             {
+                _cooldownBar.SetActive(true);
                 _cooldownTimer -= Time.deltaTime;
-                _slider.value = _cooldownTimer;
+                //_slider.value = _cooldownTimer;
+                _fill.fillAmount = _cooldownTimer;
                 if (_cooldownTimer <= 0)
                 {
+                    _cooldownBar.SetActive(false);
                     _cooldownTimer = 0;
                     _isOnCooldown = false;
                 }

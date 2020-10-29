@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 388530378}
   - component: {fileID: 388530379}
   m_Layer: 0
-  m_Name: Player Collider
+  m_Name: Low Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1032,7 +1032,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 80
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 6df96ca39f3fe2f4cbbd9fd8a0e45ff2, type: 2}
