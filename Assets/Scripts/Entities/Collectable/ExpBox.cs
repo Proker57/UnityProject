@@ -24,7 +24,7 @@ namespace BOYAREngine
         {
             if (collision.collider.name != "Low Collider") return;
 
-            PlayerEvents.GiveExp(20);
+            collision.gameObject.GetComponent<Stats>().GetExp(10);
 
             IsActive = false;
 
@@ -46,8 +46,6 @@ namespace BOYAREngine
             var saveData = (SaveData) state;
 
             IsActive = saveData.IsActive;
-
-            Debug.Log("LOADED BOX");
 
             _rigidbody2D.bodyType = IsActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
             _spriteRenderer.enabled = IsActive;

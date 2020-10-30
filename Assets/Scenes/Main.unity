@@ -1030,10 +1030,10 @@ GameObject:
   - component: {fileID: 973263928}
   - component: {fileID: 973263929}
   - component: {fileID: 973263927}
-  - component: {fileID: 973263930}
   - component: {fileID: 973263932}
   - component: {fileID: 973263931}
   - component: {fileID: 973263933}
+  - component: {fileID: 973263930}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1094,10 +1094,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 973263926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7105a0b870b222b4cb55c28272c8130a, type: 3}
+  m_Script: {fileID: 11500000, guid: 65e7c0624b2693a45b0462b017c80455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 1127811201}
+  IsPlayerActive: 0
 --- !u!114 &973263931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,6 +1364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldownBar: {fileID: 2054025039}
+  _gameController: {fileID: 0}
   _fill: {fileID: 798665392}
   _normalSprite: {fileID: 21300000, guid: 503127f4ed5b5fb489b1230de7b09e2b, type: 3}
   _cooldownSprite: {fileID: 21300000, guid: d8129898bb13b5f49adb2acb370be17c, type: 3}
@@ -1424,6 +1425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc37f437783a43b4b8c89e046cc8dbe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameController: {fileID: 973263926}
   _hud: {fileID: 2117526919}
   _dashUI: {fileID: 1103321969}
   _DoubleJumpUI: {fileID: 93043382}

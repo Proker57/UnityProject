@@ -6,37 +6,80 @@ namespace BOYAREngine
 {
     public class Dash : MonoBehaviour
     {
+        public bool IsDashable;
+        public bool IsSpeedLimited;
+
         [SerializeField] private int _xVectorMultiply = 800;
         [SerializeField] private int _yVector = 0;
-        [SerializeField] private float _speedLimiterTimer = 0.1f;
-        [SerializeField] private float _dashTimer = 1f;
-        [SerializeField] private float _ghostTrailTimer = 0.1f;
-        [SerializeField] private float _distanceBetweenGhosts = 0.1f;
 
-        [field: SerializeField]
-        public bool IsDashable { get; set; } = true;
+        [SerializeField] private float _speedLimiterTimer = 0.1f;
+        public float SpeedLimiterTimerCounter;
+
+        [SerializeField] private float _dashTimer = 1f;
+        public float DashTimerCounter;
+
 
         private Player _player;
         private Vector2 _dashVector;
-        [SerializeField] private List<GameObject> _ghostTrails;
 
         private void Awake()
         {
+            DashTimerCounter = _dashTimer;
+            SpeedLimiterTimerCounter = _speedLimiterTimer;
+
             _player = GetComponent<Player>();
         }
 
         private void Dash_started()
         {
             if (IsDashable != true) return;
-            PlayerEvents.Dash(_dashTimer);
+            //PlayerEvents.Dash(DashTimerCounter);
+
             _player.Movement.IsMaxSpeedLimiterOn = false;
+
             IsDashable = false;
+            IsSpeedLimited = false;
+
             // TODO delete -1 (-1 now is a right side)
             var spriteScaleX = _player.transform.GetChild(0).transform.localScale.x * -1;
             _dashVector = new Vector2(spriteScaleX * _xVectorMultiply, _yVector);
             _player.Rigidbody2D.AddForce(_dashVector, ForceMode2D.Impulse);
-            StartCoroutine(WaitAndSetSpeedLimiter(_speedLimiterTimer));
-            StartCoroutine(WaitAndSetDashable(_dashTimer));
+        }
+
+        private void Update()
+        {
+            DashCountdown();
+            SpeedLimiterCountdown();
+        }
+
+        private void DashCountdown()
+        {
+            if (IsDashable != false) return;
+            if (DashTimerCounter > 0)
+            {
+                DashTimerCounter -= Time.deltaTime;
+            }
+            else
+            {
+                //PlayerEvents.DashReady();
+                DashTimerCounter = _dashTimer;
+                IsDashable = true;
+            }
+        }
+
+        private void SpeedLimiterCountdown()
+        {
+            if (IsSpeedLimited != false) return;
+            if (SpeedLimiterTimerCounter > 0)
+            {
+                SpeedLimiterTimerCounter -= Time.deltaTime;
+            }
+            else
+            {
+                _player.Movement.IsMaxSpeedLimiterOn = true;
+                SpeedLimiterTimerCounter = _speedLimiterTimer;
+                IsSpeedLimited = true;
+            }
         }
 
         private void OnEnable()
@@ -49,36 +92,6 @@ namespace BOYAREngine
         {
             HUDEvents.DashCheckIsActive(false);
             _player.Input.PlayerInGame.Dash.started -= _ => Dash_started();
-        }
-
-        private IEnumerator WaitAndSetSpeedLimiter(float time)
-        {
-            yield return new WaitForSeconds(time);
-            _player.Movement.IsMaxSpeedLimiterOn = true;
-        }
-
-        private IEnumerator WaitAndSetDashable(float time)
-        {
-            yield return new WaitForSeconds(time);
-            IsDashable = true;
-            PlayerEvents.DashReady();
-        }
-
-        private IEnumerator WaitAndGhostOn(float time)
-        {
-            var alphaIndex = 0.2f;
-            foreach (var ghost in _ghostTrails)
-            {
-                yield return new WaitForSeconds(time);
-                var currentPosition = new Vector3(transform.position.x - _distanceBetweenGhosts, transform.position.y, transform.position.z);
-                ghost.transform.position = currentPosition;
-                var alpha = ghost.GetComponent<SpriteRenderer>().color;
-                alpha.a -= alphaIndex;
-                ghost.GetComponent<SpriteRenderer>().color = alpha;
-                ghost.SetActive(true);
-                _distanceBetweenGhosts += 0.2f;
-                alphaIndex += 0.2f;
-            }
         }
     }
 }

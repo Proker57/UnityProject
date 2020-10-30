@@ -14,7 +14,7 @@ namespace BOYAREngine
         [Header("Double jump")]
         [SerializeField]
         public int JumpExtraCounts;                                 // 1
-        private int _jumpExtraCountDefault;
+        public int JumpExtraCountDefault;
 
         [Header("Ground Collision")]
         [SerializeField] private LayerMask _ground;
@@ -22,9 +22,9 @@ namespace BOYAREngine
         [SerializeField] private Transform _rightGroundChecker;
 
         [Header("Jump logic")]
-        [SerializeField] private bool _isJumping;
+        public bool IsJumping;
         public bool IsDoubleJumping;
-        private bool _isStoppedJumping;
+        public bool IsStoppedJumping;
         [SerializeField] private bool _isGrounded;
 
         private Player _player;
@@ -38,7 +38,7 @@ namespace BOYAREngine
         private void Start()
         {
             _jumpTimeCounter = jumpTime;
-            _jumpExtraCountDefault = JumpExtraCounts;
+            JumpExtraCountDefault = JumpExtraCounts;
 
             _player.Input.PlayerInGame.Jump.started += _ => Jump_started();
             _player.Input.PlayerInGame.Jump.canceled += _ => Jump_canceled();
@@ -58,7 +58,7 @@ namespace BOYAREngine
         {
             CheckGround();
 
-            if (_isJumping == true && _isStoppedJumping == false)
+            if (IsJumping == true && IsStoppedJumping == false)
             {
                 if (_jumpTimeCounter > 0)
                 {
@@ -67,7 +67,7 @@ namespace BOYAREngine
                 }
                 else
                 {
-                    _isJumping = false;
+                    IsJumping = false;
                 }
             }
 
@@ -82,7 +82,7 @@ namespace BOYAREngine
             if (_isGrounded == false && JumpExtraCounts > 0)
             {
                 IsDoubleJumping = true;
-                PlayerEvents.DoubleJump();
+                //PlayerEvents.DoubleJump();
                 JumpAction();
             }
         }
@@ -90,16 +90,16 @@ namespace BOYAREngine
         private void JumpAction()
         {
             JumpExtraCounts--;
-            _isJumping = true;
+            IsJumping = true;
             _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
-            _isStoppedJumping = false;
+            IsStoppedJumping = false;
         }
 
         private void Jump_canceled()
         {
             _jumpTimeCounter = 0;
-            _isStoppedJumping = true;
-            _isJumping = false;
+            IsStoppedJumping = true;
+            IsJumping = false;
         }
 
         public void CheckGround()
@@ -116,10 +116,10 @@ namespace BOYAREngine
             var rightHit = Physics2D.Raycast(rightOrigin, direction, _distance, _ground);
             if (leftHit.collider != null || rightHit.collider != null)
             {
-                JumpExtraCounts = _jumpExtraCountDefault;
+                JumpExtraCounts = JumpExtraCountDefault;
                 IsDoubleJumping = false;
                 _isGrounded = true;
-                PlayerEvents.DoubleJumpReady();
+                //PlayerEvents.DoubleJumpReady();
             }
             else
             {

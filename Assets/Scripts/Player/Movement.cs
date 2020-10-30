@@ -48,8 +48,8 @@ namespace BOYAREngine
 
         private void Update()
         {
-            _isRunning = Math.Abs(_movementDirection) > Tolerance;
             _movementDirection = _player.Input.PlayerInGame.Movement.ReadValue<float>();
+            _isRunning = Math.Abs(_movementDirection) > Tolerance;
             _direction = new Vector2(_movementDirection * _speed, 0);
 
             CrouchSpeedCheck();

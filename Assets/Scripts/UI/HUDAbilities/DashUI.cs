@@ -1,3 +1,4 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,65 +7,63 @@ namespace BOYAREngine
     [RequireComponent(typeof(Image))]
     public class DashUI : MonoBehaviour
     {
-        private float _cooldownTimer;
+        private float _dashTimer;
+        private float _dashTimerCounter;
 
         [SerializeField] private GameObject _cooldownBar;
         [SerializeField] private Image _fill;
-        private Image _image;
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _cooldownSprite;
-        private bool _isOnCooldown;
+        private Image _image;
+        private Player _player;
         
 
         private void Awake()
         {
             _cooldownBar.SetActive(false);
+
             _image = GetComponent<Image>();
-        }
-
-        private void DashCooldown(float cooldownTime)
-        {
-            _image.sprite = _cooldownSprite;
-            _cooldownTimer = cooldownTime;
-            _isOnCooldown = true;
-        }
-
-        private void DashReady()
-        {
-            _image.sprite = _normalSprite;
         }
 
         private void Update()
         {
-            SliderCountdown();
+            if (_player != null)
+            {
+                CooldownSlider();
+            }
+        }
+
+        private void CooldownSlider()
+        {
+            if (_player.Dash.IsDashable == false)
+            {
+                _image.sprite = _cooldownSprite;
+
+                _cooldownBar.SetActive(true);
+                _fill.fillAmount = _player.Dash.DashTimerCounter;
+                if (_player.Dash.DashTimerCounter <= 0)
+                {
+                    _image.sprite = _normalSprite;
+
+                    _cooldownBar.SetActive(false);
+                }
+            }
         }
 
         private void OnEnable()
         {
-            PlayerEvents.Dash += DashCooldown;
-            PlayerEvents.DashReady += DashReady;
+            Events.PlayerOnScene += AssignPlayer;
         }
 
         private void OnDisable()
         {
-            PlayerEvents.Dash -= DashCooldown;
-            PlayerEvents.DashReady -= DashReady;
+            Events.PlayerOnScene -= AssignPlayer;
         }
 
-        private void SliderCountdown()
+        private void AssignPlayer(bool isActive)
         {
-            if (_isOnCooldown == true)
-            {
-                _cooldownBar.SetActive(true);
-                _cooldownTimer -= Time.deltaTime;
-                _fill.fillAmount = _cooldownTimer;
-                if (_cooldownTimer <= 0)
-                {
-                    _cooldownBar.SetActive(false);
-                    _cooldownTimer = 0;
-                    _isOnCooldown = false;
-                }
-            }
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
+
     }
 }

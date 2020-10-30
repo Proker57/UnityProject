@@ -8,22 +8,33 @@ namespace BOYAREngine
     {
         [SerializeField] private Image _image;
         [SerializeField] private Text _text;
-        private Stats _stats;
+        private Player _player;
 
         private void Update()
         {
-            if (_stats == null)
-            {
-                _stats = FindObjectOfType<Player>().GetComponent<Player>().Stats;
-            }
+            if (_player == null) return;
 
-            if (_stats == null) return;
-            var currentHealth = _stats.Health;
-            var maxHealth = _stats.MaxHealth;
-            var fillHealthValue = (float) currentHealth / (float) maxHealth;
+            var currentHealth = _player.Stats.Health;
+            var maxHealth = _player.Stats.MaxHealth;
+            var fillHealthValue = (float)currentHealth / (float)maxHealth;
 
             _image.fillAmount = fillHealthValue;
             _text.text = currentHealth + "/" + maxHealth;
+        }
+
+        private void OnEnable()
+        {
+            Events.PlayerOnScene += AssignPlayer;
+        }
+
+        private void OnDisable()
+        {
+            Events.PlayerOnScene -= AssignPlayer;
+        }
+
+        private void AssignPlayer(bool isActive)
+        {
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
     }
 }

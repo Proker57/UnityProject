@@ -12,6 +12,7 @@ namespace BOYAREngine
 
         private SceneLoader _sceneLoader;
         [SerializeField] private GameObject _hud;
+        private Canvas _canvas;
         [SerializeField] private GameObject _dashUI;
         [SerializeField] private GameObject _DoubleJumpUI;
 
@@ -27,17 +28,19 @@ namespace BOYAREngine
             }
 
             _sceneLoader = GameController.GetComponent<SceneLoader>();
+
+            _canvas = transform.GetChild(0).GetComponent<Canvas>();
         }
 
         private void Update()
         {
             if (_sceneLoader._currentSceneName.Equals("Main") || _sceneLoader._currentSceneName.Equals("MainMenu"))
             {
-                _hud.SetActive(false);
+                _canvas.enabled = false;
             }
             else
             {
-                _hud.SetActive(true);
+                _canvas.enabled = true;
             }
         }
 
