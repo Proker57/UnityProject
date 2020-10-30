@@ -7,10 +7,14 @@ namespace BOYAREngine
         private SaveManager _saveManager;
         private LoadManager _loadManager;
 
+        private SaveLoad _saveLoad;
+
         private void Awake()
         {
             _saveManager = new SaveManager();
             _loadManager = new LoadManager();
+
+            _saveLoad = GetComponent<SaveLoad>();
         }
 
         private void Start()
@@ -23,13 +27,17 @@ namespace BOYAREngine
         {
             Events.Save();
             var playerData = FindObjectOfType<Player>().GetComponent<Stats>().PlayerData;
-            _saveManager.Save(playerData);
+            //_saveManager.Save(playerData);
+
+            _saveLoad.Save();
         }
 
         private void Load_started()
         {
             Events.Load();
-            _loadManager.Load();
+            //_loadManager.Load();
+
+            _saveLoad.Load();
         }
 
     }

@@ -2,10 +2,17 @@ using UnityEngine;
 
 namespace BOYAREngine
 {
-    public class Stats : MonoBehaviour
+    public class Stats : MonoBehaviour, ISaveable
     {
         public PlayerData PlayerData = new PlayerData();
+
+        public float XPosition;
+        public float YPosition;
+        public int Health = 100;
+        public int MaxHealth = 100;
+        public int Exp = 0;
         public int MaxExp;
+        public int Level = 1;
 
         private void Start()
         {
@@ -28,9 +35,9 @@ namespace BOYAREngine
         {
             MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
 
-            PlayerData.EXP += expValue;
+            PlayerData.Exp += expValue;
 
-            if (PlayerData.EXP >= MaxExp)
+            if (PlayerData.Exp >= MaxExp)
             {
                 LevelUp();
             }
@@ -39,7 +46,7 @@ namespace BOYAREngine
         private void LevelUp()
         {
             PlayerData.Level++;
-            PlayerData.EXP = 0;
+            PlayerData.Exp = 0;
             MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
             PlayerData.MaxHealth = (int) (PlayerData.MaxHealth * 1.2f);
         }
@@ -64,6 +71,33 @@ namespace BOYAREngine
             Events.GetDamage -= GetDamage;
             PlayerEvents.GiveExp -= EXPCalculator;
         }
+
+        public object CaptureState()
+        {
+            return new PlayerData
+            {
+                XPosition = XPosition,
+                YPosition = YPosition,
+                Health = Health,
+                MaxHealth = MaxHealth,
+                Exp = Exp,
+                MaxExp = MaxExp,
+                Level = Level
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var playerData = (PlayerData) state;
+
+            XPosition = playerData.XPosition;
+            YPosition = playerData.YPosition;
+            Health = playerData.Health;
+            MaxHealth = playerData.MaxHealth;
+            Exp = playerData.Exp;
+            MaxExp = playerData.MaxExp;
+            Level = playerData.Level;
+        }
     }
 
     [System.Serializable]
@@ -72,10 +106,11 @@ namespace BOYAREngine
         public float XPosition;
         public float YPosition;
 
-        public int Health = 100;
-        public int MaxHealth = 100;
-        public int Level = 1;
-        public int EXP = 0;
+        public int Health;
+        public int MaxHealth;
+        public int Exp;
+        public int MaxExp;
+        public int Level;
     }
 }
 

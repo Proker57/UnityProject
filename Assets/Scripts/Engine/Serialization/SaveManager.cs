@@ -30,7 +30,7 @@ namespace BOYAREngine
             save.Health = data.Health;
             save.MaxHealth = data.MaxHealth;
             save.Level = data.Level;
-            save.EXP = data.EXP;
+            save.Exp = data.Exp;
         }
 
         [System.Serializable]
@@ -43,7 +43,7 @@ namespace BOYAREngine
             public int Health;
             public int MaxHealth;
             public int Level;
-            public int EXP;
+            public int Exp;
         }
     }
 }

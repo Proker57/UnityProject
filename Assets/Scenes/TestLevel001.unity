@@ -950,6 +950,7 @@ GameObject:
   - component: {fileID: 1691321475}
   - component: {fileID: 1691321473}
   - component: {fileID: 1691321477}
+  - component: {fileID: 1691321469}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -978,6 +979,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1691321469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691321467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da080cb57d7e7624296e8de9265ee279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: ff4e5178-21c2-44cc-8733-f4b22016877c
 --- !u!114 &1691321470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1133,9 +1147,16 @@ MonoBehaviour:
     YPosition: 0
     Health: 10
     MaxHealth: 100
+    Exp: 0
+    MaxExp: 0
     Level: 1
-    EXP: 0
+  XPosition: 0
+  YPosition: 0
+  Health: 100
+  MaxHealth: 100
+  Exp: 0
   MaxExp: 0
+  Level: 1
 --- !u!114 &1691321479
 MonoBehaviour:
   m_ObjectHideFlags: 0

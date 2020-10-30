@@ -31,7 +31,7 @@ namespace BOYAREngine
             stats.Health = saveData.Health;
             stats.MaxHealth = saveData.MaxHealth;
             stats.Level = saveData.Level;
-            stats.EXP = saveData.EXP;
+            stats.Exp = saveData.Exp;
         }
     }
 }

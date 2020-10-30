@@ -16,7 +16,7 @@ namespace BOYAREngine
             }
 
             if (_player == null) return;
-            var currentExp = (float) _player.Stats.PlayerData.EXP;
+            var currentExp = (float) _player.Stats.PlayerData.Exp;
             var maxExp = (float)_player.Stats.MaxExp;
             _image.fillAmount = currentExp / maxExp;
         }
