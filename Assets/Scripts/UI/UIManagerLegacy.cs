@@ -4,10 +4,14 @@ namespace BOYAREngine
 {
     public class UIManagerLegacy : MonoBehaviour
     {
-        private bool isDashActive;
         private static UIManagerLegacy _uiManager = null;
 
-        public GameObject _hud;
+        private bool isDashActive;
+
+        public GameObject GameController;
+
+        private SceneLoader _sceneLoader;
+        [SerializeField] private GameObject _hud;
         [SerializeField] private GameObject _dashUI;
         [SerializeField] private GameObject _DoubleJumpUI;
 
@@ -20,6 +24,20 @@ namespace BOYAREngine
             else if (_uiManager == this)
             {
                 Destroy(gameObject);
+            }
+
+            _sceneLoader = GameController.GetComponent<SceneLoader>();
+        }
+
+        private void Update()
+        {
+            if (_sceneLoader._currentSceneName.Equals("Main") || _sceneLoader._currentSceneName.Equals("MainMenu"))
+            {
+                _hud.SetActive(false);
+            }
+            else
+            {
+                _hud.SetActive(true);
             }
         }
 

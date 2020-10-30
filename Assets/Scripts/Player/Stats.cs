@@ -4,40 +4,21 @@ namespace BOYAREngine
 {
     public class Stats : MonoBehaviour, ISaveable
     {
-        public PlayerData PlayerData = new PlayerData();
-
         public float XPosition;
         public float YPosition;
         public int Health = 100;
         public int MaxHealth = 100;
         public int Exp = 0;
-        public int MaxExp;
+        public int MaxExp = 120;
         public int Level = 1;
 
-        private void Start()
+        public void GetExp(int expValue)
         {
-            MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
-        }
+            MaxExp = (int)(Level * 100 * 1.2f);
 
-        private void SavePosition()
-        {
-            PlayerData.XPosition = transform.position.x;
-            PlayerData.YPosition = transform.position.y;
-        }
+            Exp += expValue;
 
-        private void LoadPosition()
-        {
-            var position = new Vector2(PlayerData.XPosition, PlayerData.YPosition);
-            transform.position = position;
-        }
-
-        public void EXPCalculator(int expValue)
-        {
-            MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
-
-            PlayerData.Exp += expValue;
-
-            if (PlayerData.Exp >= MaxExp)
+            if (Exp >= MaxExp)
             {
                 LevelUp();
             }
@@ -45,39 +26,35 @@ namespace BOYAREngine
 
         private void LevelUp()
         {
-            PlayerData.Level++;
-            PlayerData.Exp = 0;
-            MaxExp = (int)(PlayerData.Level * 100 * 1.2f);
-            PlayerData.MaxHealth = (int) (PlayerData.MaxHealth * 1.2f);
+            Level++;
+            Exp = 0;
+            MaxExp = (int)(Level * 100 * 1.2f);
+            MaxHealth = (int) (MaxHealth * 1.2f);
         }
 
         private void GetDamage(int damageValue)
         {
-            PlayerData.Health -= damageValue;
+            Health -= damageValue;
         }
 
         private void OnEnable()
         {
-            Events.Save += SavePosition;
-            Events.Load += LoadPosition;
             Events.GetDamage += GetDamage;
-            PlayerEvents.GiveExp += EXPCalculator;
+            PlayerEvents.GiveExp += GetExp;
         }
 
         private void OnDisable()
         {
-            Events.Save -= SavePosition;
-            Events.Load -= LoadPosition;
             Events.GetDamage -= GetDamage;
-            PlayerEvents.GiveExp -= EXPCalculator;
+            PlayerEvents.GiveExp -= GetExp;
         }
 
         public object CaptureState()
         {
             return new PlayerData
             {
-                XPosition = XPosition,
-                YPosition = YPosition,
+                XPosition = transform.position.x,
+                YPosition = transform.position.y,
                 Health = Health,
                 MaxHealth = MaxHealth,
                 Exp = Exp,
@@ -92,6 +69,7 @@ namespace BOYAREngine
 
             XPosition = playerData.XPosition;
             YPosition = playerData.YPosition;
+            transform.position = new Vector2(XPosition, YPosition); ;
             Health = playerData.Health;
             MaxHealth = playerData.MaxHealth;
             Exp = playerData.Exp;

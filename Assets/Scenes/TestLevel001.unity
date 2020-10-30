@@ -1142,14 +1142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac1b8ffa64a8d64dbfd0dd5a9a235c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerData:
-    XPosition: 0
-    YPosition: 0
-    Health: 10
-    MaxHealth: 100
-    Exp: 0
-    MaxExp: 0
-    Level: 1
   XPosition: 0
   YPosition: 0
   Health: 100
@@ -1485,6 +1477,7 @@ GameObject:
   - component: {fileID: 1941595370}
   - component: {fileID: 1941595369}
   - component: {fileID: 1941595374}
+  - component: {fileID: 1941595375}
   m_Layer: 0
   m_Name: ExpBox
   m_TagString: Untagged
@@ -1629,6 +1622,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3185e0acd8ddc6e40bffdc1d8c987179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsActive: 0
+--- !u!114 &1941595375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941595368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da080cb57d7e7624296e8de9265ee279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 18232a8b-4b29-4883-a4b9-823482c15fc5
 --- !u!1 &2059225810
 GameObject:
   m_ObjectHideFlags: 0

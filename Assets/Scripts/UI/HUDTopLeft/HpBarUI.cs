@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,18 +8,18 @@ namespace BOYAREngine
     {
         [SerializeField] private Image _image;
         [SerializeField] private Text _text;
-        private Player _player;
+        private Stats _stats;
 
         private void Update()
         {
-            if (_player == null && FindObjectOfType<Player>() != null)
+            if (_stats == null)
             {
-                _player = FindObjectOfType<Player>().GetComponent<Player>();
+                _stats = FindObjectOfType<Player>().GetComponent<Player>().Stats;
             }
 
-            if (_player == null) return;
-            var currentHealth = _player.Stats.PlayerData.Health;
-            var maxHealth = _player.Stats.PlayerData.MaxHealth;
+            if (_stats == null) return;
+            var currentHealth = _stats.Health;
+            var maxHealth = _stats.MaxHealth;
             var fillHealthValue = (float) currentHealth / (float) maxHealth;
 
             _image.fillAmount = fillHealthValue;

@@ -6,18 +6,18 @@ namespace BOYAREngine
     public class ExpBarUI : MonoBehaviour
     {
         [SerializeField] private Image _image;
-        private Player _player;
+        private Stats _stats;
 
         private void Update()
         {
-            if (_player == null && FindObjectOfType<Player>() != null)
+            if (_stats == null)
             {
-                _player = FindObjectOfType<Player>().GetComponent<Player>();
+                _stats = FindObjectOfType<Player>().GetComponent<Player>().Stats;
             }
 
-            if (_player == null) return;
-            var currentExp = (float) _player.Stats.PlayerData.Exp;
-            var maxExp = (float)_player.Stats.MaxExp;
+            if (_stats == null) return;
+            var currentExp = (float)_stats.Exp;
+            var maxExp = (float)_stats.MaxExp;
             _image.fillAmount = currentExp / maxExp;
         }
     }

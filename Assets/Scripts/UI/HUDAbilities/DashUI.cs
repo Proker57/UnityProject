@@ -11,7 +11,6 @@ namespace BOYAREngine
         [SerializeField] private GameObject _cooldownBar;
         [SerializeField] private Image _fill;
         private Image _image;
-        //private Slider _slider;
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _cooldownSprite;
         private bool _isOnCooldown;
@@ -21,14 +20,12 @@ namespace BOYAREngine
         {
             _cooldownBar.SetActive(false);
             _image = GetComponent<Image>();
-            //_slider = GetComponent<Slider>();
         }
 
         private void DashCooldown(float cooldownTime)
         {
             _image.sprite = _cooldownSprite;
             _cooldownTimer = cooldownTime;
-            //_slider.maxValue = _cooldownTimer;
             _isOnCooldown = true;
         }
 
@@ -60,7 +57,6 @@ namespace BOYAREngine
             {
                 _cooldownBar.SetActive(true);
                 _cooldownTimer -= Time.deltaTime;
-                //_slider.value = _cooldownTimer;
                 _fill.fillAmount = _cooldownTimer;
                 if (_cooldownTimer <= 0)
                 {

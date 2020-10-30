@@ -16,7 +16,7 @@ namespace BOYAREngine
             }
 
             if (_player == null) return;
-            _text.text = "Lv." + _player.Stats.PlayerData.Level;
+            _text.text = "Lv." + _player.Stats.Level;
         }
     }
 }
