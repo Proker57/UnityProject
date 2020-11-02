@@ -1,9 +1,32 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BOYAREngine
 {
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviour, ISaveable
     {
-        public bool IsPlayerActive;
+        public string SceneName;
+        public bool IsNewGame = true;
+
+        public object CaptureState()
+        {
+            return new GameControllerData
+            {
+                SceneName = SceneManager.GetActiveScene().name
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var gcData = (GameControllerData) state;
+
+            SceneName = gcData.SceneName;
+        }
+    }
+
+    [System.Serializable]
+    public class GameControllerData
+    {
+        public string SceneName;
     }
 }

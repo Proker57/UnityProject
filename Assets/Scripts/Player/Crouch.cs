@@ -17,6 +17,7 @@ namespace BOYAREngine
         public Transform RightCeilingChecker;
         public LayerMask Ground;
 
+        [SerializeField] private bool _isButtonPressed;
         private Player _player;
 #pragma warning restore 649
 
@@ -29,6 +30,14 @@ namespace BOYAREngine
         {
             _player.Input.PlayerInGame.Crouch.started += _ => Crouch_started();
             _player.Input.PlayerInGame.Crouch.canceled += _ => Crouch_canceled();
+        }
+
+        private void Update()
+        {
+            if (IsCrouched && _isButtonPressed == false)
+            {
+                StartCrouch();
+            }
         }
 
         private void FixedUpdate()
@@ -51,26 +60,29 @@ namespace BOYAREngine
                 HasCeiling = false;
             }
 
-            if (HasCeiling == false && IsCrouched == false)
+            if (HasCeiling == false && _isButtonPressed == false)
             {
-                IsCrouched = false;
                 StopCrouch();
             }
         }
 
         private void Crouch_started()
         {
+            _isButtonPressed = true;
+
             StartCrouch();
         }
 
         private void Crouch_canceled()
         {
+            _isButtonPressed = false;
+
             if (HasCeiling == false)
             {
                 StopCrouch();
             }
 
-            IsCrouched = false;
+            IsCrouched = HasCeiling == true;
         }
 
         private void StartCrouch()
@@ -83,6 +95,7 @@ namespace BOYAREngine
         private void StopCrouch()
         {
             _player.HighCollider.enabled = true;
+            IsCrouched = false;
             _player.Animator.SetBool("isCrouch", false);
         }
 

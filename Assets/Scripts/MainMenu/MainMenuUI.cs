@@ -11,10 +11,12 @@ namespace BOYAREngine
 {
     public class MainMenuUI : MonoBehaviour
     {
-        public string NextScene;
         private string _stringTableCollectionName = "Main Menu";
 
+        private GameController _gameController;
+
         private Button _newGameButton;
+        private Button _loadButton;
         private Button _optionsButton;
         private Button _exitButton;
 
@@ -24,9 +26,12 @@ namespace BOYAREngine
 
         private void Awake()
         {
+            _gameController = GetComponent<GameController>();
+
             var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
             _newGameButton = rootVisualElement.Q<Button>("new_game-button");
+            _loadButton = rootVisualElement.Q<Button>("load-button");
             _optionsButton = rootVisualElement.Q<Button>("options-button");
             _exitButton = rootVisualElement.Q<Button>("exit-button");
 
@@ -35,6 +40,7 @@ namespace BOYAREngine
             _enButton = rootVisualElement.Q<Button>("en-button");
 
             _newGameButton.RegisterCallback<ClickEvent>(ev => NewGame());
+            _loadButton.RegisterCallback<ClickEvent>(ev => Load());
             _optionsButton.RegisterCallback<ClickEvent>(ev => ToggleOptionsBlock());
             _exitButton.RegisterCallback<ClickEvent>(ev => ExitApplication());
             _ruButton.RegisterCallback<ClickEvent>(ev => ChangeRuLocale());
@@ -43,7 +49,17 @@ namespace BOYAREngine
 
         private void NewGame()
         {
-            SceneLoader.SwitchScene(NextScene);
+            SceneLoader.SwitchScene("TestLevel001");
+        }
+
+        private void Load()
+        {
+            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+            _gameController.GetComponent<SaveLoad>().Load();
+            _gameController.IsNewGame = false;
+            SceneLoader.SwitchScene(_gameController.SceneName);
+            //gameController.GetComponent<SaveLoad>().Load();
         }
 
         private void ToggleOptionsBlock()
@@ -98,6 +114,7 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
                 _newGameButton.text = GetLocalizedString(stringTable, "new_game");
+                _loadButton.text = GetLocalizedString(stringTable, "load");
                 _optionsButton.text = GetLocalizedString(stringTable, "options");
                 _exitButton.text = GetLocalizedString(stringTable, "exit");
             }

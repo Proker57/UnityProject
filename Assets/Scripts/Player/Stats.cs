@@ -37,8 +37,9 @@ namespace BOYAREngine
         {
             Level++;
             Exp = 0;
+
             MaxExp = (int)(Level * 100 * 1.2f);
-            MaxHealth = (int) (MaxHealth * 1.2f);
+            MaxHealth = (int)(MaxHealth * 1.2f);
         }
 
         private void OnEnable()
@@ -76,7 +77,10 @@ namespace BOYAREngine
                 JumpExtraCountDefault = _player.Jump.JumpExtraCountDefault,
                 IsJumping = _player.Jump.IsJumping,
                 IsDoubleJumping = _player.Jump.IsDoubleJumping,
-                IsStoppedJumping = _player.Jump.IsStoppedJumping
+                IsStoppedJumping = _player.Jump.IsStoppedJumping,
+                //Crouch
+                IsCrouched = _player.Crouch.IsCrouched,
+                HasCeiling = _player.Crouch.HasCeiling
             };
         }
 
@@ -108,6 +112,9 @@ namespace BOYAREngine
             _player.Jump.IsJumping = playerData.IsJumping;
             _player.Jump.IsDoubleJumping = playerData.IsDoubleJumping;
             _player.Jump.IsStoppedJumping = playerData.IsStoppedJumping;
+            // Crouch
+            _player.Crouch.IsCrouched = playerData.IsCrouched;
+            _player.Crouch.HasCeiling = playerData.HasCeiling;
         }
     }
 
@@ -136,5 +143,8 @@ namespace BOYAREngine
         public bool IsJumping;
         public bool IsDoubleJumping;
         public bool IsStoppedJumping;
+        // Crouch
+        public bool IsCrouched;
+        public bool HasCeiling;
     }
 }

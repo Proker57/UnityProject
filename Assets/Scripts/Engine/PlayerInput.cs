@@ -139,6 +139,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""57e0b4df-87fd-44b8-bdf8-939366754a41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -163,6 +171,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Load"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40a8c164-d5f1-4eb4-b028-09dfb1204989"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -179,6 +198,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
         m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
         m_Global_Load = m_Global.FindAction("Load", throwIfNotFound: true);
+        m_Global_Escape = m_Global.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -287,12 +307,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private IGlobalActions m_GlobalActionsCallbackInterface;
     private readonly InputAction m_Global_Save;
     private readonly InputAction m_Global_Load;
+    private readonly InputAction m_Global_Escape;
     public struct GlobalActions
     {
         private @PlayerInput m_Wrapper;
         public GlobalActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Save => m_Wrapper.m_Global_Save;
         public InputAction @Load => m_Wrapper.m_Global_Load;
+        public InputAction @Escape => m_Wrapper.m_Global_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Global; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +330,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Load.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
                 @Load.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
                 @Load.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
+                @Escape.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_GlobalActionsCallbackInterface = instance;
             if (instance != null)
@@ -318,6 +343,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Load.started += instance.OnLoad;
                 @Load.performed += instance.OnLoad;
                 @Load.canceled += instance.OnLoad;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -333,5 +361,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     {
         void OnSave(InputAction.CallbackContext context);
         void OnLoad(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

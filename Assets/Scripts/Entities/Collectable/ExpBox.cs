@@ -35,7 +35,7 @@ namespace BOYAREngine
 
         public object CaptureState()
         {
-            return new SaveData
+            return new ExpBoxData
             {
                 IsActive = IsActive
             };
@@ -43,7 +43,7 @@ namespace BOYAREngine
 
         public void RestoreState(object state)
         {
-            var saveData = (SaveData) state;
+            var saveData = (ExpBoxData) state;
 
             IsActive = saveData.IsActive;
 
@@ -54,7 +54,7 @@ namespace BOYAREngine
     }
 
     [System.Serializable]
-    public class SaveData
+    public class ExpBoxData
     {
         public bool IsActive;
     }
