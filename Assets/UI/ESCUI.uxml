@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="screen-block" style="flex-grow: 1; background-color: rgba(15, 15, 15, 0.7); display: none;">
+        <ui:VisualElement name="menu-block" style="height: 384px; width: 726px; margin-top: 150px;">
+            <ui:Label text="Pause&#10;" display-tooltip-when-elided="True" name="menu_title-lable" style="font-size: 38px; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); justify-content: center; left: auto; top: auto; margin-left: 50px; margin-right: 0; margin-top: 50px;" />
+            <ui:Button text="Resume" display-tooltip-when-elided="True" name="menu_resume-button" style="width: 70%; height: 60px; font-size: 28px; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); justify-content: center; align-items: center; padding-left: 6px; padding-right: 6px; white-space: nowrap; -unity-text-align: middle-center; margin-left: 30px;" />
+            <ui:Button text="Save" display-tooltip-when-elided="True" name="menu_save-button" style="width: 70%; height: 60px; font-size: 28px; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); justify-content: center; align-items: center; padding-left: 6px; padding-right: 6px; white-space: nowrap; -unity-text-align: middle-center; margin-left: 30px;" />
+            <ui:Button text="Load" display-tooltip-when-elided="True" name="menu_load-button" style="width: 70%; height: 60px; font-size: 28px; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); justify-content: center; align-items: center; padding-left: 6px; padding-right: 6px; white-space: nowrap; -unity-text-align: middle-center; margin-left: 30px;" />
+            <ui:Button text="Main menu" display-tooltip-when-elided="True" name="menu_main_menu-button" style="width: 70%; height: 60px; font-size: 28px; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); justify-content: center; align-items: center; padding-left: 6px; padding-right: 6px; white-space: nowrap; -unity-text-align: middle-center; margin-left: 30px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

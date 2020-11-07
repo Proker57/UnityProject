@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Player/PlayerInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Engine/PlayerInput.inputactions'
 
 using System;
 using System.Collections;
@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @PlayerInput : IInputActionCollection, IDisposable
+namespace BOYAREngine
 {
-    public InputActionAsset asset { get; }
-    public @PlayerInput()
+    public class @PlayerInput : IInputActionCollection, IDisposable
     {
-        asset = InputActionAsset.FromJson(@"{
+        public InputActionAsset asset { get; }
+        public @PlayerInput()
+        {
+            asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
@@ -32,7 +34,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""id"": ""4956d367-40bd-44af-9bbb-e78e2cdf6e1a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Crouch"",
@@ -139,6 +141,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""57e0b4df-87fd-44b8-bdf8-939366754a41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -163,175 +173,197 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Load"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40a8c164-d5f1-4eb4-b028-09dfb1204989"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
+            // PlayerInGame
+            m_PlayerInGame = asset.FindActionMap("PlayerInGame", throwIfNotFound: true);
+            m_PlayerInGame_Movement = m_PlayerInGame.FindAction("Movement", throwIfNotFound: true);
+            m_PlayerInGame_Jump = m_PlayerInGame.FindAction("Jump", throwIfNotFound: true);
+            m_PlayerInGame_Crouch = m_PlayerInGame.FindAction("Crouch", throwIfNotFound: true);
+            m_PlayerInGame_Dash = m_PlayerInGame.FindAction("Dash", throwIfNotFound: true);
+            // Global
+            m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
+            m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
+            m_Global_Load = m_Global.FindAction("Load", throwIfNotFound: true);
+            m_Global_Escape = m_Global.FindAction("Escape", throwIfNotFound: true);
+        }
+
+        public void Dispose()
+        {
+            UnityEngine.Object.Destroy(asset);
+        }
+
+        public InputBinding? bindingMask
+        {
+            get => asset.bindingMask;
+            set => asset.bindingMask = value;
+        }
+
+        public ReadOnlyArray<InputDevice>? devices
+        {
+            get => asset.devices;
+            set => asset.devices = value;
+        }
+
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+        public bool Contains(InputAction action)
+        {
+            return asset.Contains(action);
+        }
+
+        public IEnumerator<InputAction> GetEnumerator()
+        {
+            return asset.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Enable()
+        {
+            asset.Enable();
+        }
+
+        public void Disable()
+        {
+            asset.Disable();
+        }
+
         // PlayerInGame
-        m_PlayerInGame = asset.FindActionMap("PlayerInGame", throwIfNotFound: true);
-        m_PlayerInGame_Movement = m_PlayerInGame.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerInGame_Jump = m_PlayerInGame.FindAction("Jump", throwIfNotFound: true);
-        m_PlayerInGame_Crouch = m_PlayerInGame.FindAction("Crouch", throwIfNotFound: true);
-        m_PlayerInGame_Dash = m_PlayerInGame.FindAction("Dash", throwIfNotFound: true);
+        private readonly InputActionMap m_PlayerInGame;
+        private IPlayerInGameActions m_PlayerInGameActionsCallbackInterface;
+        private readonly InputAction m_PlayerInGame_Movement;
+        private readonly InputAction m_PlayerInGame_Jump;
+        private readonly InputAction m_PlayerInGame_Crouch;
+        private readonly InputAction m_PlayerInGame_Dash;
+        public struct PlayerInGameActions
+        {
+            private @PlayerInput m_Wrapper;
+            public PlayerInGameActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Movement => m_Wrapper.m_PlayerInGame_Movement;
+            public InputAction @Jump => m_Wrapper.m_PlayerInGame_Jump;
+            public InputAction @Crouch => m_Wrapper.m_PlayerInGame_Crouch;
+            public InputAction @Dash => m_Wrapper.m_PlayerInGame_Dash;
+            public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerInGameActions set) { return set.Get(); }
+            public void SetCallbacks(IPlayerInGameActions instance)
+            {
+                if (m_Wrapper.m_PlayerInGameActionsCallbackInterface != null)
+                {
+                    @Movement.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMovement;
+                    @Movement.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMovement;
+                    @Movement.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMovement;
+                    @Jump.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnJump;
+                    @Jump.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnJump;
+                    @Jump.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnJump;
+                    @Crouch.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
+                    @Crouch.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
+                    @Crouch.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
+                    @Dash.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
+                    @Dash.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
+                    @Dash.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
+                }
+                m_Wrapper.m_PlayerInGameActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Movement.started += instance.OnMovement;
+                    @Movement.performed += instance.OnMovement;
+                    @Movement.canceled += instance.OnMovement;
+                    @Jump.started += instance.OnJump;
+                    @Jump.performed += instance.OnJump;
+                    @Jump.canceled += instance.OnJump;
+                    @Crouch.started += instance.OnCrouch;
+                    @Crouch.performed += instance.OnCrouch;
+                    @Crouch.canceled += instance.OnCrouch;
+                    @Dash.started += instance.OnDash;
+                    @Dash.performed += instance.OnDash;
+                    @Dash.canceled += instance.OnDash;
+                }
+            }
+        }
+        public PlayerInGameActions @PlayerInGame => new PlayerInGameActions(this);
+
         // Global
-        m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
-        m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
-        m_Global_Load = m_Global.FindAction("Load", throwIfNotFound: true);
-    }
-
-    public void Dispose()
-    {
-        UnityEngine.Object.Destroy(asset);
-    }
-
-    public InputBinding? bindingMask
-    {
-        get => asset.bindingMask;
-        set => asset.bindingMask = value;
-    }
-
-    public ReadOnlyArray<InputDevice>? devices
-    {
-        get => asset.devices;
-        set => asset.devices = value;
-    }
-
-    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
-
-    public bool Contains(InputAction action)
-    {
-        return asset.Contains(action);
-    }
-
-    public IEnumerator<InputAction> GetEnumerator()
-    {
-        return asset.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public void Enable()
-    {
-        asset.Enable();
-    }
-
-    public void Disable()
-    {
-        asset.Disable();
-    }
-
-    // PlayerInGame
-    private readonly InputActionMap m_PlayerInGame;
-    private IPlayerInGameActions m_PlayerInGameActionsCallbackInterface;
-    private readonly InputAction m_PlayerInGame_Movement;
-    private readonly InputAction m_PlayerInGame_Jump;
-    private readonly InputAction m_PlayerInGame_Crouch;
-    private readonly InputAction m_PlayerInGame_Dash;
-    public struct PlayerInGameActions
-    {
-        private @PlayerInput m_Wrapper;
-        public PlayerInGameActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_PlayerInGame_Movement;
-        public InputAction @Jump => m_Wrapper.m_PlayerInGame_Jump;
-        public InputAction @Crouch => m_Wrapper.m_PlayerInGame_Crouch;
-        public InputAction @Dash => m_Wrapper.m_PlayerInGame_Dash;
-        public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerInGameActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerInGameActions instance)
+        private readonly InputActionMap m_Global;
+        private IGlobalActions m_GlobalActionsCallbackInterface;
+        private readonly InputAction m_Global_Save;
+        private readonly InputAction m_Global_Load;
+        private readonly InputAction m_Global_Escape;
+        public struct GlobalActions
         {
-            if (m_Wrapper.m_PlayerInGameActionsCallbackInterface != null)
+            private @PlayerInput m_Wrapper;
+            public GlobalActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Save => m_Wrapper.m_Global_Save;
+            public InputAction @Load => m_Wrapper.m_Global_Load;
+            public InputAction @Escape => m_Wrapper.m_Global_Escape;
+            public InputActionMap Get() { return m_Wrapper.m_Global; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(GlobalActions set) { return set.Get(); }
+            public void SetCallbacks(IGlobalActions instance)
             {
-                @Movement.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMovement;
-                @Jump.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnJump;
-                @Crouch.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
-                @Crouch.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
-                @Crouch.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnCrouch;
-                @Dash.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
-                @Dash.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
-                @Dash.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
-            }
-            m_Wrapper.m_PlayerInGameActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
-                @Crouch.started += instance.OnCrouch;
-                @Crouch.performed += instance.OnCrouch;
-                @Crouch.canceled += instance.OnCrouch;
-                @Dash.started += instance.OnDash;
-                @Dash.performed += instance.OnDash;
-                @Dash.canceled += instance.OnDash;
+                if (m_Wrapper.m_GlobalActionsCallbackInterface != null)
+                {
+                    @Save.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
+                    @Save.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
+                    @Save.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
+                    @Load.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
+                    @Load.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
+                    @Load.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
+                    @Escape.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnEscape;
+                    @Escape.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnEscape;
+                    @Escape.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnEscape;
+                }
+                m_Wrapper.m_GlobalActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Save.started += instance.OnSave;
+                    @Save.performed += instance.OnSave;
+                    @Save.canceled += instance.OnSave;
+                    @Load.started += instance.OnLoad;
+                    @Load.performed += instance.OnLoad;
+                    @Load.canceled += instance.OnLoad;
+                    @Escape.started += instance.OnEscape;
+                    @Escape.performed += instance.OnEscape;
+                    @Escape.canceled += instance.OnEscape;
+                }
             }
         }
-    }
-    public PlayerInGameActions @PlayerInGame => new PlayerInGameActions(this);
-
-    // Global
-    private readonly InputActionMap m_Global;
-    private IGlobalActions m_GlobalActionsCallbackInterface;
-    private readonly InputAction m_Global_Save;
-    private readonly InputAction m_Global_Load;
-    public struct GlobalActions
-    {
-        private @PlayerInput m_Wrapper;
-        public GlobalActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Save => m_Wrapper.m_Global_Save;
-        public InputAction @Load => m_Wrapper.m_Global_Load;
-        public InputActionMap Get() { return m_Wrapper.m_Global; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GlobalActions set) { return set.Get(); }
-        public void SetCallbacks(IGlobalActions instance)
+        public GlobalActions @Global => new GlobalActions(this);
+        public interface IPlayerInGameActions
         {
-            if (m_Wrapper.m_GlobalActionsCallbackInterface != null)
-            {
-                @Save.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
-                @Save.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
-                @Save.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSave;
-                @Load.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
-                @Load.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
-                @Load.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLoad;
-            }
-            m_Wrapper.m_GlobalActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Save.started += instance.OnSave;
-                @Save.performed += instance.OnSave;
-                @Save.canceled += instance.OnSave;
-                @Load.started += instance.OnLoad;
-                @Load.performed += instance.OnLoad;
-                @Load.canceled += instance.OnLoad;
-            }
+            void OnMovement(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
+            void OnDash(InputAction.CallbackContext context);
         }
-    }
-    public GlobalActions @Global => new GlobalActions(this);
-    public interface IPlayerInGameActions
-    {
-        void OnMovement(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
-        void OnCrouch(InputAction.CallbackContext context);
-        void OnDash(InputAction.CallbackContext context);
-    }
-    public interface IGlobalActions
-    {
-        void OnSave(InputAction.CallbackContext context);
-        void OnLoad(InputAction.CallbackContext context);
+        public interface IGlobalActions
+        {
+            void OnSave(InputAction.CallbackContext context);
+            void OnLoad(InputAction.CallbackContext context);
+            void OnEscape(InputAction.CallbackContext context);
+        }
     }
 }

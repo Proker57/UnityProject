@@ -19,7 +19,7 @@
                     "id": "4956d367-40bd-44af-9bbb-e78e2cdf6e1a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Hold"
                 },
                 {
                     "name": "Crouch",
@@ -126,6 +126,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "57e0b4df-87fd-44b8-bdf8-939366754a41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -148,6 +156,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Load",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40a8c164-d5f1-4eb4-b028-09dfb1204989",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,11 +12,12 @@ namespace BOYAREngine
 #pragma warning disable 649
         public bool IsCrouched;
         public bool HasCeiling;
-        [SerializeField] private float _distance;
+        [SerializeField] private float _distance;   // 0.05f
         public Transform LeftCeilingChecker;
         public Transform RightCeilingChecker;
         public LayerMask Ground;
 
+        [SerializeField] private bool _isButtonPressed;
         private Player _player;
 #pragma warning restore 649
 
@@ -29,6 +30,14 @@ namespace BOYAREngine
         {
             _player.Input.PlayerInGame.Crouch.started += _ => Crouch_started();
             _player.Input.PlayerInGame.Crouch.canceled += _ => Crouch_canceled();
+        }
+
+        private void Update()
+        {
+            if (IsCrouched && _isButtonPressed == false)
+            {
+                StartCrouch();
+            }
         }
 
         private void FixedUpdate()
@@ -51,7 +60,7 @@ namespace BOYAREngine
                 HasCeiling = false;
             }
 
-            if (HasCeiling == false && IsCrouched == false)
+            if (HasCeiling == false && _isButtonPressed == false)
             {
                 StopCrouch();
             }
@@ -59,17 +68,21 @@ namespace BOYAREngine
 
         private void Crouch_started()
         {
+            _isButtonPressed = true;
+
             StartCrouch();
         }
 
         private void Crouch_canceled()
         {
+            _isButtonPressed = false;
+
             if (HasCeiling == false)
             {
                 StopCrouch();
             }
 
-            IsCrouched = false;
+            IsCrouched = HasCeiling == true;
         }
 
         private void StartCrouch()
@@ -82,8 +95,14 @@ namespace BOYAREngine
         private void StopCrouch()
         {
             _player.HighCollider.enabled = true;
+            IsCrouched = false;
             _player.Animator.SetBool("isCrouch", false);
         }
 
+        private void OnDestroy()
+        {
+            _player.Input.PlayerInGame.Crouch.started -= _ => Crouch_started();
+            _player.Input.PlayerInGame.Crouch.canceled -= _ => Crouch_canceled();
+        }
     }
 }

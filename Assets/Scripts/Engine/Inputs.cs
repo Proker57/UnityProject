@@ -1,23 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Inputs : MonoBehaviour
+namespace BOYAREngine
 {
-    public static PlayerInput Input;
-
-    private void Awake()
+    public class Inputs : MonoBehaviour
     {
-        Input = new PlayerInput();
-    }
+        public PlayerInput Input;
 
-    private void OnEnable()
-    {
-        Input.Enable();
-    }
+        private void Awake()
+        {
+            Input = new PlayerInput();
+        }
 
-    private void OnDisable()
-    {
-        Input.Disable();
+        private void OnEnable()
+        {
+            Input.Enable();
+        }
+
+        private void OnDisable()
+        {
+            Input.Disable();
+        }
     }
 }

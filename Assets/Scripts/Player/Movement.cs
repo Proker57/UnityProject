@@ -10,19 +10,22 @@ namespace BOYAREngine
     public class Movement : MonoBehaviour
     {
 #pragma warning disable 649
-        [SerializeField] private float _speedRun;
-        [SerializeField] private float _maxVelocity;
-        [SerializeField] private float _lerp;
+        [SerializeField] private float _speed;          // 700
+        [SerializeField] private float _crouchSpeedMultiplier = 0.8f;   // 0.8f
+        private float _speedRun;                        // _speed
+        private float _speedCrouch;                     // _speed * _crouchSpeedMultiplier
+        [SerializeField] private float _maxVelocity;    // 2f
+        private float _maxVelocityRun;                  // _maxVelocity
+        private float _maxVelocityCrouch;               // _maxVelocity * _crouchSpeedMultiplier
+        [SerializeField] private float _lerp;           // 0.2f
         private float _movementDirection;
         private bool _isRunning;
         private bool _isLookingRight;
-        [SerializeField] private bool _isMaxSpeedLimiterOn = true;
-        public bool IsMaxSpeedLimiterOn
-        {
-            get => _isMaxSpeedLimiterOn;
-            set => _isMaxSpeedLimiterOn = value;
-        }
-        private float Tolerance = 0;
+
+        [field: SerializeField]
+        public bool IsMaxSpeedLimiterOn { get; set; } = true;
+
+        private const float Tolerance = 0;
 
         [Space, Header("Player sprite with bones")]
         [SerializeField] private Transform _spriteTransform;
@@ -35,14 +38,23 @@ namespace BOYAREngine
             _player = GetComponent<Player>();
         }
 
+        private void Start()
+        {
+            _speedRun = _speed;
+            _speedCrouch = _speed * _crouchSpeedMultiplier;
+            _maxVelocityRun = _maxVelocity;
+            _maxVelocityCrouch = _maxVelocity * _crouchSpeedMultiplier;
+        }
+
         private void Update()
         {
-            _isRunning = Math.Abs(_movementDirection) > Tolerance;
             _movementDirection = _player.Input.PlayerInGame.Movement.ReadValue<float>();
-            _direction = new Vector2(_movementDirection * _speedRun, 0);
+            _isRunning = Math.Abs(_movementDirection) > Tolerance;
+            _direction = new Vector2(_movementDirection * _speed, 0);
 
-            FlipSprite(_movementDirection);
-            ChangeAnimation(_isRunning);
+            CrouchSpeedCheck();
+            FlipSprite();
+            ChangeAnimation();
         }
 
 
@@ -53,7 +65,7 @@ namespace BOYAREngine
                 _player.Rigidbody2D.AddForce(_direction, ForceMode2D.Force);
             }
 
-            if (_isMaxSpeedLimiterOn == true)
+            if (IsMaxSpeedLimiterOn == true)
             {
                 MaxVelocityLimiter();
             }
@@ -83,7 +95,7 @@ namespace BOYAREngine
             }
         }
 
-        private void FlipSprite(float direction)
+        private void FlipSprite()
         {
             if (_movementDirection > 0)
             {
@@ -106,15 +118,29 @@ namespace BOYAREngine
             }
         }
 
-        private void ChangeAnimation(bool isRunning)
+        private void ChangeAnimation()
         {
-            if (isRunning == true)
+            if (_isRunning == true)
             {
                 _player.Animator.SetBool("isRun", true);
             }
             else
             {
                 _player.Animator.SetBool("isRun", false);
+            }
+        }
+
+        private void CrouchSpeedCheck()
+        {
+            if (_player.Crouch.IsCrouched)
+            {
+                _speed = _speedCrouch;
+                _maxVelocity = _maxVelocityCrouch;
+            }
+            else
+            {
+                _speed = _speedRun;
+                _maxVelocity = _maxVelocityRun;
             }
         }
     }

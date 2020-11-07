@@ -18,7 +18,7 @@ public class SceneLoader : MonoBehaviour
     [Tooltip("Add Circle Sprite from 'Main' scene")]
     [SerializeField] private GameObject _loadingCircleSprite;
 
-    private string _currentSceneName;
+    public string CurrentSceneName;
     private AsyncOperation _resourceUnloadTaskAsync;
     private AsyncOperation _sceneLoadTaskAsync;
 #pragma warning restore 649
@@ -42,7 +42,7 @@ public class SceneLoader : MonoBehaviour
     public static void SwitchScene(string nextSceneName)
     {
         if (_sceneLoader == null) return;
-        if(_sceneLoader._currentSceneName != nextSceneName)
+        if(_sceneLoader.CurrentSceneName != nextSceneName)
         {
             _sceneLoader._nextSceneName = nextSceneName;
         }
@@ -146,7 +146,7 @@ public class SceneLoader : MonoBehaviour
 
     private void UpdateScenePostload()
     {
-        _currentSceneName = _nextSceneName;
+        CurrentSceneName = _nextSceneName;
         _sceneState = SceneState.Ready;
     }
 
@@ -158,7 +158,7 @@ public class SceneLoader : MonoBehaviour
 
     private void UpdateSceneRun()
     {
-        if (_currentSceneName != _nextSceneName)
+        if (CurrentSceneName != _nextSceneName)
         {
             _sceneState = SceneState.Reset;
         }

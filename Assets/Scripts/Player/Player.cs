@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace BOYAREngine
@@ -10,44 +7,60 @@ namespace BOYAREngine
         public PlayerInput Input;
         public Rigidbody2D Rigidbody2D;
         public Jump Jump;
+        public Crouch Crouch;
         public BoxCollider2D LowCollider;
         public CapsuleCollider2D HighCollider;
         public Animator Animator;
         public Dash Dash;
         public Movement Movement;
+        public Stats Stats;
+
+        private GameController _gameController;
 
         private void Awake()
         {
-            Input = Inputs.Input;
+            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+            //Input = _gameController.GetComponent<Inputs>().Input;
+            Input = new PlayerInput();
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Jump = GetComponent<Jump>();
-            LowCollider = GetComponent<BoxCollider2D>();
+            Crouch = GetComponent<Crouch>();
+            LowCollider = GetComponentInChildren<BoxCollider2D>();
             HighCollider = GetComponent<CapsuleCollider2D>();
             Animator = GetComponent<Animator>();
             Dash = GetComponent<Dash>();
             Movement = GetComponent<Movement>();
+            Stats = GetComponent<Stats>();
         }
 
         private void OnEnable()
         {
+            Events.PlayerOnScene(true);
+
             Input.Enable();
             Jump.enabled = true;
+            Crouch.enabled = true;
             LowCollider.enabled = true;
             HighCollider.enabled = true;
             Animator.enabled = true;
             Dash.enabled = true;
             Movement.enabled = true;
+            Stats.enabled = true;
         }
 
         private void OnDisable()
         {
+            Events.PlayerOnScene(false);
+
             Input.Disable();
             Jump.enabled = false;
+            Crouch.enabled = false;
             LowCollider.enabled = false;
             HighCollider.enabled = false;
             Animator.enabled = false;
             Dash.enabled = false;
             Movement.enabled = false;
+            Stats.enabled = false;
         }
     }
 }
