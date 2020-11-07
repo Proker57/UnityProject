@@ -20,8 +20,8 @@ namespace BOYAREngine
         private void Awake()
         {
             _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-
-            Input = Inputs.Input;
+            //Input = _gameController.GetComponent<Inputs>().Input;
+            Input = new PlayerInput();
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Jump = GetComponent<Jump>();
             Crouch = GetComponent<Crouch>();
@@ -31,12 +31,10 @@ namespace BOYAREngine
             Dash = GetComponent<Dash>();
             Movement = GetComponent<Movement>();
             Stats = GetComponent<Stats>();
-
         }
 
         private void OnEnable()
         {
-            //_gameController.IsPlayerActive = true;
             Events.PlayerOnScene(true);
 
             Input.Enable();
@@ -52,7 +50,6 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
-            //_gameController.IsPlayerActive = false;
             Events.PlayerOnScene(false);
 
             Input.Disable();

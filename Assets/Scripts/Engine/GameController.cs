@@ -6,7 +6,13 @@ namespace BOYAREngine
     public class GameController : MonoBehaviour, ISaveable
     {
         public string SceneName;
+
         public bool IsNewGame = true;
+
+        public string GetSceneName()
+        {
+            return SceneManager.GetActiveScene().name;
+        }
 
         public object CaptureState()
         {

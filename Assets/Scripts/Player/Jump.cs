@@ -32,16 +32,19 @@ namespace BOYAREngine
 
         private void Awake()
         {
-            _player = GetComponent<Player>();
+            if (_player == null)
+            {
+                _player = GetComponent<Player>();
+            }
         }
 
         private void Start()
         {
-            _jumpTimeCounter = jumpTime;
-            JumpExtraCountDefault = JumpExtraCounts;
-
             _player.Input.PlayerInGame.Jump.started += _ => Jump_started();
             _player.Input.PlayerInGame.Jump.canceled += _ => Jump_canceled();
+
+            _jumpTimeCounter = jumpTime;
+            JumpExtraCountDefault = JumpExtraCounts;
 
             HUDEvents.JumpCheckIsActive(JumpExtraCounts > 0);
         }
@@ -82,7 +85,6 @@ namespace BOYAREngine
             if (_isGrounded == false && JumpExtraCounts > 0)
             {
                 IsDoubleJumping = true;
-                //PlayerEvents.DoubleJump();
                 JumpAction();
             }
         }
@@ -119,7 +121,6 @@ namespace BOYAREngine
                 JumpExtraCounts = JumpExtraCountDefault;
                 IsDoubleJumping = false;
                 _isGrounded = true;
-                //PlayerEvents.DoubleJumpReady();
             }
             else
             {
@@ -134,7 +135,14 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
+            
             HUDEvents.JumpCheckIsActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            _player.Input.PlayerInGame.Jump.started -= _ => Jump_started();
+            _player.Input.PlayerInGame.Jump.canceled -= _ => Jump_canceled();
         }
     }
 }

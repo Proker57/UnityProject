@@ -16,9 +16,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 7ee69249f1c981844828dd6e4d18db94
   m_Entries:
   - m_Id: 6759706624
-    m_Key: 'resume
-
-'
+    m_Key: resume
     m_Metadata:
       m_Items: []
   - m_Id: 66746642432

@@ -5,17 +5,12 @@ namespace BOYAREngine
     public class SaveAndLoadInputs : MonoBehaviour
     {
         private SaveLoad _saveLoad;
+        private PlayerInput _inputs;
 
         private void Awake()
         {
-
             _saveLoad = GetComponent<SaveLoad>();
-        }
-
-        private void Start()
-        {
-            Inputs.Input.Global.Save.started += _ => Save_started();
-            Inputs.Input.Global.Load.started += _ => Load_started();
+            _inputs = new PlayerInput();
         }
 
         private void Save_started()
@@ -28,6 +23,19 @@ namespace BOYAREngine
             _saveLoad.Load();
         }
 
+        private void OnEnable()
+        {
+            _inputs.Enable();
+            _inputs.Global.Save.started += _ => Save_started();
+            _inputs.Global.Load.started += _ => Load_started();
+        }
+
+        private void OnDisable()
+        {
+            _inputs.Disable();
+            _inputs.Global.Save.started -= _ => Save_started();
+            _inputs.Global.Load.started -= _ => Load_started();
+        }
     }
 }
 

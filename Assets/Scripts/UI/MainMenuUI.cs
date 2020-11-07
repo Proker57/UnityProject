@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization;
-using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace BOYAREngine
@@ -41,7 +42,7 @@ namespace BOYAREngine
 
             _newGameButton.RegisterCallback<ClickEvent>(ev => NewGame());
             _loadButton.RegisterCallback<ClickEvent>(ev => Load());
-            _optionsButton.RegisterCallback<ClickEvent>(ev => ToggleOptionsBlock());
+            _optionsButton.RegisterCallback<ClickEvent>(ev => FlexOptionsBlock());
             _exitButton.RegisterCallback<ClickEvent>(ev => ExitApplication());
             _ruButton.RegisterCallback<ClickEvent>(ev => ChangeRuLocale());
             _enButton.RegisterCallback<ClickEvent>(ev => ChangeEnLocale());
@@ -59,19 +60,11 @@ namespace BOYAREngine
             _gameController.GetComponent<SaveLoad>().Load();
             _gameController.IsNewGame = false;
             SceneLoader.SwitchScene(_gameController.SceneName);
-            //gameController.GetComponent<SaveLoad>().Load();
         }
 
-        private void ToggleOptionsBlock()
+        private void FlexOptionsBlock()
         {
-            if (_optionsBlock.style.display == DisplayStyle.None)
-            {
-                _optionsBlock.style.display = DisplayStyle.Flex;
-            }
-            else
-            {
-                _optionsBlock.style.display = DisplayStyle.None;
-            }
+            _optionsBlock.style.display = DisplayStyle.Flex;
         }
 
         private void ChangeRuLocale()

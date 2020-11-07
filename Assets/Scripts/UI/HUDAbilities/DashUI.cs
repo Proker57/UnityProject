@@ -17,7 +17,6 @@ namespace BOYAREngine
         private Image _image;
         private Player _player;
         
-
         private void Awake()
         {
             _cooldownBar.SetActive(false);
@@ -55,14 +54,21 @@ namespace BOYAREngine
             Events.PlayerOnScene += AssignPlayer;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             Events.PlayerOnScene -= AssignPlayer;
         }
 
         private void AssignPlayer(bool isActive)
         {
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            if (isActive)
+            {
+                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            }
+            else
+            {
+                _player = null;
+            }
         }
 
     }

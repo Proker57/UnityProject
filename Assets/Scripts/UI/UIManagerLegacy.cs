@@ -34,7 +34,7 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_sceneLoader._currentSceneName.Equals("Main") || _sceneLoader._currentSceneName.Equals("MainMenu"))
+            if (_sceneLoader.CurrentSceneName.Equals("Main") || _sceneLoader.CurrentSceneName.Equals("MainMenu"))
             {
                 _canvas.enabled = false;
             }
@@ -50,7 +50,7 @@ namespace BOYAREngine
             HUDEvents.JumpCheckIsActive += CheckJumpIsActive;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             HUDEvents.DashCheckIsActive -= CheckDashIsActive;
             HUDEvents.JumpCheckIsActive -= CheckJumpIsActive;

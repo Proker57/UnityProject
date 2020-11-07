@@ -99,5 +99,10 @@ namespace BOYAREngine
             _player.Animator.SetBool("isCrouch", false);
         }
 
+        private void OnDestroy()
+        {
+            _player.Input.PlayerInGame.Crouch.started -= _ => Crouch_started();
+            _player.Input.PlayerInGame.Crouch.canceled -= _ => Crouch_canceled();
+        }
     }
 }

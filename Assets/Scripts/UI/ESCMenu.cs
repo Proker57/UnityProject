@@ -11,6 +11,8 @@ namespace BOYAREngine
     public class ESCMenu : MonoBehaviour
     {
         [SerializeField] private SaveLoad _saveLoad;
+        [SerializeField] private PlayerInput _inputs;
+        [SerializeField] private SceneLoader _sceneLoader;
 
         private VisualElement _screen;
         private Button _resume;
@@ -18,10 +20,12 @@ namespace BOYAREngine
         private Button _load;
         private Button _mainMenu;
 
-        private const string StringTableCollectionName = "ESCMenu";
+        private string StringTableCollectionName = "ESCMenu";
 
         private void Awake()
         {
+            _inputs = new PlayerInput();
+
             var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
             _screen = rootVisualElement.Q<VisualElement>("screen-block");
@@ -36,27 +40,23 @@ namespace BOYAREngine
             _mainMenu.RegisterCallback<ClickEvent>(ev => MainMenu());
         }
 
-        private void Start()
-        {
-            Inputs.Input.Global.Escape.started += _ => Escape_started();
-            Inputs.Input.Global.Escape.started += _ => Escape_canceled();
-        }
-
         private void Escape_started()
         {
-            if (_screen.style.display == DisplayStyle.Flex)
+            if (_sceneLoader.CurrentSceneName.Equals("Main") || _sceneLoader.CurrentSceneName.Equals("MainMenu"))
             {
-                _screen.style.display = DisplayStyle.None;
+                
             }
             else
             {
-                _screen.style.display = DisplayStyle.Flex;
+                if (_screen.style.display == DisplayStyle.Flex)
+                {
+                    _screen.style.display = DisplayStyle.None;
+                }
+                else
+                {
+                    _screen.style.display = DisplayStyle.Flex;
+                }
             }
-        }
-
-        private void Escape_canceled()
-        {
-
         }
 
         private void Resume()
@@ -84,13 +84,17 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
+            _inputs.Enable();
             StartCoroutine(LoadStrings());
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
+            _inputs.Global.Escape.started += _ => Escape_started();
         }
 
         private void OnDisable()
         {
+            _inputs.Disable();
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
+            _inputs.Global.Escape.started -= _ => Escape_started();
         }
 
         private void OnSelectedLocaleChanged(Locale obj)

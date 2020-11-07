@@ -13,7 +13,10 @@ EditorBuildSettings:
     guid: c0578726adaa8ff4e9313763455b53c1
   - enabled: 1
     path: Assets/Scenes/TestLevel001.unity
-    guid: 301464dd01337f84488d6e2058a77847
+    guid: e5e0f6b2868207344899cf5f64c465ed
+  - enabled: 1
+    path: Assets/Scenes/TestLevel002.unity
+    guid: ca0666bc88b60f34b8ccec50ff780582
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: d8159ed67fc233144b4dae4bbeac2e80, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: fa77a09d06bbf5a4fa224535beb8e11d, type: 2}

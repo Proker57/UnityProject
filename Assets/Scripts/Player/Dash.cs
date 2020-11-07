@@ -33,7 +33,6 @@ namespace BOYAREngine
         private void Dash_started()
         {
             if (IsDashable != true) return;
-            //PlayerEvents.Dash(DashTimerCounter);
 
             _player.Movement.IsMaxSpeedLimiterOn = false;
 
@@ -41,7 +40,7 @@ namespace BOYAREngine
             IsSpeedLimited = false;
 
             // TODO delete -1 (-1 now is a right side)
-            var spriteScaleX = _player.transform.GetChild(0).transform.localScale.x * -1;
+            var spriteScaleX = transform.GetChild(0).transform.localScale.x * -1;
             _dashVector = new Vector2(spriteScaleX * _xVectorMultiply, _yVector);
             _player.Rigidbody2D.AddForce(_dashVector, ForceMode2D.Impulse);
         }
@@ -61,7 +60,6 @@ namespace BOYAREngine
             }
             else
             {
-                //PlayerEvents.DashReady();
                 DashTimerCounter = _dashTimer;
                 IsDashable = true;
             }
@@ -84,14 +82,14 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            HUDEvents.DashCheckIsActive(true);
             _player.Input.PlayerInGame.Dash.started += _ => Dash_started();
+            HUDEvents.DashCheckIsActive(true);
         }
 
         private void OnDisable()
         {
-            HUDEvents.DashCheckIsActive(false);
             _player.Input.PlayerInGame.Dash.started -= _ => Dash_started();
+            HUDEvents.DashCheckIsActive(false);
         }
     }
 }
