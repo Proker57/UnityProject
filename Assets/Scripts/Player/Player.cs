@@ -15,12 +15,8 @@ namespace BOYAREngine
         public Movement Movement;
         public Stats Stats;
 
-        private GameController _gameController;
-
         private void Awake()
         {
-            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-            //Input = _gameController.GetComponent<Inputs>().Input;
             Input = new PlayerInput();
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Jump = GetComponent<Jump>();

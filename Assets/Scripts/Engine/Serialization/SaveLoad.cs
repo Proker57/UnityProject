@@ -7,7 +7,7 @@ namespace BOYAREngine
 {
     public class SaveLoad : MonoBehaviour
     {
-        private string SavePath => $"{Application.persistentDataPath}/save.sosi2";
+        private string SavePath => $"{Application.persistentDataPath}/save.sosi";
 
         [ContextMenu("Save")]
         public void Save()

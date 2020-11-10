@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BOYAREngine
@@ -20,6 +18,7 @@ namespace BOYAREngine
 
 
         private Player _player;
+        private PlayerInput _playerInput;
         private Vector2 _dashVector;
 
         private void Awake()
@@ -28,6 +27,7 @@ namespace BOYAREngine
             SpeedLimiterTimerCounter = _speedLimiterTimer;
 
             _player = GetComponent<Player>();
+            _playerInput = new PlayerInput();
         }
 
         private void Dash_started()
@@ -82,13 +82,15 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _player.Input.PlayerInGame.Dash.started += _ => Dash_started();
+            _playerInput.Enable();
+            _playerInput.PlayerInGame.Dash.started += _ => Dash_started();
             HUDEvents.DashCheckIsActive(true);
         }
 
         private void OnDisable()
         {
-            _player.Input.PlayerInGame.Dash.started -= _ => Dash_started();
+            _playerInput.PlayerInGame.Dash.started -= _ => Dash_started();
+            _playerInput.Disable();
             HUDEvents.DashCheckIsActive(false);
         }
     }

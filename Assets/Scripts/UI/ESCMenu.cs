@@ -79,7 +79,17 @@ namespace BOYAREngine
         private void MainMenu()
         {
             _screen.style.display = DisplayStyle.None;
+            DestroyPlayer();
             SceneLoader.SwitchScene("MainMenu");
+        }
+
+        private void DestroyPlayer()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                Destroy(player);
+            }
         }
 
         private void OnEnable()

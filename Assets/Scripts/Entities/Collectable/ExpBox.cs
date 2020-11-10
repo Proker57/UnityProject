@@ -6,6 +6,7 @@ namespace BOYAREngine
     public class ExpBox : MonoBehaviour, ISaveable
     {
         public bool IsActive;
+        [SerializeField] private int _expCount;
 
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody2D;
@@ -24,7 +25,7 @@ namespace BOYAREngine
         {
             if (collision.collider.name != "Low Collider") return;
 
-            collision.gameObject.GetComponent<Stats>().GetExp(10);
+            collision.gameObject.GetComponent<Stats>().GetExp(_expCount);
 
             IsActive = false;
 

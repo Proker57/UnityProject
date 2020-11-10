@@ -27,7 +27,7 @@ namespace BOYAREngine
 
         private void Awake()
         {
-            _gameController = GetComponent<GameController>();
+            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
             var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
@@ -46,17 +46,21 @@ namespace BOYAREngine
             _exitButton.RegisterCallback<ClickEvent>(ev => ExitApplication());
             _ruButton.RegisterCallback<ClickEvent>(ev => ChangeRuLocale());
             _enButton.RegisterCallback<ClickEvent>(ev => ChangeEnLocale());
+
+            if (PlayerPrefs.HasKey("Locale"))
+            {
+                LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(PlayerPrefs.GetString("Locale"));
+            }
         }
 
         private void NewGame()
         {
             SceneLoader.SwitchScene("TestLevel001");
+            _gameController.IsNewGame = true;
         }
 
         private void Load()
         {
-            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-
             _gameController.GetComponent<SaveLoad>().Load();
             _gameController.IsNewGame = false;
             SceneLoader.SwitchScene(_gameController.SceneName);
@@ -69,11 +73,13 @@ namespace BOYAREngine
 
         private void ChangeRuLocale()
         {
+            PlayerPrefs.SetString("Locale", "ru");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("ru");
         }
 
         private void ChangeEnLocale()
         {
+            PlayerPrefs.SetString("Locale", "en");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
         }
 
