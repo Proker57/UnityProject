@@ -1,0 +1,3 @@
+#unity-checkmark .unity-toggle__checkmark > .box-size {
+    height: 286px;
+}

@@ -35,6 +35,8 @@ namespace BOYAREngine
                 }
             }
 
+            GameController.HasPlayer = true;
+            GameController.SetCameraFollowPlayer();
             _player.transform.position = transform.position;
         }
     }

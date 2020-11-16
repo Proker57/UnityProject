@@ -31,6 +31,18 @@ MonoBehaviour:
     m_Key: load
     m_Metadata:
       m_Items: []
+  - m_Id: 5769104194072576
+    m_Key: language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5769239217106944
+    m_Key: fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5769416069935104
+    m_Key: resolution
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

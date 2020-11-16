@@ -17,12 +17,22 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 84993ff0e1d257e498ff8bf0d0fba643
   m_SerializeEntries:
-  - m_GUID: 37d7c0b0b15b5b941be67c68a3a1b637
-    m_Address: Scripts/Engine/PlayerInput.inputactionsactions
+  - m_GUID: 062fff4507f7aa34c89a5dbc8cca9410
+    m_Address: Assets/Localization/Locales/English (en).asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Locale-en
+    - Locale
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 9cd9692599eab254785689ae42b3edb9
+    m_Address: Assets/Localization/Locales/Russian (ru).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Locale-ru
+    - Locale
+    m_MainAsset: {fileID: 11400000, guid: 9cd9692599eab254785689ae42b3edb9, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 9cd9692599eab254785689ae42b3edb9, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8100d6abc18a5a143aba345c26dccb60, type: 2}
   m_SchemaSet:

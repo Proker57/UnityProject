@@ -51,6 +51,14 @@ namespace BOYAREngine
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f3f73d72-d559-4ca5-8309-bce48831e555"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -117,6 +125,17 @@ namespace BOYAREngine
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb159b31-09c5-480d-8d9d-8844f571effc"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -196,6 +215,7 @@ namespace BOYAREngine
             m_PlayerInGame_Jump = m_PlayerInGame.FindAction("Jump", throwIfNotFound: true);
             m_PlayerInGame_Crouch = m_PlayerInGame.FindAction("Crouch", throwIfNotFound: true);
             m_PlayerInGame_Dash = m_PlayerInGame.FindAction("Dash", throwIfNotFound: true);
+            m_PlayerInGame_Attack = m_PlayerInGame.FindAction("Attack", throwIfNotFound: true);
             // Global
             m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
             m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
@@ -254,6 +274,7 @@ namespace BOYAREngine
         private readonly InputAction m_PlayerInGame_Jump;
         private readonly InputAction m_PlayerInGame_Crouch;
         private readonly InputAction m_PlayerInGame_Dash;
+        private readonly InputAction m_PlayerInGame_Attack;
         public struct PlayerInGameActions
         {
             private @PlayerInput m_Wrapper;
@@ -262,6 +283,7 @@ namespace BOYAREngine
             public InputAction @Jump => m_Wrapper.m_PlayerInGame_Jump;
             public InputAction @Crouch => m_Wrapper.m_PlayerInGame_Crouch;
             public InputAction @Dash => m_Wrapper.m_PlayerInGame_Dash;
+            public InputAction @Attack => m_Wrapper.m_PlayerInGame_Attack;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -283,6 +305,9 @@ namespace BOYAREngine
                     @Dash.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
                     @Dash.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
                     @Dash.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
+                    @Attack.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
+                    @Attack.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
+                    @Attack.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
                 }
                 m_Wrapper.m_PlayerInGameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -299,6 +324,9 @@ namespace BOYAREngine
                     @Dash.started += instance.OnDash;
                     @Dash.performed += instance.OnDash;
                     @Dash.canceled += instance.OnDash;
+                    @Attack.started += instance.OnAttack;
+                    @Attack.performed += instance.OnAttack;
+                    @Attack.canceled += instance.OnAttack;
                 }
             }
         }
@@ -358,6 +386,7 @@ namespace BOYAREngine
             void OnJump(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
         }
         public interface IGlobalActions
         {

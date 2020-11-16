@@ -14,7 +14,10 @@ namespace BOYAREngine
     {
         private string _stringTableCollectionName = "Main Menu";
 
+        [SerializeField] private string _newGameSceneName = "TestLevel000";
+
         private GameController _gameController;
+        private UIDocument _uiDocument;
 
         private Button _newGameButton;
         private Button _loadButton;
@@ -22,12 +25,19 @@ namespace BOYAREngine
         private Button _exitButton;
 
         private VisualElement _optionsBlock;
+        private Label _languageLabel;
         private Button _ruButton;
         private Button _enButton;
+        private Toggle _toggleFullscreen;
+        private Label _resolutionLabel;
+        private Button _lhdButton;
+        private Button _hdButton;
+        private Button _fhdButton;
 
         private void Awake()
         {
             _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+            _uiDocument = GetComponent<UIDocument>();
 
             var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
@@ -37,8 +47,14 @@ namespace BOYAREngine
             _exitButton = rootVisualElement.Q<Button>("exit-button");
 
             _optionsBlock = rootVisualElement.Q<VisualElement>("options-block");
+            _languageLabel = rootVisualElement.Q<Label>("language-label");
             _ruButton = rootVisualElement.Q<Button>("ru-button");
             _enButton = rootVisualElement.Q<Button>("en-button");
+            _toggleFullscreen = rootVisualElement.Q<Toggle>("fullscreen-toggle");
+            _resolutionLabel = rootVisualElement.Q<Label>("resolution-label");
+            _lhdButton = rootVisualElement.Q<Button>("lhd-button");
+            _hdButton = rootVisualElement.Q<Button>("hd-button");
+            _fhdButton = rootVisualElement.Q<Button>("fhd-button");
 
             _newGameButton.RegisterCallback<ClickEvent>(ev => NewGame());
             _loadButton.RegisterCallback<ClickEvent>(ev => Load());
@@ -46,6 +62,10 @@ namespace BOYAREngine
             _exitButton.RegisterCallback<ClickEvent>(ev => ExitApplication());
             _ruButton.RegisterCallback<ClickEvent>(ev => ChangeRuLocale());
             _enButton.RegisterCallback<ClickEvent>(ev => ChangeEnLocale());
+            _toggleFullscreen.RegisterCallback<ClickEvent>(ev => FullscreenToggle());
+            _lhdButton.RegisterCallback<ClickEvent>(ev => LowHDResolutionButton());
+            _hdButton.RegisterCallback<ClickEvent>(ev => HDResolutionButton());
+            _fhdButton.RegisterCallback<ClickEvent>(ev => FullHDResolutionButton());
 
             if (PlayerPrefs.HasKey("Locale"))
             {
@@ -55,8 +75,9 @@ namespace BOYAREngine
 
         private void NewGame()
         {
-            SceneLoader.SwitchScene("TestLevel001");
+            SceneLoader.SwitchScene(_newGameSceneName);
             _gameController.IsNewGame = true;
+            _uiDocument.enabled = false;
         }
 
         private void Load()
@@ -83,10 +104,39 @@ namespace BOYAREngine
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
         }
 
+        private void FullscreenToggle()
+        {
+            if (_toggleFullscreen.value)
+            {
+                Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+            }
+            else
+            {
+                Screen.SetResolution(640, 480, false);
+            }
+        }
+
+        private void LowHDResolutionButton()
+        {
+            Screen.SetResolution(848, 480, _toggleFullscreen.value);
+        }
+
+        private void HDResolutionButton()
+        {
+            Screen.SetResolution(1280, 720, _toggleFullscreen.value);
+        }
+
+        private void FullHDResolutionButton()
+        {
+            Screen.SetResolution(1980, 1080, _toggleFullscreen.value);
+        }
+
         private void ExitApplication()
         {
             Application.Quit(0);
         }
+
+        // ***************************************************************************************************
 
         private void OnEnable()
         {
@@ -116,6 +166,9 @@ namespace BOYAREngine
                 _loadButton.text = GetLocalizedString(stringTable, "load");
                 _optionsButton.text = GetLocalizedString(stringTable, "options");
                 _exitButton.text = GetLocalizedString(stringTable, "exit");
+                _languageLabel.text = GetLocalizedString(stringTable, "language");
+                _toggleFullscreen.label = GetLocalizedString(stringTable, "fullscreen");
+                _resolutionLabel.text = GetLocalizedString(stringTable, "resolution");
             }
             else
             {

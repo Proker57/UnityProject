@@ -5,10 +5,14 @@ namespace BOYAREngine
 {
     public class CinemachineFindPlayer : MonoBehaviour
     {
-        private void Start()
+        private void Awake()
         {
-            var camera = GetComponent<CinemachineVirtualCamera>();
-            camera.Follow = GameObject.FindGameObjectWithTag("Player").transform;
+            GameController.HasCamera = true;
+        }
+
+        private void OnDestroy()
+        {
+            GameController.HasCamera = false;
         }
     }
 }

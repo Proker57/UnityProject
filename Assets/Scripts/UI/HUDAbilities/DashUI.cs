@@ -1,4 +1,3 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +7,7 @@ namespace BOYAREngine
     public class DashUI : MonoBehaviour
     {
         private float _dashTimer;
+        private string _lol;
         private float _dashTimerCounter;
 
         [SerializeField] private GameObject _cooldownBar;

@@ -111,8 +111,8 @@ namespace BOYAREngine
             var direction = new Vector2(0, -_distance);
 
             // TODO delete debug ray of jump
-            Debug.DrawRay(leftOrigin, direction, Color.green, 0.8f);
-            Debug.DrawRay(rightOrigin, direction, Color.yellow, 0.8f);
+            //Debug.DrawRay(leftOrigin, direction, Color.green, 0.8f);
+            //Debug.DrawRay(rightOrigin, direction, Color.yellow, 0.8f);
 
             var leftHit = Physics2D.Raycast(leftOrigin, direction, _distance, _ground);
             var rightHit = Physics2D.Raycast(rightOrigin, direction, _distance, _ground);

@@ -15,13 +15,13 @@ MonoBehaviour:
   m_GroupName: Localization-StringTables
   m_Data:
     m_SerializedData: []
-  m_GUID: 009f6cadb8b4f0641997ec7ab4ce7c54
+  m_GUID: 3f875f5ac94c5364a982bc7c2df6afe2
   m_SerializeEntries:
-  - m_GUID: 0eb9eb5d9a1e2374ea63350942690ad3
-    m_Address: Main Menu_en
+  - m_GUID: bc71dfea1198bfe43b0e8e86649235f7
+    m_Address: ESCMenu_ru
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale-en
+    - Locale-ru
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 1f3af8de8e990a74cb7b5afc52957fd0
@@ -31,18 +31,18 @@ MonoBehaviour:
     - Locale-ru
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: c276d600999d414488738589b095443f
-    m_Address: ESCMenu_en
+  - m_GUID: 0eb9eb5d9a1e2374ea63350942690ad3
+    m_Address: Main Menu_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: bc71dfea1198bfe43b0e8e86649235f7
-    m_Address: ESCMenu_ru
+  - m_GUID: c276d600999d414488738589b095443f
+    m_Address: ESCMenu_en
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale-ru
+    - Locale-en
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1

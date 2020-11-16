@@ -34,5 +34,17 @@ MonoBehaviour:
     m_Localized: Load
     m_Metadata:
       m_Items: []
+  - m_Id: 5769104194072576
+    m_Localized: 'Language:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5769239217106944
+    m_Localized: Fullscreen?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5769416069935104
+    m_Localized: 'Resolution:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

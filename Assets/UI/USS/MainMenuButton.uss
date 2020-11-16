@@ -1,0 +1,15 @@
+.unity-toggle__checkmark {
+    width: 40px;
+    height: 40px;
+    padding-left: 0;
+    margin-left: 50px;
+}
+
+.unity-button {
+    color: rgba(196, 196, 196, 255);
+    background-color: rgba(88, 88, 88, 255);
+}
+
+.unity-label {
+    color: rgba(196, 196, 196, 255);
+}
