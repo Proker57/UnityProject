@@ -6,14 +6,8 @@ namespace BOYAREngine
     {
         [SerializeField] private GameObject _prefab;
         private GameObject _player;
-        private GameController _gameController;
 
         private void Awake()
-        {
-            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        }
-
-        private void Start()
         {
             if (_player == null)
             {
@@ -23,21 +17,31 @@ namespace BOYAREngine
                 }
                 else
                 {
+                    Destroy(GameObject.FindGameObjectWithTag("Player"));
                     _player = Instantiate(_prefab, transform.position, Quaternion.identity);
                 }
+
+                _player.transform.position = transform.position;
             }
             else
             {
-                if (_gameController.IsNewGame)
+                //Destroy(_player);
+
+                if (GameController.IsNewGame)
                 {
                     Destroy(_player);
                     _player = Instantiate(_prefab, transform.position, Quaternion.identity);
+                    _player.transform.position = transform.position;
+                }
+                else
+                {
+                    _player = GameObject.FindGameObjectWithTag("Player");
                 }
             }
 
             GameController.HasPlayer = true;
             GameController.SetCameraFollowPlayer();
-            _player.transform.position = transform.position;
+            //_player.transform.position = transform.position;
         }
     }
 }

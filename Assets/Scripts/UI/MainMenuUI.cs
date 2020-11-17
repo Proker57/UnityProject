@@ -76,14 +76,14 @@ namespace BOYAREngine
         private void NewGame()
         {
             SceneLoader.SwitchScene(_newGameSceneName);
-            _gameController.IsNewGame = true;
+            GameController.IsNewGame = true;
             _uiDocument.enabled = false;
         }
 
         private void Load()
         {
             _gameController.GetComponent<SaveLoad>().Load();
-            _gameController.IsNewGame = false;
+            GameController.IsNewGame = false;
             SceneLoader.SwitchScene(_gameController.SceneName);
         }
 

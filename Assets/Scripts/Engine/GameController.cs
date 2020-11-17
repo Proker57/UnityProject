@@ -11,14 +11,7 @@ namespace BOYAREngine
 
         public string SceneName;
 
-        public bool IsNewGame = true;
-
-        private SaveLoad _saveLoad;
-
-        private void Awake()
-        {
-            _saveLoad = GetComponent<SaveLoad>();
-        }
+        public static bool IsNewGame = true;
 
         public object CaptureState()
         {
@@ -44,7 +37,6 @@ namespace BOYAREngine
                 .GetComponent<CinemachineVirtualCamera>();
             var player = GameObject.FindGameObjectWithTag("Player").transform;
             cinemachineCamera.Follow = player;
-            Debug.Log(cinemachineCamera + " ; " + player);
         }
     }
 

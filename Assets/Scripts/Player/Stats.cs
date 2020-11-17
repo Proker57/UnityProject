@@ -15,10 +15,12 @@ namespace BOYAREngine
         public int Level = 1;
 
         private Player _player;
+        private PlayerSpawner _playerSpawner;
 
         private void Awake()
         {
             _player = GetComponent<Player>();
+            _playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").GetComponent<PlayerSpawner>();
         }
 
         public void GetExp(int expValue)

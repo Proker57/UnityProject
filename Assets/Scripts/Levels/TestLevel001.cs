@@ -13,7 +13,7 @@ namespace BOYAREngine
 
         private void Start()
         {
-            if (_gameController.IsNewGame == false)
+            if (GameController.IsNewGame == false)
             {
                 var saveLoad = _gameController.GetComponent<SaveLoad>();
                 saveLoad.Load();
