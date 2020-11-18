@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace BOYAREngine
 {
@@ -6,22 +7,34 @@ namespace BOYAREngine
     {
 #pragma warning disable 649
 
-        [SerializeField] private LayerMask _layerMask;
+        [SerializeField] private LayerMask _damageableLayer;
         [SerializeField] private float _speed;
+        [SerializeField] private int _liveTime;
 
 #pragma warning restore 649
 
-        private void Update()
+        private void Start()
         {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerProjectile"));
 
+            StartCoroutine(LiveTime(_liveTime));
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private IEnumerator LiveTime(int liveTime)
         {
-            if (collision.collider.IsTouchingLayers(_layerMask))
+            while (liveTime > 0)
             {
-                
-                Debug.Log(collision.collider.GetComponent<Damageable>());
+                yield return new WaitForSeconds(1);
+                liveTime--;
+            }
+            Destroy(gameObject);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (((1 << collider.gameObject.layer) & _damageableLayer) != 0)
+            {
+                collider.GetComponent<Damageable>().GetDamage(Bow.Damage);
                 Destroy(gameObject);
             }
         }

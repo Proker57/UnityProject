@@ -1,8 +1,10 @@
-﻿namespace BOYAREngine
+﻿using UnityEngine;
+
+namespace BOYAREngine
 {
-    public class Sword : ISaveable
+    public class Sword : MonoBehaviour, ISaveable
     {
-        public int Damage = 10;
+        public static int Damage = 10;
 
         public object CaptureState()
         {

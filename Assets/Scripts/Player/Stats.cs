@@ -31,7 +31,7 @@ namespace BOYAREngine
 
             if (Exp >= MaxExp)
             {
-                LevelUp();
+                PlayerEvents.LevelUp();
             }
         }
 
@@ -47,11 +47,13 @@ namespace BOYAREngine
         private void OnEnable()
         {
             PlayerEvents.GiveExp += GetExp;
+            PlayerEvents.LevelUp += LevelUp;
         }
 
         private void OnDisable()
         {
             PlayerEvents.GiveExp -= GetExp;
+            PlayerEvents.LevelUp -= LevelUp;
         }
 
         public object CaptureState()

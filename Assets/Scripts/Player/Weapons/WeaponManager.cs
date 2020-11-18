@@ -2,13 +2,10 @@
 
 namespace BOYAREngine
 {
-    public class WeaponManager : MonoBehaviour
+    public class WeaponManager : MonoBehaviour, ISaveable
     {
         public static int CurrentWeapon { get; set; }
         public int Damage;
-
-        private Sword _sword;
-        private Bow _bow;
 
         private Player _player;
 
@@ -19,9 +16,6 @@ namespace BOYAREngine
 
         private void Start()
         {
-            _sword = new Sword();
-            _bow = new Bow();
-
             SetWeapon((int) WeaponEnum.Weapon.None);
         }
 
@@ -31,14 +25,14 @@ namespace BOYAREngine
 
             switch (CurrentWeapon)
             {
-                case (int)WeaponEnum.Weapon.None:
-                    Damage = 0;
-                    break;
                 case (int) WeaponEnum.Weapon.Sword:
-                    Damage = _sword.Damage;
+                    Damage = Sword.Damage;
                     break;
                 case (int)WeaponEnum.Weapon.Bow:
                     Damage = Bow.Damage;
+                    break;
+                default:
+                    Damage = 0;
                     break;
             }
         }
@@ -64,5 +58,28 @@ namespace BOYAREngine
             _player.Input.PlayerInGame.SwordPick.started -= _ => SwordPick_started();
             _player.Input.PlayerInGame.BowPick.started -= _ => BowPick_started();
         }
+
+        public object CaptureState()
+        {
+            return new WeaponManagerData()
+            {
+                CurrentWeapon = CurrentWeapon,
+                Damage = Damage
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var weaponManagerData = (WeaponManagerData) state;
+            CurrentWeapon = weaponManagerData.CurrentWeapon;
+            Damage = weaponManagerData.Damage;
+        }
+    }
+
+    [System.Serializable]
+    public class WeaponManagerData
+    {
+        public int CurrentWeapon;
+        public int Damage;
     }
 }

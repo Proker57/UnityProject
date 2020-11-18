@@ -1,14 +1,18 @@
-﻿namespace BOYAREngine
+﻿using UnityEngine;
+
+namespace BOYAREngine
 {
-    public class Bow : ISaveable
+    public class Bow : MonoBehaviour, ISaveable
     {
         public static int Damage = 4;
+        public static int Amount = 10;
 
         public object CaptureState()
         {
             return new BowData
             {
-                Damage = Damage
+                Damage = Damage,
+                Amount = Amount
             };
         }
 
@@ -17,6 +21,7 @@
             var bowData = (BowData)state;
 
             Damage = bowData.Damage;
+            Amount = bowData.Amount;
         }
     }
 
@@ -24,5 +29,6 @@
     public class BowData
     {
         public int Damage;
+        public int Amount;
     }
 }

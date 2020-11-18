@@ -10,6 +10,7 @@ namespace BOYAREngine
         private Image _image;
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _inactiveSprite;
+        [SerializeField] private Text _amountText;
 
 #pragma warning restore 649
 
@@ -28,6 +29,8 @@ namespace BOYAREngine
             {
                 _image.sprite = _inactiveSprite;
             }
+
+            _amountText.text = Bow.Amount.ToString();
         }
     }
 }

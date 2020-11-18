@@ -1,35 +1,26 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
     public class UIManagerLegacy : MonoBehaviour
     {
-        private static UIManagerLegacy _uiManager = null;
-
-        private bool isDashActive;
-
         public GameObject GameController;
-
+        public GameObject LevelUpGroup;
+        [Space]
         private SceneLoader _sceneLoader;
-        [SerializeField] private GameObject _hud;
         private Canvas _canvas;
         [SerializeField] private GameObject _dashUI;
         [SerializeField] private GameObject _DoubleJumpUI;
+        [SerializeField] private UIInput _uInputActionAsset;
 
         private void Awake()
         {
-            if (_uiManager == null)
-            {
-                _uiManager = this;
-            }
-            else if (_uiManager == this)
-            {
-                Destroy(gameObject);
-            }
-
             _sceneLoader = GameController.GetComponent<SceneLoader>();
 
             _canvas = transform.GetChild(0).GetComponent<Canvas>();
+
+            _uInputActionAsset = new UIInput();
         }
 
         private void Update()
@@ -44,16 +35,28 @@ namespace BOYAREngine
             }
         }
 
+        private void LevelUp()
+        {
+            LevelUpGroup.SetActive(true);
+            Debug.Log("Level UP");
+        }
+
         private void OnEnable()
         {
             HUDEvents.DashCheckIsActive += CheckDashIsActive;
             HUDEvents.JumpCheckIsActive += CheckJumpIsActive;
+            _uInputActionAsset.Enable();
+
+            PlayerEvents.LevelUp += LevelUp;
         }
 
         private void OnDestroy()
         {
             HUDEvents.DashCheckIsActive -= CheckDashIsActive;
             HUDEvents.JumpCheckIsActive -= CheckJumpIsActive;
+            _uInputActionAsset.Disable();
+
+            PlayerEvents.LevelUp -= LevelUp;
         }
 
         private void CheckDashIsActive(bool dashIsActive)
