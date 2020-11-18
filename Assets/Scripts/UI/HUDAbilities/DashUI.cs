@@ -6,8 +6,8 @@ namespace BOYAREngine
     [RequireComponent(typeof(Image))]
     public class DashUI : MonoBehaviour
     {
+#pragma warning disable 649
         private float _dashTimer;
-        private string _lol;
         private float _dashTimerCounter;
 
         [SerializeField] private GameObject _cooldownBar;
@@ -16,7 +16,8 @@ namespace BOYAREngine
         [SerializeField] private Sprite _cooldownSprite;
         private Image _image;
         private Player _player;
-        
+#pragma warning restore 649
+
         private void Awake()
         {
             _cooldownBar.SetActive(false);

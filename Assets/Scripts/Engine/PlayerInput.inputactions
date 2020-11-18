@@ -44,6 +44,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "SwordPick",
+                    "type": "Button",
+                    "id": "902c35d1-3f67-4abc-b87b-fb6b5f5dbc2d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "BowPick",
+                    "type": "Button",
+                    "id": "f5641a42-7f9d-425c-bf24-5d80aa2bb575",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -121,6 +137,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4df365c1-70e6-4f27-8076-a05138ef6901",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwordPick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c007fd8-cdc4-4ec2-9b77-ac5b6824f4d4",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BowPick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,14 +1,12 @@
-﻿using UnityEngine;
-
-namespace BOYAREngine
+﻿namespace BOYAREngine
 {
-    public class Sword : ISaveable
+    public class Bow : ISaveable
     {
-        public int Damage = 10;
+        public static int Damage = 4;
 
         public object CaptureState()
         {
-            return new SwordData
+            return new BowData
             {
                 Damage = Damage
             };
@@ -16,14 +14,14 @@ namespace BOYAREngine
 
         public void RestoreState(object state)
         {
-            var swordData = (SwordData) state;
+            var bowData = (BowData)state;
 
-            Damage = swordData.Damage;
+            Damage = bowData.Damage;
         }
     }
 
     [System.Serializable]
-    public class SwordData
+    public class BowData
     {
         public int Damage;
     }

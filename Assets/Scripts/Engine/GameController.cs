@@ -33,7 +33,7 @@ namespace BOYAREngine
 
         public static void SetCameraFollowPlayer()
         {
-            var cinemachineCamera = GameObject.FindGameObjectWithTag("MainCamera")
+            var cinemachineCamera = GameObject.FindGameObjectWithTag("MainCamera").transform.GetChild(0)
                 .GetComponent<CinemachineVirtualCamera>();
             var player = GameObject.FindGameObjectWithTag("Player").transform;
             cinemachineCamera.Follow = player;

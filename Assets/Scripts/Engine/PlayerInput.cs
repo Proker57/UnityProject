@@ -59,6 +59,22 @@ namespace BOYAREngine
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""SwordPick"",
+                    ""type"": ""Button"",
+                    ""id"": ""902c35d1-3f67-4abc-b87b-fb6b5f5dbc2d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""BowPick"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5641a42-7f9d-425c-bf24-5d80aa2bb575"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -136,6 +152,28 @@ namespace BOYAREngine
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4df365c1-70e6-4f27-8076-a05138ef6901"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwordPick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c007fd8-cdc4-4ec2-9b77-ac5b6824f4d4"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BowPick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -216,6 +254,8 @@ namespace BOYAREngine
             m_PlayerInGame_Crouch = m_PlayerInGame.FindAction("Crouch", throwIfNotFound: true);
             m_PlayerInGame_Dash = m_PlayerInGame.FindAction("Dash", throwIfNotFound: true);
             m_PlayerInGame_Attack = m_PlayerInGame.FindAction("Attack", throwIfNotFound: true);
+            m_PlayerInGame_SwordPick = m_PlayerInGame.FindAction("SwordPick", throwIfNotFound: true);
+            m_PlayerInGame_BowPick = m_PlayerInGame.FindAction("BowPick", throwIfNotFound: true);
             // Global
             m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
             m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
@@ -275,6 +315,8 @@ namespace BOYAREngine
         private readonly InputAction m_PlayerInGame_Crouch;
         private readonly InputAction m_PlayerInGame_Dash;
         private readonly InputAction m_PlayerInGame_Attack;
+        private readonly InputAction m_PlayerInGame_SwordPick;
+        private readonly InputAction m_PlayerInGame_BowPick;
         public struct PlayerInGameActions
         {
             private @PlayerInput m_Wrapper;
@@ -284,6 +326,8 @@ namespace BOYAREngine
             public InputAction @Crouch => m_Wrapper.m_PlayerInGame_Crouch;
             public InputAction @Dash => m_Wrapper.m_PlayerInGame_Dash;
             public InputAction @Attack => m_Wrapper.m_PlayerInGame_Attack;
+            public InputAction @SwordPick => m_Wrapper.m_PlayerInGame_SwordPick;
+            public InputAction @BowPick => m_Wrapper.m_PlayerInGame_BowPick;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -308,6 +352,12 @@ namespace BOYAREngine
                     @Attack.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
                     @Attack.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
                     @Attack.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
+                    @SwordPick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSwordPick;
+                    @SwordPick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSwordPick;
+                    @SwordPick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSwordPick;
+                    @BowPick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
+                    @BowPick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
+                    @BowPick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
                 }
                 m_Wrapper.m_PlayerInGameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -327,6 +377,12 @@ namespace BOYAREngine
                     @Attack.started += instance.OnAttack;
                     @Attack.performed += instance.OnAttack;
                     @Attack.canceled += instance.OnAttack;
+                    @SwordPick.started += instance.OnSwordPick;
+                    @SwordPick.performed += instance.OnSwordPick;
+                    @SwordPick.canceled += instance.OnSwordPick;
+                    @BowPick.started += instance.OnBowPick;
+                    @BowPick.performed += instance.OnBowPick;
+                    @BowPick.canceled += instance.OnBowPick;
                 }
             }
         }
@@ -387,6 +443,8 @@ namespace BOYAREngine
             void OnCrouch(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
+            void OnSwordPick(InputAction.CallbackContext context);
+            void OnBowPick(InputAction.CallbackContext context);
         }
         public interface IGlobalActions
         {
