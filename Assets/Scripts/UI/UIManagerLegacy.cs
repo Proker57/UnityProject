@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace BOYAREngine
 {
@@ -7,20 +8,19 @@ namespace BOYAREngine
     {
         public GameObject GameController;
         public GameObject LevelUpGroup;
+        public Text LevelUpPoints;
         [Space]
         private SceneLoader _sceneLoader;
         private Canvas _canvas;
         [SerializeField] private GameObject _dashUI;
         [SerializeField] private GameObject _DoubleJumpUI;
-        [SerializeField] private UIInput _uInputActionAsset;
+        private Player _player;
 
         private void Awake()
         {
             _sceneLoader = GameController.GetComponent<SceneLoader>();
 
             _canvas = transform.GetChild(0).GetComponent<Canvas>();
-
-            _uInputActionAsset = new UIInput();
         }
 
         private void Update()
@@ -33,29 +33,41 @@ namespace BOYAREngine
             {
                 _canvas.enabled = true;
             }
+
+            if (_player != null)
+            {
+                if (_player.Stats.LevelUpPoints != 0)
+                {
+                    LevelUpPoints.gameObject.SetActive(true);
+                    LevelUpPoints.text = "LP:" + _player.Stats.LevelUpPoints;
+                }
+                else
+                {
+                    LevelUpPoints.gameObject.SetActive(false);
+                }
+            }
         }
 
         private void LevelUp()
         {
             LevelUpGroup.SetActive(true);
-            Debug.Log("Level UP");
         }
 
         private void OnEnable()
         {
             HUDEvents.DashCheckIsActive += CheckDashIsActive;
             HUDEvents.JumpCheckIsActive += CheckJumpIsActive;
-            _uInputActionAsset.Enable();
 
+            Events.PlayerOnScene += AssignPlayer;
             PlayerEvents.LevelUp += LevelUp;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             HUDEvents.DashCheckIsActive -= CheckDashIsActive;
             HUDEvents.JumpCheckIsActive -= CheckJumpIsActive;
-            _uInputActionAsset.Disable();
 
+            Events.PlayerOnScene -= AssignPlayer;
             PlayerEvents.LevelUp -= LevelUp;
         }
 
@@ -67,6 +79,14 @@ namespace BOYAREngine
         private void CheckJumpIsActive(bool jumpIsActive)
         {
             _DoubleJumpUI.SetActive(jumpIsActive);
+        }
+
+        private void AssignPlayer(bool isActive)
+        {
+            if (_player == null)
+            {
+                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            }
         }
     }
 }

@@ -13,14 +13,13 @@ namespace BOYAREngine
         public int Exp = 0;
         public int MaxExp = 120;
         public int Level = 1;
+        public int LevelUpPoints = 0;
 
         private Player _player;
-        private PlayerSpawner _playerSpawner;
 
         private void Awake()
         {
             _player = GetComponent<Player>();
-            _playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").GetComponent<PlayerSpawner>();
         }
 
         public void GetExp(int expValue)
@@ -38,6 +37,7 @@ namespace BOYAREngine
         private void LevelUp()
         {
             Level++;
+            LevelUpPoints += 1;
             Exp = 0;
 
             MaxExp = (int)(Level * 100 * 1.2f);
@@ -71,6 +71,7 @@ namespace BOYAREngine
                 Exp = Exp,
                 MaxExp = MaxExp,
                 Level = Level,
+                LevelUpPoints = LevelUpPoints,
                 // Dash
                 DashTimerCounter = _player.Dash.DashTimerCounter,
                 SpeedLimiterTimerCounter = _player.Dash.SpeedLimiterTimerCounter,
@@ -105,6 +106,7 @@ namespace BOYAREngine
             Exp = playerData.Exp;
             MaxExp = playerData.MaxExp;
             Level = playerData.Level;
+            LevelUpPoints = playerData.LevelUpPoints;
             // Dash - dash logic
             _player.Dash.DashTimerCounter = playerData.DashTimerCounter;
             _player.Dash.SpeedLimiterTimerCounter = playerData.SpeedLimiterTimerCounter;
@@ -136,6 +138,8 @@ namespace BOYAREngine
         public int Exp;
         public int MaxExp;
         public int Level;
+
+        public int LevelUpPoints;
         // Dash
         public float DashTimerCounter;
         public float SpeedLimiterTimerCounter;
