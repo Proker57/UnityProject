@@ -42,8 +42,8 @@ namespace BOYAREngine
         private void Update()
         {
             if (!_isUpdateable) return;
-            _swordHover.LevelValue.text = Sword.Level + "+1";
-            _swordHover.DamageValue.text = Sword.Damage + "+" + DamageBooster;
+            _swordHover.LevelValue.text = Sword.Level + "<color=#9AEE49>+1</color>";
+            _swordHover.DamageValue.text = Sword.Damage + "<color=#9AEE49>+" + DamageBooster + "</color>";
         }
 
         // Hover event

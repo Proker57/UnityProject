@@ -25,7 +25,6 @@ namespace BOYAREngine
         public void GetExp(int expValue)
         {
             MaxExp = (int)(Level * 100 * 1.2f);
-
             Exp += expValue;
 
             if (Exp >= MaxExp)
@@ -36,11 +35,18 @@ namespace BOYAREngine
 
         private void LevelUp()
         {
-            Level++;
-            LevelUpPoints += 1;
-            Exp = 0;
+            while (Exp >= MaxExp)
+            {
+                MaxExp = (int)(Level * 100 * 1.2f);
+                var balance = Exp - MaxExp;
 
-            MaxExp = (int)(Level * 100 * 1.2f);
+                Level++;
+                LevelUpPoints += 1;
+
+                Exp = 0;
+                Exp += balance;
+            }
+
             MaxHealth = (int)(MaxHealth * 1.2f);
         }
 

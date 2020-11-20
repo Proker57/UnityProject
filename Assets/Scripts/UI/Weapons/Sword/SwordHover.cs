@@ -10,7 +10,7 @@ namespace BOYAREngine
 {
     public class SwordHover : MonoBehaviour
     {
-        private string StringTableCollectionName = "SwordHoverUI";
+        private const string StringTableCollectionName = "SwordHoverUI";
 
         [SerializeField] private GameObject _hoverPanel;
         [SerializeField] private Text _name;

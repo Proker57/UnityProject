@@ -4,6 +4,7 @@ namespace BOYAREngine
 {
     public class Sword : MonoBehaviour, ISaveable
     {
+        public static string Name = "Sword";
         public static int Level = 1;
         public static int Damage = 10;
 
@@ -11,6 +12,7 @@ namespace BOYAREngine
         {
             return new SwordData
             {
+                Name = Name,
                 Level = Level,
                 Damage = Damage
             };
@@ -20,6 +22,7 @@ namespace BOYAREngine
         {
             var swordData = (SwordData) state;
 
+            Name = swordData.Name;
             Level = swordData.Level;
             Damage = swordData.Damage;
         }
@@ -28,6 +31,7 @@ namespace BOYAREngine
     [System.Serializable]
     public class SwordData
     {
+        public string Name;
         public int Level;
         public int Damage;
     }

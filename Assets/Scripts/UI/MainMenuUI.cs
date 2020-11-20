@@ -66,7 +66,10 @@ namespace BOYAREngine
             _lhdButton.RegisterCallback<ClickEvent>(ev => LowHDResolutionButton());
             _hdButton.RegisterCallback<ClickEvent>(ev => HDResolutionButton());
             _fhdButton.RegisterCallback<ClickEvent>(ev => FullHDResolutionButton());
+        }
 
+        private void Start()
+        {
             if (PlayerPrefs.HasKey("Locale"))
             {
                 LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(PlayerPrefs.GetString("Locale"));

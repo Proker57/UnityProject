@@ -32,6 +32,7 @@ namespace BOYAREngine
 
                 if (_player.Stats.LevelUpPoints == 0)
                 {
+                    ClosePanel();
                     _ui.LevelUpGroup.SetActive(false);
                 }
             }
@@ -40,8 +41,8 @@ namespace BOYAREngine
         private void Update()
         {
             if (!_isUpdateable) return;
-            _bowHover.LevelValue.text = Bow.Level + "+1";
-            _bowHover.DamageValue.text = Bow.Damage + "+" + DamageBooster;
+            _bowHover.LevelValue.text = Bow.Level + "<color=#9AEE49>" + "+1" + "</color>";
+            _bowHover.DamageValue.text = Bow.Damage + "<color=#9AEE49>" + "+" + DamageBooster + "</color>";
         }
 
         // Hover event
