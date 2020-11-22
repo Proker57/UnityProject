@@ -22,6 +22,11 @@ namespace BOYAREngine
 
         private string _localizedName;
 
+        private void Awake()
+        {
+            StartCoroutine(LoadStrings());
+        }
+
         public void ShowPanel()
         {
             _hoverPanel.SetActive(true);

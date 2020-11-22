@@ -14,6 +14,7 @@ namespace BOYAREngine
         public int MaxExp = 120;
         public int Level = 1;
         public int LevelUpPoints = 0;
+        public int Currency = 0;
 
         private Player _player;
 
@@ -31,6 +32,11 @@ namespace BOYAREngine
             {
                 PlayerEvents.LevelUp();
             }
+        }
+
+        public void GetCurrency(int amount)
+        {
+            Currency += amount;
         }
 
         private void LevelUp()
@@ -54,12 +60,14 @@ namespace BOYAREngine
         {
             PlayerEvents.GiveExp += GetExp;
             PlayerEvents.LevelUp += LevelUp;
+            PlayerEvents.GiveCurrency += GetCurrency;
         }
 
         private void OnDisable()
         {
             PlayerEvents.GiveExp -= GetExp;
             PlayerEvents.LevelUp -= LevelUp;
+            PlayerEvents.GiveCurrency -= GetCurrency;
         }
 
         public object CaptureState()
@@ -78,6 +86,7 @@ namespace BOYAREngine
                 MaxExp = MaxExp,
                 Level = Level,
                 LevelUpPoints = LevelUpPoints,
+                Currency = Currency,
                 // Dash
                 DashTimerCounter = _player.Dash.DashTimerCounter,
                 SpeedLimiterTimerCounter = _player.Dash.SpeedLimiterTimerCounter,
@@ -113,6 +122,7 @@ namespace BOYAREngine
             MaxExp = playerData.MaxExp;
             Level = playerData.Level;
             LevelUpPoints = playerData.LevelUpPoints;
+            Currency = playerData.Currency;
             // Dash - dash logic
             _player.Dash.DashTimerCounter = playerData.DashTimerCounter;
             _player.Dash.SpeedLimiterTimerCounter = playerData.SpeedLimiterTimerCounter;
@@ -144,8 +154,8 @@ namespace BOYAREngine
         public int Exp;
         public int MaxExp;
         public int Level;
-
         public int LevelUpPoints;
+        public int Currency;
         // Dash
         public float DashTimerCounter;
         public float SpeedLimiterTimerCounter;

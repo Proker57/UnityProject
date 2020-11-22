@@ -13,6 +13,14 @@ namespace BOYAREngine
 
         public static bool IsNewGame = true;
 
+        private void Awake()
+        {
+            if (PlayerPrefs.GetString("Locale") == null)
+            {
+                PlayerPrefs.SetString("Locale", "ru");
+            }
+        }
+
         public object CaptureState()
         {
             SceneName = SceneManager.GetActiveScene().name;

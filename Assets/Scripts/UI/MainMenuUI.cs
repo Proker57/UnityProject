@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace BOYAREngine
@@ -14,7 +12,7 @@ namespace BOYAREngine
     {
         private string _stringTableCollectionName = "Main Menu";
 
-        [SerializeField] private string _newGameSceneName = "TestLevel000";
+        [SerializeField] private string _newGameSceneName = "TestLevel001";
 
         private GameController _gameController;
         private UIDocument _uiDocument;
@@ -60,16 +58,13 @@ namespace BOYAREngine
             _loadButton.RegisterCallback<ClickEvent>(ev => Load());
             _optionsButton.RegisterCallback<ClickEvent>(ev => FlexOptionsBlock());
             _exitButton.RegisterCallback<ClickEvent>(ev => ExitApplication());
-            _ruButton.RegisterCallback<ClickEvent>(ev => ChangeRuLocale());
-            _enButton.RegisterCallback<ClickEvent>(ev => ChangeEnLocale());
+            _ruButton.RegisterCallback<ClickEvent>(ev => ChangeLocale("ru"));
+            _enButton.RegisterCallback<ClickEvent>(ev => ChangeLocale("en"));
             _toggleFullscreen.RegisterCallback<ClickEvent>(ev => FullscreenToggle());
             _lhdButton.RegisterCallback<ClickEvent>(ev => LowHDResolutionButton());
             _hdButton.RegisterCallback<ClickEvent>(ev => HDResolutionButton());
             _fhdButton.RegisterCallback<ClickEvent>(ev => FullHDResolutionButton());
-        }
 
-        private void Start()
-        {
             if (PlayerPrefs.HasKey("Locale"))
             {
                 LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(PlayerPrefs.GetString("Locale"));
@@ -95,16 +90,10 @@ namespace BOYAREngine
             _optionsBlock.style.display = DisplayStyle.Flex;
         }
 
-        private void ChangeRuLocale()
+        private static void ChangeLocale(string locale)
         {
-            PlayerPrefs.SetString("Locale", "ru");
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("ru");
-        }
-
-        private void ChangeEnLocale()
-        {
-            PlayerPrefs.SetString("Locale", "en");
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
+            PlayerPrefs.SetString("Locale", locale);
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(locale);
         }
 
         private void FullscreenToggle()

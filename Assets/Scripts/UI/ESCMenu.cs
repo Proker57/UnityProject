@@ -20,7 +20,7 @@ namespace BOYAREngine
         private Button _load;
         private Button _mainMenu;
 
-        private string StringTableCollectionName = "ESCMenu";
+        private const string StringTableCollectionName = "ESCMenu";
 
         private void Awake()
         {

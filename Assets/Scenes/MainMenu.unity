@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 918442835}
   - component: {fileID: 918442834}
   - component: {fileID: 918442837}
-  - component: {fileID: 918442838}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -209,29 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e8665fbd7f01c4db4cbc86bde5f5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _newGameSceneName: TestLevel001
---- !u!114 &918442838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 918442833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:1c43e3bcccfb7d64cbe343ed14a936e8
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1434790460
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerSpawner
   - UI
+  - DialogueManager
   layers:
   - Default
   - TransparentFX

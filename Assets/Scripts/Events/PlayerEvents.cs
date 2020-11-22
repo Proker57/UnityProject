@@ -19,5 +19,8 @@ namespace BOYAREngine
 
         public delegate void GiveExpDelegate(int expValue);
         public static GiveExpDelegate GiveExp;
+
+        public delegate void GiveCurrencyDelegate(int amount);
+        public static GiveCurrencyDelegate GiveCurrency;
     }
 }
