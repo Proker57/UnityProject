@@ -31,5 +31,25 @@ MonoBehaviour:
       Suck a dick.
     m_Metadata:
       m_Items: []
+  - m_Id: 430318975250432
+    m_Localized: How much EXP do you wanna get?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430550282727424
+    m_Localized: Something else?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430803316699136
+    m_Localized: Change scene?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 431089770885120
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 431365349240832
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

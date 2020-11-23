@@ -27,6 +27,26 @@ MonoBehaviour:
     m_Key: narrative2
     m_Metadata:
       m_Items: []
+  - m_Id: 430318975250432
+    m_Key: narrative3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430550282727424
+    m_Key: narrative4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430803316699136
+    m_Key: narrative5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 431089770885120
+    m_Key: narrative_yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 431365349240832
+    m_Key: narrative_no
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

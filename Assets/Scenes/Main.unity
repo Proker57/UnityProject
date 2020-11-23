@@ -1783,7 +1783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &789878210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4355,6 +4355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4006a001ac9ea8b489e83f7cd7e153ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDialogueStarted: 0
+  QuestionNumber: 0
   _name: {fileID: 1824162848}
   _narrative: {fileID: 725742577}
   _answer1: {fileID: 174743617}

@@ -15,12 +15,14 @@ namespace BOYAREngine
         private DialogueManager _dialogueManager;
         private List<DialogueNode> _dialogueNodes;
 
-        private string _name = "Dialogue Test";
-        private string _narrative = "Narrative 1";
-        private string _narrative2 = "narrative 2";
-        private string _narrative3 = "Question one?";
-        private string _narrative4 = "Question two?";
-        private string _narrative5 = "Question three?";
+        private string _name = "Dialogue Test--";
+        private string _narrative = "Narrative 1--";
+        private string _narrative2 = "narrative 2--";
+        private string _narrative3 = "Question one?--";
+        private string _narrative4 = "Question two?--";
+        private string _narrative5 = "Question three?--";
+        private string _narrativeYes = "Yes--";
+        private string _narrativeNo = "No--";
 
         private void Awake()
         {
@@ -54,52 +56,22 @@ namespace BOYAREngine
                     switch (index)
                     {
                         case 1:
-                            Debug.Log("1: First answer");
+                            PlayerEvents.GiveExp(100);
                             break;
                         case 2:
-                            Debug.Log("1: Second answer");
+                            PlayerEvents.GiveExp(200);
                             break;
                         case 3:
-                            Debug.Log("1: Third answer");
-                            break;
-                        default:
-                            Debug.Log("Default switch case");
+                            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
+                            PlayerEvents.GiveExp(player.MaxExp - player.Exp);
                             break;
                     }
                     break;
                 case 2:
-                    switch (index)
-                    {
-                        case 1:
-                            Debug.Log("2: First answer");
-                            break;
-                        case 2:
-                            Debug.Log("2: Second answer");
-                            break;
-                        case 3:
-                            Debug.Log("2: Third answer");
-                            break;
-                        default:
-                            Debug.Log("Default switch case");
-                            break;
-                    }
+                    if (index == 2) _dialogueManager.FinishDialogue();
                     break;
                 case 3:
-                    switch (index)
-                    {
-                        case 1:
-                            Debug.Log("3: First answer");
-                            break;
-                        case 2:
-                            Debug.Log("3: Second answer");
-                            break;
-                        case 3:
-                            Debug.Log("3: Third answer");
-                            break;
-                        default:
-                            Debug.Log("Default switch case");
-                            break;
-                    }
+                    if (index == 1) SceneLoader.SwitchScene("TestLevel002");
                     break;
             }
         }
@@ -133,12 +105,17 @@ namespace BOYAREngine
                 _name = GetLocalizedString(stringTable, "name");
                 _narrative = GetLocalizedString(stringTable, "narrative");
                 _narrative2 = GetLocalizedString(stringTable, "narrative2");
+                _narrative3 = GetLocalizedString(stringTable, "narrative3");
+                _narrative4 = GetLocalizedString(stringTable, "narrative4");
+                _narrative5 = GetLocalizedString(stringTable, "narrative5");
+                _narrativeYes = GetLocalizedString(stringTable, "narrative_yes");
+                _narrativeNo = GetLocalizedString(stringTable, "narrative_no");
 
-                _dialogueNodes.Add(new DialogueNode(name, _narrative));
-                _dialogueNodes.Add(new DialogueNode(name, _narrative2));
-                _dialogueNodes.Add(new DialogueNode(name, _narrative3, new AnswerNode("1", "2", "3")));
-                _dialogueNodes.Add(new DialogueNode(name, _narrative4, new AnswerNode("1", "2")));
-                _dialogueNodes.Add(new DialogueNode(name, _narrative5, new AnswerNode("1")));
+                _dialogueNodes.Add(new DialogueNode(_name, _narrative));
+                _dialogueNodes.Add(new DialogueNode(_name, _narrative2));
+                _dialogueNodes.Add(new DialogueNode(_name, _narrative3, new AnswerNode("100", "200", "Level UP")));
+                _dialogueNodes.Add(new DialogueNode(_name, _narrative4, new AnswerNode(_narrativeYes, _narrativeNo)));
+                _dialogueNodes.Add(new DialogueNode(_name, _narrative5, new AnswerNode(_narrativeYes, _narrativeNo)));
             }
             else
             {

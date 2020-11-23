@@ -7,7 +7,7 @@ namespace BOYAREngine
     public class DialogueManager : MonoBehaviour
     {
         public bool IsDialogueStarted;
-        public delegate void ChooseEventDelegate(int index, int questionNumber);
+        public delegate void ChooseEventDelegate(int answerIndex, int questionNumber);
         public ChooseEventDelegate ChooseEvent;
 
         public int QuestionNumber = 0;
@@ -32,6 +32,8 @@ namespace BOYAREngine
         public void StartDialogue(List<DialogueNode> listNodes)
         {
             _dialogueWindow.SetActive(true);
+            _nextButton.gameObject.SetActive(true);
+            _answerWindow.SetActive(false);
             IsDialogueStarted = true;
 
             _dialogueNodes = listNodes;
@@ -58,11 +60,8 @@ namespace BOYAREngine
             }
         }
 
-
-        private void ChooseAnswer(int index, int questionNumber)
+        private void ChooseAnswer(int answerIndex, int questionNumber)
         {
-            //_answerIndex = index;
-
             NextNode();
         }
 

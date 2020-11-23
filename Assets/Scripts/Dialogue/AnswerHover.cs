@@ -15,6 +15,7 @@ namespace BOYAREngine
         private void Awake()
         {
             _text = GetComponent<Text>();
+
             _enterColor = new Color32(154, 238 , 73 , 255);
             _exitColor = new Color32(255, 255, 255, 255);
         }
@@ -31,6 +32,7 @@ namespace BOYAREngine
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            _text.color = _exitColor;
             _dialogueManager.ChooseEvent(int.Parse(name), _dialogueManager.QuestionNumber);
         }
     }
