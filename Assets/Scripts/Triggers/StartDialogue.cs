@@ -12,48 +12,49 @@ namespace BOYAREngine
     {
         private const string StringTableCollectionName = "DialogueTest";
 
-        private List<DialogueNode> _dialogue;
         private DialogueManager _dialogueManager;
+        private List<DialogueNode> _dialogueNodes;
+        private List<AnswerNode> _answerNodes;
 
         private string _name = "Dialogue Test";
-        private string _narrative = "You made it! Congratulations! Now eat shit and die!";
-        private string _narrative2 = "Hohoho, it's the second page. You really love to talk with people. Suck a dick";
+        private string _narrative = "Narrative 1";
+        private string _narrative2 = "narrative 2";
+        private string _narrative3 = "Question one?";
+        private string _narrative4 = "Question two?";
+        private string _narrative5 = "Question three?";
 
         private void Awake()
         {
             _dialogueManager = GameObject.FindGameObjectWithTag("DialogueManager").GetComponent<DialogueManager>();
+            _dialogueNodes = new List<DialogueNode>();
+            _answerNodes = new List<AnswerNode>
+            {
+                new AnswerNode("1", "2", "3"),
+                new AnswerNode("1", "2"),
+                new AnswerNode("1")
+            };
+
             StartCoroutine(LoadStrings());
         }
 
-        private void Start()
+        private void OnTriggerEnter2D(Component objectCollider)
         {
-
-            _dialogue = new List<DialogueNode>();
-            _dialogue.Add(new DialogueNode(_name, _narrative));
-            _dialogue.Add(new DialogueNode(_name, _narrative2));
-        }
-
-        private void OnTriggerEnter2D(Collider2D collider)
-        {
-            if (collider.tag == "Player")
+            if (objectCollider.tag == "Player")
             {
-                _dialogueManager.StartDialogue(_dialogue);
-                print("Start dialogue");
+                _dialogueManager.StartDialogue(_dialogueNodes, _answerNodes);
             }
         }
 
-        private void OnTriggerExit2D(Collider2D collider)
+        private void OnTriggerExit2D(Component objectCollider)
         {
-            if (collider.tag == "Player")
+            if (objectCollider.tag == "Player")
             {
                 _dialogueManager.FinishDialogue();
-                print("Finish dialogue");
             }
         }
 
         private void OnEnable()
         {
-            StartCoroutine(LoadStrings());
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
 
@@ -74,19 +75,26 @@ namespace BOYAREngine
 
             if (loadingOperation.Status == AsyncOperationStatus.Succeeded)
             {
+                _dialogueNodes.Clear();
+
                 var stringTable = loadingOperation.Result;
-                _name = _name.Replace(_name, GetLocalizedString(stringTable, "name"));
-                //_name = GetLocalizedString(stringTable, "name");
+                _name = GetLocalizedString(stringTable, "name");
                 _narrative = GetLocalizedString(stringTable, "narrative");
                 _narrative2 = GetLocalizedString(stringTable, "narrative2");
+
+                _dialogueNodes.Add(new DialogueNode(name, _narrative));
+                _dialogueNodes.Add(new DialogueNode(name, _narrative2));
+                _dialogueNodes.Add(new DialogueNode(name, _narrative3, _answerNodes));
+                _dialogueNodes.Add(new DialogueNode(name, _narrative4, _answerNodes));
+                _dialogueNodes.Add(new DialogueNode(name, _narrative5, _answerNodes));
             }
             else
             {
-                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException.ToString());
+                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException);
             }
         }
 
-        private string GetLocalizedString(StringTable table, string entryName)
+        private static string GetLocalizedString(StringTable table, string entryName)
         {
             var entry = table.GetEntry(entryName);
             return entry.GetLocalizedString();
