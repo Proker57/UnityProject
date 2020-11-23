@@ -14,7 +14,6 @@ namespace BOYAREngine
 
         private DialogueManager _dialogueManager;
         private List<DialogueNode> _dialogueNodes;
-        private List<AnswerNode> _answerNodes;
 
         private string _name = "Dialogue Test";
         private string _narrative = "Narrative 1";
@@ -27,12 +26,6 @@ namespace BOYAREngine
         {
             _dialogueManager = GameObject.FindGameObjectWithTag("DialogueManager").GetComponent<DialogueManager>();
             _dialogueNodes = new List<DialogueNode>();
-            _answerNodes = new List<AnswerNode>
-            {
-                new AnswerNode("1", "2", "3"),
-                new AnswerNode("1", "2"),
-                new AnswerNode("1")
-            };
 
             StartCoroutine(LoadStrings());
         }
@@ -41,7 +34,7 @@ namespace BOYAREngine
         {
             if (objectCollider.tag == "Player")
             {
-                _dialogueManager.StartDialogue(_dialogueNodes, _answerNodes);
+                _dialogueManager.StartDialogue(_dialogueNodes);
             }
         }
 
@@ -53,8 +46,28 @@ namespace BOYAREngine
             }
         }
 
+        private void AnswerAction(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    Debug.Log("First answer");
+                    break;
+                case 2:
+                    Debug.Log("Second answer");
+                    break;
+                case 3:
+                    Debug.Log("Third answer");
+                    break;
+                default:
+                    Debug.Log("Default switch case");
+                    break;
+            }
+        }
+
         private void OnEnable()
         {
+            _dialogueManager.ChooseEvent += AnswerAction;
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
 
@@ -84,9 +97,9 @@ namespace BOYAREngine
 
                 _dialogueNodes.Add(new DialogueNode(name, _narrative));
                 _dialogueNodes.Add(new DialogueNode(name, _narrative2));
-                _dialogueNodes.Add(new DialogueNode(name, _narrative3, _answerNodes));
-                _dialogueNodes.Add(new DialogueNode(name, _narrative4, _answerNodes));
-                _dialogueNodes.Add(new DialogueNode(name, _narrative5, _answerNodes));
+                _dialogueNodes.Add(new DialogueNode(name, _narrative3, new AnswerNode("1", "2", "3")));
+                _dialogueNodes.Add(new DialogueNode(name, _narrative4, new AnswerNode("1", "2")));
+                _dialogueNodes.Add(new DialogueNode(name, _narrative5, new AnswerNode("1")));
             }
             else
             {

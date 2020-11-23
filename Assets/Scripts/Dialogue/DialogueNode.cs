@@ -8,7 +8,7 @@ namespace BOYAREngine
         public string Narrative;
         public bool IsQuestion;
 
-        public List<AnswerNode> Answers = new List<AnswerNode>();
+        public AnswerNode AnswerNode;
 
         public DialogueNode(string name, string narrative)
         {
@@ -17,12 +17,12 @@ namespace BOYAREngine
             IsQuestion = false;
         }
 
-        public DialogueNode(string name, string narrative, List<AnswerNode> answers)
+        public DialogueNode(string name, string narrative, AnswerNode answer)
         {
             Name = name;
             Narrative = narrative;
             IsQuestion = true;
-            Answers = answers;
+            AnswerNode = answer;
         }
     }
 }

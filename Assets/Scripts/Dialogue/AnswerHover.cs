@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace BOYAREngine
 {
-    public class AnswerVariant : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class AnswerHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private DialogueManager _dialogueManager;
 
@@ -32,7 +31,7 @@ namespace BOYAREngine
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _dialogueManager.SetAnswerIndex(int.Parse(name));
+            _dialogueManager.ChooseEvent(int.Parse(name));
         }
     }
 }
