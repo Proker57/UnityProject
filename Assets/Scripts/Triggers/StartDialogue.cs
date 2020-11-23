@@ -46,21 +46,60 @@ namespace BOYAREngine
             }
         }
 
-        private void AnswerAction(int index)
+        private void AnswerAction(int index, int questionNumber)
         {
-            switch (index)
+            switch (questionNumber)
             {
                 case 1:
-                    Debug.Log("First answer");
+                    switch (index)
+                    {
+                        case 1:
+                            Debug.Log("1: First answer");
+                            break;
+                        case 2:
+                            Debug.Log("1: Second answer");
+                            break;
+                        case 3:
+                            Debug.Log("1: Third answer");
+                            break;
+                        default:
+                            Debug.Log("Default switch case");
+                            break;
+                    }
                     break;
                 case 2:
-                    Debug.Log("Second answer");
+                    switch (index)
+                    {
+                        case 1:
+                            Debug.Log("2: First answer");
+                            break;
+                        case 2:
+                            Debug.Log("2: Second answer");
+                            break;
+                        case 3:
+                            Debug.Log("2: Third answer");
+                            break;
+                        default:
+                            Debug.Log("Default switch case");
+                            break;
+                    }
                     break;
                 case 3:
-                    Debug.Log("Third answer");
-                    break;
-                default:
-                    Debug.Log("Default switch case");
+                    switch (index)
+                    {
+                        case 1:
+                            Debug.Log("3: First answer");
+                            break;
+                        case 2:
+                            Debug.Log("3: Second answer");
+                            break;
+                        case 3:
+                            Debug.Log("3: Third answer");
+                            break;
+                        default:
+                            Debug.Log("Default switch case");
+                            break;
+                    }
                     break;
             }
         }

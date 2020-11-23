@@ -31,7 +31,7 @@ namespace BOYAREngine
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _dialogueManager.ChooseEvent(int.Parse(name));
+            _dialogueManager.ChooseEvent(int.Parse(name), _dialogueManager.QuestionNumber);
         }
     }
 }

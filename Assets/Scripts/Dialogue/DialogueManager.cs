@@ -7,8 +7,10 @@ namespace BOYAREngine
     public class DialogueManager : MonoBehaviour
     {
         public bool IsDialogueStarted;
-        public delegate void ChooseEventDelegate(int index);
+        public delegate void ChooseEventDelegate(int index, int questionNumber);
         public ChooseEventDelegate ChooseEvent;
+
+        public int QuestionNumber = 0;
 
         [SerializeField] private Text _name;
         [SerializeField] private Text _narrative;
@@ -21,7 +23,6 @@ namespace BOYAREngine
         private List<DialogueNode> _dialogueNodes;
 
         private int _pageIndex = 0;
-        private int _answerIndex;
 
         private void Awake()
         {
@@ -58,9 +59,9 @@ namespace BOYAREngine
         }
 
 
-        private void ChooseAnswer(int index)
+        private void ChooseAnswer(int index, int questionNumber)
         {
-            _answerIndex = index;
+            //_answerIndex = index;
 
             NextNode();
         }
@@ -68,7 +69,7 @@ namespace BOYAREngine
         public void FinishDialogue()
         {
             _pageIndex = 0;
-            _answerIndex = 0;
+            QuestionNumber = 0;
             IsDialogueStarted = false;
             _dialogueWindow.SetActive(false);
         }
@@ -112,6 +113,8 @@ namespace BOYAREngine
                     _answer3.gameObject.SetActive(false);
                     break;
             }
+
+            QuestionNumber++;
         }
 
         private void SetStrings()
