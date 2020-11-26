@@ -56,11 +56,17 @@ namespace BOYAREngine
             MaxHealth = (int)(MaxHealth * 1.2f);
         }
 
+        private void RestoreHealth(int amount)
+        {
+            Health += amount;
+        }
+
         private void OnEnable()
         {
             PlayerEvents.GiveExp += GetExp;
             PlayerEvents.LevelUp += LevelUp;
             PlayerEvents.GiveCurrency += GetCurrency;
+            PlayerEvents.RestoreHealth += RestoreHealth;
         }
 
         private void OnDisable()
@@ -68,6 +74,7 @@ namespace BOYAREngine
             PlayerEvents.GiveExp -= GetExp;
             PlayerEvents.LevelUp -= LevelUp;
             PlayerEvents.GiveCurrency -= GetCurrency;
+            PlayerEvents.RestoreHealth -= RestoreHealth;
         }
 
         public object CaptureState()

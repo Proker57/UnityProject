@@ -15,6 +15,7 @@ namespace BOYAREngine
         public Movement Movement;
         public Stats Stats;
         public WeaponManager WeaponManager;
+        public ItemManager ItemManager;
         public BasicAttack BasicAttack;
 
         private void Awake()
@@ -30,6 +31,7 @@ namespace BOYAREngine
             Movement = GetComponent<Movement>();
             Stats = GetComponent<Stats>();
             WeaponManager = GetComponent<WeaponManager>();
+            ItemManager = GetComponent<ItemManager>();
             BasicAttack = GetComponent<BasicAttack>();
 
             GameController.HasPlayer = true;
@@ -49,6 +51,7 @@ namespace BOYAREngine
             Movement.enabled = true;
             Stats.enabled = true;
             WeaponManager.enabled = true;
+            ItemManager.enabled = true;
             BasicAttack.enabled = true;
         }
 
@@ -66,6 +69,7 @@ namespace BOYAREngine
             Movement.enabled = false;
             Stats.enabled = false;
             WeaponManager.enabled = false;
+            ItemManager.enabled = false;
             BasicAttack.enabled = false;
         }
 

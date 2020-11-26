@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 7179260047226401872}
   - component: {fileID: 7179260047226401875}
   - component: {fileID: 116414065044774608}
+  - component: {fileID: 1770231497439941727}
   - component: {fileID: 3270685520666974671}
   - component: {fileID: 1432877923448476641}
   - component: {fileID: -2935488316948746784}
@@ -183,6 +184,8 @@ MonoBehaviour:
   Exp: 0
   MaxExp: 0
   Level: 1
+  LevelUpPoints: 0
+  Currency: 0
 --- !u!114 &7179260047226401962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +283,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
+--- !u!114 &1770231497439941727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7179260047226401967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c147e2d9532c57e449c25958330b8d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmallPotions: 0
+  MediumPotions: 0
+  HugePotions: 0
 --- !u!114 &3270685520666974671
 MonoBehaviour:
   m_ObjectHideFlags: 0

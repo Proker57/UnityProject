@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 namespace BOYAREngine
@@ -14,6 +13,10 @@ namespace BOYAREngine
         private Canvas _canvas;
         [SerializeField] private GameObject _dashUI;
         [SerializeField] private GameObject _DoubleJumpUI;
+
+        [SerializeField] private Image _itemImage;
+        [SerializeField] private ItemImages _itemSprite;
+        [SerializeField] private Text _itemName;
         private Player _player;
 
         private void Awake()
@@ -45,6 +48,31 @@ namespace BOYAREngine
                 {
                     LevelUpPoints.gameObject.SetActive(false);
                 }
+
+                ShowItemUI();
+            }
+        }
+
+        private void ShowItemUI()
+        {
+            switch (_player.ItemManager.ItemIndex)
+            {
+                case (int)ItemEnum.ItemType.SmallPotion:
+                    _itemImage.sprite = _itemSprite.SmallPotion;
+                    _itemName.text = "Small Potion";
+                    break;
+                case (int)ItemEnum.ItemType.MediumPotion:
+                    _itemImage.sprite = _itemSprite.MediumPotion;
+                    _itemName.text = "Medium Potion";
+                    break;
+                case (int)ItemEnum.ItemType.HugePotion:
+                    _itemImage.sprite = _itemSprite.HugePotion;
+                    _itemName.text = "Huge Potion";
+                    break;
+                default:
+                    _itemImage.sprite = _itemSprite.None;
+                    _itemName.text = "No items";
+                    break;
             }
         }
 

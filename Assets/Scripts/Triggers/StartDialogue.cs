@@ -12,8 +12,10 @@ namespace BOYAREngine
     {
         private const string StringTableCollectionName = "DialogueTest";
 
+        [SerializeField] private GameObject _pressE;
         private DialogueManager _dialogueManager;
         private List<DialogueNode> _dialogueNodes;
+        private PlayerInput _playerInput;
 
         private string _name = "Dialogue Test--";
         private string _narrative = "Narrative 1--";
@@ -23,6 +25,9 @@ namespace BOYAREngine
         private string _narrative5 = "Question three?--";
         private string _narrativeYes = "Yes--";
         private string _narrativeNo = "No--";
+
+        private bool _isEnter;
+        private bool _isDialogueStarted = false;
 
         private void Awake()
         {
@@ -36,7 +41,14 @@ namespace BOYAREngine
         {
             if (objectCollider.tag == "Player")
             {
-                _dialogueManager.StartDialogue(_dialogueNodes);
+                if (_playerInput == null)
+                {
+                    _playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Input;
+                    _playerInput.PlayerInGame.Use.started += _ => Use_started();
+                }
+
+                _pressE.SetActive(true);
+                _isEnter = true;
             }
         }
 
@@ -44,7 +56,12 @@ namespace BOYAREngine
         {
             if (objectCollider.tag == "Player")
             {
+                _isEnter = false;
+                _pressE.SetActive(false);
+                _isDialogueStarted = false;
                 _dialogueManager.FinishDialogue();
+
+                _playerInput.PlayerInGame.Use.started -= _ => Use_started();
             }
         }
 
@@ -76,15 +93,26 @@ namespace BOYAREngine
             }
         }
 
+        private void Use_started()
+        {
+            if (!_isEnter || _isDialogueStarted != false) return;
+            _pressE.SetActive(false);
+            _isDialogueStarted = true;
+            _dialogueManager.StartDialogue(_dialogueNodes);
+        }
+
         private void OnEnable()
         {
             _dialogueManager.ChooseEvent += AnswerAction;
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
+            
         }
 
         private void OnDisable()
         {
+            _dialogueManager.ChooseEvent -= AnswerAction;
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
+            if (_playerInput != null) _playerInput.PlayerInGame.Use.started -= _ => Use_started();
         }
 
         private void OnSelectedLocaleChanged(Locale obj)

@@ -16,8 +16,8 @@ namespace BOYAREngine
         {
             _text = GetComponent<Text>();
 
-            _enterColor = new Color32(154, 238 , 73 , 255);
-            _exitColor = new Color32(255, 255, 255, 255);
+            _enterColor = new Color32(154, 238 , 73 , 255); // Green
+            _exitColor = new Color32(255, 255, 255, 255);  
         }
 
         public void OnPointerEnter(PointerEventData eventData)

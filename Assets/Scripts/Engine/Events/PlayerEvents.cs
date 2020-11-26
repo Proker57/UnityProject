@@ -22,5 +22,8 @@ namespace BOYAREngine
 
         public delegate void GiveCurrencyDelegate(int amount);
         public static GiveCurrencyDelegate GiveCurrency;
+
+        public delegate void RestoreHealthDelegate(int amount);
+        public static RestoreHealthDelegate RestoreHealth;
     }
 }

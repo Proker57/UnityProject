@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BOYAREngine
+﻿namespace BOYAREngine
 {
     public class DialogueNode
     {

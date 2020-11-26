@@ -75,6 +75,22 @@ namespace BOYAREngine
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""5a03c11a-d1b1-4549-86c0-6770bbc6a57e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""ItemUse"",
+                    ""type"": ""Button"",
+                    ""id"": ""bcdc1fdb-a80d-4c38-af0d-65223917ddbb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -176,6 +192,28 @@ namespace BOYAREngine
                     ""action"": ""BowPick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f28f4577-a4ac-4977-a970-12dd11fc4125"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67b3aaea-0190-46c9-ba6a-0dbe7498b8c6"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemUse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -256,6 +294,8 @@ namespace BOYAREngine
             m_PlayerInGame_Attack = m_PlayerInGame.FindAction("Attack", throwIfNotFound: true);
             m_PlayerInGame_SwordPick = m_PlayerInGame.FindAction("SwordPick", throwIfNotFound: true);
             m_PlayerInGame_BowPick = m_PlayerInGame.FindAction("BowPick", throwIfNotFound: true);
+            m_PlayerInGame_Use = m_PlayerInGame.FindAction("Use", throwIfNotFound: true);
+            m_PlayerInGame_ItemUse = m_PlayerInGame.FindAction("ItemUse", throwIfNotFound: true);
             // Global
             m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
             m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
@@ -317,6 +357,8 @@ namespace BOYAREngine
         private readonly InputAction m_PlayerInGame_Attack;
         private readonly InputAction m_PlayerInGame_SwordPick;
         private readonly InputAction m_PlayerInGame_BowPick;
+        private readonly InputAction m_PlayerInGame_Use;
+        private readonly InputAction m_PlayerInGame_ItemUse;
         public struct PlayerInGameActions
         {
             private @PlayerInput m_Wrapper;
@@ -328,6 +370,8 @@ namespace BOYAREngine
             public InputAction @Attack => m_Wrapper.m_PlayerInGame_Attack;
             public InputAction @SwordPick => m_Wrapper.m_PlayerInGame_SwordPick;
             public InputAction @BowPick => m_Wrapper.m_PlayerInGame_BowPick;
+            public InputAction @Use => m_Wrapper.m_PlayerInGame_Use;
+            public InputAction @ItemUse => m_Wrapper.m_PlayerInGame_ItemUse;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -358,6 +402,12 @@ namespace BOYAREngine
                     @BowPick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
                     @BowPick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
                     @BowPick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
+                    @Use.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
+                    @Use.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
+                    @Use.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
+                    @ItemUse.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
+                    @ItemUse.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
+                    @ItemUse.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
                 }
                 m_Wrapper.m_PlayerInGameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -383,6 +433,12 @@ namespace BOYAREngine
                     @BowPick.started += instance.OnBowPick;
                     @BowPick.performed += instance.OnBowPick;
                     @BowPick.canceled += instance.OnBowPick;
+                    @Use.started += instance.OnUse;
+                    @Use.performed += instance.OnUse;
+                    @Use.canceled += instance.OnUse;
+                    @ItemUse.started += instance.OnItemUse;
+                    @ItemUse.performed += instance.OnItemUse;
+                    @ItemUse.canceled += instance.OnItemUse;
                 }
             }
         }
@@ -445,6 +501,8 @@ namespace BOYAREngine
             void OnAttack(InputAction.CallbackContext context);
             void OnSwordPick(InputAction.CallbackContext context);
             void OnBowPick(InputAction.CallbackContext context);
+            void OnUse(InputAction.CallbackContext context);
+            void OnItemUse(InputAction.CallbackContext context);
         }
         public interface IGlobalActions
         {

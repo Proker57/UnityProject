@@ -7,6 +7,7 @@ namespace BOYAREngine
     public class DialogueManager : MonoBehaviour
     {
         public bool IsDialogueStarted;
+
         public delegate void ChooseEventDelegate(int answerIndex, int questionNumber);
         public ChooseEventDelegate ChooseEvent;
 
