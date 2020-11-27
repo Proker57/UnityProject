@@ -14,10 +14,7 @@ namespace BOYAREngine
         [SerializeField] private GameObject _dashUI;
         [SerializeField] private GameObject _DoubleJumpUI;
 
-        [SerializeField] private Image _itemImage;
-        [SerializeField] private ItemImages _itemSprite;
-        [SerializeField] private Text _itemName;
-        private Player _player;
+        [HideInInspector] public Player Player;
 
         private void Awake()
         {
@@ -37,44 +34,21 @@ namespace BOYAREngine
                 _canvas.enabled = true;
             }
 
-            if (_player != null)
+            if (Player != null)
             {
-                if (_player.Stats.LevelUpPoints != 0)
+                if (Player.Stats.LevelUpPoints != 0)
                 {
                     LevelUpPoints.gameObject.SetActive(true);
-                    LevelUpPoints.text = "LP:" + _player.Stats.LevelUpPoints;
+                    LevelUpPoints.text = "LP:" + Player.Stats.LevelUpPoints;
                 }
                 else
                 {
                     LevelUpPoints.gameObject.SetActive(false);
                 }
-
-                ShowItemUI();
             }
         }
 
-        private void ShowItemUI()
-        {
-            switch (_player.ItemManager.ItemIndex)
-            {
-                case (int)ItemEnum.ItemType.SmallPotion:
-                    _itemImage.sprite = _itemSprite.SmallPotion;
-                    _itemName.text = "Small Potion";
-                    break;
-                case (int)ItemEnum.ItemType.MediumPotion:
-                    _itemImage.sprite = _itemSprite.MediumPotion;
-                    _itemName.text = "Medium Potion";
-                    break;
-                case (int)ItemEnum.ItemType.HugePotion:
-                    _itemImage.sprite = _itemSprite.HugePotion;
-                    _itemName.text = "Huge Potion";
-                    break;
-                default:
-                    _itemImage.sprite = _itemSprite.None;
-                    _itemName.text = "No items";
-                    break;
-            }
-        }
+        
 
         private void LevelUp()
         {
@@ -111,9 +85,9 @@ namespace BOYAREngine
 
         private void AssignPlayer(bool isActive)
         {
-            if (_player == null)
+            if (Player == null)
             {
-                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+                Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             }
         }
     }

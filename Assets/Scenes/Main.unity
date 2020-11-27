@@ -3045,9 +3045,7 @@ MonoBehaviour:
   LevelUpPoints: {fileID: 1949632389}
   _dashUI: {fileID: 1103321969}
   _DoubleJumpUI: {fileID: 93043382}
-  _itemImage: {fileID: 1676432464}
-  _itemSprite: {fileID: 1676432466}
-  _itemName: {fileID: 2116846852}
+  Player: {fileID: 0}
 --- !u!114 &1127811205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4355,6 +4353,7 @@ GameObject:
   - component: {fileID: 1676432465}
   - component: {fileID: 1676432464}
   - component: {fileID: 1676432466}
+  - component: {fileID: 1676432467}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Untagged
@@ -4437,6 +4436,21 @@ MonoBehaviour:
   SmallPotion: {fileID: 21300000, guid: 866b0ed11cad7aa428d6cb5558ee63c5, type: 3}
   MediumPotion: {fileID: 21300000, guid: 0fd186c6109e51f4a943418fbddd2c26, type: 3}
   HugePotion: {fileID: 21300000, guid: 9716193741c6da34cb1140c5cc487e88, type: 3}
+--- !u!114 &1676432467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676432462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f952e9b8783c04c992c1c20f73d6b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiManagerLegacy: {fileID: 1127811204}
+  _itemSprite: {fileID: 1676432466}
+  _itemName: {fileID: 2116846852}
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0

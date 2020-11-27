@@ -2,7 +2,7 @@
 
 namespace BOYAREngine
 {
-    public class ItemImages : MonoBehaviour
+    public class ItemSprites : MonoBehaviour
     {
         public Sprite None;
         public Sprite SmallPotion;

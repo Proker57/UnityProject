@@ -62,7 +62,8 @@ namespace BOYAREngine
         {
             return new ItemManagerData
             {
-                Items = Items
+                Items = Items,
+                ItemIndex = ItemIndex
             };
         }
 
@@ -71,6 +72,7 @@ namespace BOYAREngine
             var saveData = (ItemManagerData) state;
 
             Items = saveData.Items;
+            ItemIndex = saveData.ItemIndex;
         }
     }
 
@@ -78,5 +80,6 @@ namespace BOYAREngine
     public class ItemManagerData
     {
         public List<Item> Items;
+        public int ItemIndex;
     }
 }
