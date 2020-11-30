@@ -91,6 +91,22 @@ namespace BOYAREngine
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""NextItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a9f5daa-2963-41a4-9f15-db2e3e6f19d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""PreviousItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4404f44-60d3-4fac-8e82-73455b2a9e70"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -214,6 +230,28 @@ namespace BOYAREngine
                     ""action"": ""ItemUse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce5f7f32-4a3a-49e9-ba18-5de406c5e97a"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2380f6e9-e560-4b91-b792-6f123dc0e4bc"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -296,6 +334,8 @@ namespace BOYAREngine
             m_PlayerInGame_BowPick = m_PlayerInGame.FindAction("BowPick", throwIfNotFound: true);
             m_PlayerInGame_Use = m_PlayerInGame.FindAction("Use", throwIfNotFound: true);
             m_PlayerInGame_ItemUse = m_PlayerInGame.FindAction("ItemUse", throwIfNotFound: true);
+            m_PlayerInGame_NextItem = m_PlayerInGame.FindAction("NextItem", throwIfNotFound: true);
+            m_PlayerInGame_PreviousItem = m_PlayerInGame.FindAction("PreviousItem", throwIfNotFound: true);
             // Global
             m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
             m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
@@ -359,6 +399,8 @@ namespace BOYAREngine
         private readonly InputAction m_PlayerInGame_BowPick;
         private readonly InputAction m_PlayerInGame_Use;
         private readonly InputAction m_PlayerInGame_ItemUse;
+        private readonly InputAction m_PlayerInGame_NextItem;
+        private readonly InputAction m_PlayerInGame_PreviousItem;
         public struct PlayerInGameActions
         {
             private @PlayerInput m_Wrapper;
@@ -372,6 +414,8 @@ namespace BOYAREngine
             public InputAction @BowPick => m_Wrapper.m_PlayerInGame_BowPick;
             public InputAction @Use => m_Wrapper.m_PlayerInGame_Use;
             public InputAction @ItemUse => m_Wrapper.m_PlayerInGame_ItemUse;
+            public InputAction @NextItem => m_Wrapper.m_PlayerInGame_NextItem;
+            public InputAction @PreviousItem => m_Wrapper.m_PlayerInGame_PreviousItem;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -408,6 +452,12 @@ namespace BOYAREngine
                     @ItemUse.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
                     @ItemUse.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
                     @ItemUse.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
+                    @NextItem.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnNextItem;
+                    @NextItem.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnNextItem;
+                    @NextItem.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnNextItem;
+                    @PreviousItem.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPreviousItem;
+                    @PreviousItem.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPreviousItem;
+                    @PreviousItem.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPreviousItem;
                 }
                 m_Wrapper.m_PlayerInGameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -439,6 +489,12 @@ namespace BOYAREngine
                     @ItemUse.started += instance.OnItemUse;
                     @ItemUse.performed += instance.OnItemUse;
                     @ItemUse.canceled += instance.OnItemUse;
+                    @NextItem.started += instance.OnNextItem;
+                    @NextItem.performed += instance.OnNextItem;
+                    @NextItem.canceled += instance.OnNextItem;
+                    @PreviousItem.started += instance.OnPreviousItem;
+                    @PreviousItem.performed += instance.OnPreviousItem;
+                    @PreviousItem.canceled += instance.OnPreviousItem;
                 }
             }
         }
@@ -503,6 +559,8 @@ namespace BOYAREngine
             void OnBowPick(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
             void OnItemUse(InputAction.CallbackContext context);
+            void OnNextItem(InputAction.CallbackContext context);
+            void OnPreviousItem(InputAction.CallbackContext context);
         }
         public interface IGlobalActions
         {

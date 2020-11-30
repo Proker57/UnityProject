@@ -101,6 +101,20 @@ MonoBehaviour:
     - Locale-en
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 0586ee617dfc1e348a7fcce7fb33626a
+    m_Address: ItemHoverUI_ru
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ru
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 76552e3029aff0b4eb08c38a5282afc7
+    m_Address: ItemHoverUI_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 8100d6abc18a5a143aba345c26dccb60, type: 2}
   m_SchemaSet:

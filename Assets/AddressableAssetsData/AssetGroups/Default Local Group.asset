@@ -31,12 +31,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-ru
     - Locale
-    m_MainAsset: {fileID: 11400000, guid: 9cd9692599eab254785689ae42b3edb9, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 9cd9692599eab254785689ae42b3edb9, type: 2}
-  - m_GUID: f5d070a0f5fb0324d8dd8480ac23374a
-    m_Address: Assets/Images
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0

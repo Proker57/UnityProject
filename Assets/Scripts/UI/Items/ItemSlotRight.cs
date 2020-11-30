@@ -12,11 +12,12 @@ namespace BOYAREngine
     {
         private const string StringTableCollectionName = "Item_names";
 
+        [HideInInspector] public Player Player;
+
         [SerializeField] private UIManagerLegacy _uiManagerLegacy;
         [SerializeField] private ItemSprites _itemSprite;
         [SerializeField] private Text _itemName;
         private Image _itemImage;
-        private Player _player;
 
         private string _none;
         private string _potion_hp_small;
@@ -32,7 +33,7 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_player != null)
+            if (Player != null)
             {
                 ShowItemUi();
             }
@@ -40,7 +41,7 @@ namespace BOYAREngine
 
         private void ShowItemUi()
         {
-            switch (_player.ItemManager.ItemIndex)
+            switch (Player.ItemManager.ItemIndex)
             {
                 case (int)ItemEnum.ItemType.SmallPotion:
                     _itemImage.sprite = _itemSprite.SmallPotion;
@@ -105,9 +106,9 @@ namespace BOYAREngine
 
         private void AssignPlayer(bool isActive)
         {
-            if (_player == null)
+            if (Player == null)
             {
-                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+                Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             }
         }
     }

@@ -32,6 +32,16 @@ namespace BOYAREngine
             }
         }
 
+        private void NextItem_started()
+        {
+            NextItem();
+        }
+
+        private void PreviousItem_started()
+        {
+            PreviousItem();
+        }
+
         private void NextItem()
         {
             if (Items != null && ItemIndex >= Items.Count - 1)
@@ -44,18 +54,38 @@ namespace BOYAREngine
             }
         }
 
+        private void PreviousItem()
+        {
+            if (Items != null && ItemIndex <= -1)
+            {
+                ItemIndex = Items.Count - 1;
+            }
+            else
+            {
+                ItemIndex--;
+            }
+        }
+
         private void OnEnable()
         {
             ItemEvents.ItemNext += NextItem;
+            ItemEvents.ItemPrevious += PreviousItem;
             ItemEvents.ItemPickUp += ItemPickUp;
+
             _playerInput.PlayerInGame.ItemUse.started += _ => ItemUse_started();
+            _playerInput.PlayerInGame.NextItem.started += _ => NextItem_started();
+            _playerInput.PlayerInGame.PreviousItem.started += _ => PreviousItem_started();
         }
 
         private void OnDisable()
         {
             ItemEvents.ItemNext -= NextItem;
+            ItemEvents.ItemPrevious -= PreviousItem;
             ItemEvents.ItemPickUp -= ItemPickUp;
+
             _playerInput.PlayerInGame.ItemUse.started -= _ => ItemUse_started();
+            _playerInput.PlayerInGame.NextItem.started -= _ => NextItem_started();
+            _playerInput.PlayerInGame.PreviousItem.started -= _ => PreviousItem_started();
         }
 
         public object CaptureState()

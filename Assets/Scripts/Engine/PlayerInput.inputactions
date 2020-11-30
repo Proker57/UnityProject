@@ -76,6 +76,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "NextItem",
+                    "type": "Button",
+                    "id": "7a9f5daa-2963-41a4-9f15-db2e3e6f19d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "PreviousItem",
+                    "type": "Button",
+                    "id": "c4404f44-60d3-4fac-8e82-73455b2a9e70",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -197,6 +213,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ItemUse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce5f7f32-4a3a-49e9-ba18-5de406c5e97a",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2380f6e9-e560-4b91-b792-6f123dc0e4bc",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreviousItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

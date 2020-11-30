@@ -9,5 +9,8 @@ namespace BOYAREngine
 
         public delegate void ItemNextDelegate();
         public static ItemNextDelegate ItemNext;
+
+        public delegate void ItemPreviousDelegate();
+        public static ItemPreviousDelegate ItemPrevious;
     }
 }

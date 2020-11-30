@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace BOYAREngine
+﻿namespace BOYAREngine
 {
     [System.Serializable]
     public class Item
