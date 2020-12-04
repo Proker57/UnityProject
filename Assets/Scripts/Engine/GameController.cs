@@ -6,6 +6,8 @@ namespace BOYAREngine
 {
     public class GameController : MonoBehaviour, ISaveable
     {
+        public static GameController Instance = null;
+
         public static bool HasPlayer = false;
         public static bool HasCamera = false;
 
@@ -13,11 +15,52 @@ namespace BOYAREngine
 
         public static bool IsNewGame = true;
 
+        public float MusicVolume;
+        public float SoundVolume;
+
         private void Awake()
         {
-            if (PlayerPrefs.GetString("Locale") == null)
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else if (Instance == this)
+            {
+                Destroy(gameObject);
+            }
+
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+
+            CreatePlayerPrefs();
+            LoadPlayerPrefs();
+        }
+
+        private void CreatePlayerPrefs()
+        {
+            if (!PlayerPrefs.HasKey("Locale"))
             {
                 PlayerPrefs.SetString("Locale", "ru");
+            }
+            if (!PlayerPrefs.HasKey("MusicVolume"))
+            {
+                PlayerPrefs.SetFloat("MusicVolume", 1);
+            }
+            if (!PlayerPrefs.HasKey("SoundVolume"))
+            {
+                PlayerPrefs.SetFloat("SoundVolume", 1);
+            }
+        }
+
+        private void LoadPlayerPrefs()
+        {
+            if (PlayerPrefs.HasKey("MusicVolume"))
+            {
+                MusicVolume = PlayerPrefs.GetFloat("MusicVolume");
+            }
+            if (PlayerPrefs.HasKey("SoundVolume"))
+            {
+                MusicVolume = PlayerPrefs.GetFloat("SoundVolume");
             }
         }
 

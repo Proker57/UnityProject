@@ -43,6 +43,26 @@ MonoBehaviour:
     m_Key: resolution
     m_Metadata:
       m_Items: []
+  - m_Id: 13081575560900608
+    m_Key: sound_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13081643714146304
+    m_Key: music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13082337565274112
+    m_Key: sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13082949946241024
+    m_Key: save_settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13087747533762560
+    m_Key: video
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

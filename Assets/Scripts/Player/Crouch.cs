@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.InputSystem;
 using UnityEngine;
-using System;
-using UnityEngine.PlayerLoop;
 
 namespace BOYAREngine
 {
@@ -26,12 +21,6 @@ namespace BOYAREngine
             _player = GetComponent<Player>();
         }
 
-        private void Start()
-        {
-            _player.Input.PlayerInGame.Crouch.started += _ => Crouch_started();
-            _player.Input.PlayerInGame.Crouch.canceled += _ => Crouch_canceled();
-        }
-
         private void Update()
         {
             if (IsCrouched && _isButtonPressed == false)
@@ -42,15 +31,15 @@ namespace BOYAREngine
 
         private void FixedUpdate()
         {
-            Vector2 leftCeilingOrigin = LeftCeilingChecker.position;
-            Vector2 rightCeilingOrigin = RightCeilingChecker.position;
-            Vector2 direction = new Vector2(0, _distance);
+            var leftCeilingOrigin = LeftCeilingChecker.position;
+            var rightCeilingOrigin = RightCeilingChecker.position;
+            var direction = new Vector2(0, _distance);
 
             // TODO delete debug ray of jump
             //Debug.DrawRay(leftCeilingOrigin, direction, Color.red, 0.8f);
             //Debug.DrawRay(rightCeilingOrigin, direction, Color.blue, 0.8f);
-            RaycastHit2D leftCeilingHit = Physics2D.Raycast(leftCeilingOrigin, direction, _distance, Ground);
-            RaycastHit2D rightCeilingHit = Physics2D.Raycast(rightCeilingOrigin, direction, _distance, Ground);
+            var leftCeilingHit = Physics2D.Raycast(leftCeilingOrigin, direction, _distance, Ground);
+            var rightCeilingHit = Physics2D.Raycast(rightCeilingOrigin, direction, _distance, Ground);
             if (leftCeilingHit.collider != null || rightCeilingHit.collider != null)
             {
                 HasCeiling = true;
@@ -99,7 +88,13 @@ namespace BOYAREngine
             _player.Animator.SetBool("isCrouch", false);
         }
 
-        private void OnDestroy()
+        private void OnEnable()
+        {
+            _player.Input.PlayerInGame.Crouch.started += _ => Crouch_started();
+            _player.Input.PlayerInGame.Crouch.canceled += _ => Crouch_canceled();
+        }
+
+        private void OnDisable()
         {
             _player.Input.PlayerInGame.Crouch.started -= _ => Crouch_started();
             _player.Input.PlayerInGame.Crouch.canceled -= _ => Crouch_canceled();

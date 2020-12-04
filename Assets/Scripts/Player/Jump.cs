@@ -7,7 +7,7 @@ namespace BOYAREngine
 #pragma warning disable 649
         [Header("Jump settings")]
         [SerializeField] private float _jumpForce;                  // 3
-        [SerializeField] private float jumpTime = 0.3f;             // 0.3
+        [SerializeField] private float _jumpTime = 0.3f;             // 0.3
         private float _jumpTimeCounter;
         private float _distance = 0.1f;                             // 0.1f
 
@@ -40,10 +40,7 @@ namespace BOYAREngine
 
         private void Start()
         {
-            _player.Input.PlayerInGame.Jump.started += _ => Jump_started();
-            _player.Input.PlayerInGame.Jump.canceled += _ => Jump_canceled();
-
-            _jumpTimeCounter = jumpTime;
+            _jumpTimeCounter = _jumpTime;
             JumpExtraCountDefault = JumpExtraCounts;
 
             HUDEvents.JumpCheckIsActive(JumpExtraCounts > 0);
@@ -51,9 +48,9 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_isGrounded == true)
+            if (_isGrounded)
             {
-                _jumpTimeCounter = jumpTime;
+                _jumpTimeCounter = _jumpTime;
             }
         }
 
@@ -61,32 +58,28 @@ namespace BOYAREngine
         {
             CheckGround();
 
-            if (IsJumping == true && IsStoppedJumping == false)
+            if (!IsJumping || IsStoppedJumping) return;
+            if (_jumpTimeCounter > 0)
             {
-                if (_jumpTimeCounter > 0)
-                {
-                    _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _jumpForce);
-                    _jumpTimeCounter -= Time.deltaTime;
-                }
-                else
-                {
-                    IsJumping = false;
-                }
+                _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _jumpForce);
+                _jumpTimeCounter -= Time.deltaTime;
             }
-
+            else
+            {
+                IsJumping = false;
+            }
         }
 
         private void Jump_started()
         {
-            if (_isGrounded == true && _player.Crouch.HasCeiling == false)
+            if (_isGrounded && _player.Crouch.HasCeiling == false)
             {
                 JumpAction();
             }
-            if (_isGrounded == false && JumpExtraCounts > 0)
-            {
-                IsDoubleJumping = true;
-                JumpAction();
-            }
+
+            if (_isGrounded || JumpExtraCounts <= 0) return;
+            IsDoubleJumping = true;
+            JumpAction();
         }
 
         private void JumpAction()
@@ -130,19 +123,18 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
+            _player.Input.PlayerInGame.Jump.started += _ => Jump_started();
+            _player.Input.PlayerInGame.Jump.canceled += _ => Jump_canceled();
+
             HUDEvents.JumpCheckIsActive(true);
         }
 
         private void OnDisable()
         {
-            
-            HUDEvents.JumpCheckIsActive(false);
-        }
-
-        private void OnDestroy()
-        {
             _player.Input.PlayerInGame.Jump.started -= _ => Jump_started();
             _player.Input.PlayerInGame.Jump.canceled -= _ => Jump_canceled();
+
+            HUDEvents.JumpCheckIsActive(false);
         }
     }
 }

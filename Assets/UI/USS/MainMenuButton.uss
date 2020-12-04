@@ -16,4 +16,33 @@
 
 .unity-label {
     color: rgb(196, 196, 196);
+    -unity-font: resource('Fonts/pressstart2p');
+}
+
+.unity-base-slider__drag-container {
+    justify-content: center;
+}
+
+.unity-text-field {
+    justify-content: flex-start;
+    font-size: 16px;
+    height: 32px;
+    flex-wrap: wrap;
+    flex-grow: 0;
+    flex-shrink: 1;
+    -unity-text-align: upper-left;
+    -unity-font: resource('Fonts/pressstart2p');
+    width: 30%;
+    margin-left: 3%;
+}
+
+.unity-base-text-field__input {
+    align-items: flex-start;
+    justify-content: flex-start;
+    -unity-text-align: middle-center;
+}
+
+.unity-base-slider__tracker {
+    height: 4px;
+    flex-wrap: wrap;
 }

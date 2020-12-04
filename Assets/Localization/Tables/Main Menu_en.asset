@@ -46,5 +46,25 @@ MonoBehaviour:
     m_Localized: 'Resolution:'
     m_Metadata:
       m_Items: []
+  - m_Id: 13081575560900608
+    m_Localized: 'Sound volume:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13081643714146304
+    m_Localized: 'Music:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13082337565274112
+    m_Localized: 'Sound:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13082949946241024
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13087747533762560
+    m_Localized: 'Video:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
