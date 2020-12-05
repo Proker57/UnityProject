@@ -12,9 +12,8 @@ namespace BOYAREngine
     {
         private string _stringTableCollectionName = "Main Menu";
 
-        [SerializeField] private string _newGameSceneName = "TestLevel001";
+        [SerializeField] private const string NewGameSceneName = "TestLevel001";
 
-        private GameController _gameController;
         private UIDocument _uiDocument;
 
         private Button _newGameButton;
@@ -42,7 +41,6 @@ namespace BOYAREngine
 
         private void Awake()
         {
-            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
             _uiDocument = GetComponent<UIDocument>();
 
             var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
@@ -72,7 +70,7 @@ namespace BOYAREngine
 
             _newGameButton.RegisterCallback<ClickEvent>(ev => NewGame());
             _loadButton.RegisterCallback<ClickEvent>(ev => Load());
-            _optionsButton.RegisterCallback<ClickEvent>(ev => FlexOptionsBlock());
+            _optionsButton.RegisterCallback<ClickEvent>(ev => FlexOptionsBlock(), TrickleDown.TrickleDown);
             _exitButton.RegisterCallback<ClickEvent>(ev => ExitApplication());
             _ruButton.RegisterCallback<ClickEvent>(ev => ChangeLocale("ru"));
             _enButton.RegisterCallback<ClickEvent>(ev => ChangeLocale("en"));
@@ -90,16 +88,17 @@ namespace BOYAREngine
 
         private void NewGame()
         {
-            SceneLoader.SwitchScene(_newGameSceneName);
+            SceneLoader.SwitchScene(NewGameSceneName);
             GameController.IsNewGame = true;
             _uiDocument.enabled = false;
         }
 
-        private void Load()
+        private static void Load()
         {
-            _gameController.GetComponent<SaveLoad>().Load();
+            GameController.Instance.GetComponent<SaveLoad>().Load();
             GameController.IsNewGame = false;
-            SceneLoader.SwitchScene(_gameController.SceneName);
+
+            SceneLoader.SwitchScene(GameController.Instance.SceneName);
         }
 
         private void FlexOptionsBlock()
@@ -125,16 +124,19 @@ namespace BOYAREngine
             }
         }
 
+        // ReSharper disable once InconsistentNaming
         private void LowHDResolutionButton()
         {
             Screen.SetResolution(848, 480, _toggleFullscreen.value);
         }
 
+        // ReSharper disable once InconsistentNaming
         private void HDResolutionButton()
         {
             Screen.SetResolution(1280, 720, _toggleFullscreen.value);
         }
 
+        // ReSharper disable once InconsistentNaming
         private void FullHDResolutionButton()
         {
             Screen.SetResolution(1980, 1080, _toggleFullscreen.value);
@@ -142,12 +144,12 @@ namespace BOYAREngine
 
         private void MusicSlider()
         {
-            _gameController.MusicVolume = _musicSlider.value;
+            AudioMixerVolume.Instance.MasterMixer.SetFloat("Music", _musicSlider.value);
         }
 
         private void SoundSlider()
         {
-            _gameController.SoundVolume = _soundSlider.value;
+            AudioMixerVolume.Instance.MasterMixer.SetFloat("SFX", _soundSlider.value);
         }
 
 
@@ -160,7 +162,7 @@ namespace BOYAREngine
             PlayerPrefs.Save();
         }
 
-        private void ExitApplication()
+        private static void ExitApplication()
         {
             Application.Quit(0);
         }
@@ -177,6 +179,10 @@ namespace BOYAREngine
             if (PlayerPrefs.HasKey("MusicVolume"))
             {
                 _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+            }
+            if (PlayerPrefs.HasKey("SoundVolume"))
+            {
+                _soundSlider.value = PlayerPrefs.GetFloat("SoundVolume");
             }
         }
 
@@ -221,11 +227,11 @@ namespace BOYAREngine
             }
             else
             {
-                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException.ToString());
+                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException);
             }
         }
 
-        private string GetLocalizedString(StringTable table, string entryName)
+        private static string GetLocalizedString(StringTable table, string entryName)
         {
             var entry = table.GetEntry(entryName);
             return entry.GetLocalizedString();

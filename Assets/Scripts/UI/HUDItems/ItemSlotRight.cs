@@ -41,24 +41,18 @@ namespace BOYAREngine
 
         private void ShowItemUi()
         {
-            switch (Player.ItemManager.ItemIndex)
+            if (Player.ItemManager.ItemIndex >= 0)
             {
-                case (int)ItemEnum.ItemType.SmallPotion:
-                    _itemImage.sprite = _itemSprite.SmallPotion;
-                    _itemName.text = _potion_hp_small;
-                    break;
-                case (int)ItemEnum.ItemType.MediumPotion:
-                    _itemImage.sprite = _itemSprite.MediumPotion;
-                    _itemName.text = _potion_hp_medium;
-                    break;
-                case (int)ItemEnum.ItemType.HugePotion:
-                    _itemImage.sprite = _itemSprite.HugePotion;
-                    _itemName.text = _potion_hp_huge;
-                    break;
-                default:
-                    _itemImage.sprite = _itemSprite.None;
-                    _itemName.text = _none;
-                    break;
+                foreach (var t in Player.ItemManager.Items)
+                {
+                    _itemImage.sprite = Player.ItemManager.Items[Player.ItemManager.ItemIndex].Sprite;
+                    _itemName.text = Player.ItemManager.Items[Player.ItemManager.ItemIndex].Name;
+                }
+            }
+            else
+            {
+                _itemImage.sprite = ItemSprites.Instance.None;
+                _itemName.text = _none;
             }
         }
 

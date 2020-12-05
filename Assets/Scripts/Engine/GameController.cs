@@ -15,9 +15,6 @@ namespace BOYAREngine
 
         public static bool IsNewGame = true;
 
-        public float MusicVolume;
-        public float SoundVolume;
-
         private void Awake()
         {
             if (Instance == null)
@@ -29,14 +26,10 @@ namespace BOYAREngine
                 Destroy(gameObject);
             }
 
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
-
             CreatePlayerPrefs();
-            LoadPlayerPrefs();
         }
 
-        private void CreatePlayerPrefs()
+        private static void CreatePlayerPrefs()
         {
             if (!PlayerPrefs.HasKey("Locale"))
             {
@@ -44,23 +37,11 @@ namespace BOYAREngine
             }
             if (!PlayerPrefs.HasKey("MusicVolume"))
             {
-                PlayerPrefs.SetFloat("MusicVolume", 1);
+                PlayerPrefs.SetFloat("MusicVolume", 0f);
             }
             if (!PlayerPrefs.HasKey("SoundVolume"))
             {
-                PlayerPrefs.SetFloat("SoundVolume", 1);
-            }
-        }
-
-        private void LoadPlayerPrefs()
-        {
-            if (PlayerPrefs.HasKey("MusicVolume"))
-            {
-                MusicVolume = PlayerPrefs.GetFloat("MusicVolume");
-            }
-            if (PlayerPrefs.HasKey("SoundVolume"))
-            {
-                MusicVolume = PlayerPrefs.GetFloat("SoundVolume");
+                PlayerPrefs.SetFloat("SoundVolume", 0f);
             }
         }
 

@@ -5,6 +5,8 @@ namespace BOYAREngine
 {
     public class ItemManager : MonoBehaviour, ISaveable
     {
+        public static ItemManager Instance = null;
+
         public List<Item> Items = new List<Item>();
 
         public int ItemIndex;
@@ -13,6 +15,11 @@ namespace BOYAREngine
         
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+
             ItemIndex = -1;
             _playerInput = GetComponent<Player>().Input;
         }
@@ -24,12 +31,10 @@ namespace BOYAREngine
 
         private void ItemUse_started()
         {
-            if (Items.Count > 0 && ItemIndex > -1)
-            {
-                Items[ItemIndex].UseItem();
-                Items.Remove(Items[ItemIndex]);
-                ItemIndex--;
-            }
+            if (Items.Count <= 0 || ItemIndex <= -1) return;
+            Items[ItemIndex].UseItem();
+            Items.Remove(Items[ItemIndex]);
+            ItemIndex--;
         }
 
         private void NextItem_started()

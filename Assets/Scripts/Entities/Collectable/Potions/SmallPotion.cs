@@ -1,5 +1,4 @@
-﻿using System.Resources;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BOYAREngine
 {
@@ -11,7 +10,6 @@ namespace BOYAREngine
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;
         private Rigidbody2D _rigidbody2D;
-        private ItemManager _itemManager;
 
         private void Awake()
         {
@@ -26,7 +24,7 @@ namespace BOYAREngine
         {
             if (collision.collider.name != "Low Collider") return;
 
-            ItemEvents.ItemPickUp((int) ItemEnum.ItemType.SmallPotion);
+            ItemEvents.ItemPickUp((int)ItemEnum.ItemType.SmallPotion);
 
             IsActive = false;
 

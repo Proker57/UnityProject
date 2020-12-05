@@ -239,8 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e8665fbd7f01c4db4cbc86bde5f5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _newGameSceneName: TestLevel001
-  _bgm: {fileID: 1702262628}
 --- !u!1 &1434790460
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +364,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1702262627}
   - component: {fileID: 1702262628}
-  - component: {fileID: 1702262629}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -397,7 +394,7 @@ AudioSource:
   m_GameObject: {fileID: 1702262626}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8097782025902080500, guid: d52989532d5119941aa5126e73743a82, type: 2}
   m_audioClip: {fileID: 8300000, guid: 15edbb05f0608f0499f6782149ac74a5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -484,15 +481,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1702262629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702262626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bc2103f1a6a0eb42b17849bc6de9a77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
