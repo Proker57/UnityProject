@@ -15,19 +15,15 @@ namespace BOYAREngine
         [HideInInspector] public Player Player;
 
         [SerializeField] private UIManagerLegacy _uiManagerLegacy;
-        [SerializeField] private ItemSprites _itemSprite;
         [SerializeField] private Text _itemName;
         private Image _itemImage;
 
         private string _none;
-        private string _potion_hp_small;
-        private string _potion_hp_medium;
-        private string _potion_hp_huge;
 
         private void Awake()
         {
             StartCoroutine(LoadStrings());
-            _itemSprite = GetComponent<ItemSprites>();
+
             _itemImage = GetComponent<Image>();
         }
 
@@ -41,12 +37,12 @@ namespace BOYAREngine
 
         private void ShowItemUi()
         {
-            if (Player.ItemManager.ItemIndex >= 0)
+            if (ItemManager.Instance.ItemIndex >= 0)
             {
-                foreach (var t in Player.ItemManager.Items)
+                foreach (var t in ItemManager.Instance.Items)
                 {
-                    _itemImage.sprite = Player.ItemManager.Items[Player.ItemManager.ItemIndex].Sprite;
-                    _itemName.text = Player.ItemManager.Items[Player.ItemManager.ItemIndex].Name;
+                    _itemImage.sprite = ItemManager.Instance.Items[ItemManager.Instance.ItemIndex].Sprite;
+                    _itemName.text = ItemManager.Instance.Items[ItemManager.Instance.ItemIndex].Name;
                 }
             }
             else
@@ -58,14 +54,16 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
             Events.PlayerOnScene += AssignPlayer;
+
+            LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
 
         private void OnDisable()
         {
-            LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
             Events.PlayerOnScene -= AssignPlayer;
+
+            LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }
 
         private void OnSelectedLocaleChanged(Locale obj)
@@ -82,9 +80,6 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
                 _none = GetLocalizedString(stringTable, "none");
-                _potion_hp_small = GetLocalizedString(stringTable, "potion_hp_small");
-                _potion_hp_medium = GetLocalizedString(stringTable, "potion_hp_medium");
-                _potion_hp_huge = GetLocalizedString(stringTable, "potion_hp_huge");
             }
             else
             {

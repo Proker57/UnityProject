@@ -31,6 +31,18 @@ MonoBehaviour:
     m_Key: potion_hp_small
     m_Metadata:
       m_Items: []
+  - m_Id: 3633148703862784
+    m_Key: potion_hp_small_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3633184925872128
+    m_Key: potion_hp_medium_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3633215774978048
+    m_Key: potion_hp_huge_description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

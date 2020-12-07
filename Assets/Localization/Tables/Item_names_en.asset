@@ -34,5 +34,17 @@ MonoBehaviour:
     m_Localized: No items
     m_Metadata:
       m_Items: []
+  - m_Id: 3633148703862784
+    m_Localized: Restores 20 HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3633184925872128
+    m_Localized: Restores 50 HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3633215774978048
+    m_Localized: Restores 100 HP
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

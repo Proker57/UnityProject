@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace BOYAREngine
 {
@@ -80,6 +82,8 @@ namespace BOYAREngine
             _playerInput.PlayerInGame.ItemUse.started += _ => ItemUse_started();
             _playerInput.PlayerInGame.NextItem.started += _ => NextItem_started();
             _playerInput.PlayerInGame.PreviousItem.started += _ => PreviousItem_started();
+
+            LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
 
         private void OnDisable()
@@ -91,6 +95,8 @@ namespace BOYAREngine
             _playerInput.PlayerInGame.ItemUse.started -= _ => ItemUse_started();
             _playerInput.PlayerInGame.NextItem.started -= _ => NextItem_started();
             _playerInput.PlayerInGame.PreviousItem.started -= _ => PreviousItem_started();
+
+            LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }
 
         public object CaptureState()
@@ -108,6 +114,14 @@ namespace BOYAREngine
 
             Items = saveData.Items;
             ItemIndex = saveData.ItemIndex;
+        }
+
+        private void OnSelectedLocaleChanged(Locale obj)
+        {
+            foreach (var t in Items)
+            {
+                t.LoadStrings();
+            }
         }
     }
 
