@@ -14,7 +14,7 @@ namespace MyNamespace
         {
             _hoverPanel.SetActive(true);
 
-            if (ItemManager.Instance.Items.Count >= 0)
+            if (ItemManager.Instance.ItemIndex >= 0)
             {
                 _description.text = ItemManager.Instance.Items[ItemManager.Instance.ItemIndex].Description;
             }
