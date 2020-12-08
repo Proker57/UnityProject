@@ -9,9 +9,8 @@ namespace BOYAREngine
     {
         public static ItemManager Instance = null;
 
-        public List<Item> Items = new List<Item>();
-
         public int ItemIndex;
+        public List<Item> Items = new List<Item>();
 
         private PlayerInput _playerInput;
         
@@ -118,9 +117,9 @@ namespace BOYAREngine
 
         private void OnSelectedLocaleChanged(Locale obj)
         {
-            foreach (var t in Items)
+            foreach (var item in Items)
             {
-                t.LoadStrings();
+                item.LoadStrings();
             }
         }
     }

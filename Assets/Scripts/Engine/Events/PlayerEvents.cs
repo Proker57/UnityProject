@@ -25,5 +25,8 @@ namespace BOYAREngine
 
         public delegate void RestoreHealthDelegate(int amount);
         public static RestoreHealthDelegate RestoreHealth;
+
+        public delegate void DamageDelegate(int damage);
+        public static DamageDelegate Damage;
     }
 }

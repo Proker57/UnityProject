@@ -61,12 +61,18 @@ namespace BOYAREngine
             Health += amount;
         }
 
+        private void Damage(int damage)
+        {
+            Health -= damage;
+        }
+
         private void OnEnable()
         {
             PlayerEvents.GiveExp += GetExp;
             PlayerEvents.LevelUp += LevelUp;
             PlayerEvents.GiveCurrency += GetCurrency;
             PlayerEvents.RestoreHealth += RestoreHealth;
+            PlayerEvents.Damage += Damage;
         }
 
         private void OnDisable()
@@ -75,6 +81,7 @@ namespace BOYAREngine
             PlayerEvents.LevelUp -= LevelUp;
             PlayerEvents.GiveCurrency -= GetCurrency;
             PlayerEvents.RestoreHealth -= RestoreHealth;
+            PlayerEvents.Damage -= Damage;
         }
 
         public object CaptureState()

@@ -37,6 +37,7 @@ namespace BOYAREngine
         private Slider _musicSlider;
         private Slider _soundSlider;
 
+        private Button _backSettingsButton;
         private Button _saveSettingsButton;
 
         private void Awake()
@@ -66,6 +67,7 @@ namespace BOYAREngine
             _musicSlider = rootVisualElement.Q<Slider>("music-slider");
             _soundSlider = rootVisualElement.Q<Slider>("sound-slider");
 
+            _backSettingsButton = rootVisualElement.Q<Button>("back_settings-button");
             _saveSettingsButton = rootVisualElement.Q<Button>("save_settings-button");
 
             _newGameButton.RegisterCallback<ClickEvent>(ev => NewGame());
@@ -81,6 +83,7 @@ namespace BOYAREngine
             _musicSlider.RegisterValueChangedCallback(x => MusicSlider());
             _soundSlider.RegisterValueChangedCallback(x => SoundSlider());
 
+            _backSettingsButton.RegisterCallback<ClickEvent>(ev => BackSettingsButton());
             _saveSettingsButton.RegisterCallback<ClickEvent>(ev => SaveSettingsButton());
 
             LoadPlayerPrefs();
@@ -154,6 +157,11 @@ namespace BOYAREngine
 
 
 
+        private void BackSettingsButton()
+        {
+            _optionsBlock.style.display = DisplayStyle.None;
+        }
+
         private void SaveSettingsButton()
         {
             PlayerPrefs.SetString("Locale", LocalizationSettings.SelectedLocale.Identifier.Code);
@@ -223,6 +231,7 @@ namespace BOYAREngine
                 _soundLabel.text = GetLocalizedString(stringTable, "sound_volume");
                 _musicSlider.label = GetLocalizedString(stringTable, "music");
                 _soundSlider.label = GetLocalizedString(stringTable, "sound");
+                _backSettingsButton.text = GetLocalizedString(stringTable, "back_settings");
                 _saveSettingsButton.text = GetLocalizedString(stringTable, "save_settings");
             }
             else

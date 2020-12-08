@@ -8,7 +8,7 @@
             <ui:Button text="Options" display-tooltip-when-elided="True" name="options-button" style="justify-content: space-between; height: 15%; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); font-size: 30px; background-color: rgb(89, 89, 89); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); color: rgb(196, 196, 196); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; margin-left: 10%; width: 80%;" />
             <ui:Button text="Exit" display-tooltip-when-elided="True" name="exit-button" style="height: 15%; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); font-size: 30px; background-color: rgb(89, 89, 89); color: rgb(196, 196, 196); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; margin-left: 10%; width: 80%;" />
         </ui:VisualElement>
-        <ui:VisualElement name="options-block" style="right: 5%; top: 10%; left: 50%; bottom: 10%; height: 80%; width: 45%; position: absolute; background-color: rgba(26, 26, 26, 0.9); display: flex; flex-grow: 1;">
+        <ui:VisualElement name="options-block" style="right: 5%; top: 10%; left: 50%; bottom: 10%; height: 80%; width: 45%; position: absolute; background-color: rgba(26, 26, 26, 0.9); display: none; flex-grow: 1;">
             <ui:VisualElement>
                 <ui:Label text="Language:" display-tooltip-when-elided="True" name="language-label" style="font-size: 28px; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); padding-top: 5%; padding-left: 5%; color: rgb(196, 196, 196); margin-left: 0;" />
                 <ui:VisualElement name="language-block" style="flex-direction: row; align-items: flex-start; justify-content: center; margin-top: 5%; border-bottom-width: 2px; border-bottom-color: rgb(47, 114, 168); padding-bottom: 10px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px;">
@@ -31,7 +31,8 @@
                     <ui:Slider picking-mode="Ignore" label="Sound:" value="1" high-value="1" page-size="0" show-input-field="true" name="sound-slider" style="font-size: 28px; margin-left: 5%;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement style="justify-content: flex-end; flex-direction: column; position: absolute; top: 778px; left: 546px; width: 303px; align-items: flex-end; height: 55px; display: flex;">
+            <ui:VisualElement style="justify-content: flex-end; flex-direction: row; position: absolute; top: 778px; left: 22px; width: 827px; align-items: flex-end; height: 55px; display: flex;">
+                <ui:Button text="Back" display-tooltip-when-elided="True" name="back_settings-button" style="align-items: stretch; width: 100%; justify-content: flex-start; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); flex-grow: 1; height: 100%; font-size: 25px; flex-shrink: 1; margin-right: 120px;" />
                 <ui:Button text="Save" display-tooltip-when-elided="True" name="save_settings-button" style="align-items: stretch; width: 100%; justify-content: flex-start; -unity-font: resource(&apos;Fonts/pressstart2p&apos;); flex-grow: 1; height: 100%; font-size: 25px; flex-shrink: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>

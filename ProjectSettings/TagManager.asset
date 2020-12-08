@@ -50,11 +50,11 @@ TagManager:
   - name: Background 1
     uniqueID: 2570873145
     locked: 0
-  - name: Base
-    uniqueID: 2057004997
-    locked: 0
   - name: Player
     uniqueID: 1028735917
+    locked: 0
+  - name: Base
+    uniqueID: 2057004997
     locked: 0
   - name: Foreground 1
     uniqueID: 4253872567
