@@ -25,15 +25,15 @@ namespace BOYAREngine
             _playerInput = GetComponent<Player>().Input;
         }
 
-        public void ItemPickUp(int itemId)
+        public void ItemPickUp(Item item)
         {
-            Items.Add(new Item(itemId));
+            Items.Add(item);
         }
 
         private void ItemUse_started()
         {
             if (Items.Count <= 0 || ItemIndex <= -1) return;
-            Items[ItemIndex].UseItem();
+            Items[ItemIndex].Use();
             Items.Remove(Items[ItemIndex]);
             ItemIndex--;
         }

@@ -4,7 +4,7 @@ namespace BOYAREngine
 {
     public class ItemEvents
     {
-        public delegate void ItemPickUpDelegate(int itemId);
+        public delegate void ItemPickUpDelegate(Item item);
         public static ItemPickUpDelegate ItemPickUp;
 
         public delegate void ItemNextDelegate();

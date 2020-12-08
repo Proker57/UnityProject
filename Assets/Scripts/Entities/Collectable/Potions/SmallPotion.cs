@@ -24,7 +24,7 @@ namespace BOYAREngine
         {
             if (collision.collider.name != "Low Collider") return;
 
-            ItemEvents.ItemPickUp((int)ItemEnum.ItemType.SmallPotion);
+            ItemEvents.ItemPickUp(new ItemPotionHpSmall());
 
             IsActive = false;
 

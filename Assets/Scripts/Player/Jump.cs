@@ -18,6 +18,7 @@ namespace BOYAREngine
 
         [Header("Ground Collision")]
         [SerializeField] private LayerMask _ground;
+        [SerializeField] private LayerMask _platform;
         [SerializeField] private Transform _leftGroundChecker;
         [SerializeField] private Transform _rightGroundChecker;
 
@@ -26,6 +27,7 @@ namespace BOYAREngine
         public bool IsDoubleJumping;
         public bool IsStoppedJumping;
         [SerializeField] private bool _isGrounded;
+        [SerializeField] private bool _isOnPlatform;
 
         private Player _player;
 #pragma warning restore 649
@@ -48,7 +50,7 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_isGrounded)
+            if (_isGrounded || _isOnPlatform)
             {
                 _jumpTimeCounter = _jumpTime;
             }
@@ -57,6 +59,7 @@ namespace BOYAREngine
         private void FixedUpdate()
         {
             CheckGround();
+            CheckPlatform();
 
             if (!IsJumping || IsStoppedJumping) return;
             if (_jumpTimeCounter > 0)
@@ -72,12 +75,18 @@ namespace BOYAREngine
 
         private void Jump_started()
         {
-            if (_isGrounded && _player.Crouch.HasCeiling == false)
+            if (_player.Crouch.IsCrouched && _isOnPlatform)
+            {
+                PlayerEvents.JumpDownPlatform();
+                return;
+            }
+
+            if ((_isGrounded || _isOnPlatform) && !_player.Crouch.HasCeiling)
             {
                 JumpAction();
             }
 
-            if (_isGrounded || JumpExtraCounts <= 0) return;
+            if ((_isGrounded || _isOnPlatform) || JumpExtraCounts <= 0) return;
             IsDoubleJumping = true;
             JumpAction();
         }
@@ -102,11 +111,6 @@ namespace BOYAREngine
             var leftOrigin = _leftGroundChecker.position;
             var rightOrigin = _rightGroundChecker.position;
             var direction = new Vector2(0, -_distance);
-
-            // TODO delete debug ray of jump
-            //Debug.DrawRay(leftOrigin, direction, Color.green, 0.8f);
-            //Debug.DrawRay(rightOrigin, direction, Color.yellow, 0.8f);
-
             var leftHit = Physics2D.Raycast(leftOrigin, direction, _distance, _ground);
             var rightHit = Physics2D.Raycast(rightOrigin, direction, _distance, _ground);
             if (leftHit.collider != null || rightHit.collider != null)
@@ -118,6 +122,23 @@ namespace BOYAREngine
             else
             {
                 _isGrounded = false;
+            }
+        }
+
+        public void CheckPlatform()
+        {
+            var leftOrigin = _rightGroundChecker.position;
+            var rightOrigin = _leftGroundChecker.position;
+            var direction = new Vector2(0, -_distance);
+            var leftHit = Physics2D.Raycast(leftOrigin, direction, _distance, _platform);
+            var rightHit = Physics2D.Raycast(rightOrigin, direction, _distance, _platform);
+            if (leftHit.collider != null || rightHit.collider != null)
+            {
+                _isOnPlatform = true;
+            }
+            else
+            {
+                _isOnPlatform = false;
             }
         }
 

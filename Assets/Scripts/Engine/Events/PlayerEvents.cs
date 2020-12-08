@@ -14,6 +14,9 @@ namespace BOYAREngine
         public delegate void DoubleJumpReadyDelegate();
         public static DoubleJumpReadyDelegate DoubleJumpReady;
 
+        public delegate void JumpDownPlatformDelegate();
+        public static JumpDownPlatformDelegate JumpDownPlatform;
+
         public delegate void LevelUpDelegate();
         public static LevelUpDelegate LevelUp;
 

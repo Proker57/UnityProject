@@ -20,9 +20,9 @@ TagManager:
   - Ground
   - Damageable
   - PlayerProjectile
-  - 
-  - 
-  - 
+  - Platform
+  - PlayerHighCollider
+  - PlayerLowCollider
   - 
   - 
   - 
