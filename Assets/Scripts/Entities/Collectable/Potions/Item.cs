@@ -11,7 +11,7 @@ namespace BOYAREngine
         [SerializeField] internal string Name;
         [SerializeField] internal string Description;
 
-        internal virtual void Use() {}
-        internal virtual void LoadStrings() {}
+        internal virtual void Use() { }
+        internal virtual void LoadStrings() { }
     }
 }

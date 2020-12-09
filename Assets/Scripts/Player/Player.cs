@@ -25,7 +25,7 @@ namespace BOYAREngine
             Jump = GetComponent<Jump>();
             Crouch = GetComponent<Crouch>();
             LowCollider = GetComponentInChildren<BoxCollider2D>();
-            HighCollider = GetComponent<CapsuleCollider2D>();
+            HighCollider = GetComponentInChildren<CapsuleCollider2D>();
             Animator = GetComponent<Animator>();
             Dash = GetComponent<Dash>();
             Movement = GetComponent<Movement>();

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace BOYAREngine
 {
@@ -13,8 +12,6 @@ namespace BOYAREngine
         private void Awake()
         {
             _boxCollider2D = GetComponent<BoxCollider2D>();
-
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"));
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -33,15 +30,9 @@ namespace BOYAREngine
 
         private void JumpOff()
         {
-            if (_isOnPlatform)
-            {
-                _boxCollider2D.enabled = false;
-                StartCoroutine("EnableCollider");
-            }
-
-            //_boxCollider2D.enabled = false;
-
-            //StartCoroutine("EnableCollider");
+            if (!_isOnPlatform) return;
+            _boxCollider2D.enabled = false;
+            StartCoroutine("EnableCollider");
         }
 
         private IEnumerator EnableCollider()
