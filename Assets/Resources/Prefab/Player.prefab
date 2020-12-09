@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7179260046989226015}
   m_Layer: 8
   m_Name: Low Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
   JumpExtraCountDefault: 0
   _ground:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4608
   _platform:
     serializedVersion: 2
     m_Bits: 4096
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 7649755503361095669}
   m_Layer: 0
   m_Name: High Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
