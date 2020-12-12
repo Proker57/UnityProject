@@ -10,7 +10,7 @@ namespace BOYAREngine
 {
     public class BowHover : MonoBehaviour
     {
-        private string StringTableCollectionName = "BowHoverUI";
+        private const string StringTableCollectionName = "BowHoverUI";
 
         [SerializeField] private GameObject _hoverPanel;
         [SerializeField] private Text _name;
@@ -76,7 +76,7 @@ namespace BOYAREngine
             }
         }
 
-        private string GetLocalizedString(StringTable table, string entryName)
+        private static string GetLocalizedString(StringTable table, string entryName)
         {
             var entry = table.GetEntry(entryName);
             return entry.GetLocalizedString();

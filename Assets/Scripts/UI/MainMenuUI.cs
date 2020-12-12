@@ -10,7 +10,7 @@ namespace BOYAREngine
 {
     public class MainMenuUI : MonoBehaviour
     {
-        private string _stringTableCollectionName = "Main Menu";
+        private const string StringTableCollectionName = "Main Menu";
 
         [SerializeField] private const string NewGameSceneName = "TestLevel001";
 
@@ -214,7 +214,7 @@ namespace BOYAREngine
 
         private IEnumerator LoadStrings()
         {
-            var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(_stringTableCollectionName);
+            var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(StringTableCollectionName);
             yield return loadingOperation;
 
             if (loadingOperation.Status == AsyncOperationStatus.Succeeded)

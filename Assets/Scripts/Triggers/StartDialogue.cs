@@ -15,7 +15,7 @@ namespace BOYAREngine
         [SerializeField] private GameObject _pressE;
         private DialogueManager _dialogueManager;
         private List<DialogueNode> _dialogueNodes;
-        private PlayerInput _playerInput;
+        private Player _player;
 
         private string _name = "Dialogue Test--";
         private string _narrative = "Narrative 1--";
@@ -31,38 +31,28 @@ namespace BOYAREngine
 
         private void Awake()
         {
-            _dialogueManager = GameObject.FindGameObjectWithTag("DialogueManager").GetComponent<DialogueManager>();
+            _dialogueManager = DialogueManager.Instance;
             _dialogueNodes = new List<DialogueNode>();
+
+            _player = Player.Instance;
 
             StartCoroutine(LoadStrings());
         }
 
         private void OnTriggerEnter2D(Component objectCollider)
         {
-            if (objectCollider.tag == "Player")
-            {
-                if (_playerInput == null)
-                {
-                    _playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Input;
-                    _playerInput.PlayerInGame.Use.started += _ => Use_started();
-                }
-
-                _pressE.SetActive(true);
-                _isEnter = true;
-            }
+            if (objectCollider.tag != "Player") return;
+            _pressE.SetActive(true);
+            _isEnter = true;
         }
 
         private void OnTriggerExit2D(Component objectCollider)
         {
-            if (objectCollider.tag == "Player")
-            {
-                _isEnter = false;
-                _pressE.SetActive(false);
-                _isDialogueStarted = false;
-                _dialogueManager.FinishDialogue();
-
-                _playerInput.PlayerInGame.Use.started -= _ => Use_started();
-            }
+            if (objectCollider.tag != "Player") return;
+            _isEnter = false;
+            _pressE.SetActive(false);
+            _isDialogueStarted = false;
+            _dialogueManager.FinishDialogue();
         }
 
         private void AnswerAction(int index, int questionNumber)
@@ -79,8 +69,7 @@ namespace BOYAREngine
                             PlayerEvents.GiveExp(200);
                             break;
                         case 3:
-                            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
-                            PlayerEvents.GiveExp(player.MaxExp - player.Exp);
+                            PlayerEvents.GiveExp(_player.Stats.MaxExp - _player.Stats.Exp);
                             break;
                     }
                     break;
@@ -103,6 +92,7 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
+            Player.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             _dialogueManager.ChooseEvent += AnswerAction;
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
             
@@ -110,9 +100,9 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
+            Player.Instance.Input.PlayerInGame.Use.started -= _ => Use_started();
             _dialogueManager.ChooseEvent -= AnswerAction;
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
-            if (_playerInput != null) _playerInput.PlayerInGame.Use.started -= _ => Use_started();
         }
 
         private void OnSelectedLocaleChanged(Locale obj)

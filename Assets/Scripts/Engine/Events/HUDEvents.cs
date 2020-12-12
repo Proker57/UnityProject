@@ -1,8 +1,7 @@
-using UnityEngine;
-
 namespace BOYAREngine
 {
-    public class HUDEvents : MonoBehaviour
+    // ReSharper disable once InconsistentNaming
+    public class HUDEvents
     {
         public delegate void DashCheckIsActiveDelegate(bool boolean);
         public static DashCheckIsActiveDelegate DashCheckIsActive;

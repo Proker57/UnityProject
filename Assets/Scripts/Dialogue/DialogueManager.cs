@@ -6,6 +6,7 @@ namespace BOYAREngine
 {
     public class DialogueManager : MonoBehaviour
     {
+        public static DialogueManager Instance = null;
         public bool IsDialogueStarted;
 
         public delegate void ChooseEventDelegate(int answerIndex, int questionNumber);
@@ -27,6 +28,11 @@ namespace BOYAREngine
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+
             _dialogueNodes = new List<DialogueNode>();
         }
 

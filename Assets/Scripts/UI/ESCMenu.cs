@@ -85,11 +85,7 @@ namespace BOYAREngine
 
         private void DestroyPlayer()
         {
-            var player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                Destroy(player);
-            }
+            Destroy(Player.Instance.gameObject);
         }
 
         private void OnEnable()
@@ -131,7 +127,7 @@ namespace BOYAREngine
             }
         }
 
-        private string GetLocalizedString(StringTable table, string entryName)
+        private static string GetLocalizedString(StringTable table, string entryName)
         {
             var entry = table.GetEntry(entryName);
             return entry.GetLocalizedString();

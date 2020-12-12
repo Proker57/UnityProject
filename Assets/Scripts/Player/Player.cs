@@ -4,6 +4,8 @@ namespace BOYAREngine
 {
     public class Player : MonoBehaviour
     {
+        public static Player Instance = null;
+
         public PlayerInput Input;
         public Rigidbody2D Rigidbody2D;
         public Jump Jump;
@@ -20,6 +22,11 @@ namespace BOYAREngine
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+
             Input = new PlayerInput();
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Jump = GetComponent<Jump>();

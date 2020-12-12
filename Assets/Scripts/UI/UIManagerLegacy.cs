@@ -5,6 +5,7 @@ namespace BOYAREngine
 {
     public class UIManagerLegacy : MonoBehaviour
     {
+        public static UIManagerLegacy Instance = null;
         public GameObject GameController;
         public GameObject LevelUpGroup;
         public Text LevelUpPoints;
@@ -13,13 +14,16 @@ namespace BOYAREngine
         private Canvas _canvas;
         [SerializeField] private GameObject _dashUI;
         [SerializeField] private GameObject _DoubleJumpUI;
-
-        [HideInInspector] public Player Player;
+        private Player _player;
 
         private void Awake()
         {
-            _sceneLoader = GameController.GetComponent<SceneLoader>();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
 
+            _sceneLoader = GameController.GetComponent<SceneLoader>();
             _canvas = transform.GetChild(0).GetComponent<Canvas>();
         }
 
@@ -34,21 +38,17 @@ namespace BOYAREngine
                 _canvas.enabled = true;
             }
 
-            if (Player != null)
+            if (_player == null) return;
+            if (_player.Stats.LevelUpPoints != 0)
             {
-                if (Player.Stats.LevelUpPoints != 0)
-                {
-                    LevelUpPoints.gameObject.SetActive(true);
-                    LevelUpPoints.text = "LP:" + Player.Stats.LevelUpPoints;
-                }
-                else
-                {
-                    LevelUpPoints.gameObject.SetActive(false);
-                }
+                LevelUpPoints.gameObject.SetActive(true);
+                LevelUpPoints.text = "LP:" + _player.Stats.LevelUpPoints;
+            }
+            else
+            {
+                LevelUpPoints.gameObject.SetActive(false);
             }
         }
-
-        
 
         private void LevelUp()
         {
@@ -85,9 +85,9 @@ namespace BOYAREngine
 
         private void AssignPlayer(bool isActive)
         {
-            if (Player == null)
+            if (_player == null)
             {
-                Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+                _player = Player.Instance;
             }
         }
     }

@@ -1,8 +1,6 @@
-using UnityEngine;
-
 namespace BOYAREngine
 {
-    public class Events : MonoBehaviour
+    public class Events
     {
         public delegate void SaveDelegate();
         public static SaveDelegate Save;

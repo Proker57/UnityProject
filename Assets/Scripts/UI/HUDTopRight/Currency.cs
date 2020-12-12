@@ -5,9 +5,7 @@ namespace BOYAREngine
 {
     public class Currency : MonoBehaviour
     {
-#pragma warning disable 649
         [SerializeField] private Text _currencyText;
-#pragma warning restore 649
         private Player _player;
 
         private void Update()
@@ -30,7 +28,7 @@ namespace BOYAREngine
 
         private void AssignPlayer(bool isActive)
         {
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            _player = Player.Instance;
         }
     }
 }

@@ -1,8 +1,6 @@
-using UnityEngine;
-
 namespace BOYAREngine
 {
-    public class PlayerEvents : MonoBehaviour
+    public class PlayerEvents
     {
         public delegate void DashDelegate(float time);
         public static DashDelegate Dash;

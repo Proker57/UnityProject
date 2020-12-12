@@ -76,7 +76,7 @@ namespace BOYAREngine
             }
         }
 
-        private string GetLocalizedString(StringTable table, string entryName)
+        private static string GetLocalizedString(StringTable table, string entryName)
         {
             var entry = table.GetEntry(entryName);
             return entry.GetLocalizedString();

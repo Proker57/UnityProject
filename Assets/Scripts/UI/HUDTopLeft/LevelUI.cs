@@ -10,13 +10,23 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_player == null && FindObjectOfType<Player>() != null)
-            {
-                _player = FindObjectOfType<Player>().GetComponent<Player>();
-            }
-
             if (_player == null) return;
             _text.text = "Lv." + _player.Stats.Level;
+        }
+
+        private void OnEnable()
+        {
+            Events.PlayerOnScene += AssignPlayer;
+        }
+
+        private void OnDisable()
+        {
+            Events.PlayerOnScene -= AssignPlayer;
+        }
+
+        private void AssignPlayer(bool isActive)
+        {
+            _player = Player.Instance;
         }
     }
 }

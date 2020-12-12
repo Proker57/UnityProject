@@ -5,7 +5,6 @@ namespace BOYAREngine
 {
     public class BasicAttack : MonoBehaviour
     {
-#pragma warning disable 649
         public bool IsAbleToAttack;
 
         private Player _player;
@@ -20,7 +19,6 @@ namespace BOYAREngine
 
         private Vector3 _lookDirection;
         private float _lookAngle;
-#pragma warning restore 649
 
         private void Awake()
         {

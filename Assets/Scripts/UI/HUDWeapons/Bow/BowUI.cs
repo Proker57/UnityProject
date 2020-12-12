@@ -5,15 +5,10 @@ namespace BOYAREngine
 {
     public class BowUI : MonoBehaviour
     {
-#pragma warning disable 649
-
         private Image _image;
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _inactiveSprite;
         [SerializeField] private Text _amountText;
-
-#pragma warning restore 649
-
         private void Awake()
         {
             _image = GetComponent<Image>();

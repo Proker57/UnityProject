@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BOYAREngine
 {
@@ -14,7 +13,7 @@ namespace BOYAREngine
 
         private void Awake()
         {
-            _ui = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManagerLegacy>();
+            _ui = UIManagerLegacy.Instance;
         }
 
         // Click Event
@@ -22,21 +21,17 @@ namespace BOYAREngine
         {
             if (_player == null)
             {
-                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+                _player = Player.Instance;
             }
 
-            if (_player.Stats.LevelUpPoints > 0)
-            {
-                Sword.Damage += DamageBooster;
-                Sword.Level++;
-                _player.Stats.LevelUpPoints--;
+            if (_player.Stats.LevelUpPoints <= 0) return;
+            Sword.Damage += DamageBooster;
+            Sword.Level++;
+            _player.Stats.LevelUpPoints--;
 
-                if (_player.Stats.LevelUpPoints == 0)
-                {
-                    ClosePanel();
-                    _ui.LevelUpGroup.SetActive(false);
-                }
-            }
+            if (_player.Stats.LevelUpPoints != 0) return;
+            ClosePanel();
+            _ui.LevelUpGroup.SetActive(false);
         }
 
         private void Update()

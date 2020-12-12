@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace BOYAREngine
+﻿namespace BOYAREngine
 {
     public class ItemEvents
     {

@@ -18,18 +18,8 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_player != null)
-            {
-
-                if (_player.Jump.IsDoubleJumping)
-                {
-                    _image.sprite = _cooldownSprite;
-                }
-                else
-                {
-                    _image.sprite = _normalSprite;
-                }
-            }
+            if (_player == null) return;
+            _image.sprite = _player.Jump.IsDoubleJumping ? _cooldownSprite : _normalSprite;
         }
 
         private void OnEnable()
@@ -43,7 +33,7 @@ namespace BOYAREngine
 
         private void AssignPlayer(bool isActive)
         {
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            _player = Player.Instance;
         }
     }
 }

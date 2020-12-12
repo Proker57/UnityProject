@@ -5,13 +5,9 @@ namespace BOYAREngine
 {
     public class SwordUI : MonoBehaviour
     {
-#pragma warning disable 649
-
         private Image _image;
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _inactiveSprite;
-
-#pragma warning restore 649
 
         private void Awake()
         {

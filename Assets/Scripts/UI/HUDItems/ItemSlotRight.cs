@@ -12,7 +12,7 @@ namespace BOYAREngine
     {
         private const string StringTableCollectionName = "Item_names";
 
-        [HideInInspector] public Player Player;
+        private Player _player;
 
         [SerializeField] private UIManagerLegacy _uiManagerLegacy;
         [SerializeField] private Text _itemName;
@@ -29,7 +29,7 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (Player != null)
+            if (_player != null)
             {
                 ShowItemUi();
             }
@@ -95,9 +95,9 @@ namespace BOYAREngine
 
         private void AssignPlayer(bool isActive)
         {
-            if (Player == null)
+            if (_player == null)
             {
-                Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+                _player = Player.Instance;
             }
         }
     }
