@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BOYAREngine
 {
-    public class WoodenPlatform : MonoBehaviour
+    public class JumpOffPlatform : MonoBehaviour
     {
         private bool _isOnPlatform;
 

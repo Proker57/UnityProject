@@ -1,8 +1,7 @@
-﻿using BOYAREngine;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace MyNamespace
+namespace BOYAREngine
 {
     public class ItemHover : MonoBehaviour
     {

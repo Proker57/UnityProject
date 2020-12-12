@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +26,8 @@ namespace BOYAREngine
             {
                 Destroy(gameObject);
             }
+
+            DOTween.Init();
 
             CreatePlayerPrefs();
         }

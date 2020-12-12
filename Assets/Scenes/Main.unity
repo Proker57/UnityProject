@@ -3980,6 +3980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279959965}
+  - component: {fileID: 1279959966}
   m_Layer: 5
   m_Name: Items
   m_TagString: Untagged
@@ -4010,6 +4011,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &1279959966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279959964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d236b311a1f084e85dc811a219881a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  None: {fileID: 21300000, guid: 385026647142a8949a589d0da5ceaf6e, type: 3}
+  SmallPotion: {fileID: 21300000, guid: 866b0ed11cad7aa428d6cb5558ee63c5, type: 3}
+  MediumPotion: {fileID: 21300000, guid: 0fd186c6109e51f4a943418fbddd2c26, type: 3}
+  HugePotion: {fileID: 21300000, guid: 9716193741c6da34cb1140c5cc487e88, type: 3}
 --- !u!1 &1335295369
 GameObject:
   m_ObjectHideFlags: 0
@@ -4825,7 +4842,6 @@ GameObject:
   - component: {fileID: 1676432463}
   - component: {fileID: 1676432465}
   - component: {fileID: 1676432464}
-  - component: {fileID: 1676432466}
   - component: {fileID: 1676432467}
   - component: {fileID: 1676432469}
   - component: {fileID: 1676432468}
@@ -4894,22 +4910,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676432462}
   m_CullTransparentMesh: 0
---- !u!114 &1676432466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676432462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0d236b311a1f084e85dc811a219881a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  None: {fileID: 21300000, guid: 385026647142a8949a589d0da5ceaf6e, type: 3}
-  SmallPotion: {fileID: 21300000, guid: 866b0ed11cad7aa428d6cb5558ee63c5, type: 3}
-  MediumPotion: {fileID: 21300000, guid: 0fd186c6109e51f4a943418fbddd2c26, type: 3}
-  HugePotion: {fileID: 21300000, guid: 9716193741c6da34cb1140c5cc487e88, type: 3}
 --- !u!114 &1676432467
 MonoBehaviour:
   m_ObjectHideFlags: 0
