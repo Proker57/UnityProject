@@ -6,13 +6,13 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 namespace BOYAREngine
 {
     [System.Serializable]
-    public class ItemPotionHpHuge : Item
+    public class ItemPotionHpMedium : Item
     {
-        [SerializeField] private int _hpRestoreAmount = 100;
+        [SerializeField] private int _hpRestoreAmount = 50;
 
-        public ItemPotionHpHuge()
+        public ItemPotionHpMedium()
         {
-            Sprite = ItemSprites.Instance.SmallPotion;
+            Sprite = ItemSprites.Instance.MediumPotion;
 
             LoadStrings();
         }
@@ -31,8 +31,8 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
-                Name = GetLocalizedString(stringTable, "potion_hp_huge");
-                Description = GetLocalizedString(stringTable, "potion_hp_huge_description");
+                Name = GetLocalizedString(stringTable, "potion_hp_medium");
+                Description = GetLocalizedString(stringTable, "potion_hp_medium_description");
             }
             else
             {

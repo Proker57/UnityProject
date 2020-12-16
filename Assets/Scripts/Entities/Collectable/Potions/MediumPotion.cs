@@ -10,7 +10,6 @@ namespace BOYAREngine
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;
         private Rigidbody2D _rigidbody2D;
-        private ItemManager _itemManager;
 
         private void Awake()
         {

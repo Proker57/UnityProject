@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -13,6 +14,7 @@ namespace BOYAREngine
         private const string StringTableCollectionName = "MeleeHoverUI";
 
         [SerializeField] private GameObject _hoverPanel;
+        [SerializeField] private GameObject _inventoryPanel;
 
         [SerializeField] private Text _name;
         public Text NameValue;
@@ -32,14 +34,21 @@ namespace BOYAREngine
 
             _hoverPanel.SetActive(true);
 
-            NameValue.text = weaponManager.MeleeWeapons[WeaponManager.CurrentWeapon].Name;
-            DamageValue.text = weaponManager.MeleeWeapons[WeaponManager.CurrentWeapon].Damage.ToString();
-            DescriptionValue.text = weaponManager.MeleeWeapons[WeaponManager.CurrentWeapon].Description;
+            NameValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Name;
+            DamageValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Damage.ToString();
+            DescriptionValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Description;
         }
 
         public void ClosePanel()
         {
             _hoverPanel.SetActive(false);
+        }
+
+        public void Click()
+        {
+            WeaponManager.CurrentWeapon = int.Parse(name);
+            // TODO Close inventory after pick weapon
+            //_inventoryPanel.SetActive(false);
         }
 
         private void OnEnable()

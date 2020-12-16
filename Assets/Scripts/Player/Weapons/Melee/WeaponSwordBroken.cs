@@ -6,9 +6,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 namespace BOYAREngine
 {
     [System.Serializable]
-    public class SwordBroken : Melee
+    public class WeaponSwordBroken : Melee
     {
-        public SwordBroken()
+        public WeaponSwordBroken()
         {
             SpriteUi = WeaponSprites.Instance.SwordBrokenUi;
             Sprite = WeaponSprites.Instance.SwordBroken;

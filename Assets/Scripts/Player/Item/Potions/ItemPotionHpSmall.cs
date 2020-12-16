@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -6,11 +7,11 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 namespace BOYAREngine
 {
     [System.Serializable]
-    public class ItemPotionHpMedium : Item
+    public class ItemPotionHpSmall : Item
     {
-        [SerializeField] private int _hpRestoreAmount = 50;
+        [SerializeField] private int _hpRestoreAmount = 20;
 
-        public ItemPotionHpMedium()
+        public ItemPotionHpSmall()
         {
             Sprite = ItemSprites.Instance.SmallPotion;
 
@@ -31,8 +32,8 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
-                Name = GetLocalizedString(stringTable, "potion_hp_medium");
-                Description = GetLocalizedString(stringTable, "potion_hp_medium_description");
+                Name = GetLocalizedString(stringTable, "potion_hp_small");
+                Description = GetLocalizedString(stringTable, "potion_hp_small_description");
             }
             else
             {

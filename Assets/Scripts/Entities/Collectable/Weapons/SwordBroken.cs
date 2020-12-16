@@ -2,11 +2,10 @@
 
 namespace BOYAREngine
 {
-    public class HugePotion : MonoBehaviour, ISaveable
+    public class SwordBroken : MonoBehaviour, ISaveable
     {
         public bool IsActive;
 
-        [SerializeField] private GameObject _light;
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;
         private Rigidbody2D _rigidbody2D;
@@ -22,13 +21,12 @@ namespace BOYAREngine
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.name != "Low Collider") return;
+            if (!collision.collider.name.Equals("Low Collider")) return;
 
-            ItemEvents.ItemPickUp(new ItemPotionHpHuge());
+            WeaponMeleeEvents.WeaponMeleePickUp(new WeaponSwordBroken());
 
             IsActive = false;
 
-            _light.SetActive(IsActive);
             _spriteRenderer.enabled = IsActive;
             _rigidbody2D.bodyType = RigidbodyType2D.Static;
             _boxCollider2D.enabled = IsActive;
@@ -37,7 +35,7 @@ namespace BOYAREngine
 
         public object CaptureState()
         {
-            return new HugePotionData
+            return new SwordBrokenData
             {
                 IsActive = IsActive
             };
@@ -45,7 +43,7 @@ namespace BOYAREngine
 
         public void RestoreState(object state)
         {
-            var saveData = (HugePotionData) state;
+            var saveData = (SwordBrokenData)state;
 
             IsActive = saveData.IsActive;
 
@@ -56,7 +54,7 @@ namespace BOYAREngine
     }
 
     [System.Serializable]
-    public class HugePotionData
+    public class SwordBrokenData
     {
         public bool IsActive;
     }

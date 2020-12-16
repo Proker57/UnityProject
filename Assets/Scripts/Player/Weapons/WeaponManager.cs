@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -11,8 +12,9 @@ namespace BOYAREngine
 
         public int Damage;
 
-        public static int CurrentWeapon { get; set; }
+        public static int CurrentWeapon = -1;
         public bool IsAbleToAttack = true;
+
         public List<Melee> MeleeWeapons = new List<Melee>();
 
         public Transform AttackPoint;
@@ -35,9 +37,11 @@ namespace BOYAREngine
             _player = GetComponent<Player>();
         }
 
-        private void Start()
+        private void MeleePickUp(Melee weapon)
         {
-            MeleeWeapons.Add(new SwordBroken());
+            MeleeWeapons.Add(weapon);
+
+            WeaponMeleeEvents.WeaponMeleeAddInInventory();
         }
 
         public void SetWeapon(int weaponIndex)
@@ -47,7 +51,7 @@ namespace BOYAREngine
 
         private void MeleePick_started()
         {
-            if (MeleeWeapons != null) SetWeapon(0);
+            Debug.Log("Melee pick");
         }
 
         private void RangePick_started()
@@ -57,12 +61,18 @@ namespace BOYAREngine
 
         private void PrimaryAttack_started()
         {
-            MeleeWeapons?[CurrentWeapon].PrimaryAttack();
+            if (MeleeWeapons.Count > 0 && CurrentWeapon >= 0)
+            {
+                MeleeWeapons[CurrentWeapon].PrimaryAttack();
+            }
         }
 
         private void SecondaryAttack_started()
         {
-            MeleeWeapons?[CurrentWeapon].SecondaryAttack();
+            if (MeleeWeapons.Count > 0 && CurrentWeapon >= 0)
+            {
+                MeleeWeapons[CurrentWeapon].SecondaryAttack();
+            }
         }
 
         private void OnEnable()
@@ -72,6 +82,8 @@ namespace BOYAREngine
 
             _player.Input.PlayerInGame.PrimaryAttack.started += _ => PrimaryAttack_started();
             _player.Input.PlayerInGame.SecondaryAttack.started += _ => SecondaryAttack_started();
+
+            WeaponMeleeEvents.WeaponMeleePickUp += MeleePickUp;
 
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
@@ -83,6 +95,8 @@ namespace BOYAREngine
 
             _player.Input.PlayerInGame.PrimaryAttack.started -= _ => PrimaryAttack_started();
             _player.Input.PlayerInGame.SecondaryAttack.started -= _ => SecondaryAttack_started();
+
+            WeaponMeleeEvents.WeaponMeleePickUp -= MeleePickUp;
 
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }
