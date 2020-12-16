@@ -7,7 +7,8 @@ namespace BOYAREngine
         public int DamageBooster;
 
         private bool _isUpdateable;
-        [SerializeField] private SwordHover _swordHover;
+
+        [SerializeField] private MeleeHover _meleeHover;
         private UIManagerLegacy _ui;
         private Player _player;
 
@@ -37,8 +38,8 @@ namespace BOYAREngine
         private void Update()
         {
             if (!_isUpdateable) return;
-            _swordHover.LevelValue.text = Sword.Level + "<color=#9AEE49>+1</color>";
-            _swordHover.DamageValue.text = Sword.Damage + "<color=#9AEE49>+" + DamageBooster + "</color>";
+            //_meleeHover.LevelValue.text = Sword.Level + "<color=#9AEE49>+1</color>";
+            _meleeHover.DamageValue.text = Sword.Damage + "<color=#9AEE49>+" + DamageBooster + "</color>";
         }
 
         // Hover event
@@ -46,14 +47,14 @@ namespace BOYAREngine
         {
             _isUpdateable = true;
 
-            _swordHover.ShowPanel();
+            _meleeHover.ShowPanel();
         }
 
         public void ClosePanel()
         {
             _isUpdateable = false;
 
-            _swordHover.ClosePanel();
+            _meleeHover.ClosePanel();
         }
     }
 }

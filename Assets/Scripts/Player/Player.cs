@@ -18,7 +18,6 @@ namespace BOYAREngine
         public Stats Stats;
         public WeaponManager WeaponManager;
         public ItemManager ItemManager;
-        public BasicAttack BasicAttack;
 
         private void Awake()
         {
@@ -39,7 +38,6 @@ namespace BOYAREngine
             Stats = GetComponent<Stats>();
             WeaponManager = GetComponent<WeaponManager>();
             ItemManager = GetComponent<ItemManager>();
-            BasicAttack = GetComponent<BasicAttack>();
 
             GameController.HasPlayer = true;
         }
@@ -59,7 +57,6 @@ namespace BOYAREngine
             Stats.enabled = true;
             WeaponManager.enabled = true;
             ItemManager.enabled = true;
-            BasicAttack.enabled = true;
         }
 
         private void OnDisable()
@@ -77,7 +74,6 @@ namespace BOYAREngine
             Stats.enabled = false;
             WeaponManager.enabled = false;
             ItemManager.enabled = false;
-            BasicAttack.enabled = false;
         }
 
         private void OnDestroy()

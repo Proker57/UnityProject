@@ -10,25 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: SwordHoverUI Shared Data
+  m_Name: Weapon_names Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: MeleeHoverUI
-  m_TableCollectionNameGuidString: 2db6c17849abb1949b6af446b82713be
+  m_TableCollectionName: Weapon_names
+  m_TableCollectionNameGuidString: f5eab4f73160b54478bac58799139847
   m_Entries:
-  - m_Id: 24782630912
-    m_Key: name
+  - m_Id: 56801947648
+    m_Key: sword_broken_name
     m_Metadata:
       m_Items: []
-  - m_Id: 60379688960
-    m_Key: description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 75378520064
-    m_Key: damage
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5382007746560
-    m_Key: weapon
+  - m_Id: 104507961344
+    m_Key: sword_broken_description
     m_Metadata:
       m_Items: []
   m_Metadata:
@@ -40,4 +32,4 @@ MonoBehaviour:
     00000000:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1605793457922
+        m_CustomEpoch: 1608094873417

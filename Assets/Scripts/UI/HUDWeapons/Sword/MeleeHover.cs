@@ -8,19 +8,18 @@ using UnityEngine.UI;
 
 namespace BOYAREngine
 {
-    public class SwordHover : MonoBehaviour
+    public class MeleeHover : MonoBehaviour
     {
-        private const string StringTableCollectionName = "SwordHoverUI";
+        private const string StringTableCollectionName = "MeleeHoverUI";
 
         [SerializeField] private GameObject _hoverPanel;
+
         [SerializeField] private Text _name;
         public Text NameValue;
-        [SerializeField] private Text _level;
-        public Text LevelValue;
         [SerializeField] private Text _damage;
         public Text DamageValue;
-
-        private string _localizedName;
+        [SerializeField] private Text _description;
+        public Text DescriptionValue;
 
         private void Awake()
         {
@@ -29,11 +28,13 @@ namespace BOYAREngine
 
         public void ShowPanel()
         {
+            var weaponManager = WeaponManager.Instance;
+
             _hoverPanel.SetActive(true);
 
-            NameValue.text = _localizedName;
-            LevelValue.text = Sword.Level.ToString();
-            DamageValue.text = Sword.Damage.ToString();
+            NameValue.text = weaponManager.MeleeWeapons[WeaponManager.CurrentWeapon].Name;
+            DamageValue.text = weaponManager.MeleeWeapons[WeaponManager.CurrentWeapon].Damage.ToString();
+            DescriptionValue.text = weaponManager.MeleeWeapons[WeaponManager.CurrentWeapon].Description;
         }
 
         public void ClosePanel()
@@ -65,10 +66,8 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
                 _name.text = GetLocalizedString(stringTable, "name");
-                _level.text = GetLocalizedString(stringTable, "level");
                 _damage.text = GetLocalizedString(stringTable, "damage");
-
-                _localizedName = GetLocalizedString(stringTable, "weapon");
+                _description.text = GetLocalizedString(stringTable, "description");
             }
             else
             {

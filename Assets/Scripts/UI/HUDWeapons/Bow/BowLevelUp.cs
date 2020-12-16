@@ -37,7 +37,7 @@ namespace BOYAREngine
         private void Update()
         {
             if (!_isUpdateable) return;
-            _bowHover.LevelValue.text = Bow.Level + "<color=#9AEE49>" + "+1" + "</color>";
+            //_bowHover.LevelValue.text = Bow.Level + "<color=#9AEE49>" + "+1" + "</color>";
             _bowHover.DamageValue.text = Bow.Damage + "<color=#9AEE49>" + "+" + DamageBooster + "</color>";
         }
 

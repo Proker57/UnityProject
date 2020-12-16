@@ -73,12 +73,12 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _player.Input.PlayerInGame.Attack.started += _ => Attack_started();
+            _player.Input.PlayerInGame.PrimaryAttack.started += _ => Attack_started();
         }
 
         private void OnDisable()
         {
-            _player.Input.PlayerInGame.Attack.started -= _ => Attack_started();
+            _player.Input.PlayerInGame.PrimaryAttack.started -= _ => Attack_started();
         }
 
 #if UNITY_EDITOR

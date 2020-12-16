@@ -46,28 +46,28 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: cd27dd67d1fc75142a04e492709669b4
-    m_Address: SwordHoverUI_ru
+    m_Address: MeleeHoverUI_ru
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 09d398317bd96d6468a83ef79dccb958
-    m_Address: SwordHoverUI_en
+    m_Address: MeleeHoverUI_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 5dad1a8d5c0920f4eb411f9dd48d692f
-    m_Address: BowHoverUI_ru
+    m_Address: RangeHoverUI_ru
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 3a0310a1b3a4e2b47991d7eaa1a66ef0
-    m_Address: BowHoverUI_en
+    m_Address: RangeHoverUI_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
@@ -110,6 +110,20 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 76552e3029aff0b4eb08c38a5282afc7
     m_Address: ItemHoverUI_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: fc26ffd4866e7fb4ea3546ad6dd999c7
+    m_Address: Weapon_names_ru
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ru
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: dc2f487bf4b24534e93ecf0d08e44041
+    m_Address: Weapon_names_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

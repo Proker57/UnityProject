@@ -38,7 +38,7 @@
                     "interactions": "Press(behavior=2)"
                 },
                 {
-                    "name": "Attack",
+                    "name": "PrimaryAttack",
                     "type": "Button",
                     "id": "f3f73d72-d559-4ca5-8309-bce48831e555",
                     "expectedControlType": "Button",
@@ -46,7 +46,15 @@
                     "interactions": "Press(behavior=2)"
                 },
                 {
-                    "name": "SwordPick",
+                    "name": "SecondaryAttack",
+                    "type": "Button",
+                    "id": "9cf11737-b54f-4045-af1f-e818f4bfeb46",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "MeleePick",
                     "type": "Button",
                     "id": "902c35d1-3f67-4abc-b87b-fb6b5f5dbc2d",
                     "expectedControlType": "Button",
@@ -54,7 +62,7 @@
                     "interactions": "Press(behavior=2)"
                 },
                 {
-                    "name": "BowPick",
+                    "name": "RangePick",
                     "type": "Button",
                     "id": "f5641a42-7f9d-425c-bf24-5d80aa2bb575",
                     "expectedControlType": "Button",
@@ -168,7 +176,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "PrimaryAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -179,7 +187,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwordPick",
+                    "action": "MeleePick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -190,7 +198,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "BowPick",
+                    "action": "RangePick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -235,6 +243,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PreviousItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d436ba7-00e5-480b-a00e-00cf8333adce",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondaryAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

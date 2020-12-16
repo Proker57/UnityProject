@@ -53,7 +53,7 @@ namespace BOYAREngine
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""PrimaryAttack"",
                     ""type"": ""Button"",
                     ""id"": ""f3f73d72-d559-4ca5-8309-bce48831e555"",
                     ""expectedControlType"": ""Button"",
@@ -61,7 +61,15 @@ namespace BOYAREngine
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
-                    ""name"": ""SwordPick"",
+                    ""name"": ""SecondaryAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""9cf11737-b54f-4045-af1f-e818f4bfeb46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""MeleePick"",
                     ""type"": ""Button"",
                     ""id"": ""902c35d1-3f67-4abc-b87b-fb6b5f5dbc2d"",
                     ""expectedControlType"": ""Button"",
@@ -69,7 +77,7 @@ namespace BOYAREngine
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
-                    ""name"": ""BowPick"",
+                    ""name"": ""RangePick"",
                     ""type"": ""Button"",
                     ""id"": ""f5641a42-7f9d-425c-bf24-5d80aa2bb575"",
                     ""expectedControlType"": ""Button"",
@@ -183,7 +191,7 @@ namespace BOYAREngine
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""PrimaryAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -194,7 +202,7 @@ namespace BOYAREngine
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwordPick"",
+                    ""action"": ""MeleePick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -205,7 +213,7 @@ namespace BOYAREngine
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""BowPick"",
+                    ""action"": ""RangePick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -250,6 +258,17 @@ namespace BOYAREngine
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PreviousItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d436ba7-00e5-480b-a00e-00cf8333adce"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -329,9 +348,10 @@ namespace BOYAREngine
             m_PlayerInGame_Jump = m_PlayerInGame.FindAction("Jump", throwIfNotFound: true);
             m_PlayerInGame_Crouch = m_PlayerInGame.FindAction("Crouch", throwIfNotFound: true);
             m_PlayerInGame_Dash = m_PlayerInGame.FindAction("Dash", throwIfNotFound: true);
-            m_PlayerInGame_Attack = m_PlayerInGame.FindAction("Attack", throwIfNotFound: true);
-            m_PlayerInGame_SwordPick = m_PlayerInGame.FindAction("SwordPick", throwIfNotFound: true);
-            m_PlayerInGame_BowPick = m_PlayerInGame.FindAction("BowPick", throwIfNotFound: true);
+            m_PlayerInGame_PrimaryAttack = m_PlayerInGame.FindAction("PrimaryAttack", throwIfNotFound: true);
+            m_PlayerInGame_SecondaryAttack = m_PlayerInGame.FindAction("SecondaryAttack", throwIfNotFound: true);
+            m_PlayerInGame_MeleePick = m_PlayerInGame.FindAction("MeleePick", throwIfNotFound: true);
+            m_PlayerInGame_RangePick = m_PlayerInGame.FindAction("RangePick", throwIfNotFound: true);
             m_PlayerInGame_Use = m_PlayerInGame.FindAction("Use", throwIfNotFound: true);
             m_PlayerInGame_ItemUse = m_PlayerInGame.FindAction("ItemUse", throwIfNotFound: true);
             m_PlayerInGame_NextItem = m_PlayerInGame.FindAction("NextItem", throwIfNotFound: true);
@@ -394,9 +414,10 @@ namespace BOYAREngine
         private readonly InputAction m_PlayerInGame_Jump;
         private readonly InputAction m_PlayerInGame_Crouch;
         private readonly InputAction m_PlayerInGame_Dash;
-        private readonly InputAction m_PlayerInGame_Attack;
-        private readonly InputAction m_PlayerInGame_SwordPick;
-        private readonly InputAction m_PlayerInGame_BowPick;
+        private readonly InputAction m_PlayerInGame_PrimaryAttack;
+        private readonly InputAction m_PlayerInGame_SecondaryAttack;
+        private readonly InputAction m_PlayerInGame_MeleePick;
+        private readonly InputAction m_PlayerInGame_RangePick;
         private readonly InputAction m_PlayerInGame_Use;
         private readonly InputAction m_PlayerInGame_ItemUse;
         private readonly InputAction m_PlayerInGame_NextItem;
@@ -409,9 +430,10 @@ namespace BOYAREngine
             public InputAction @Jump => m_Wrapper.m_PlayerInGame_Jump;
             public InputAction @Crouch => m_Wrapper.m_PlayerInGame_Crouch;
             public InputAction @Dash => m_Wrapper.m_PlayerInGame_Dash;
-            public InputAction @Attack => m_Wrapper.m_PlayerInGame_Attack;
-            public InputAction @SwordPick => m_Wrapper.m_PlayerInGame_SwordPick;
-            public InputAction @BowPick => m_Wrapper.m_PlayerInGame_BowPick;
+            public InputAction @PrimaryAttack => m_Wrapper.m_PlayerInGame_PrimaryAttack;
+            public InputAction @SecondaryAttack => m_Wrapper.m_PlayerInGame_SecondaryAttack;
+            public InputAction @MeleePick => m_Wrapper.m_PlayerInGame_MeleePick;
+            public InputAction @RangePick => m_Wrapper.m_PlayerInGame_RangePick;
             public InputAction @Use => m_Wrapper.m_PlayerInGame_Use;
             public InputAction @ItemUse => m_Wrapper.m_PlayerInGame_ItemUse;
             public InputAction @NextItem => m_Wrapper.m_PlayerInGame_NextItem;
@@ -437,15 +459,18 @@ namespace BOYAREngine
                     @Dash.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
                     @Dash.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
                     @Dash.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnDash;
-                    @Attack.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
-                    @Attack.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
-                    @Attack.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnAttack;
-                    @SwordPick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSwordPick;
-                    @SwordPick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSwordPick;
-                    @SwordPick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSwordPick;
-                    @BowPick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
-                    @BowPick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
-                    @BowPick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnBowPick;
+                    @PrimaryAttack.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPrimaryAttack;
+                    @PrimaryAttack.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPrimaryAttack;
+                    @PrimaryAttack.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPrimaryAttack;
+                    @SecondaryAttack.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSecondaryAttack;
+                    @SecondaryAttack.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSecondaryAttack;
+                    @SecondaryAttack.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSecondaryAttack;
+                    @MeleePick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMeleePick;
+                    @MeleePick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMeleePick;
+                    @MeleePick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMeleePick;
+                    @RangePick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnRangePick;
+                    @RangePick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnRangePick;
+                    @RangePick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnRangePick;
                     @Use.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
                     @Use.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
                     @Use.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
@@ -474,15 +499,18 @@ namespace BOYAREngine
                     @Dash.started += instance.OnDash;
                     @Dash.performed += instance.OnDash;
                     @Dash.canceled += instance.OnDash;
-                    @Attack.started += instance.OnAttack;
-                    @Attack.performed += instance.OnAttack;
-                    @Attack.canceled += instance.OnAttack;
-                    @SwordPick.started += instance.OnSwordPick;
-                    @SwordPick.performed += instance.OnSwordPick;
-                    @SwordPick.canceled += instance.OnSwordPick;
-                    @BowPick.started += instance.OnBowPick;
-                    @BowPick.performed += instance.OnBowPick;
-                    @BowPick.canceled += instance.OnBowPick;
+                    @PrimaryAttack.started += instance.OnPrimaryAttack;
+                    @PrimaryAttack.performed += instance.OnPrimaryAttack;
+                    @PrimaryAttack.canceled += instance.OnPrimaryAttack;
+                    @SecondaryAttack.started += instance.OnSecondaryAttack;
+                    @SecondaryAttack.performed += instance.OnSecondaryAttack;
+                    @SecondaryAttack.canceled += instance.OnSecondaryAttack;
+                    @MeleePick.started += instance.OnMeleePick;
+                    @MeleePick.performed += instance.OnMeleePick;
+                    @MeleePick.canceled += instance.OnMeleePick;
+                    @RangePick.started += instance.OnRangePick;
+                    @RangePick.performed += instance.OnRangePick;
+                    @RangePick.canceled += instance.OnRangePick;
                     @Use.started += instance.OnUse;
                     @Use.performed += instance.OnUse;
                     @Use.canceled += instance.OnUse;
@@ -554,9 +582,10 @@ namespace BOYAREngine
             void OnJump(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
-            void OnAttack(InputAction.CallbackContext context);
-            void OnSwordPick(InputAction.CallbackContext context);
-            void OnBowPick(InputAction.CallbackContext context);
+            void OnPrimaryAttack(InputAction.CallbackContext context);
+            void OnSecondaryAttack(InputAction.CallbackContext context);
+            void OnMeleePick(InputAction.CallbackContext context);
+            void OnRangePick(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
             void OnItemUse(InputAction.CallbackContext context);
             void OnNextItem(InputAction.CallbackContext context);

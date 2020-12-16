@@ -10,17 +10,16 @@ namespace BOYAREngine
 {
     public class BowHover : MonoBehaviour
     {
-        private const string StringTableCollectionName = "BowHoverUI";
+        private const string StringTableCollectionName = "RangeHoverUI";
 
         [SerializeField] private GameObject _hoverPanel;
+
         [SerializeField] private Text _name;
         public Text NameValue;
-        [SerializeField] private Text _level;
-        public Text LevelValue;
         [SerializeField] private Text _damage;
         public Text DamageValue;
-
-        private string _localizedName;
+        [SerializeField] private Text _description;
+        public Text DescriptionValue;
 
         private void Awake()
         {
@@ -31,9 +30,9 @@ namespace BOYAREngine
         {
             _hoverPanel.SetActive(true);
 
-            NameValue.text = _localizedName;
-            LevelValue.text = Bow.Level.ToString();
+            NameValue.text = "Name bow";
             DamageValue.text = Bow.Damage.ToString();
+            DescriptionValue.text = Bow.Level.ToString();
         }
 
         public void ClosePanel()
@@ -65,14 +64,12 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
                 _name.text = GetLocalizedString(stringTable, "name");
-                _level.text = GetLocalizedString(stringTable, "level");
                 _damage.text = GetLocalizedString(stringTable, "damage");
-
-                _localizedName = GetLocalizedString(stringTable, "weapon");
+                _description.text = GetLocalizedString(stringTable, "description");
             }
             else
             {
-                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException.ToString());
+                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException);
             }
         }
 

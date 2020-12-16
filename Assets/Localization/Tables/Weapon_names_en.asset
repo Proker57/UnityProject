@@ -10,28 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: SwordHoverUI_en
+  m_Name: Weapon_names_en
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: en
-  m_SharedData: {fileID: 11400000, guid: 2db6c17849abb1949b6af446b82713be, type: 2}
+  m_SharedData: {fileID: 11400000, guid: f5eab4f73160b54478bac58799139847, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 24782630912
-    m_Localized: 'Name:'
+  - m_Id: 56801947648
+    m_Localized: Broken sword
     m_Metadata:
       m_Items: []
-  - m_Id: 60379688960
-    m_Localized: 'Description:'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 75378520064
-    m_Localized: 'Damage:'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5382007746560
-    m_Localized: Sword
+  - m_Id: 104507961344
+    m_Localized: Old broken sword
     m_Metadata:
       m_Items: []
   references:

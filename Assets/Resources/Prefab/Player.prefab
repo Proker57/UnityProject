@@ -64,7 +64,7 @@ MonoBehaviour:
   - {x: -0.09832497, y: 0.36668724, z: 0}
   m_ShapePathHash: 1003831357
   m_Mesh: {fileID: 0}
-  m_InstanceId: 56934
+  m_InstanceId: 38498
 --- !u!1 &7179260046310399425
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,9 +169,6 @@ GameObject:
   - component: {fileID: 7179260047226401875}
   - component: {fileID: 116414065044774608}
   - component: {fileID: 1770231497439941727}
-  - component: {fileID: 3270685520666974671}
-  - component: {fileID: 1432877923448476641}
-  - component: {fileID: -2935488316948746784}
   - component: {fileID: 7179260047226401877}
   - component: {fileID: 7179260047226401873}
   - component: {fileID: 7179260047226401961}
@@ -354,6 +351,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
+  IsAbleToAttack: 1
+  MeleeWeapons: []
+  AttackPoint: {fileID: 1563531597480783571}
+  Radius: 0.33
+  DamageLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1770231497439941727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,50 +372,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemIndex: 0
   Items: []
---- !u!114 &3270685520666974671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7179260047226401967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf07365b91bedd147bfabc182a6cdfb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsAbleToAttack: 1
-  _attackPoint: {fileID: 7450057691843159671}
-  _radius: 0.33
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  _arrow: {fileID: 7423686876834034964, guid: a70951773a5cea84e8f9db5a79e81e3b, type: 3}
-  _arrowSpeed: 30
---- !u!114 &1432877923448476641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7179260047226401967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d3a3c007771bd34db2699d7a25431d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-2935488316948746784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7179260047226401967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32b62de45f765b145bda5803a576e1be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &7179260047226401877
 Rigidbody2D:
   serializedVersion: 4

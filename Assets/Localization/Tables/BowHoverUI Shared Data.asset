@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: BowHoverUI Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: BowHoverUI
+  m_TableCollectionName: RangeHoverUI
   m_TableCollectionNameGuidString: 30fe8ecd3ac230b40b3f5fc397b04514
   m_Entries:
   - m_Id: 7061696512
@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9653776384
-    m_Key: level
+    m_Key: description
     m_Metadata:
       m_Items: []
   - m_Id: 11990003712
