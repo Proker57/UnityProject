@@ -13,9 +13,11 @@ namespace BOYAREngine
     {
         private const string StringTableCollectionName = "MeleeHoverUI";
 
+        [Header("Inventory")]
         [SerializeField] private GameObject _hoverPanel;
         [SerializeField] private GameObject _inventoryPanel;
 
+        [Header("Text")]
         [SerializeField] private Text _name;
         public Text NameValue;
         [SerializeField] private Text _damage;
@@ -23,7 +25,7 @@ namespace BOYAREngine
         [SerializeField] private Text _description;
         public Text DescriptionValue;
 
-        private void Awake()
+        private void Start()
         {
             StartCoroutine(LoadStrings());
         }
@@ -32,23 +34,18 @@ namespace BOYAREngine
         {
             var weaponManager = WeaponManager.Instance;
 
+            if (weaponManager.MeleeWeapons.Count > int.Parse(name))
+            {
+                NameValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Name;
+                DamageValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Damage.ToString();
+                DescriptionValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Description;
+            }
             _hoverPanel.SetActive(true);
-
-            NameValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Name;
-            DamageValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Damage.ToString();
-            DescriptionValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Description;
         }
 
         public void ClosePanel()
         {
             _hoverPanel.SetActive(false);
-        }
-
-        public void Click()
-        {
-            WeaponManager.CurrentWeapon = int.Parse(name);
-            // TODO Close inventory after pick weapon
-            //_inventoryPanel.SetActive(false);
         }
 
         private void OnEnable()

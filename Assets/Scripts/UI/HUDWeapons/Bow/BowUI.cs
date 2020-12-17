@@ -16,16 +16,9 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (WeaponManager.CurrentWeapon == (int)WeaponEnum.Weapon.Bow)
-            {
-                _image.sprite = _normalSprite;
-            }
-            else
-            {
-                _image.sprite = _inactiveSprite;
-            }
+            
 
-            _amountText.text = Bow.Amount.ToString();
+            //_amountText.text = Bow.Amount.ToString();
         }
     }
 }

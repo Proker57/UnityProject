@@ -31,7 +31,7 @@ namespace BOYAREngine
 
             if (IsAbleToAttack)
             {
-                if (WeaponManager.CurrentWeapon == (int) WeaponEnum.Weapon.Sword)
+                if (WeaponManager.Instance.CurrentWeapon == (int) WeaponEnum.Weapon.Sword)
                 {
                     var hit = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _radius, _layerMask);
                     foreach (var enemies in hit)
@@ -40,7 +40,7 @@ namespace BOYAREngine
                     }
                 }
 
-                if (WeaponManager.CurrentWeapon == (int)WeaponEnum.Weapon.Bow)
+                if (WeaponManager.Instance.CurrentWeapon == (int)WeaponEnum.Weapon.Bow)
                 {
                     if (Bow.Amount > 0)
                     {

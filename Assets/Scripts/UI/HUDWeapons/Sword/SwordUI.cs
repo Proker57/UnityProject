@@ -16,14 +16,7 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (WeaponManager.CurrentWeapon == (int) WeaponEnum.Weapon.Sword)
-            {
-                _image.sprite = _normalSprite;
-            }
-            else
-            {
-                _image.sprite = _inactiveSprite;
-            }
+
         }
     }
 }

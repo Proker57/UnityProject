@@ -12,7 +12,7 @@ namespace BOYAREngine
 
         public int Damage;
 
-        public static int CurrentWeapon = -1;
+        public int CurrentWeapon = -1;
         public bool IsAbleToAttack = true;
 
         public List<Melee> MeleeWeapons = new List<Melee>();
