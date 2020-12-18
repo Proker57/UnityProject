@@ -26,36 +26,29 @@ namespace BOYAREngine
         private void WeaponMeleeAddInInventory()
         {
             var weaponManager = WeaponManager.Instance.MeleeWeapons;
-            //_cells[weaponManager.Count - 1].name = (weaponManager.Count - 1).ToString();
-            Debug.Log(weaponManager.Count - 1);
-            _cells[weaponManager.Count - 1].GetComponent<Image>().sprite = weaponManager[weaponManager.Count - 1].SpriteUi;
+
+            _cells[weaponManager.Count - 1].GetComponent<Image>().sprite
+                = weaponManager[weaponManager.Count - 1].SpriteUi;
             _cells[weaponManager.Count - 1].SetActive(true);
         }
 
         public void Remove()
-        {
-            var weaponManager = WeaponManager.Instance.MeleeWeapons;
-
+        { 
             _cells[ChosenSlot].GetComponent<Image>().sprite = null;
-            _cells[ChosenSlot].SetActive(false);
 
 
             if (ChosenSlot < WeaponManager.Instance.CurrentWeapon)
             {
                 WeaponManager.Instance.CurrentWeapon--;
 
-                for (var i = ChosenSlot + 1; i < weaponManager.Count; i++)
-                {
-                    var nameOld = _cells[i].name;
-                    _cells[i].name = (int.Parse(nameOld) - 1 + "");
+                Rename();
 
-                    if (_cells[i].name == "-1")
-                    {
-                        _cells[i].name = _cells.Length.ToString();
-                    }
-                }
+                _cells[ChosenSlot].SetActive(false);
 
                 _cells = _cells.OrderBy(x => x.name).ToArray();
+
+                WeaponManager.Instance.MeleeWeapons.RemoveAt(ChosenSlot);
+                return;
             }
 
             if (WeaponManager.Instance.CurrentWeapon == ChosenSlot)
@@ -63,7 +56,24 @@ namespace BOYAREngine
                 WeaponManager.Instance.CurrentWeapon = -1;
             }
 
-            weaponManager.RemoveAt(ChosenSlot);
+            WeaponManager.Instance.MeleeWeapons.RemoveAt(ChosenSlot);
+            _cells[ChosenSlot].SetActive(false);
+        }
+
+        private void Rename()
+        {
+            for (var i = ChosenSlot + 1; i < _cells.Length; i++)
+            {
+                var nameOld = _cells[i].name;
+                _cells[i].name = (int.Parse(nameOld) - 1 + "");
+
+                if (_cells[i].name == "-1")
+                {
+                    _cells[i].name = _cells.Length.ToString();
+                }
+            }
+
+            _cells[ChosenSlot].name = (_cells.Length - 1).ToString();
         }
 
         private void OnEnable()
