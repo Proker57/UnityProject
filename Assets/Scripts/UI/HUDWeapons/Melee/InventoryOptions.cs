@@ -10,9 +10,10 @@ namespace BOYAREngine
         {
             if (IsActive)
             {
+                PlayerEvents.GiveCurrency(WeaponManager.Instance.MeleeWeapons[InventoryMelee.Instance.ChosenSlot].SellCost);
                 InventoryMelee.Instance.Remove();
                 
-                Debug.Log("Sell: " + InventoryMelee.Instance.ChosenSlot);
+                Debug.Log("Sell: " + InventoryMelee.Instance.ChosenSlot + "_ for: " + WeaponManager.Instance.MeleeWeapons[InventoryMelee.Instance.ChosenSlot].SellCost);
             }
         }
 

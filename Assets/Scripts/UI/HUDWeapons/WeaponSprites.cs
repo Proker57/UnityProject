@@ -9,6 +9,9 @@ namespace BOYAREngine
         [Header("Sword Broken")]
         public Sprite SwordBrokenUi;
         public Sprite SwordBroken;
+        [Header("Sword Small")]
+        public Sprite SwordSmallUi;
+        public Sprite SwordSmall;
 
         private void Awake()
         {

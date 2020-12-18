@@ -23,6 +23,14 @@ MonoBehaviour:
     m_Key: sword_broken_description
     m_Metadata:
       m_Items: []
+  - m_Id: 724421654933504
+    m_Key: sword_small_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 724460615823360
+    m_Key: sword_small_description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

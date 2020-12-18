@@ -26,5 +26,13 @@ MonoBehaviour:
     m_Localized: Old broken sword
     m_Metadata:
       m_Items: []
+  - m_Id: 724421654933504
+    m_Localized: Small sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 724460615823360
+    m_Localized: Small sword
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

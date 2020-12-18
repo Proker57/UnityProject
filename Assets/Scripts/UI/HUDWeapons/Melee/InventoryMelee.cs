@@ -36,12 +36,23 @@ namespace BOYAREngine
         { 
             _cells[ChosenSlot].GetComponent<Image>().sprite = null;
 
+            if (WeaponManager.Instance.CurrentWeapon == -1)
+            {
+                Rename(ChosenSlot);
+
+                _cells[ChosenSlot].SetActive(false);
+
+                _cells = _cells.OrderBy(x => x.name).ToArray();
+
+                WeaponManager.Instance.MeleeWeapons.RemoveAt(ChosenSlot);
+                return;
+            }
 
             if (ChosenSlot < WeaponManager.Instance.CurrentWeapon)
             {
                 WeaponManager.Instance.CurrentWeapon--;
 
-                Rename();
+                Rename(ChosenSlot + 1);
 
                 _cells[ChosenSlot].SetActive(false);
 
@@ -60,9 +71,9 @@ namespace BOYAREngine
             _cells[ChosenSlot].SetActive(false);
         }
 
-        private void Rename()
+        private void Rename(int index)
         {
-            for (var i = ChosenSlot + 1; i < _cells.Length; i++)
+            for (var i = index; i < _cells.Length; i++)
             {
                 var nameOld = _cells[i].name;
                 _cells[i].name = (int.Parse(nameOld) - 1 + "");

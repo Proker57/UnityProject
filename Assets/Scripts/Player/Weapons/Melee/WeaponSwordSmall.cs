@@ -6,19 +6,19 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 namespace BOYAREngine
 {
     [System.Serializable]
-    public class WeaponSwordBroken : Melee
+    public class WeaponSwordSmall : Melee
     {
-        public WeaponSwordBroken()
+        public WeaponSwordSmall()
         {
-            SpriteUi = WeaponSprites.Instance.SwordBrokenUi;
-            Sprite = WeaponSprites.Instance.SwordBroken;
+            SpriteUi = WeaponSprites.Instance.SwordSmallUi;
+            Sprite = WeaponSprites.Instance.SwordSmall;
 
-            Name = "Sword Broken";
-            Description = "Old broken sword";
+            Name = "Sword Small";
+            Description = "Small sword";
 
-            Damage = 10;
+            Damage = 15;
             AttackSpeed = 0.8f;
-            SellCost = 30;
+            SellCost = 100;
 
             LoadStrings();
         }
@@ -35,12 +35,12 @@ namespace BOYAREngine
                 enemies.GetComponent<Damageable>().GetDamage(Damage);
             }
 
-            Debug.Log("Primary attack");
+            Debug.Log("Sword small: Primary attack");
         }
 
         internal override void SecondaryAttack()
         {
-            Debug.Log("Secondary attack");
+            Debug.Log("Sword small: Secondary attack");
         }
 
         internal sealed override async void LoadStrings()
@@ -52,8 +52,8 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
-                Name = GetLocalizedString(stringTable, "sword_broken_name");
-                Description = GetLocalizedString(stringTable, "sword_broken_description");
+                Name = GetLocalizedString(stringTable, "sword_small_name");
+                Description = GetLocalizedString(stringTable, "sword_small_description");
             }
             else
             {
