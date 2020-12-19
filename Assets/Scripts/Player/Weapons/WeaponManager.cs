@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -15,7 +14,7 @@ namespace BOYAREngine
         public int CurrentWeapon = -1;
         public bool IsAbleToAttack = true;
 
-        public List<Melee> MeleeWeapons = new List<Melee>();
+        public List<Melee> Weapons = new List<Melee>();
 
         public Transform AttackPoint;
         public float Radius;
@@ -39,7 +38,7 @@ namespace BOYAREngine
 
         private void MeleePickUp(Melee weapon)
         {
-            MeleeWeapons.Add(weapon);
+            Weapons.Add(weapon);
 
             WeaponMeleeEvents.WeaponMeleeAddInInventory();
         }
@@ -61,17 +60,17 @@ namespace BOYAREngine
 
         private void PrimaryAttack_started()
         {
-            if (MeleeWeapons.Count > 0 && CurrentWeapon >= 0)
+            if (Weapons.Count > 0 && CurrentWeapon >= 0)
             {
-                MeleeWeapons[CurrentWeapon].PrimaryAttack();
+                Weapons[CurrentWeapon].PrimaryAttack();
             }
         }
 
         private void SecondaryAttack_started()
         {
-            if (MeleeWeapons.Count > 0 && CurrentWeapon >= 0)
+            if (Weapons.Count > 0 && CurrentWeapon >= 0)
             {
-                MeleeWeapons[CurrentWeapon].SecondaryAttack();
+                Weapons[CurrentWeapon].SecondaryAttack();
             }
         }
 
@@ -103,7 +102,7 @@ namespace BOYAREngine
 
         private void OnSelectedLocaleChanged(Locale obj)
         {
-            foreach (var weapon in MeleeWeapons)
+            foreach (var weapon in Weapons)
             {
                 weapon.LoadStrings();
             }
@@ -116,7 +115,7 @@ namespace BOYAREngine
                 CurrentWeapon = CurrentWeapon,
                 Damage = Damage,
                 IsAbleToAttack = IsAbleToAttack,
-                MeleeWeapons = MeleeWeapons
+                MeleeWeapons = Weapons
             };
         }
 
@@ -126,7 +125,7 @@ namespace BOYAREngine
             CurrentWeapon = weaponManagerData.CurrentWeapon;
             Damage = weaponManagerData.Damage;
             IsAbleToAttack = weaponManagerData.IsAbleToAttack;
-            MeleeWeapons = weaponManagerData.MeleeWeapons;
+            Weapons = weaponManagerData.MeleeWeapons;
         }
 
 #if UNITY_EDITOR

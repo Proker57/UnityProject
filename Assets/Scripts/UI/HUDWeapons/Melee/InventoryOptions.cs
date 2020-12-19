@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace BOYAREngine
 {
@@ -8,21 +9,45 @@ namespace BOYAREngine
 
         public void Sell()
         {
-            if (IsActive)
+            if (!IsActive) return;
+            var chosenSlot = Inventory.Instance.ChosenSlot;
+            var weaponsCount = WeaponManager.Instance.Weapons.Count - 1;
+            if (chosenSlot > weaponsCount) return;
+            PlayerEvents.GiveCurrency(WeaponManager.Instance.Weapons[chosenSlot].SellCost);
+            Inventory.Instance.Remove();
+            if (chosenSlot > weaponsCount)
             {
-                PlayerEvents.GiveCurrency(WeaponManager.Instance.MeleeWeapons[InventoryMelee.Instance.ChosenSlot].SellCost);
-                InventoryMelee.Instance.Remove();
-                
-                Debug.Log("Sell: " + InventoryMelee.Instance.ChosenSlot + "_ for: " + WeaponManager.Instance.MeleeWeapons[InventoryMelee.Instance.ChosenSlot].SellCost);
+                Inventory.Instance.ChosenSlot--;
             }
+        }
+
+        public void Sort()
+        {
+            if (WeaponManager.Instance.Weapons.Count <= 0) return;
+            WeaponManager.Instance.Weapons
+                = WeaponManager.Instance.Weapons.OrderBy(x => x.Damage).ToList();
+            Inventory.Instance.UpdateSprites();
+
         }
 
         public void Equip()
         {
-            if (IsActive)
+            if (!IsActive) return;
+            if (Inventory.Instance.ChosenSlot <= WeaponManager.Instance.Weapons.Count)
             {
-                WeaponManager.Instance.CurrentWeapon = InventoryMelee.Instance.ChosenSlot;
+                WeaponManager.Instance.CurrentWeapon = Inventory.Instance.ChosenSlot;
             }
+        }
+
+        public void EnterPointer()
+        {
+            // TODO change input scheme
+            Player.Instance.Input.Disable();
+        }
+
+        public void ExitPointer()
+        {
+            Player.Instance.Input.Enable();
         }
     }
 }

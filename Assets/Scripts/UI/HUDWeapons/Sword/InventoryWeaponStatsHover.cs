@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace BOYAREngine
 {
-    public class MeleeHover : MonoBehaviour
+    public class InventoryWeaponStatsHover : MonoBehaviour
     {
         private const string StringTableCollectionName = "MeleeHoverUI";
 
@@ -33,18 +33,20 @@ namespace BOYAREngine
         public void ShowPanel()
         {
             var weaponManager = WeaponManager.Instance;
+            // TODO Change input scheme
+            Player.Instance.Input.Disable();
 
-            if (weaponManager.MeleeWeapons.Count > int.Parse(name))
-            {
-                NameValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Name;
-                DamageValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Damage.ToString();
-                DescriptionValue.text = weaponManager.MeleeWeapons[int.Parse(name)].Description;
-            }
+            if (weaponManager.Weapons.Count <= int.Parse(name)) return;
+            NameValue.text = weaponManager.Weapons[int.Parse(name)].Name;
+            DamageValue.text = weaponManager.Weapons[int.Parse(name)].Damage.ToString();
+            DescriptionValue.text = weaponManager.Weapons[int.Parse(name)].Description;
             _hoverPanel.SetActive(true);
         }
 
         public void ClosePanel()
         {
+            Player.Instance.Input.Enable();
+
             _hoverPanel.SetActive(false);
         }
 
