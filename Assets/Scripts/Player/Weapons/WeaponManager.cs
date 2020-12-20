@@ -20,6 +20,8 @@ namespace BOYAREngine
         public float Radius;
         public LayerMask DamageLayers;
 
+        [SerializeField] private SpriteRenderer _weaponSprite;
+
         private Player _player;
 
         private void Awake()
@@ -46,6 +48,12 @@ namespace BOYAREngine
         public void SetWeapon(int weaponIndex)
         {
             CurrentWeapon = weaponIndex;
+            if (weaponIndex == -1)
+            {
+                _weaponSprite.sprite = null;
+                return;
+            }
+            _weaponSprite.sprite = Weapons[CurrentWeapon].Sprite;
         }
 
         private void MeleePick_started()

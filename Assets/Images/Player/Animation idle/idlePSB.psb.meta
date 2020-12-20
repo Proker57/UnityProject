@@ -1775,7 +1775,7 @@ ScriptedImporter:
     - {x: 159, y: 113}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 29, y: -16}
+    uvTransform: {x: 21, y: -16}
   - name: Head
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -2947,7 +2947,7 @@ ScriptedImporter:
     - {x: 110, y: 3}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 0, y: -30}
+    uvTransform: {x: -2, y: -30}
   - name: LeftArm
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -4438,7 +4438,7 @@ ScriptedImporter:
     - {x: 140, y: 5}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 33, y: -25}
+    uvTransform: {x: 53, y: -25}
   - name: LeftHand
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -5624,7 +5624,7 @@ ScriptedImporter:
     - {x: 110, y: 99}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 13, y: 54}
+    uvTransform: {x: 33, y: 54}
   - name: Torso
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -7058,7 +7058,7 @@ ScriptedImporter:
     - {x: 134, y: 10}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 0, y: -38}
+    uvTransform: {x: 1, y: -38}
   - name: LeftLeg
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -8745,7 +8745,7 @@ ScriptedImporter:
     - {x: 159, y: 113}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -9, y: 61}
+    uvTransform: {x: 1, y: 61}
   - name: LeftFoot
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -10173,7 +10173,7 @@ ScriptedImporter:
     - {x: 134, y: 19}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 20, y: 35}
+    uvTransform: {x: 30, y: 35}
   - name: RightFoot
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -11601,7 +11601,7 @@ ScriptedImporter:
     - {x: 134, y: 19}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 29, y: 63}
+    uvTransform: {x: 21, y: 63}
   - name: RightArm
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -12787,7 +12787,7 @@ ScriptedImporter:
     - {x: 110, y: 99}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 53, y: -52}
+    uvTransform: {x: 33, y: -52}
   - name: RightHand
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -14278,7 +14278,7 @@ ScriptedImporter:
     - {x: 140, y: 5}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 53, y: 22}
+    uvTransform: {x: 33, y: 22}
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0

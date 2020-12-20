@@ -29,7 +29,7 @@ namespace BOYAREngine
             var chosenSlot = Inventory.Instance.ChosenSlot;
             var weaponCount = WeaponManager.Instance.Weapons.Count;
 
-            if (chosenSlot > weaponCount) return;
+            if (chosenSlot >= weaponCount) return;
             _sell.sprite = Resources.Load<Sprite>(SellPath);
             _cellInventoryOptions.IsActive = true;
 

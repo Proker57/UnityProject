@@ -12,13 +12,20 @@ namespace BOYAREngine
             if (!IsActive) return;
             var chosenSlot = Inventory.Instance.ChosenSlot;
             var weaponsCount = WeaponManager.Instance.Weapons.Count - 1;
+
+            if (chosenSlot == WeaponManager.Instance.CurrentWeapon)
+            {
+                WeaponManager.Instance.SetWeapon(-1);
+                return;
+            }
+
             if (chosenSlot > weaponsCount) return;
             PlayerEvents.GiveCurrency(WeaponManager.Instance.Weapons[chosenSlot].SellCost);
             Inventory.Instance.Remove();
-            if (chosenSlot > weaponsCount)
-            {
-                Inventory.Instance.ChosenSlot--;
-            }
+            Inventory.Instance.ChosenSlot--;
+
+            IsActive = false;
+
         }
 
         public void Sort()
@@ -35,8 +42,9 @@ namespace BOYAREngine
             if (!IsActive) return;
             if (Inventory.Instance.ChosenSlot <= WeaponManager.Instance.Weapons.Count)
             {
-                WeaponManager.Instance.CurrentWeapon = Inventory.Instance.ChosenSlot;
+                WeaponManager.Instance.SetWeapon(Inventory.Instance.ChosenSlot);
             }
+            IsActive = false;
         }
 
         public void EnterPointer()

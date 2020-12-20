@@ -11,9 +11,10 @@ namespace BOYAREngine
         public WeaponSwordBroken()
         {
             SpriteUi = Resources.Load<Sprite>("Images/Weapons/UI/BrokenSwordUI");
-            Sprite = Resources.Load<Sprite>("Images/Weapons/BrokenSword");
+            Sprite = Resources.Load<Sprite>("Images/Weapons/OnPlayer/BrokenSword");
 
             Name = "Sword Broken";
+            Type = "Sword";
             Description = "Old broken sword";
 
             Damage = 10;

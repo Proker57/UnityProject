@@ -9,7 +9,8 @@ namespace BOYAREngine
 {
     public class Movement : MonoBehaviour
     {
-#pragma warning disable 649
+        public bool IsLookingRight;
+
         [SerializeField] private float _speed;          // 700
         [SerializeField] private float _crouchSpeedMultiplier = 0.8f;   // 0.8f
         private float _speedRun;                        // _speed
@@ -20,7 +21,6 @@ namespace BOYAREngine
         [SerializeField] private float _lerp;           // 0.2f
         private float _movementDirection;
         private bool _isRunning;
-        private bool _isLookingRight;
 
         [field: SerializeField]
         public bool IsMaxSpeedLimiterOn { get; set; } = true;
@@ -31,7 +31,6 @@ namespace BOYAREngine
         [SerializeField] private Transform _spriteTransform;
         private Player _player;
         private Vector2 _direction;
-#pragma warning restore 649
 
         private void Awake()
         {
@@ -99,22 +98,22 @@ namespace BOYAREngine
         {
             if (_movementDirection > 0)
             {
-                _isLookingRight = true;
+                IsLookingRight = true;
 
             }
             if (_movementDirection < 0)
             {
-                _isLookingRight = false;
+                IsLookingRight = false;
 
             }
 
-            if (_isLookingRight)
+            if (IsLookingRight)
             {
-                _spriteTransform.localScale = new Vector3(-1f, 1f, 1f);
+                _spriteTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
-                _spriteTransform.localScale = new Vector3(1f, 1f, 1f);
+                _spriteTransform.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
         }
 

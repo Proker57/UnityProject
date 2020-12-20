@@ -11,9 +11,10 @@ namespace BOYAREngine
         public WeaponSwordSmall()
         {
             SpriteUi = Resources.Load<Sprite>("Images/Weapons/UI/SwordSmallUI");
-            Sprite = Resources.Load<Sprite>("Images/Weapons/SwordSmall");
+            Sprite = Resources.Load<Sprite>("Images/Weapons/OnPlayer/SwordSmall");
 
             Name = "Sword Small";
+            Type = "Sword";
             Description = "Small sword";
 
             Damage = 15;
