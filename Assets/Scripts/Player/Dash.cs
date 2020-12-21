@@ -39,9 +39,9 @@ namespace BOYAREngine
             IsDashable = false;
             IsSpeedLimited = false;
 
-            // TODO delete -1 (-1 now is a right side)
-            var spriteScaleX = transform.GetChild(0).transform.localScale.x;
-            _dashVector = new Vector2(spriteScaleX * _xVectorMultiply, _yVector);
+            _dashVector = _player.Movement.IsLookingRight
+                ? new Vector2(_xVectorMultiply, _yVector)
+                : new Vector2(-_xVectorMultiply, _yVector);
             _player.Rigidbody2D.AddForce(_dashVector, ForceMode2D.Impulse);
         }
 

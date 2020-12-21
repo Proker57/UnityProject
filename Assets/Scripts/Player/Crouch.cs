@@ -35,9 +35,6 @@ namespace BOYAREngine
             var rightCeilingOrigin = RightCeilingChecker.position;
             var direction = new Vector2(0, _distance);
 
-            // TODO delete debug ray of jump
-            //Debug.DrawRay(leftCeilingOrigin, direction, Color.red, 0.8f);
-            //Debug.DrawRay(rightCeilingOrigin, direction, Color.blue, 0.8f);
             var leftCeilingHit = Physics2D.Raycast(leftCeilingOrigin, direction, _distance, Ground);
             var rightCeilingHit = Physics2D.Raycast(rightCeilingOrigin, direction, _distance, Ground);
             if (leftCeilingHit.collider != null || rightCeilingHit.collider != null)

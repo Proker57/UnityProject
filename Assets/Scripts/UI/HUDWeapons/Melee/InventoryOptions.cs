@@ -31,8 +31,8 @@ namespace BOYAREngine
         public void Sort()
         {
             if (WeaponManager.Instance.Weapons.Count <= 0) return;
-            WeaponManager.Instance.Weapons
-                = WeaponManager.Instance.Weapons.OrderBy(x => x.Damage).ToList();
+            WeaponManager.Instance.Weapons = 
+                WeaponManager.Instance.Weapons.OrderBy(x => x.Damage).ToList();
             Inventory.Instance.UpdateSprites();
 
         }

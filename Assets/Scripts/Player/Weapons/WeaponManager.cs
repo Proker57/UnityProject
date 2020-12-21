@@ -17,7 +17,7 @@ namespace BOYAREngine
         public List<Melee> Weapons = new List<Melee>();
 
         public Transform AttackPoint;
-        public float Radius;
+        //public float Radius;
         public LayerMask DamageLayers;
 
         [SerializeField] private SpriteRenderer _weaponSprite;
@@ -135,15 +135,6 @@ namespace BOYAREngine
             IsAbleToAttack = weaponManagerData.IsAbleToAttack;
             Weapons = weaponManagerData.MeleeWeapons;
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
-        {
-            if (AttackPoint == null) return;
-
-            Gizmos.DrawWireSphere(AttackPoint.transform.position, Radius);
-        }
-#endif
     }
 
     [System.Serializable]

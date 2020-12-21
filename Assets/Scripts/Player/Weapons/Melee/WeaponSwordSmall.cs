@@ -14,29 +14,15 @@ namespace BOYAREngine
             Sprite = Resources.Load<Sprite>("Images/Weapons/OnPlayer/SwordSmall");
 
             Name = "Sword Small";
-            Type = "Sword";
+            Type = WeaponType.Sword;
             Description = "Small sword";
 
             Damage = 15;
             AttackSpeed = 0.8f;
+            Radius = 10f;
             SellCost = 100;
 
             LoadStrings();
-        }
-
-        internal override void PrimaryAttack()
-        {
-            if (!WeaponManager.Instance.IsAbleToAttack) return;
-            var hit = Physics2D.OverlapCircleAll(
-                WeaponManager.Instance.AttackPoint.position,
-                WeaponManager.Instance.Radius,
-                WeaponManager.Instance.DamageLayers);
-            foreach (var enemies in hit)
-            {
-                enemies.GetComponent<Damageable>().GetDamage(Damage);
-            }
-
-            Debug.Log("Sword small: Primary attack");
         }
 
         internal override void SecondaryAttack()
