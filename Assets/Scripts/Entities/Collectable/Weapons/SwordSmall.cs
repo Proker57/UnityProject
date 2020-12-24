@@ -23,7 +23,7 @@ namespace BOYAREngine
         {
             if (!collision.collider.name.Equals("Low Collider")) return;
 
-            WeaponMeleeEvents.WeaponMeleePickUp(new WeaponSwordSmall());
+            WeaponEvents.WeaponPickUp(new WeaponSwordSmall());
 
             IsActive = false;
 

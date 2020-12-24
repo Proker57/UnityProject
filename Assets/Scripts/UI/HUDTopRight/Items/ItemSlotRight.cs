@@ -37,12 +37,12 @@ namespace BOYAREngine
 
         private void ShowItemUi()
         {
-            if (ItemManager.Instance.ItemIndex >= 0)
+            if (ItemManager.Instance.CurrentItem >= 0)
             {
                 foreach (var t in ItemManager.Instance.Items)
                 {
-                    _itemImage.sprite = ItemManager.Instance.Items[ItemManager.Instance.ItemIndex].Sprite;
-                    _itemName.text = ItemManager.Instance.Items[ItemManager.Instance.ItemIndex].Name;
+                    _itemImage.sprite = ItemManager.Instance.Items[ItemManager.Instance.CurrentItem].Sprite;
+                    _itemName.text = ItemManager.Instance.Items[ItemManager.Instance.CurrentItem].Name;
                 }
             }
             else

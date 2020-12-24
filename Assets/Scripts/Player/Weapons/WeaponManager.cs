@@ -17,7 +17,6 @@ namespace BOYAREngine
         public List<Melee> Weapons = new List<Melee>();
 
         public Transform AttackPoint;
-        //public float Radius;
         public LayerMask DamageLayers;
 
         [SerializeField] private SpriteRenderer _weaponSprite;
@@ -42,7 +41,7 @@ namespace BOYAREngine
         {
             Weapons.Add(weapon);
 
-            WeaponMeleeEvents.WeaponMeleeAddInInventory();
+            WeaponEvents.WeaponAddInInventory();
         }
 
         public void SetWeapon(int weaponIndex)
@@ -90,7 +89,7 @@ namespace BOYAREngine
             _player.Input.PlayerInGame.PrimaryAttack.started += _ => PrimaryAttack_started();
             _player.Input.PlayerInGame.SecondaryAttack.started += _ => SecondaryAttack_started();
 
-            WeaponMeleeEvents.WeaponMeleePickUp += MeleePickUp;
+            WeaponEvents.WeaponPickUp += MeleePickUp;
 
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
@@ -103,7 +102,7 @@ namespace BOYAREngine
             _player.Input.PlayerInGame.PrimaryAttack.started -= _ => PrimaryAttack_started();
             _player.Input.PlayerInGame.SecondaryAttack.started -= _ => SecondaryAttack_started();
 
-            WeaponMeleeEvents.WeaponMeleePickUp -= MeleePickUp;
+            WeaponEvents.WeaponPickUp -= MeleePickUp;
 
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }

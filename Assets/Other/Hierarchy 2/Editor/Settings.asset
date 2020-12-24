@@ -53,7 +53,7 @@ MonoBehaviour:
   pingHierarchyLocalDataObject: 0
   displayVersion: 1
   displayObjectIcon: 1
-  displayCustomObjectIcon: 0
+  displayCustomObjectIcon: 1
   displayTreeView: 1
   displayRowBackground: 1
   displayGrid: 1

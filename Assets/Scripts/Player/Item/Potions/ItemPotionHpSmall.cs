@@ -13,7 +13,12 @@ namespace BOYAREngine
 
         public ItemPotionHpSmall()
         {
-            Sprite = ItemSprites.Instance.SmallPotion;
+            SpriteUi = Resources.Load<Sprite>("Images/Items/Potions/Small");
+            Sprite = Resources.Load<Sprite>("Images/Items/Potions/Small");
+
+            Name = "Small potion";
+            Type = ItemType.Potion;
+            SellCost = 10;
 
             LoadStrings();
         }

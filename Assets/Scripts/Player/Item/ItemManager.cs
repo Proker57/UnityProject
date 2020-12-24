@@ -9,7 +9,8 @@ namespace BOYAREngine
     {
         public static ItemManager Instance = null;
 
-        public int ItemIndex;
+        public int CurrentItem = 1;
+
         public List<Item> Items = new List<Item>();
 
         private PlayerInput _playerInput;
@@ -21,21 +22,27 @@ namespace BOYAREngine
                 Instance = this;
             }
 
-            ItemIndex = -1;
             _playerInput = GetComponent<Player>().Input;
         }
 
         public void ItemPickUp(Item item)
         {
             Items.Add(item);
+
+            ItemEvents.ItemAddInInventory();
+        }
+
+        public void SetItem(int itemIndex)
+        {
+            CurrentItem = itemIndex;
         }
 
         private void ItemUse_started()
         {
-            if (Items.Count <= 0 || ItemIndex <= -1) return;
-            Items[ItemIndex].Use();
-            Items.Remove(Items[ItemIndex]);
-            ItemIndex--;
+            if (Items.Count <= 0 || CurrentItem <= -1) return;
+            Items[CurrentItem].Use();
+            Items.Remove(Items[CurrentItem]);
+            CurrentItem--;
         }
 
         private void NextItem_started()
@@ -50,25 +57,25 @@ namespace BOYAREngine
 
         private void NextItem()
         {
-            if (Items != null && ItemIndex >= Items.Count - 1)
+            if (Items != null && CurrentItem >= Items.Count - 1)
             {
-                ItemIndex = -1;
+                CurrentItem = -1;
             }
             else
             {
-                ItemIndex++;
+                CurrentItem++;
             }
         }
 
         private void PreviousItem()
         {
-            if (Items != null && ItemIndex <= -1)
+            if (Items != null && CurrentItem <= -1)
             {
-                ItemIndex = Items.Count - 1;
+                CurrentItem = Items.Count - 1;
             }
             else
             {
-                ItemIndex--;
+                CurrentItem--;
             }
         }
 
@@ -103,7 +110,7 @@ namespace BOYAREngine
             return new ItemManagerData
             {
                 Items = Items,
-                ItemIndex = ItemIndex
+                ItemIndex = CurrentItem
             };
         }
 
@@ -112,7 +119,7 @@ namespace BOYAREngine
             var saveData = (ItemManagerData) state;
 
             Items = saveData.Items;
-            ItemIndex = saveData.ItemIndex;
+            CurrentItem = saveData.ItemIndex;
         }
 
         private void OnSelectedLocaleChanged(Locale obj)

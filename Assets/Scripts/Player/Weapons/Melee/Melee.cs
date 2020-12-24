@@ -16,13 +16,17 @@ namespace BOYAREngine
 
         [SerializeField] internal Sprite SpriteUi;
         [SerializeField] internal Sprite Sprite;
-        [SerializeField] internal string Name;
+
         [SerializeField] internal WeaponType Type;
+
+        [SerializeField] internal string Name;
+        [SerializeField] internal string Description;
+
         [SerializeField] internal int Damage;
         [SerializeField] internal int SellCost;
+
         [SerializeField] internal float AttackSpeed;
         [SerializeField] internal float Radius;
-        [SerializeField] internal string Description;
 
         internal float NextAttackCheck;
 

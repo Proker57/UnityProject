@@ -5,6 +5,9 @@
         public delegate void ItemPickUpDelegate(Item item);
         public static ItemPickUpDelegate ItemPickUp;
 
+        public delegate void ItemAddInInventoryDelegate();
+        public static ItemAddInInventoryDelegate ItemAddInInventory;
+
         public delegate void ItemNextDelegate();
         public static ItemNextDelegate ItemNext;
 

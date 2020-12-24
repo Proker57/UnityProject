@@ -13,9 +13,9 @@ namespace BOYAREngine
         {
             _hoverPanel.SetActive(true);
 
-            if (ItemManager.Instance.ItemIndex >= 0)
+            if (ItemManager.Instance.CurrentItem >= 0)
             {
-                _description.text = ItemManager.Instance.Items[ItemManager.Instance.ItemIndex].Description;
+                _description.text = ItemManager.Instance.Items[ItemManager.Instance.CurrentItem].Description;
             }
             else
             {

@@ -12,7 +12,12 @@ namespace BOYAREngine
 
         public ItemPotionHpMedium()
         {
-            Sprite = ItemSprites.Instance.MediumPotion;
+            SpriteUi = Resources.Load<Sprite>("Images/Items/Potions/Medium");
+            Sprite = Resources.Load<Sprite>("Images/Items/Potions/Medium");
+
+            Name = "Medium potion";
+            Type = ItemType.Potion;
+            SellCost = 10;
 
             LoadStrings();
         }
