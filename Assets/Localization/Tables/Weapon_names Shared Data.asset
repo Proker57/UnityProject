@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: sword_small_description
     m_Metadata:
       m_Items: []
+  - m_Id: 3001714695794688
+    m_Key: type_sword
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

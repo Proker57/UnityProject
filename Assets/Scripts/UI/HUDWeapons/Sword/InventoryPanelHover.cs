@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -20,15 +21,24 @@ namespace BOYAREngine
 
         [Header("Text")]
         [SerializeField] private Text _weaponName;
-        public Text WeaponNameValue;
         [SerializeField] private Text _weaponDamage;
-        public Text WeaponDamageValue;
+        [SerializeField] private Text _weaponAttackSpeed;
         [SerializeField] private Text _weaponDescription;
-        public Text WeaponDescriptionValue;
+
+        [Header("Values")]
+
+        public Text WeaponType;
+        public Text WeaponName;
+        public Text WeaponDamage;
+        public Text WeaponAttackSpeed;
+        public Text WeaponDescription;
+        public Text WeaponPrice;
 
         // TODO Add description text to the hover panel
-        [SerializeField] private Text _itemDescription;
+        public Text ItemType;
+        public Text ItemName;
         public Text ItemDescriptionValue;
+        public Text ItemPrice;
 
         private void Start()
         {
@@ -40,20 +50,30 @@ namespace BOYAREngine
             // TODO Change input scheme
             Player.Instance.Input.Disable();
 
+            var index = int.Parse(name);
+
             switch (Inventory.Instance.CurrentTab)
             {
                 case Inventory.TabType.Weapons:
                     var weaponManager = WeaponManager.Instance;
-                    if (weaponManager.Weapons.Count <= int.Parse(name)) return;
-                    WeaponNameValue.text = weaponManager.Weapons[int.Parse(name)].Name;
-                    WeaponDamageValue.text = weaponManager.Weapons[int.Parse(name)].Damage.ToString();
-                    WeaponDescriptionValue.text = weaponManager.Weapons[int.Parse(name)].Description;
+                    if (weaponManager.Weapons.Count <= index) return;
+                    WeaponType.text = weaponManager.Weapons[index].Type;
+                    WeaponName.text = "<color=#9AEE49>" + weaponManager.Weapons[index].Name + "</color>";
+                    WeaponDamage.text = weaponManager.Weapons[index].Damage.ToString();
+                    WeaponAttackSpeed.text = weaponManager.Weapons[index].AttackSpeed.ToString(CultureInfo.InvariantCulture);
+                    WeaponDescription.text = weaponManager.Weapons[index].Description;
+                    WeaponPrice.text = weaponManager.Weapons[index].SellCost + "G";
+
                     _hoverWeaponsPanel.SetActive(true);
                     break;
                 case Inventory.TabType.Items:
                     var itemManager = ItemManager.Instance;
-                    if (itemManager.Items.Count <= int.Parse(name)) return;
-                    ItemDescriptionValue.text = itemManager.Items[int.Parse(name)].Description;
+                    if (itemManager.Items.Count <= index) return;
+                    ItemType.text = itemManager.Items[index].Type;
+                    ItemName.text = "<color=#9AEE49>" + itemManager.Items[index].Name + "</color>";
+                    ItemDescriptionValue.text = itemManager.Items[index].Description;
+                    ItemPrice.text = itemManager.Items[index].SellCost + "G";
+
                     _hoverItemsPanel.SetActive(true);
                     break;
                 default:
@@ -94,6 +114,7 @@ namespace BOYAREngine
                 var stringTable = loadingOperation.Result;
                 _weaponName.text = GetLocalizedString(stringTable, "name");
                 _weaponDamage.text = GetLocalizedString(stringTable, "damage");
+                _weaponAttackSpeed.text = GetLocalizedString(stringTable, "attack_speed");
                 _weaponDescription.text = GetLocalizedString(stringTable, "description");
             }
             else

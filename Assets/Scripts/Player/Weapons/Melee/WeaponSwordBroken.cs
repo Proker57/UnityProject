@@ -13,8 +13,8 @@ namespace BOYAREngine
             SpriteUi = Resources.Load<Sprite>("Images/Weapons/UI/BrokenSwordUI");
             Sprite = Resources.Load<Sprite>("Images/Weapons/OnPlayer/BrokenSword");
 
+            Type = "Sword";
             Name = "Sword Broken";
-            Type = WeaponType.Sword;
             Description = "Old broken sword";
 
             Damage = 10;
@@ -39,6 +39,7 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
+                Type = GetLocalizedString(stringTable, "type_sword");
                 Name = GetLocalizedString(stringTable, "sword_broken_name");
                 Description = GetLocalizedString(stringTable, "sword_broken_description");
             }

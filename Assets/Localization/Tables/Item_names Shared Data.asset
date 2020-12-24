@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Key: potion_hp_huge_description
     m_Metadata:
       m_Items: []
+  - m_Id: 9853194425921536
+    m_Key: type_potion
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -16,7 +16,7 @@ namespace BOYAREngine
             Sprite = Resources.Load<Sprite>("Images/Items/Potions/Medium");
 
             Name = "Medium potion";
-            Type = ItemType.Potion;
+            Type = "Potion";
             SellCost = 10;
 
             LoadStrings();
@@ -36,6 +36,7 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
+                Type = GetLocalizedString(stringTable, "type_potion");
                 Name = GetLocalizedString(stringTable, "potion_hp_medium");
                 Description = GetLocalizedString(stringTable, "potion_hp_medium_description");
             }

@@ -71,6 +71,8 @@ namespace BOYAREngine
         {
             var i = 0;
 
+            CurrentTab = type;
+
             foreach (var cell in _cells)
             {
                 switch (type)

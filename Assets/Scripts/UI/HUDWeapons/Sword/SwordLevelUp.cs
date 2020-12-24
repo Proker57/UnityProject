@@ -39,7 +39,7 @@ namespace BOYAREngine
         {
             if (!_isUpdateable) return;
             //_meleeHover.LevelValue.text = Sword.Level + "<color=#9AEE49>+1</color>";
-            _inventoryPanelHover.WeaponDamageValue.text = Sword.Damage + "<color=#9AEE49>+" + DamageBooster + "</color>";
+            _inventoryPanelHover.WeaponDamage.text = Sword.Damage + "<color=#9AEE49>+" + DamageBooster + "</color>";
         }
 
         // Hover event

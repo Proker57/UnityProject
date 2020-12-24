@@ -7,16 +7,10 @@ namespace BOYAREngine
     {
         internal const string StringTableCollectionName = "Item_names";
 
-        internal enum ItemType
-        {
-            Potion,
-        };
-
         [SerializeField] internal Sprite SpriteUi;
         [SerializeField] internal Sprite Sprite;
 
-        [SerializeField] internal ItemType Type;
-
+        [SerializeField] internal string Type;
         [SerializeField] internal string Name;
         [SerializeField] internal string Description;
 

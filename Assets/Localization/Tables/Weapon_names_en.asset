@@ -34,5 +34,9 @@ MonoBehaviour:
     m_Localized: Small sword
     m_Metadata:
       m_Items: []
+  - m_Id: 3001714695794688
+    m_Localized: Sword
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

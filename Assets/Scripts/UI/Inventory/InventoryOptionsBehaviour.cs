@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 namespace BOYAREngine
 {
@@ -28,14 +30,29 @@ namespace BOYAREngine
 
             var chosenSlot = Inventory.Instance.ChosenSlot;
             var weaponCount = WeaponManager.Instance.Weapons.Count;
+            var itemCount = ItemManager.Instance.Items.Count;
 
-            if (chosenSlot >= weaponCount) return;
+            switch (Inventory.Instance.CurrentTab)
+            {
+                case Inventory.TabType.Weapons:
+                    if (chosenSlot >= weaponCount) return;
+                    ActivateButtons();
+                    break;
+                case Inventory.TabType.Items:
+                    if (chosenSlot >= itemCount) return;
+                    ActivateButtons();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void ActivateButtons()
+        {
             _sell.sprite = Resources.Load<Sprite>(SellPath);
             _cellInventoryOptions.IsActive = true;
-
             _equip.sprite = Resources.Load<Sprite>(EquipPath);
             _equipInventoryOptions.IsActive = true;
-
         }
 
         private void OnDisable()

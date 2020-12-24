@@ -59,6 +59,7 @@ namespace BOYAREngine
         private void RestoreHealth(int amount)
         {
             Health += amount;
+            if (Health > MaxHealth) Health = MaxHealth;
         }
 
         private void Damage(int damage)

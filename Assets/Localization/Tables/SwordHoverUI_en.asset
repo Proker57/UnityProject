@@ -34,5 +34,9 @@ MonoBehaviour:
     m_Localized: Sword
     m_Metadata:
       m_Items: []
+  - m_Id: 12658463933526016
+    m_Localized: 'Attack speed:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

@@ -14,7 +14,7 @@ namespace BOYAREngine
             Sprite = Resources.Load<Sprite>("Images/Weapons/OnPlayer/SwordSmall");
 
             Name = "Sword Small";
-            Type = WeaponType.Sword;
+            Type = "Sword";
             Description = "Small sword";
 
             Damage = 15;
@@ -39,6 +39,7 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
+                Type = GetLocalizedString(stringTable, "type_sword");
                 Name = GetLocalizedString(stringTable, "sword_small_name");
                 Description = GetLocalizedString(stringTable, "sword_small_description");
             }

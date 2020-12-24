@@ -8,17 +8,10 @@ namespace BOYAREngine
     {
         internal const string StringTableCollectionName = "Weapon_names";
 
-        internal enum WeaponType 
-        {
-            Sword,
-            Bow
-        };
-
         [SerializeField] internal Sprite SpriteUi;
         [SerializeField] internal Sprite Sprite;
 
-        [SerializeField] internal WeaponType Type;
-
+        [SerializeField] internal string Type;
         [SerializeField] internal string Name;
         [SerializeField] internal string Description;
 
