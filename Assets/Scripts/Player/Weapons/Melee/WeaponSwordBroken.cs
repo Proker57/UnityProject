@@ -22,7 +22,26 @@ namespace BOYAREngine
             Radius = 8f;
             SellCost = 30;
 
+            MaxComboNumber = 3;
+
+            Animator = Player.Instance.Animator;
+
             LoadStrings();
+        }
+
+        internal override void FirstAttack()
+        {
+            Debug.Log("First attack");
+        }
+
+        internal override void SecondAttack()
+        {
+            Debug.Log("Second attack");
+        }
+
+        internal override void ThirdAttack()
+        {
+            Debug.Log("Third attack");
         }
 
         internal override void SecondaryAttack()

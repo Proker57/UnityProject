@@ -40,7 +40,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: a31e9f9f9c9d4b9429ed0d1234e22103, type: 2}
+    customRenderPipeline: {fileID: 11400000, guid: 5d999f68fb885c34b8fea1a1b3d1dd1f, type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Medium
@@ -76,8 +76,9 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: d847b876476d3d6468f5dfcd34266f96, type: 2}
-    excludedTargetPlatforms: []
+    customRenderPipeline: {fileID: 11400000, guid: 5d999f68fb885c34b8fea1a1b3d1dd1f, type: 2}
+    excludedTargetPlatforms:
+    - Android
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -112,8 +113,10 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 19ba41d7c0026c3459d37c2fe90c55a0, type: 2}
-    excludedTargetPlatforms: []
+    customRenderPipeline: {fileID: 11400000, guid: 5d999f68fb885c34b8fea1a1b3d1dd1f, type: 2}
+    excludedTargetPlatforms:
+    - Android
   m_PerPlatformDefaultQuality:
+    Android: 0
     Standalone: 0
     Windows Store Apps: 0

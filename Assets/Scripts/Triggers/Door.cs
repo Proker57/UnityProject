@@ -125,12 +125,12 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            Player.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
+            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
         }
 
         private void OnDisable()
         {
-            Player.Instance.Input.PlayerInGame.Use.started -= _ => Use_started();
+            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
         }
     }
 }

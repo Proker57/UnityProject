@@ -92,7 +92,8 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            Player.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
+            //Player.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
+            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             _dialogueManager.ChooseEvent += AnswerAction;
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
             
@@ -100,7 +101,8 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
-            Player.Instance.Input.PlayerInGame.Use.started -= _ => Use_started();
+            //Player.Instance.Input.PlayerInGame.Use.started -= _ => Use_started();
+            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             _dialogueManager.ChooseEvent -= AnswerAction;
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }
