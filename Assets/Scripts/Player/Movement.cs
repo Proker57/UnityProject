@@ -138,5 +138,17 @@ namespace BOYAREngine
                 _maxVelocity = _maxVelocityRun;
             }
         }
+
+        public void MobileMove(float direction)
+        {
+            _isRunning = true;
+            _movementDirection = direction;
+        }
+
+        public void MobileStopMovement()
+        {
+            _isRunning = false;
+            _movementDirection = 0f;
+        }
     }
 }

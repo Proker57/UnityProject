@@ -9,8 +9,6 @@ namespace BOYAREngine
     {
         public static WeaponManager Instance = null;
 
-        public int Damage;
-
         public int CurrentWeapon = -1;
         public bool IsAbleToAttack = true;
 
@@ -170,7 +168,6 @@ namespace BOYAREngine
             return new WeaponManagerData()
             {
                 CurrentWeapon = CurrentWeapon,
-                Damage = Damage,
                 IsAbleToAttack = IsAbleToAttack,
                 MeleeWeapons = Weapons
             };
@@ -180,7 +177,6 @@ namespace BOYAREngine
         {
             var weaponManagerData = (WeaponManagerData) state;
             CurrentWeapon = weaponManagerData.CurrentWeapon;
-            Damage = weaponManagerData.Damage;
             IsAbleToAttack = weaponManagerData.IsAbleToAttack;
             Weapons = weaponManagerData.MeleeWeapons;
         }
@@ -190,7 +186,6 @@ namespace BOYAREngine
     public class WeaponManagerData
     {
         public int CurrentWeapon;
-        public int Damage;
         public bool IsAbleToAttack;
 
         public List<Melee> MeleeWeapons;

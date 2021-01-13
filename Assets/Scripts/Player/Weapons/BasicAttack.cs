@@ -36,7 +36,7 @@ namespace BOYAREngine
                     var hit = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _radius, _layerMask);
                     foreach (var enemies in hit)
                     {
-                        enemies.GetComponent<Damageable>().GetDamage(weapon.Damage);
+                        //enemies.GetComponent<Damageable>().GetDamage(weapon.Damage);
                     }
                 }
 
