@@ -8,6 +8,8 @@ namespace BOYAREngine
     [System.Serializable]
     public class WeaponSwordBroken : Melee
     {
+        private WeaponManager _weaponManager;
+
         public WeaponSwordBroken()
         {
             SpriteUi = Resources.Load<Sprite>("Images/Weapons/UI/BrokenSwordUI");
@@ -24,7 +26,7 @@ namespace BOYAREngine
 
             MaxComboNumber = 3;
 
-            Animator = Player.Instance.Animator;
+            _weaponManager = WeaponManager.Instance;
 
             LoadStrings();
         }
@@ -32,16 +34,34 @@ namespace BOYAREngine
         internal override void FirstAttack()
         {
             Debug.Log("First attack");
+
+            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
+            foreach (var enemies in hit)
+            {
+                enemies.GetComponent<Damageable>().GetDamage(Damage);
+            }
         }
 
         internal override void SecondAttack()
         {
             Debug.Log("Second attack");
+
+            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
+            foreach (var enemies in hit)
+            {
+                enemies.GetComponent<Damageable>().GetDamage(Damage);
+            }
         }
 
         internal override void ThirdAttack()
         {
             Debug.Log("Third attack");
+
+            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
+            foreach (var enemies in hit)
+            {
+                enemies.GetComponent<Damageable>().GetDamage(Damage + 40);
+            }
         }
 
         internal override void SecondaryAttack()

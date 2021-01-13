@@ -16,6 +16,7 @@ namespace BOYAREngine
 
         public List<Melee> Weapons = new List<Melee>();
 
+        public Animator Animator;
         public Transform AttackPoint;
         public LayerMask DamageLayers;
 
@@ -35,6 +36,23 @@ namespace BOYAREngine
             }
 
             _player = GetComponent<Player>();
+        }
+
+        private void Update()
+        {
+            if (Weapons != null && CurrentWeapon != -1)
+            {
+                Weapons[CurrentWeapon].Reset += Time.deltaTime;
+
+                if (Weapons[CurrentWeapon].CurrentComboNumber > 0)
+                {
+                    if (Weapons[CurrentWeapon].Reset > Weapons[CurrentWeapon].NextAttackCheck)
+                    {
+                        Animator.SetTrigger("Reset");
+                        Weapons[CurrentWeapon].CurrentComboNumber = 0;
+                    }
+                }
+            }
         }
 
         private void MeleePickUp(Melee weapon)
@@ -69,7 +87,39 @@ namespace BOYAREngine
         {
             if (Weapons.Count > 0 && CurrentWeapon >= 0)
             {
-                Weapons[CurrentWeapon].PrimaryAttack();
+                if (Weapons[CurrentWeapon].CurrentComboNumber < Weapons[CurrentWeapon].MaxComboNumber)
+                {
+                    // TODO Add animation
+                    //Animator.SetTrigger(animations[CurrentComboNumber]);
+                    Animator.SetTrigger("PrimaryAttackSword");
+                    Weapons[CurrentWeapon].CurrentComboNumber++;
+                    Weapons[CurrentWeapon].Reset = 0f;
+                }
+
+                if (Weapons[CurrentWeapon].CurrentComboNumber > 0)
+                {
+                    if (Weapons[CurrentWeapon].CurrentComboNumber == Weapons[CurrentWeapon].MaxComboNumber)
+                    {
+                        Weapons[CurrentWeapon].ThirdAttack();
+
+                        Weapons[CurrentWeapon].NextAttackCheck = 3f;
+                        Weapons[CurrentWeapon].CurrentComboNumber = 0;
+                    }
+                    else
+                    {
+                        Weapons[CurrentWeapon].NextAttackCheck = 1f;
+                    }
+
+                    switch (Weapons[CurrentWeapon].CurrentComboNumber)
+                    {
+                        case 1:
+                            Weapons[CurrentWeapon].FirstAttack();
+                            return;
+                        case 2:
+                            Weapons[CurrentWeapon].SecondAttack();
+                            return;
+                    }
+                }
             }
         }
 

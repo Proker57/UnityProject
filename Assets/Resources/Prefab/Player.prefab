@@ -146,7 +146,7 @@ MonoBehaviour:
   - {x: -0.09832497, y: 0.36668724, z: 0}
   m_ShapePathHash: 1003831357
   m_Mesh: {fileID: 0}
-  m_InstanceId: 93870
+  m_InstanceId: 82500
 --- !u!1 &7179260046310399425
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,8 +435,8 @@ MonoBehaviour:
   CurrentWeapon: -1
   IsAbleToAttack: 1
   Weapons: []
+  Animator: {fileID: 7179260047226401873}
   AttackPoint: {fileID: 1563531597480783571}
-  Radius: 0.33
   DamageLayers:
     serializedVersion: 2
     m_Bits: 1024
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c147e2d9532c57e449c25958330b8d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemIndex: 0
+  CurrentItem: 1
   Items: []
 --- !u!50 &7179260047226401877
 Rigidbody2D:

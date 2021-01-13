@@ -28,25 +28,6 @@ namespace BOYAREngine
         internal float Reset;
         internal float NextAttackCheck;
 
-        /*internal virtual void PrimaryAttack()
-        {
-            if (!WeaponManager.Instance.IsAbleToAttack) return;
-            if (!(Time.time >= NextAttackCheck)) return;
-            var hit = Physics2D.OverlapCircleAll(
-                WeaponManager.Instance.AttackPoint.position,
-                Radius,
-                WeaponManager.Instance.DamageLayers);
-            foreach (var enemies in hit)
-            {
-                enemies.GetComponent<Damageable>().GetDamage(Damage);
-            }
-
-            NextAttackCheck = Time.time + AttackSpeed;
-
-            Player.Instance.Animator.SetTrigger("PrimaryAttackSword");
-            Debug.Log("Primary attack");
-        }*/
-
         private void Awake()
         {
             Reset = 0;
@@ -58,64 +39,13 @@ namespace BOYAREngine
             animations = new List<string>();
         }
 
-        internal void PrimaryAttack()
-        {
-            if (CurrentComboNumber < MaxComboNumber)
-            {
-                // TODO Add animation
-                //Animator.SetTrigger(animations[CurrentComboNumber]);
-                Animator.SetTrigger("PrimaryAttackSword");
-                CurrentComboNumber++;
-                Reset = 0f;
-            }
+        internal void PrimaryAttack() { }
 
-            if (CurrentComboNumber > 0)
-            {
-                Reset += Time.deltaTime;
-                if (Reset > NextAttackCheck)
-                {
-                    Animator.SetTrigger("Reset");
-                    CurrentComboNumber = 0;
-                }
+        internal virtual void FirstAttack() { }
 
-                if (CurrentComboNumber == MaxComboNumber)
-                {
-                    ThirdAttack();
+        internal virtual void SecondAttack() { }
 
-                    NextAttackCheck = 3f;
-                    CurrentComboNumber = 0;
-                }
-                else
-                {
-                    NextAttackCheck = 1f;
-                }
-
-                switch (CurrentComboNumber)
-                {
-                    case 1:
-                        FirstAttack();
-                        return;
-                    case 2:
-                        SecondAttack();
-                        return;
-                }
-            }
-        }
-
-        internal virtual void FirstAttack()
-        {
-            Debug.Log("First attack");
-        }
-
-        internal virtual void SecondAttack()
-        {
-            Debug.Log("Second attack");
-        }
-
-        internal virtual void ThirdAttack()
-        {
-            Debug.Log("Third attack");
-        }
+        internal virtual void ThirdAttack() { }
 
         internal virtual void SecondaryAttack() { }
 
