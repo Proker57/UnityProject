@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BOYAREngine
 {
@@ -13,11 +14,6 @@ namespace BOYAREngine
             if (!IsActive) return;
             var chosenSlot = Inventory.Instance.ChosenSlot;
 
-            if (Inventory.Instance.CurrentTab == Inventory.TabType.Weapons)
-            {
-
-            }
-
             switch (Inventory.Instance.CurrentTab)
             {
                 case Inventory.TabType.Weapons:
@@ -26,11 +22,9 @@ namespace BOYAREngine
                     if (chosenSlot == WeaponManager.Instance.CurrentWeapon)
                     {
                         WeaponManager.Instance.SetWeapon(-1);
-                        return;
                     }
 
                     if (chosenSlot > weaponsCount) return;
-
                     PlayerEvents.GiveCurrency(WeaponManager.Instance.Weapons[chosenSlot].SellCost);
                     break;
                 case Inventory.TabType.Items:
@@ -39,7 +33,6 @@ namespace BOYAREngine
                     if (chosenSlot == ItemManager.Instance.CurrentItem)
                     {
                         ItemManager.Instance.SetItem(-1);
-                        return;
                     }
 
                     if (chosenSlot > itemsCount) return;
@@ -51,6 +44,7 @@ namespace BOYAREngine
 
             Inventory.Instance.Remove(Inventory.Instance.CurrentTab);
             Inventory.Instance.ChosenSlot--;
+            HighlightChosenWeapon();
 
             IsActive = false;
         }
@@ -73,25 +67,28 @@ namespace BOYAREngine
                     throw new ArgumentOutOfRangeException();
             }
             Inventory.Instance.UpdateSprites(Inventory.Instance.CurrentTab);
-
+            HighlightChosenWeapon();
         }
 
         public void Equip()
         {
             if (!IsActive) return;
 
+            var chosenSlot = Inventory.Instance.ChosenSlot;
+
             switch (Inventory.Instance.CurrentTab)
             {
                 case Inventory.TabType.Weapons:
-                    if (Inventory.Instance.ChosenSlot <= WeaponManager.Instance.Weapons.Count)
+                    if (chosenSlot <= WeaponManager.Instance.Weapons.Count)
                     {
-                        WeaponManager.Instance.SetWeapon(Inventory.Instance.ChosenSlot);
+                        WeaponManager.Instance.SetWeapon(chosenSlot);
+                        HighlightChosenWeapon();
                     }
                     break;
                 case Inventory.TabType.Items:
-                    if (Inventory.Instance.ChosenSlot <= ItemManager.Instance.Items.Count)
+                    if (chosenSlot <= ItemManager.Instance.Items.Count)
                     {
-                        ItemManager.Instance.Items[Inventory.Instance.ChosenSlot].Use();
+                        ItemManager.Instance.Items[chosenSlot].Use();
                         Inventory.Instance.Remove(Inventory.Instance.CurrentTab);
                         Inventory.Instance.ChosenSlot--;
                     }
@@ -103,15 +100,26 @@ namespace BOYAREngine
             IsActive = false;
         }
 
+        private static void HighlightChosenWeapon()
+        {
+            foreach (var cell in Inventory.Instance.Cells)
+            {
+                cell.GetComponent<Image>().color = Color.white;
+            }
+
+            var currentWeapon = WeaponManager.Instance.CurrentWeapon;
+            if (currentWeapon != -1) Inventory.Instance.Cells[currentWeapon].GetComponent<Image>().color = Color.red;
+        }
+
         public void EnterPointer()
         {
             // TODO change input scheme
-            Player.Instance.Input.Disable();
+            //Player.Instance.Input.Disable();
         }
 
         public void ExitPointer()
         {
-            Player.Instance.Input.Enable();
+            //Player.Instance.Input.Enable();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace BOYAREngine
         public TabType CurrentTab = TabType.Weapons;
 
         [SerializeField] private GameObject _scrollView;
-        [SerializeField] private GameObject[] _cells;
+        public GameObject[] Cells;
 
         private void Awake()
         {
@@ -73,7 +73,7 @@ namespace BOYAREngine
 
             CurrentTab = type;
 
-            foreach (var cell in _cells)
+            foreach (var cell in Cells)
             {
                 switch (type)
                 {
