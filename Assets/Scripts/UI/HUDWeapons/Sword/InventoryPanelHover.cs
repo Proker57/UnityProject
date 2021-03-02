@@ -48,7 +48,7 @@ namespace BOYAREngine
         public void ShowPanel()
         {
             // TODO Change input scheme
-            Player.Instance.Input.Disable();
+            WeaponManager.Instance.IsAbleToAttack = false;
 
             var index = int.Parse(name);
 
@@ -83,7 +83,7 @@ namespace BOYAREngine
 
         public void ClosePanel()
         {
-            Player.Instance.Input.Enable();
+            WeaponManager.Instance.IsAbleToAttack = true;
 
             _hoverWeaponsPanel.SetActive(false);
             _hoverItemsPanel.SetActive(false);

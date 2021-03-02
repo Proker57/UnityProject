@@ -83,6 +83,7 @@ namespace BOYAREngine
 
         private void PrimaryAttack_started()
         {
+            if (!IsAbleToAttack) return;
             if (Weapons.Count > 0 && CurrentWeapon >= 0)
             {
                 if (Weapons[CurrentWeapon].CurrentComboNumber < Weapons[CurrentWeapon].MaxComboNumber)
@@ -123,6 +124,7 @@ namespace BOYAREngine
 
         private void SecondaryAttack_started()
         {
+            if (!IsAbleToAttack) return;
             if (Weapons.Count > 0 && CurrentWeapon >= 0)
             {
                 Weapons[CurrentWeapon].SecondaryAttack();
@@ -180,6 +182,13 @@ namespace BOYAREngine
             IsAbleToAttack = weaponManagerData.IsAbleToAttack;
             Weapons = weaponManagerData.MeleeWeapons;
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(AttackPoint.transform.position, Weapons[CurrentWeapon].Radius);
+        }
+#endif
     }
 
     [System.Serializable]

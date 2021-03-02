@@ -39,5 +39,15 @@ namespace BOYAREngine
             _player = Player.Instance;
             _player.Input.PlayerInGame.MeleePick.started += _ => MeleePick_started();
         }
+
+        public void EnterPointer()
+        {
+            WeaponManager.Instance.IsAbleToAttack = false;
+        }
+
+        public void ExitPointer()
+        {
+            WeaponManager.Instance.IsAbleToAttack = true;
+        }
     }
 }

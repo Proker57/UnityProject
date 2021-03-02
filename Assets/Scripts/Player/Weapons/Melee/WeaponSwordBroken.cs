@@ -21,7 +21,7 @@ namespace BOYAREngine
 
             Damage = 10;
             AttackSpeed = 0.8f;
-            Radius = 8f;
+            Radius = 0.8f;
             SellCost = 30;
 
             MaxComboNumber = 3;

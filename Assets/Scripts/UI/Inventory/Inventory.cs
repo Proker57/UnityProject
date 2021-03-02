@@ -22,6 +22,8 @@ namespace BOYAREngine
         [SerializeField] private GameObject _scrollView;
         public GameObject[] Cells;
 
+        [SerializeField] private InventoryTabs _inventoryTabs;
+
         private void Awake()
         {
             if (Instance == null)
@@ -72,6 +74,8 @@ namespace BOYAREngine
             var i = 0;
 
             CurrentTab = type;
+
+            _inventoryTabs.SetActiveTab(type);
 
             foreach (var cell in Cells)
             {

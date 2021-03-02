@@ -100,26 +100,30 @@ namespace BOYAREngine
             IsActive = false;
         }
 
-        private static void HighlightChosenWeapon()
+        public static void HighlightChosenWeapon()
         {
-            foreach (var cell in Inventory.Instance.Cells)
-            {
-                cell.GetComponent<Image>().color = Color.white;
-            }
+            ClearHighLight();
 
             var currentWeapon = WeaponManager.Instance.CurrentWeapon;
             if (currentWeapon != -1) Inventory.Instance.Cells[currentWeapon].GetComponent<Image>().color = Color.red;
         }
 
+        public static void ClearHighLight()
+        {
+            foreach (var cell in Inventory.Instance.Cells)
+            {
+                cell.GetComponent<Image>().color = Color.white;
+            }
+        }
+
         public void EnterPointer()
         {
-            // TODO change input scheme
-            //Player.Instance.Input.Disable();
+            WeaponManager.Instance.IsAbleToAttack = false;
         }
 
         public void ExitPointer()
         {
-            //Player.Instance.Input.Enable();
+            WeaponManager.Instance.IsAbleToAttack = true;
         }
     }
 }
