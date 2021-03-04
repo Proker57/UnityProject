@@ -34,7 +34,7 @@ namespace BOYAREngine
         {
             if (((1 << collider.gameObject.layer) & _damageableLayer) != 0)
             {
-                collider.GetComponent<Damageable>().GetDamage(Bow.Damage);
+                collider.GetComponent<IDamageable>().GetDamage(Bow.Damage);
                 Destroy(gameObject);
             }
         }

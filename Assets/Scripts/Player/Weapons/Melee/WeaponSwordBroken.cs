@@ -38,7 +38,7 @@ namespace BOYAREngine
             var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
             foreach (var enemies in hit)
             {
-                enemies.GetComponent<Damageable>().GetDamage(Damage);
+                enemies.GetComponent<IDamageable>().GetDamage(Damage);
             }
         }
 
@@ -49,7 +49,7 @@ namespace BOYAREngine
             var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
             foreach (var enemies in hit)
             {
-                enemies.GetComponent<Damageable>().GetDamage(Damage);
+                enemies.GetComponent<IDamageable>().GetDamage(Damage);
             }
         }
 
@@ -60,7 +60,7 @@ namespace BOYAREngine
             var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
             foreach (var enemies in hit)
             {
-                enemies.GetComponent<Damageable>().GetDamage(Damage + 40);
+                enemies.GetComponent<IDamageable>().GetDamage(Damage + 40);
             }
         }
 

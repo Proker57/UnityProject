@@ -2,16 +2,16 @@ using UnityEngine;
 
 namespace BOYAREngine
 {
-    public class StreetLamp : MonoBehaviour, ISaveable
+    public class StreetLamp : MonoBehaviour, ISaveable, IDamageable
     {
         public bool IsActive;
 
-        private int _health;
+        public int Health;
 
         [SerializeField] private GameObject _light;
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;
-        private Damageable _damageable;
+        private IDamageable _damageable;
 
         private void Awake()
         {
@@ -19,14 +19,13 @@ namespace BOYAREngine
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _boxCollider2D = GetComponent<BoxCollider2D>();
-            _damageable = GetComponent<Damageable>();
         }
 
-        private void Update()
+        public void GetDamage(int amount)
         {
-            _health = _damageable.Health;
+            Health -= amount;
 
-            if (_health <= 0 && IsActive)
+            if (Health <= 0 && IsActive)
             {
                 Dead();
             }
@@ -45,7 +44,7 @@ namespace BOYAREngine
         {
             return new StreetLampData
             {
-                Health = _health,
+                Health = Health,
                 IsActive = IsActive
             };
         }
@@ -55,12 +54,11 @@ namespace BOYAREngine
             var saveLampData = (StreetLampData) state;
 
             IsActive = saveLampData.IsActive;
-            _health = saveLampData.Health;
+            Health = saveLampData.Health;
 
             _spriteRenderer.enabled = IsActive;
             _boxCollider2D.enabled = IsActive;
             _light.SetActive(IsActive);
-            _damageable.Health = _health;
         }
     }
 
