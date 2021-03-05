@@ -4,9 +4,10 @@ namespace BOYAREngine
 {
     public class StreetLamp : MonoBehaviour, ISaveable, IDamageable
     {
-        public bool IsActive;
-
         public int Health;
+
+        [Header("Serialization")]
+        public bool IsActive;
 
         [SerializeField] private GameObject _light;
         private SpriteRenderer _spriteRenderer;
@@ -53,8 +54,8 @@ namespace BOYAREngine
         {
             var saveLampData = (StreetLampData) state;
 
-            IsActive = saveLampData.IsActive;
             Health = saveLampData.Health;
+            IsActive = saveLampData.IsActive;
 
             _spriteRenderer.enabled = IsActive;
             _boxCollider2D.enabled = IsActive;
@@ -65,7 +66,7 @@ namespace BOYAREngine
     [System.Serializable]
     public class StreetLampData
     {
-        public bool IsActive;
         public int Health;
+        public bool IsActive;
     }
 }
