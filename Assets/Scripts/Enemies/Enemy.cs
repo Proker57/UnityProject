@@ -1,21 +1,20 @@
-using Pathfinding;
+using BOYAREngine.Enemies.AI;
 using UnityEngine;
 
 namespace BOYAREngine.Enemies
 {
+    [RequireComponent(typeof(AIBase))]
     public class Enemy : MonoBehaviour, IDamageable, ISaveable
     {
         [Header("Init")]
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Rigidbody2D _rigidbody2D;
-        [SerializeField] private BoxCollider2D _boxCollider2D;
-        [SerializeField] private CircleCollider2D _sightRadius;
+        public Rigidbody2D Rigidbody2D;
+        public BoxCollider2D BoxCollider2D;
+        public CircleCollider2D SightRadius;
         [SerializeField] private Animator _animator;
 
-        [Header("A* Pathfinder")]
-        [SerializeField] private AIDestinationSetter _aiDestinationSetter;
-        [SerializeField] private AIPath _aiPath;
-        [SerializeField] private Transform _basePosition;
+        [Header("AI")]
+        private AIBase _aiBase;
 
         [Header("Sound")]
         public AudioSource AudioSource;
@@ -25,11 +24,9 @@ namespace BOYAREngine.Enemies
 
         [Header("Vars")]
         public int AttackDamage = 1;
-
         public int EXP = 1;
 
         public float MaxSpeed = 1;
-        public float SightRadius = 3;
 
         [Header("Serialization")]
         public int Health = 100;
@@ -41,20 +38,9 @@ namespace BOYAREngine.Enemies
         {
             IsActive = gameObject.activeSelf;
 
-            _aiPath.maxSpeed = MaxSpeed;
-            _sightRadius.radius = SightRadius;
-        }
-
-        private void FixedUpdate()
-        {
-            if (_aiPath.desiredVelocity.x > 0.01f)
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-            else if (_aiPath.desiredVelocity.x < -0.01f)
-            {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            }
+            Rigidbody2D = GetComponent<Rigidbody2D>();
+            BoxCollider2D = GetComponent<BoxCollider2D>();
+            _aiBase = GetComponent<AIBase>();
         }
 
         private void OnTriggerEnter2D(Object other)
@@ -67,7 +53,7 @@ namespace BOYAREngine.Enemies
                 PlaySound(IdleSound);
             }
 
-            _aiDestinationSetter.target = GameObject.FindGameObjectWithTag("Player").transform;
+            _aiBase.Target = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
         private void OnTriggerExit2D(Object other)
@@ -80,7 +66,7 @@ namespace BOYAREngine.Enemies
                 StopSound();
             }
 
-            _aiDestinationSetter.target = _basePosition;
+            _aiBase.Target = _aiBase.DefaultPosition;
         }
 
         private void PlaySound(AudioClip clip)
@@ -112,12 +98,11 @@ namespace BOYAREngine.Enemies
         {
             IsActive = false;
 
-            _rigidbody2D.isKinematic = true;
-            _boxCollider2D.enabled = false;
-            _sightRadius.gameObject.SetActive(false);
+            Rigidbody2D.isKinematic = true;
+            BoxCollider2D.enabled = false;
+            SightRadius.gameObject.SetActive(false);
+            _aiBase.enabled = false;
             _animator.SetTrigger("Dead");
-
-            _aiPath.enabled = false;
 
             AudioSource.PlayOneShot(DeathSound);
 
@@ -155,14 +140,13 @@ namespace BOYAREngine.Enemies
             IsActive = enemyData.IsActive;
             IsFighting = enemyData.IsFighting;
 
+            _aiBase.enabled = IsActive;
             _spriteRenderer.gameObject.SetActive(IsActive);
-            _rigidbody2D.bodyType = IsActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
-            _boxCollider2D.enabled = IsActive;
-            _sightRadius.gameObject.SetActive(IsActive);
+            Rigidbody2D.bodyType = IsActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
+            BoxCollider2D.enabled = IsActive;
+            SightRadius.gameObject.SetActive(IsActive);
             _animator.enabled = IsActive;
             AudioSource.enabled = IsActive;
-
-            _aiPath.enabled = IsActive;
         }
     }
 

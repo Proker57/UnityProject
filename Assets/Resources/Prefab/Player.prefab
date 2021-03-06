@@ -431,7 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101a605372f884d42a81646e705e60c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
   CurrentWeapon: -1
   IsAbleToAttack: 1
   Weapons: []
@@ -439,7 +438,7 @@ MonoBehaviour:
   AttackPoint: {fileID: 1563531597480783571}
   DamageLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1152
   _weaponSprite: {fileID: 3441850269470288902}
 --- !u!114 &1770231497439941727
 MonoBehaviour:
