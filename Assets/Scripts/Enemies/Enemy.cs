@@ -7,14 +7,14 @@ namespace BOYAREngine.Enemies
     public class Enemy : MonoBehaviour, IDamageable, ISaveable
     {
         [Header("Init")]
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        public Rigidbody2D Rigidbody2D;
-        public BoxCollider2D BoxCollider2D;
+        public SpriteRenderer SpriteRenderer;
         public CircleCollider2D SightRadius;
-        [SerializeField] private Animator _animator;
+        [HideInInspector] public Rigidbody2D Rigidbody2D;
+        [HideInInspector] public BoxCollider2D BoxCollider2D;
+        [HideInInspector] public Animator Animator;
 
         [Header("AI")]
-        private AIBase _aiBase;
+        [HideInInspector] public AIBase _aiBase;
 
         [Header("Sound")]
         public AudioSource AudioSource;
@@ -40,6 +40,7 @@ namespace BOYAREngine.Enemies
 
             Rigidbody2D = GetComponent<Rigidbody2D>();
             BoxCollider2D = GetComponent<BoxCollider2D>();
+            Animator = GetComponent<Animator>();
             _aiBase = GetComponent<AIBase>();
         }
 
@@ -89,7 +90,7 @@ namespace BOYAREngine.Enemies
                 return;
             }
 
-            _animator.SetTrigger("Hit");
+            Animator.SetTrigger("Hit");
 
             AudioSource.PlayOneShot(HitSound);
         }
@@ -102,7 +103,7 @@ namespace BOYAREngine.Enemies
             BoxCollider2D.enabled = false;
             SightRadius.gameObject.SetActive(false);
             _aiBase.enabled = false;
-            _animator.SetTrigger("Dead");
+            Animator.SetTrigger("Dead");
 
             AudioSource.PlayOneShot(DeathSound);
 
@@ -116,8 +117,8 @@ namespace BOYAREngine.Enemies
         private void Deactivate()
         {
 
-            _spriteRenderer.gameObject.SetActive(false);
-            _animator.enabled = false;
+            SpriteRenderer.gameObject.SetActive(false);
+            Animator.enabled = false;
             AudioSource.enabled = false;
         }
 
@@ -141,11 +142,11 @@ namespace BOYAREngine.Enemies
             IsFighting = enemyData.IsFighting;
 
             _aiBase.enabled = IsActive;
-            _spriteRenderer.gameObject.SetActive(IsActive);
+            SpriteRenderer.gameObject.SetActive(IsActive);
             Rigidbody2D.bodyType = IsActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
             BoxCollider2D.enabled = IsActive;
             SightRadius.gameObject.SetActive(IsActive);
-            _animator.enabled = IsActive;
+            Animator.enabled = IsActive;
             AudioSource.enabled = IsActive;
         }
     }

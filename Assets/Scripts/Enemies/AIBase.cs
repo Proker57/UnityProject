@@ -3,15 +3,15 @@ using UnityEngine.Events;
 
 namespace BOYAREngine.Enemies.AI
 {
-    [RequireComponent(typeof(Enemy))]
     public class AIBase : MonoBehaviour
     {
-        [Header("Waypoints")]
+        [Header("Init")]
         public Transform Target;
         public Transform DefaultPosition;
+        public Transform AttackPoint;
 
         [Header("Vars")]
-        public float AddForce = 400f;
+        public float MoveForce = 400f;
         public float JumpForce = 50f;
         [Space]
         public float NearRadius = .5f;
@@ -22,8 +22,6 @@ namespace BOYAREngine.Enemies.AI
         public bool CanFollow = true;
         public bool IsReturnable = true;
         public bool HasCatchedTarget;
-        [Space]
-        public UnityEvent CatchEvent;
 
         [Header("Jump")]
         [SerializeField] private bool _isGrounded;
@@ -33,6 +31,7 @@ namespace BOYAREngine.Enemies.AI
         [SerializeField] private float _nextTimeJumpBase = 1f;
 
         [Header("Attack")]
+        public UnityEvent CatchEvent;
         [SerializeField] private bool _canAttack;
         [SerializeField] private float _nextTimeAttackTimer;
         [SerializeField] private float _nextTimeAttackBase = 2f;
@@ -74,7 +73,7 @@ namespace BOYAREngine.Enemies.AI
 
             if (!HasCatchedTarget)
             {
-                var force = new Vector2(FaceDirection() * AddForce, transform.position.y);
+                var force = new Vector2(FaceDirection() * MoveForce, transform.position.y);
                 _main.Rigidbody2D.AddForce(force, ForceMode2D.Force);
                 
                 if (Distance <= NearRadius + SlowLerpDistance && Distance > NearRadius)
