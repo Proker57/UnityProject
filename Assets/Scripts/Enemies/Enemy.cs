@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BOYAREngine.Enemies.AI;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace BOYAREngine.Enemies
 
         [Header("AI")]
         [HideInInspector] public AIBase _aiBase;
+        private AIBaseActions _aiBaseActions;
 
         [Header("Sound")]
         public AudioSource AudioSource;
@@ -22,11 +24,15 @@ namespace BOYAREngine.Enemies
         public AudioClip IdleSound;
         public AudioClip DeathSound;
 
-        [Header("Vars")]
+        [Header("Properties")]
         public int AttackDamage = 1;
         public int EXP = 1;
 
         public float MaxSpeed = 1;
+
+        public bool HasDrop = false;
+        //public Drop Drop;
+        public List<GameObject> SpawnList = new List<GameObject>();
 
         [Header("Serialization")]
         public int Health = 100;
@@ -42,6 +48,7 @@ namespace BOYAREngine.Enemies
             BoxCollider2D = GetComponent<BoxCollider2D>();
             Animator = GetComponent<Animator>();
             _aiBase = GetComponent<AIBase>();
+            _aiBaseActions = GetComponent<AIBaseActions>();
         }
 
         private void OnTriggerEnter2D(Object other)
@@ -90,6 +97,8 @@ namespace BOYAREngine.Enemies
                 return;
             }
 
+            _aiBaseActions.GetHit();
+
             Animator.SetTrigger("Hit");
 
             AudioSource.PlayOneShot(HitSound);
@@ -111,12 +120,19 @@ namespace BOYAREngine.Enemies
 
             PlayerEvents.GiveExp(EXP);
 
+            if (HasDrop)
+            {
+                foreach (var item in SpawnList)
+                {
+                    Instantiate(item, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                }
+            }
+
             Invoke(("Deactivate"), 1f);
         }
 
         private void Deactivate()
         {
-
             SpriteRenderer.gameObject.SetActive(false);
             Animator.enabled = false;
             AudioSource.enabled = false;
@@ -157,5 +173,11 @@ namespace BOYAREngine.Enemies
         public int Health;
         public bool IsActive;
         public bool IsFighting;
+    }
+
+    [System.Serializable]
+    public class Drop
+    {
+        public List<GameObject> SpawnList = new List<GameObject>();
     }
 }

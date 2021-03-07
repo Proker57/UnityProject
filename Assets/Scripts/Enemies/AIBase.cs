@@ -8,14 +8,15 @@ namespace BOYAREngine.Enemies.AI
         [Header("Init")]
         public Transform Target;
         public Transform DefaultPosition;
+        [Space]
         public Transform AttackPoint;
 
-        [Header("Vars")]
+        [Header("Movement")]
         public float MoveForce = 400f;
-        public float JumpForce = 50f;
-        [Space]
-        public float NearRadius = .5f;
+        public float JumpForce = 200f;
         public float SlowLerpDistance = .3f;
+        public bool IsLimitedVelocity = true;
+        [Space]
         public float Distance;
 
         [Header("AI Logic")]
@@ -24,17 +25,27 @@ namespace BOYAREngine.Enemies.AI
         public bool HasCatchedTarget;
 
         [Header("Jump")]
-        [SerializeField] private bool _isGrounded;
-        [SerializeField] private bool _canJump = true;
+        public bool IsGrounded;
         [SerializeField] private LayerMask _layerMask;
-        [SerializeField] private float _nextTimeJumpTimer;
-        [SerializeField] private float _nextTimeJumpBase = 1f;
 
-        [Header("Attack")]
+        [SerializeField] private float _nextTimeJumpBase = 1f;
+        private float _nextTimeJumpTimer;
+        private bool _canJump = true;
+
+        [Header("Melee")]
         public UnityEvent CatchEvent;
-        [SerializeField] private bool _canAttack;
-        [SerializeField] private float _nextTimeAttackTimer;
-        [SerializeField] private float _nextTimeAttackBase = 2f;
+        public float NearRadius = .5f;
+        [SerializeField] private float _nextCatchActionBase = 2f;
+        private float _nextCatchActionTimer;
+        private bool _canDoCatchAction;
+
+        [Header("Range action")]
+        public UnityEvent RangeEvent;
+        [SerializeField] private float _nextRangeActionBase = 5f;
+        private float _nextRangeActionTimer;
+        private bool _canDoRangeAction;
+
+        public bool CanFlip = true;
 
         private Enemy _main;
 
@@ -49,14 +60,14 @@ namespace BOYAREngine.Enemies.AI
             {
                 if (CanFollow)
                 {
-                    StartFollow();
+                    StartFight();
                 }
             }
             else
             {
                 if (IsReturnable)
                 {
-                    StartFollow();
+                    StartFight();
                 }
             }
 
@@ -65,7 +76,7 @@ namespace BOYAREngine.Enemies.AI
             FlipX();
         }
 
-        private void StartFollow()
+        private void StartFight()
         {
             if (Target == null) Target = DefaultPosition;
             Distance = Vector2.Distance(Target.position, transform.position);
@@ -73,9 +84,31 @@ namespace BOYAREngine.Enemies.AI
 
             if (!HasCatchedTarget)
             {
-                var force = new Vector2(FaceDirection() * MoveForce, transform.position.y);
-                _main.Rigidbody2D.AddForce(force, ForceMode2D.Force);
-                
+                FollowPlayer();
+            }
+            else
+            {
+                if (_main.IsFighting)
+                {
+                    Catch();
+                }
+            }
+        }
+
+        public void FollowPlayer()
+        {
+            RangeActionCountdown();
+            if (_canDoRangeAction)
+            {
+                RangeEvent.Invoke();
+                _nextRangeActionTimer = _nextRangeActionBase;
+            }
+
+            var force = new Vector2(FaceDirection() * MoveForce, transform.position.y);
+            _main.Rigidbody2D.AddForce(force, ForceMode2D.Force);
+
+            if (IsLimitedVelocity)
+            {
                 if (Distance <= NearRadius + SlowLerpDistance && Distance > NearRadius)
                 {
                     _main.Rigidbody2D.velocity = new Vector2(Mathf.Lerp(_main.Rigidbody2D.velocity.x, 0, 2f), _main.Rigidbody2D.velocity.y);
@@ -85,31 +118,15 @@ namespace BOYAREngine.Enemies.AI
                     _main.Rigidbody2D.velocity = new Vector2(Mathf.Clamp(_main.Rigidbody2D.velocity.x, -_main.MaxSpeed, _main.MaxSpeed), _main.Rigidbody2D.velocity.y);
                 }
             }
-            else
-            {
-                if (_main.IsFighting)
-                {
-                    BasicAttack();
-                }
-            }
         }
 
-        public void BasicAttack()
+        public void Catch()
         {
-            if (_nextTimeAttackTimer > 0)
-            {
-                _nextTimeAttackTimer -= Time.deltaTime;
-                _canAttack = false;
-            }
-            else
-            {
-                _canAttack = true;
-            }
-
-            if (_canAttack)
+            CatchActionCountdown();
+            if (_canDoCatchAction)
             {
                 CatchEvent.Invoke();
-                _nextTimeAttackTimer = _nextTimeAttackBase;
+                _nextCatchActionTimer = _nextCatchActionBase;
             }
         }
 
@@ -117,20 +134,12 @@ namespace BOYAREngine.Enemies.AI
         {
             CheckForGround();
 
-            if (_nextTimeJumpTimer > 0)
-            {
-                _nextTimeJumpTimer -= Time.deltaTime;
-                _canJump = false;
-            }
-            else
-            {
-                _canJump = true;
-            }
+            JumpCountdown();
 
             var xDistance = Mathf.Abs(transform.position.x - Target.position.x);
             if (!HasCatchedTarget)
             {
-                if (xDistance < 2f && VerticalRange() && _isGrounded || CheckForWall() && _isGrounded)
+                if (xDistance < 2f && VerticalRange() && IsGrounded || CheckForWall() && IsGrounded)
                 {
                     if (_canJump)
                     {
@@ -148,21 +157,29 @@ namespace BOYAREngine.Enemies.AI
             _nextTimeJumpTimer = _nextTimeJumpBase;
         }
 
+        public void Jump(float jumpDirection, float jumpForce)
+        {
+            var force = new Vector2(jumpDirection, JumpForce);
+            _main.Rigidbody2D.AddForce(force, ForceMode2D.Impulse);
+
+            _nextTimeJumpTimer = _nextTimeJumpBase;
+        }
+
         private void CheckForGround()
         {
             var hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, _layerMask);
-            _isGrounded = hit.collider != null;
+            IsGrounded = hit.collider != null;
         }
 
         private bool CheckForWall()
         {
-            var hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 1f, _layerMask);
-            var hitRight = Physics2D.Raycast(transform.position, Vector2.right, 1f, _layerMask);
+            var hitLeft = Physics2D.Raycast(transform.position, Vector2.left, .6f, _layerMask);
+            var hitRight = Physics2D.Raycast(transform.position, Vector2.right, .6f, _layerMask);
 
             return hitLeft.collider != null || hitRight.collider != null;
         }
 
-        private int FaceDirection()
+        public int FaceDirection()
         {
             var direction = 0;
 
@@ -183,15 +200,58 @@ namespace BOYAREngine.Enemies.AI
             return (transform.position.y + _main.BoxCollider2D.size.y / 2 - Target.position.y) < 0;
         }
 
-        private void FlipX()
+        private void CatchActionCountdown()
         {
-            if (_main.Rigidbody2D.velocity.x > 0.01f)
+            if (_nextCatchActionTimer > 0)
             {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                _nextCatchActionTimer -= Time.deltaTime;
+                _canDoCatchAction = false;
             }
-            else if (_main.Rigidbody2D.velocity.x < -0.01f)
+            else
             {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                _canDoCatchAction = true;
+            }
+        }
+
+        private void RangeActionCountdown()
+        {
+            if (_nextRangeActionTimer > 0)
+            {
+                _nextRangeActionTimer -= Time.deltaTime;
+                _canDoRangeAction = false;
+            }
+            else
+            {
+                _canDoRangeAction = true;
+            }
+        }
+
+        private void JumpCountdown()
+        {
+            if (_nextTimeJumpTimer > 0)
+            {
+                _nextTimeJumpTimer -= Time.deltaTime;
+                _canJump = false;
+            }
+            else
+            {
+                _canJump = true;
+            }
+        }
+
+
+        public void FlipX()
+        {
+            if (CanFlip)
+            {
+                if (_main.Rigidbody2D.velocity.x < -0.01f)
+                {
+                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                }
+                else if (_main.Rigidbody2D.velocity.x > 0.01f)
+                {
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                }
             }
         }
     }
