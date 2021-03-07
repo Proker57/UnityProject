@@ -174,10 +174,4 @@ namespace BOYAREngine.Enemies
         public bool IsActive;
         public bool IsFighting;
     }
-
-    [System.Serializable]
-    public class Drop
-    {
-        public List<GameObject> SpawnList = new List<GameObject>();
-    }
 }
