@@ -5,6 +5,10 @@ using UnityEngine;
 namespace BOYAREngine.Enemies
 {
     [RequireComponent(typeof(AIBase))]
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AudioSource))]
     public class Enemy : MonoBehaviour, IDamageable, ISaveable
     {
         [Header("Init")]
@@ -19,7 +23,7 @@ namespace BOYAREngine.Enemies
         private AIBaseActions _aiBaseActions;
 
         [Header("Sound")]
-        public AudioSource AudioSource;
+        private AudioSource _audioSource;
         public AudioClip HitSound;
         public AudioClip IdleSound;
         public AudioClip DeathSound;
@@ -29,6 +33,7 @@ namespace BOYAREngine.Enemies
         public int EXP = 1;
 
         public float MaxSpeed = 1;
+        [HideInInspector] public float MaxSpeedBase;
 
         public bool HasDrop = false;
         //public Drop Drop;
@@ -47,16 +52,19 @@ namespace BOYAREngine.Enemies
             Rigidbody2D = GetComponent<Rigidbody2D>();
             BoxCollider2D = GetComponent<BoxCollider2D>();
             Animator = GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
             _aiBase = GetComponent<AIBase>();
             _aiBaseActions = GetComponent<AIBaseActions>();
+
+            MaxSpeedBase = MaxSpeed;
         }
 
-        private void OnTriggerEnter2D(Object other)
+    private void OnTriggerEnter2D(Object other)
         {
             if (other.name != "Low Collider") return;
             IsFighting = true;
 
-            if (!AudioSource.isPlaying)
+            if (!_audioSource.isPlaying)
             {
                 PlaySound(IdleSound);
             }
@@ -69,7 +77,7 @@ namespace BOYAREngine.Enemies
             if (other.name != "Low Collider") return;
             IsFighting = false;
 
-            if (AudioSource.isPlaying)
+            if (_audioSource.isPlaying)
             {
                 StopSound();
             }
@@ -79,12 +87,12 @@ namespace BOYAREngine.Enemies
 
         private void PlaySound(AudioClip clip)
         {
-            AudioSource.PlayOneShot(clip);
+            _audioSource.PlayOneShot(clip);
         }
 
         private void StopSound()
         {
-            AudioSource.Stop();
+            _audioSource.Stop();
         }
 
         public void GetDamage(int amount)
@@ -101,7 +109,7 @@ namespace BOYAREngine.Enemies
 
             Animator.SetTrigger("Hit");
 
-            AudioSource.PlayOneShot(HitSound);
+            _audioSource.PlayOneShot(HitSound);
         }
 
         public void Dead()
@@ -114,7 +122,7 @@ namespace BOYAREngine.Enemies
             _aiBase.enabled = false;
             Animator.SetTrigger("Dead");
 
-            AudioSource.PlayOneShot(DeathSound);
+            _audioSource.PlayOneShot(DeathSound);
 
             IsFighting = false;
 
@@ -135,7 +143,7 @@ namespace BOYAREngine.Enemies
         {
             SpriteRenderer.gameObject.SetActive(false);
             Animator.enabled = false;
-            AudioSource.enabled = false;
+            _audioSource.enabled = false;
         }
 
         public object CaptureState()
@@ -163,7 +171,7 @@ namespace BOYAREngine.Enemies
             BoxCollider2D.enabled = IsActive;
             SightRadius.gameObject.SetActive(IsActive);
             Animator.enabled = IsActive;
-            AudioSource.enabled = IsActive;
+            _audioSource.enabled = IsActive;
         }
     }
 

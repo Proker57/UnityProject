@@ -10,6 +10,7 @@ namespace BOYAREngine.Enemies
     public class Chair : MonoBehaviour
     {
         [Header("Melee chances")]
+        public bool IsRandomMeleeActions = true;
         [Range(0.0f, 1.0f)] [SerializeField] private float _attack = 0.5f;
         [Range(0.0f, 1.0f)] [SerializeField] private float _jumpBack = 0.4f;
         [SerializeField] private float _doNothingMelee;
@@ -24,19 +25,20 @@ namespace BOYAREngine.Enemies
         private const int MeleeCount = (int) MeleeActions.Count;
 
         [Header("Range chances")]
+        public bool IsRandomRangeActions = true;
         [Range(0.0f, 1.0f)] [SerializeField] private float _dash = 0.3f;
+        [Range(0.0f, 1.0f)] [SerializeField] private float _stopMoving = 0.3f;
         [SerializeField] private float _doNothingRange;
         public enum RangeActions
         {
             Dash,
+            StopMoving,
 
             Count
         }
         private RangeActions _rangeActions;
         private const int RangeCount = (int) RangeActions.Count;
 
-        public bool IsRandomMeleeActions = true;
-        public bool IsRandomRangeActions = true;
 
         private AIBaseActions _aiBaseActions;
 
@@ -94,6 +96,10 @@ namespace BOYAREngine.Enemies
                 if (randomIndex >= 0.0f && randomIndex <= _dash)
                 {
                     _rangeActions = RangeActions.Dash;
+                } else 
+                if (randomIndex > _dash && randomIndex <= _dash + _stopMoving)
+                {
+                    _rangeActions = RangeActions.StopMoving;
                 }
             }
             else
@@ -106,6 +112,9 @@ namespace BOYAREngine.Enemies
                 case RangeActions.Dash:
                     _aiBaseActions.Dash();
                     break;
+                case RangeActions.StopMoving:
+                    _aiBaseActions.StopMoving();
+                    break;
                 case RangeActions.Count:
                     break;
                 default:
@@ -116,7 +125,7 @@ namespace BOYAREngine.Enemies
         private void OnValidate()
         {
             _doNothingMelee = 1.0f - (_attack + _jumpBack);
-            _doNothingRange = 1.0f - (_dash);
+            _doNothingRange = 1.0f - (_dash + _stopMoving);
         }
     }
 }

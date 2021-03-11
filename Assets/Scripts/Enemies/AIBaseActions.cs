@@ -11,8 +11,8 @@ namespace BOYAREngine.Enemies.AI
         [SerializeField] private LayerMask _playerLayer;
 
         [Header("Jump forces")]
-        public float _xForce = 100f;
-        public float _yForce = 100f;
+        public float XForce = 100f;
+        public float YForce = 100f;
 
         private Enemy _main;
         private AIBase _aiBase;
@@ -44,7 +44,7 @@ namespace BOYAREngine.Enemies.AI
             _aiBase.CanFollow = false;
             _aiBase.CanFlip = false;
 
-            _aiBase.Jump(-_aiBase.FaceDirection() * _xForce, _yForce);
+            _aiBase.Jump(-_aiBase.FaceDirection() * XForce, YForce);
 
             Invoke("Recover", _tweeks.JumpBackRecoverTime);
         }
@@ -67,12 +67,30 @@ namespace BOYAREngine.Enemies.AI
         public void Dash()
         {
             _aiBase.IsLimitedVelocity = false;
-            var force = new Vector2(_aiBase.FaceDirection() * 50f, 10f);
+            var force = new Vector2(_aiBase.FaceDirection() * _tweeks.DashXForce, _tweeks.DashYForce);
             _main.Rigidbody2D.AddForce(force, ForceMode2D.Impulse);
 
             Invoke("LimitVelocityRecoverTime", _tweeks.DashLimitVelocityRecoverTime);
             
         }
+
+        public void StopMoving()
+        {
+            _main.MaxSpeed = 0.0f;
+
+            Invoke("MaxSpeedRecover", _tweeks.WaitTime);
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -90,6 +108,11 @@ namespace BOYAREngine.Enemies.AI
             _aiBase.CanFollow = true;
             _aiBase.CanFlip = true;
         }
+
+        private void MaxSpeedRecover()
+        {
+            _main.MaxSpeed = _main.MaxSpeedBase;
+        }
     }
 
     [System.Serializable]
@@ -104,6 +127,11 @@ namespace BOYAREngine.Enemies.AI
         public float HitRecoverTime = 1f;
 
         [Header("Dash")]
+        public float DashXForce = 50f;
+        public float DashYForce = 10f;
         public float DashLimitVelocityRecoverTime = 0.4f;
+
+        [Header("Stop Movement")]
+        public float WaitTime = 1f;
     }
 }
