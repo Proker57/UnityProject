@@ -2,11 +2,11 @@
 
 namespace BOYAREngine
 {
-    public class ToggleMeleeInventory : MonoBehaviour
+    public class ToggleHUDPanel : MonoBehaviour
     {
         public bool _isActive;
 
-        public GameObject _inventoryPanel;
+        public GameObject _panel;
 
         private Player _player;
 
@@ -14,7 +14,7 @@ namespace BOYAREngine
         {
             _isActive = !_isActive;
 
-            _inventoryPanel.SetActive(_isActive);
+            _panel.SetActive(_isActive);
         }
 
         private void MeleePick_started()

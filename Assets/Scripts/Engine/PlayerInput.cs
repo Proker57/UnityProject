@@ -338,6 +338,90 @@ namespace BOYAREngine
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Dialogue"",
+            ""id"": ""690c45be-96e9-48b4-a766-95dff9059791"",
+            ""actions"": [
+                {
+                    ""name"": ""Next"",
+                    ""type"": ""Button"",
+                    ""id"": ""25e598f6-0575-44c0-a3b9-7126c485f977"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""First"",
+                    ""type"": ""Button"",
+                    ""id"": ""e437eddd-9a96-414d-8b6e-710551ea63c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Second"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7e7ac7b-3385-4873-b4d4-4a24db04d4dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Third"",
+                    ""type"": ""Button"",
+                    ""id"": ""5520f383-896e-4831-bf60-bc19594a1f48"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2e07ea90-c49d-4fa1-9adb-1d34ec2e19d4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21c8099b-9274-4266-8cf2-3b465d91dcde"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""First"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""824c8d9b-548f-4f7a-b8dc-7999db3e044e"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Second"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e9525c5-1845-4bd9-a5b9-f1aa825c8366"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Third"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -361,6 +445,12 @@ namespace BOYAREngine
             m_Global_Save = m_Global.FindAction("Save", throwIfNotFound: true);
             m_Global_Load = m_Global.FindAction("Load", throwIfNotFound: true);
             m_Global_Escape = m_Global.FindAction("Escape", throwIfNotFound: true);
+            // Dialogue
+            m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
+            m_Dialogue_Next = m_Dialogue.FindAction("Next", throwIfNotFound: true);
+            m_Dialogue_First = m_Dialogue.FindAction("First", throwIfNotFound: true);
+            m_Dialogue_Second = m_Dialogue.FindAction("Second", throwIfNotFound: true);
+            m_Dialogue_Third = m_Dialogue.FindAction("Third", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -576,6 +666,63 @@ namespace BOYAREngine
             }
         }
         public GlobalActions @Global => new GlobalActions(this);
+
+        // Dialogue
+        private readonly InputActionMap m_Dialogue;
+        private IDialogueActions m_DialogueActionsCallbackInterface;
+        private readonly InputAction m_Dialogue_Next;
+        private readonly InputAction m_Dialogue_First;
+        private readonly InputAction m_Dialogue_Second;
+        private readonly InputAction m_Dialogue_Third;
+        public struct DialogueActions
+        {
+            private @PlayerInput m_Wrapper;
+            public DialogueActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Next => m_Wrapper.m_Dialogue_Next;
+            public InputAction @First => m_Wrapper.m_Dialogue_First;
+            public InputAction @Second => m_Wrapper.m_Dialogue_Second;
+            public InputAction @Third => m_Wrapper.m_Dialogue_Third;
+            public InputActionMap Get() { return m_Wrapper.m_Dialogue; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DialogueActions set) { return set.Get(); }
+            public void SetCallbacks(IDialogueActions instance)
+            {
+                if (m_Wrapper.m_DialogueActionsCallbackInterface != null)
+                {
+                    @Next.started -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNext;
+                    @Next.performed -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNext;
+                    @Next.canceled -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNext;
+                    @First.started -= m_Wrapper.m_DialogueActionsCallbackInterface.OnFirst;
+                    @First.performed -= m_Wrapper.m_DialogueActionsCallbackInterface.OnFirst;
+                    @First.canceled -= m_Wrapper.m_DialogueActionsCallbackInterface.OnFirst;
+                    @Second.started -= m_Wrapper.m_DialogueActionsCallbackInterface.OnSecond;
+                    @Second.performed -= m_Wrapper.m_DialogueActionsCallbackInterface.OnSecond;
+                    @Second.canceled -= m_Wrapper.m_DialogueActionsCallbackInterface.OnSecond;
+                    @Third.started -= m_Wrapper.m_DialogueActionsCallbackInterface.OnThird;
+                    @Third.performed -= m_Wrapper.m_DialogueActionsCallbackInterface.OnThird;
+                    @Third.canceled -= m_Wrapper.m_DialogueActionsCallbackInterface.OnThird;
+                }
+                m_Wrapper.m_DialogueActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Next.started += instance.OnNext;
+                    @Next.performed += instance.OnNext;
+                    @Next.canceled += instance.OnNext;
+                    @First.started += instance.OnFirst;
+                    @First.performed += instance.OnFirst;
+                    @First.canceled += instance.OnFirst;
+                    @Second.started += instance.OnSecond;
+                    @Second.performed += instance.OnSecond;
+                    @Second.canceled += instance.OnSecond;
+                    @Third.started += instance.OnThird;
+                    @Third.performed += instance.OnThird;
+                    @Third.canceled += instance.OnThird;
+                }
+            }
+        }
+        public DialogueActions @Dialogue => new DialogueActions(this);
         public interface IPlayerInGameActions
         {
             void OnMovement(InputAction.CallbackContext context);
@@ -596,6 +743,13 @@ namespace BOYAREngine
             void OnSave(InputAction.CallbackContext context);
             void OnLoad(InputAction.CallbackContext context);
             void OnEscape(InputAction.CallbackContext context);
+        }
+        public interface IDialogueActions
+        {
+            void OnNext(InputAction.CallbackContext context);
+            void OnFirst(InputAction.CallbackContext context);
+            void OnSecond(InputAction.CallbackContext context);
+            void OnThird(InputAction.CallbackContext context);
         }
     }
 }

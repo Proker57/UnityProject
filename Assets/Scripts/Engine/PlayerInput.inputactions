@@ -323,6 +323,90 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Dialogue",
+            "id": "690c45be-96e9-48b4-a766-95dff9059791",
+            "actions": [
+                {
+                    "name": "Next",
+                    "type": "Button",
+                    "id": "25e598f6-0575-44c0-a3b9-7126c485f977",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "First",
+                    "type": "Button",
+                    "id": "e437eddd-9a96-414d-8b6e-710551ea63c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Second",
+                    "type": "Button",
+                    "id": "e7e7ac7b-3385-4873-b4d4-4a24db04d4dd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Third",
+                    "type": "Button",
+                    "id": "5520f383-896e-4831-bf60-bc19594a1f48",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2e07ea90-c49d-4fa1-9adb-1d34ec2e19d4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21c8099b-9274-4266-8cf2-3b465d91dcde",
+                    "path": "<Keyboard>/1",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "First",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "824c8d9b-548f-4f7a-b8dc-7999db3e044e",
+                    "path": "<Keyboard>/2",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Second",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e9525c5-1845-4bd9-a5b9-f1aa825c8366",
+                    "path": "<Keyboard>/3",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Third",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

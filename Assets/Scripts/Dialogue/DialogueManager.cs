@@ -8,6 +8,7 @@ namespace BOYAREngine
     {
         public static DialogueManager Instance = null;
         public bool IsDialogueStarted;
+        public bool IsQuestionNode = false;
 
         public delegate void ChooseEventDelegate(int answerIndex, int questionNumber);
         public ChooseEventDelegate ChooseEvent;
@@ -23,6 +24,7 @@ namespace BOYAREngine
         [SerializeField] private GameObject _dialogueWindow;
         [SerializeField] private GameObject _answerWindow;
         private List<DialogueNode> _dialogueNodes;
+        private Player _player;
 
         private int _pageIndex = 0;
 
@@ -38,6 +40,7 @@ namespace BOYAREngine
 
         public void StartDialogue(List<DialogueNode> listNodes)
         {
+            IsQuestionNode = false;
             _dialogueWindow.SetActive(true);
             _nextButton.gameObject.SetActive(true);
             _answerWindow.SetActive(false);
@@ -45,12 +48,18 @@ namespace BOYAREngine
 
             _dialogueNodes = listNodes;
 
+            Player.Instance.Input.PlayerInGame.Disable();
+            Player.Instance.Input.Global.Disable();
+            Player.Instance.Input.Dialogue.Enable();
+
             SetStrings();
         }
 
         public void NextNode()
         {
             _pageIndex++;
+
+            IsQuestionNode = false;
 
             _answerWindow.SetActive(false);
             _nextButton.gameObject.SetActive(true);
@@ -78,11 +87,17 @@ namespace BOYAREngine
             QuestionNumber = 0;
             IsDialogueStarted = false;
             _dialogueWindow.SetActive(false);
+
+            Player.Instance.Input.PlayerInGame.Enable();
+            Player.Instance.Input.Global.Enable();
+            Player.Instance.Input.Dialogue.Disable();
         }
 
         private void QuestionNode()
         {
             if (!_dialogueNodes[_pageIndex].IsQuestion) return;
+            
+            IsQuestionNode = true;
 
             _nextButton.gameObject.SetActive(false);
             _answerWindow.SetActive(true);
@@ -129,14 +144,56 @@ namespace BOYAREngine
             _narrative.text = _dialogueNodes[_pageIndex].Narrative;
         }
 
+        private void Next_pressed()
+        {
+            if (!IsQuestionNode) NextNode();
+        }
+
+        private void First_pressed()
+        {
+            if (IsQuestionNode) ChooseEvent(1, QuestionNumber);
+
+        }
+
+        private void Second_pressed()
+        {
+            if (IsQuestionNode) ChooseEvent(2, QuestionNumber);
+        }
+
+        private void Third_pressed()
+        {
+            if (IsQuestionNode) ChooseEvent(3, QuestionNumber);
+        }
+
         private void OnEnable()
         {
+            Events.PlayerOnScene += AssignPlayer;
+
             ChooseEvent += ChooseAnswer;
+        }
+
+        private void AssignPlayer(bool isActive)
+        {
+            _player = Player.Instance;
+
+            if (_player == null) return;
+            _player.Input.Dialogue.Next.performed += _ => Next_pressed();
+            _player.Input.Dialogue.First.performed += _ => First_pressed();
+            _player.Input.Dialogue.Second.performed += _ => Second_pressed();
+            _player.Input.Dialogue.Third.performed += _ => Third_pressed();
         }
 
         private void OnDisable()
         {
+            Events.PlayerOnScene -= AssignPlayer;
+
             ChooseEvent -= ChooseAnswer;
+
+            if (_player == null) return;
+            _player.Input.Dialogue.Next.performed -= _ => Next_pressed();
+            _player.Input.Dialogue.First.performed -= _ => First_pressed();
+            _player.Input.Dialogue.Second.performed -= _ => Second_pressed();
+            _player.Input.Dialogue.Third.performed -= _ => Third_pressed();
         }
     }
 }
