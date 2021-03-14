@@ -6,14 +6,14 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 namespace BOYAREngine.Quests
 {
     [System.Serializable]
-    public class QuestTestFirst : Task
+    public class Quest_TestLevel001_test_0 : Task
     {
         public int KillEnemyCurrent = 0;
         public int KillEnemyNeed = 1;
 
-        public QuestTestFirst()
+        public Quest_TestLevel001_test_0()
         {
-            Id = "quest_TestLevel001_test_0";
+            Id = "Quest_TestLevel001_test_0";
             Name = "Test Quest1";
             Description = "Quest description";
             IsFinished = false;
