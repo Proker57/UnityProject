@@ -16,11 +16,11 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 4217a174b210f554d94bc1fd8fd8595d
   m_Entries:
   - m_Id: 10383585280
-    m_Key: test_first_name
+    m_Key: quest_TestLevel001_test_0_name
     m_Metadata:
       m_Items: []
   - m_Id: 162078978048
-    m_Key: test_first_description
+    m_Key: quest_TestLevel001_test_0_description
     m_Metadata:
       m_Items: []
   m_Metadata:

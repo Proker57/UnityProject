@@ -102,6 +102,7 @@ namespace BOYAREngine.Enemies
             if (Health <= 0)
             {
                 Dead();
+                KillEvents.KIllEnemy();
                 return;
             }
 

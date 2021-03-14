@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -26,27 +27,18 @@ namespace BOYAREngine.Quests
             }
         }
 
-        private void OnNewQuest(Task task)
+        public void UpdateCells()
         {
-            Tasks.Add(task);
-
-            UpdateCells();
-        }
-
-        private void UpdateCells()
-        {
-            var index = 0;
-
-            foreach (var cell in Cells)
+            foreach (var cell in Cells.ToArray())
             {
                 cell.transform.GetChild(0).GetComponent<Text>().text = "null";
                 cell.transform.GetChild(1).GetComponent<Text>().text = "null";
                 cell.transform.GetChild(2).GetComponent<Toggle>().isOn = false;
-
                 cell.SetActive(false);
             }
 
-            foreach (var task in Tasks)
+            var index = 0;
+            foreach (var task in Tasks.ToArray())
             {
                 Cells[index].SetActive(true);
                 Cells[index].transform.GetChild(0).GetComponent<Text>().text = task.Name;
@@ -56,6 +48,21 @@ namespace BOYAREngine.Quests
                 index++;
             }
         }
+
+        public void UpdateQuestList(string id)
+        {
+            Tasks.RemoveAt(0);
+
+            UpdateCells();
+        }
+
+        private void OnNewQuest(Task task)
+        {
+            Tasks.Add(task);
+
+            UpdateCells();
+        }
+
 
         private void OnEnable()
         {

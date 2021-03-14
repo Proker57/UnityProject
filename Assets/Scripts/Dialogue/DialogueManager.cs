@@ -24,7 +24,6 @@ namespace BOYAREngine
         [SerializeField] private GameObject _dialogueWindow;
         [SerializeField] private GameObject _answerWindow;
         private List<DialogueNode> _dialogueNodes;
-        private Player _player;
 
         private int _pageIndex = 0;
 
@@ -48,9 +47,7 @@ namespace BOYAREngine
 
             _dialogueNodes = listNodes;
 
-            Player.Instance.Input.PlayerInGame.Disable();
-            Player.Instance.Input.Global.Disable();
-            Player.Instance.Input.Dialogue.Enable();
+            InputToggles.DialogueInputs(true);
 
             SetStrings();
         }
@@ -88,9 +85,7 @@ namespace BOYAREngine
             IsDialogueStarted = false;
             _dialogueWindow.SetActive(false);
 
-            Player.Instance.Input.PlayerInGame.Enable();
-            Player.Instance.Input.Global.Enable();
-            Player.Instance.Input.Dialogue.Disable();
+            InputToggles.DialogueInputs(false);
         }
 
         private void QuestionNode()
@@ -167,33 +162,22 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            Events.PlayerOnScene += AssignPlayer;
+            Inputs.Instance.Input.Dialogue.Next.performed += _ => Next_pressed();
+            Inputs.Instance.Input.Dialogue.First.performed += _ => First_pressed();
+            Inputs.Instance.Input.Dialogue.Second.performed += _ => Second_pressed();
+            Inputs.Instance.Input.Dialogue.Third.performed += _ => Third_pressed();
 
             ChooseEvent += ChooseAnswer;
         }
 
-        private void AssignPlayer(bool isActive)
-        {
-            _player = Player.Instance;
-
-            if (_player == null) return;
-            _player.Input.Dialogue.Next.performed += _ => Next_pressed();
-            _player.Input.Dialogue.First.performed += _ => First_pressed();
-            _player.Input.Dialogue.Second.performed += _ => Second_pressed();
-            _player.Input.Dialogue.Third.performed += _ => Third_pressed();
-        }
-
         private void OnDisable()
         {
-            Events.PlayerOnScene -= AssignPlayer;
+            Inputs.Instance.Input.Dialogue.Next.performed -= _ => Next_pressed();
+            Inputs.Instance.Input.Dialogue.First.performed -= _ => First_pressed();
+            Inputs.Instance.Input.Dialogue.Second.performed -= _ => Second_pressed();
+            Inputs.Instance.Input.Dialogue.Third.performed -= _ => Third_pressed();
 
             ChooseEvent -= ChooseAnswer;
-
-            if (_player == null) return;
-            _player.Input.Dialogue.Next.performed -= _ => Next_pressed();
-            _player.Input.Dialogue.First.performed -= _ => First_pressed();
-            _player.Input.Dialogue.Second.performed -= _ => Second_pressed();
-            _player.Input.Dialogue.Third.performed -= _ => Third_pressed();
         }
     }
 }

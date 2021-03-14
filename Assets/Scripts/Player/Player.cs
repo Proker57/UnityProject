@@ -46,7 +46,6 @@ namespace BOYAREngine
         {
             Events.PlayerOnScene(true);
 
-            Input.Enable();
             Jump.enabled = true;
             Crouch.enabled = true;
             LowCollider.enabled = true;
@@ -57,13 +56,14 @@ namespace BOYAREngine
             Stats.enabled = true;
             WeaponManager.enabled = true;
             ItemManager.enabled = true;
+
+            Input.PlayerInGame.Enable();
         }
 
         private void OnDisable()
         {
             Events.PlayerOnScene?.Invoke(false);
 
-            Input.Disable();
             Jump.enabled = false;
             Crouch.enabled = false;
             LowCollider.enabled = false;
@@ -74,6 +74,8 @@ namespace BOYAREngine
             Stats.enabled = false;
             WeaponManager.enabled = false;
             ItemManager.enabled = false;
+
+            Input.PlayerInGame.Disable();
         }
 
         private void OnDestroy()

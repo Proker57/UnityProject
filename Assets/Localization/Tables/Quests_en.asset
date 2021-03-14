@@ -16,15 +16,25 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 4217a174b210f554d94bc1fd8fd8595d, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - id: 0
   m_TableData:
   - m_Id: 10383585280
     m_Localized: Test quest
     m_Metadata:
       m_Items: []
   - m_Id: 162078978048
-    m_Localized: Description check
+    m_Localized: KIll a chair  <color=#9AEE49>(1)</color>
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - id: 1
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00f0a8bc25000000
+    00000001:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00f0a8bc25000000

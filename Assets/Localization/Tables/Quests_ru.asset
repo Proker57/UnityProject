@@ -16,15 +16,25 @@ MonoBehaviour:
     m_Code: ru
   m_SharedData: {fileID: 11400000, guid: 4217a174b210f554d94bc1fd8fd8595d, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - id: 0
   m_TableData:
   - m_Id: 10383585280
     m_Localized: "\u0422\u0435\u0441\u0442\u043E\u0432\u044B\u0439 \u043A\u0432\u0435\u0441\u0442"
     m_Metadata:
       m_Items: []
   - m_Id: 162078978048
-    m_Localized: "\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u044F"
+    m_Localized: "\u0423\u0431\u0435\u0439 \u0441\u0442\u0443\u043B  <color=#9AEE49>(1)</color>"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - id: 1
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00f0a8bc25000000
+    00000001:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00f0a8bc25000000

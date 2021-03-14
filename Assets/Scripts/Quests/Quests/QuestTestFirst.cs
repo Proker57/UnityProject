@@ -8,13 +8,45 @@ namespace BOYAREngine.Quests
     [System.Serializable]
     public class QuestTestFirst : Task
     {
+        public int KillEnemyCurrent = 0;
+        public int KillEnemyNeed = 1;
+
         public QuestTestFirst()
         {
-            Name = "Test Quest";
+            Id = "quest_TestLevel001_test_0";
+            Name = "Test Quest1";
             Description = "Quest description";
             IsFinished = false;
 
             LoadStrings();
+
+            OnEnable();
+        }
+
+        internal override void Finish()
+        {
+            OnDisable();
+            PlayerEvents.GiveCurrency(100);
+            QuestManager.Instance.UpdateQuestList(Id);
+        }
+
+        private void OnKillEnemy()
+        {
+            KillEnemyCurrent++;
+
+            if (KillEnemyCurrent < KillEnemyNeed) return;
+            IsFinished = true;
+            QuestManager.Instance.UpdateCells();
+        }
+
+        private void OnEnable()
+        {
+            KillEvents.KIllEnemy += OnKillEnemy;
+        }
+
+        public void OnDisable()
+        {
+            KillEvents.KIllEnemy -= OnKillEnemy;
         }
 
         internal sealed override async void LoadStrings()
@@ -26,8 +58,10 @@ namespace BOYAREngine.Quests
             {
                 var stringTable = loadingOperation.Result;
 
-                Name = GetLocalizedString(stringTable, "test_first_name");
-                Description = GetLocalizedString(stringTable, "test_first_description");
+                Name = GetLocalizedString(stringTable, "quest_TestLevel001_test_0_name");
+                Description = GetLocalizedString(stringTable, "quest_TestLevel001_test_0_description");
+
+                QuestManager.Instance.UpdateCells();
             }
             else
             {

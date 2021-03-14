@@ -38,19 +38,12 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (Weapons != null && CurrentWeapon != -1)
-            {
-                Weapons[CurrentWeapon].Reset += Time.deltaTime;
-
-                if (Weapons[CurrentWeapon].CurrentComboNumber > 0)
-                {
-                    if (Weapons[CurrentWeapon].Reset > Weapons[CurrentWeapon].NextAttackCheck)
-                    {
-                        Animator.SetTrigger("Reset");
-                        Weapons[CurrentWeapon].CurrentComboNumber = 0;
-                    }
-                }
-            }
+            if (Weapons == null || CurrentWeapon == -1) return;
+            Weapons[CurrentWeapon].Reset += Time.deltaTime;
+            if (Weapons[CurrentWeapon].CurrentComboNumber <= 0) return;
+            if (!(Weapons[CurrentWeapon].Reset > Weapons[CurrentWeapon].NextAttackCheck)) return;
+            Animator.SetTrigger("Reset");
+            Weapons[CurrentWeapon].CurrentComboNumber = 0;
         }
 
         private void MeleePickUp(Melee weapon)
@@ -84,41 +77,37 @@ namespace BOYAREngine
         private void PrimaryAttack_started()
         {
             if (!IsAbleToAttack) return;
-            if (Weapons.Count > 0 && CurrentWeapon >= 0)
+            if (Weapons.Count <= 0 || CurrentWeapon < 0) return;
+            if (Weapons[CurrentWeapon].CurrentComboNumber < Weapons[CurrentWeapon].MaxComboNumber)
             {
-                if (Weapons[CurrentWeapon].CurrentComboNumber < Weapons[CurrentWeapon].MaxComboNumber)
-                {
-                    // TODO Add animation
-                    //Animator.SetTrigger(animations[CurrentComboNumber]);
-                    Animator.SetTrigger("PrimaryAttackSword");
-                    Weapons[CurrentWeapon].CurrentComboNumber++;
-                    Weapons[CurrentWeapon].Reset = 0f;
-                }
+                // TODO Add animation
+                //Animator.SetTrigger(animations[CurrentComboNumber]);
+                Animator.SetTrigger("PrimaryAttackSword");
+                Weapons[CurrentWeapon].CurrentComboNumber++;
+                Weapons[CurrentWeapon].Reset = 0f;
+            }
 
-                if (Weapons[CurrentWeapon].CurrentComboNumber > 0)
-                {
-                    if (Weapons[CurrentWeapon].CurrentComboNumber == Weapons[CurrentWeapon].MaxComboNumber)
-                    {
-                        Weapons[CurrentWeapon].ThirdAttack();
+            if (Weapons[CurrentWeapon].CurrentComboNumber <= 0) return;
+            if (Weapons[CurrentWeapon].CurrentComboNumber == Weapons[CurrentWeapon].MaxComboNumber)
+            {
+                Weapons[CurrentWeapon].ThirdAttack();
 
-                        Weapons[CurrentWeapon].NextAttackCheck = 3f;
-                        Weapons[CurrentWeapon].CurrentComboNumber = 0;
-                    }
-                    else
-                    {
-                        Weapons[CurrentWeapon].NextAttackCheck = 1f;
-                    }
+                Weapons[CurrentWeapon].NextAttackCheck = 3f;
+                Weapons[CurrentWeapon].CurrentComboNumber = 0;
+            }
+            else
+            {
+                Weapons[CurrentWeapon].NextAttackCheck = 1f;
+            }
 
-                    switch (Weapons[CurrentWeapon].CurrentComboNumber)
-                    {
-                        case 1:
-                            Weapons[CurrentWeapon].FirstAttack();
-                            return;
-                        case 2:
-                            Weapons[CurrentWeapon].SecondAttack();
-                            return;
-                    }
-                }
+            switch (Weapons[CurrentWeapon].CurrentComboNumber)
+            {
+                case 1:
+                    Weapons[CurrentWeapon].FirstAttack();
+                    return;
+                case 2:
+                    Weapons[CurrentWeapon].SecondAttack();
+                    return;
             }
         }
 
