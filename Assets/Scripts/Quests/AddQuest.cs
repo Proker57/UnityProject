@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using BOYAREngine.Quests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,12 +10,15 @@ namespace BOYAREngine
     {
         public string QuestName = "QuestName";
 
+        private string _namespace = "BOYAREngine.Quests.";
         private string _id;
+        private string activatorType;
         private bool _isUsed;
 
         private void Awake()
         {
-            _id = string.Concat("BOYAREngine.Quests.Quest_" + SceneManager.GetActiveScene().name + "_" + QuestName);
+            _id = "Quest_" + SceneManager.GetActiveScene().name + "_" + QuestName;
+            activatorType = string.Concat(_namespace + _id);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -24,12 +28,13 @@ namespace BOYAREngine
             if (!_isUsed)
             {
                 QuestEvents.NewQuest((Task)Activator.CreateInstance(
-                    Type.GetType(_id) ?? throw new InvalidOperationException()));
+                    Type.GetType(activatorType) ?? throw new InvalidOperationException()));
                 _isUsed = true;
             }
 
             foreach (var task in QuestManager.Instance.Tasks.ToArray())
             {
+                Debug.Log(task.Id + " == " + _id);
                 if (task.Id != _id) continue;
                 if (task.IsFinished) task.Finish();
             }

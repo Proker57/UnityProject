@@ -51,7 +51,12 @@ namespace BOYAREngine.Quests
 
         public void UpdateQuestList(string id)
         {
-            Tasks.RemoveAt(0);
+            foreach (var task in Tasks)
+            {
+                if (task.Id != id) continue;
+                Tasks.Remove(task);
+                break;
+            }
 
             UpdateCells();
         }
