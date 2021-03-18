@@ -97,14 +97,14 @@ namespace BOYAREngine.Enemies
 
         public void GetDamage(int amount)
         {
-            Health -= amount;
-
             if (Health <= 0)
             {
                 Dead();
                 KillEvents.KIllEnemy();
                 return;
             }
+
+            Health -= amount;
 
             _aiBaseActions.GetHit();
 
@@ -137,7 +137,7 @@ namespace BOYAREngine.Enemies
                 }
             }
 
-            Invoke(("Deactivate"), 1f);
+            Invoke(("Deactivate"), 2f);
         }
 
         private void Deactivate()

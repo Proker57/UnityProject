@@ -41,6 +41,7 @@ namespace BOYAREngine
 
         private void LevelUp()
         {
+
             while (Exp >= MaxExp)
             {
                 MaxExp = (int)(Level * 100 * 1.2f);
@@ -53,7 +54,20 @@ namespace BOYAREngine
                 Exp += balance;
             }
 
+            HUDEvents.LevelUpPointsToggle(true);
+            HUDEvents.LevelUpdate(Level);
+
             MaxHealth = (int)(MaxHealth * 1.2f);
+        }
+
+        private void SpendLevelUpPoints()
+        {
+            LevelUpPoints--;
+
+            if (LevelUpPoints <= 0)
+            {
+                HUDEvents.LevelUpPointsToggle(false);
+            }
         }
 
         private void RestoreHealth(int amount)
@@ -65,6 +79,8 @@ namespace BOYAREngine
         private void Damage(int damage)
         {
             Health -= damage;
+
+            PlayerEvents.UpdateHPBar();
         }
 
         private void OnEnable()
@@ -74,6 +90,7 @@ namespace BOYAREngine
             PlayerEvents.GiveCurrency += GetCurrency;
             PlayerEvents.RestoreHealth += RestoreHealth;
             PlayerEvents.Damage += Damage;
+            PlayerEvents.SpendLevelUpPoints += SpendLevelUpPoints;
         }
 
         private void OnDisable()
@@ -83,6 +100,7 @@ namespace BOYAREngine
             PlayerEvents.GiveCurrency -= GetCurrency;
             PlayerEvents.RestoreHealth -= RestoreHealth;
             PlayerEvents.Damage -= Damage;
+            PlayerEvents.SpendLevelUpPoints -= SpendLevelUpPoints;
         }
 
         public object CaptureState()

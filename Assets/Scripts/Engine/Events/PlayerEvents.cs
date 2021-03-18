@@ -2,7 +2,7 @@ namespace BOYAREngine
 {
     public class PlayerEvents
     {
-        public delegate void DashDelegate(float time);
+        public delegate void DashDelegate();
         public static DashDelegate Dash;
         public delegate void DashReadyDelegate();
         public static DashReadyDelegate DashReady;
@@ -29,5 +29,11 @@ namespace BOYAREngine
 
         public delegate void DamageDelegate(int damage);
         public static DamageDelegate Damage;
+
+        public delegate void UpdateHPBarDelegate();
+        public static UpdateHPBarDelegate UpdateHPBar;
+
+        public delegate void SpendLevelUpPointsDelegate();
+        public static SpendLevelUpPointsDelegate SpendLevelUpPoints;
     }
 }

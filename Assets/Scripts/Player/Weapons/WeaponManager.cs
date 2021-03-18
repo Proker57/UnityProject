@@ -175,7 +175,7 @@ namespace BOYAREngine
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(AttackPoint.transform.position, Weapons[CurrentWeapon].Radius);
+            //Gizmos.DrawWireSphere(AttackPoint.transform.position, Weapons[CurrentWeapon].Radius);
         }
 #endif
     }

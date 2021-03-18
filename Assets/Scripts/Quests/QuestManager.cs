@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -14,6 +13,9 @@ namespace BOYAREngine.Quests
         public List<Task> Tasks = new List<Task>();
 
         public GameObject[] Cells;
+        public Text[] Texts;
+        public Text[] Descriptions;
+        public Toggle[] Toggles;
 
         private void Awake()
         {
@@ -29,23 +31,20 @@ namespace BOYAREngine.Quests
 
         public void UpdateCells()
         {
-            foreach (var cell in Cells.ToArray())
+            for (var i = 0; i < Cells.Length; i++)
             {
-                cell.transform.GetChild(0).GetComponent<Text>().text = "null";
-                cell.transform.GetChild(1).GetComponent<Text>().text = "null";
-                cell.transform.GetChild(2).GetComponent<Toggle>().isOn = false;
-                cell.SetActive(false);
+                Texts[i].text = "null text";
+                Descriptions[i].text = "null description";
+                Toggles[i].isOn = false;
+                Cells[i].SetActive(false);
             }
 
-            var index = 0;
-            foreach (var task in Tasks.ToArray())
+            for (var i = 0; i < Tasks.Count; i++)
             {
-                Cells[index].SetActive(true);
-                Cells[index].transform.GetChild(0).GetComponent<Text>().text = task.Name;
-                Cells[index].transform.GetChild(1).GetComponent<Text>().text = task.Description;
-                Cells[index].transform.GetChild(2).GetComponent<Toggle>().isOn = task.IsFinished;
-
-                index++;
+                Cells[i].SetActive(true);
+                Texts[i].text = Tasks[i].Name;
+                Descriptions[i].text = Tasks[i].Description;
+                Toggles[i].isOn = Tasks[i].IsFinished;
             }
         }
 

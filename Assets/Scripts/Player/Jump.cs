@@ -88,6 +88,7 @@ namespace BOYAREngine
 
             if ((_isGrounded || _isOnPlatform) || JumpExtraCounts <= 0) return;
             IsDoubleJumping = true;
+            PlayerEvents.DoubleJump();
             JumpAction();
         }
 
@@ -117,6 +118,7 @@ namespace BOYAREngine
             {
                 JumpExtraCounts = JumpExtraCountDefault;
                 IsDoubleJumping = false;
+                PlayerEvents.DoubleJumpReady();
                 _isGrounded = true;
             }
             else

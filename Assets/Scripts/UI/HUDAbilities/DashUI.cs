@@ -25,30 +25,41 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_player != null)
-            {
-                CooldownSlider();
-            }
+            if (_player == null) return;
+            CooldownSlider();
         }
 
         private void CooldownSlider()
         {
-            if (_player.Dash.IsDashable != false) return;
+            if (_player.Dash.IsDashable) return;
+            _fill.fillAmount = _player.Dash.DashTimerCounter;
+        }
+
+        private void Dashed()
+        {
             _image.sprite = _cooldownSprite;
             _cooldownBar.SetActive(true);
-            _fill.fillAmount = _player.Dash.DashTimerCounter;
-            if (!(_player.Dash.DashTimerCounter <= 0)) return;
+        }
+
+        private void DashReady()
+        {
             _image.sprite = _normalSprite;
             _cooldownBar.SetActive(false);
         }
 
         private void OnEnable()
         {
+            PlayerEvents.Dash += Dashed;
+            PlayerEvents.DashReady += DashReady;
+
             Events.PlayerOnScene += AssignPlayer;
         }
 
         private void OnDestroy()
         {
+            PlayerEvents.Dash -= Dashed;
+            PlayerEvents.DashReady -= DashReady;
+
             Events.PlayerOnScene -= AssignPlayer;
         }
 

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,7 @@ namespace BOYAREngine
         [SerializeField] private Text _text;
         private Player _player;
 
-        private void Update()
+        private void UpdateHPBar()
         {
             if (_player == null) return;
 
@@ -24,11 +23,15 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
+            PlayerEvents.UpdateHPBar += UpdateHPBar;
+
             Events.PlayerOnScene += AssignPlayer;
         }
 
         private void OnDisable()
         {
+            PlayerEvents.UpdateHPBar -= UpdateHPBar;
+
             Events.PlayerOnScene -= AssignPlayer;
         }
 

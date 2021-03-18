@@ -8,7 +8,6 @@ namespace BOYAREngine
     {
         [SerializeField] private Sprite _normalSprite;
         [SerializeField] private Sprite _cooldownSprite;
-        private Player _player;
         private Image _image;
 
         private void Awake()
@@ -16,24 +15,25 @@ namespace BOYAREngine
             _image = GetComponent<Image>();
         }
 
-        private void Update()
+        private void DoubleJump()
         {
-            if (_player == null) return;
-            _image.sprite = _player.Jump.IsDoubleJumping ? _cooldownSprite : _normalSprite;
+            _image.sprite = _cooldownSprite;
+        }
+
+        private void DoubleJumpReady()
+        {
+            _image.sprite = _normalSprite;
         }
 
         private void OnEnable()
         {
-            Events.PlayerOnScene += AssignPlayer;
+            PlayerEvents.DoubleJump += DoubleJump;
+            PlayerEvents.DoubleJumpReady += DoubleJumpReady;
         }
         private void OnDisable()
         {
-            Events.PlayerOnScene -= AssignPlayer;
-        }
-
-        private void AssignPlayer(bool isActive)
-        {
-            _player = Player.Instance;
+            PlayerEvents.DoubleJump -= DoubleJump;
+            PlayerEvents.DoubleJumpReady -= DoubleJumpReady;
         }
     }
 }

@@ -8,5 +8,11 @@ namespace BOYAREngine
 
         public delegate void JumpCheckIsActiveDelegate(bool boolean);
         public static JumpCheckIsActiveDelegate JumpCheckIsActive;
+
+        public delegate void LevelUpPointsToggleDelegate(bool boolean);
+        public static LevelUpPointsToggleDelegate LevelUpPointsToggle;
+
+        public delegate void LevelUpdateDelegate(int level);
+        public static LevelUpdateDelegate LevelUpdate;
     }
 }

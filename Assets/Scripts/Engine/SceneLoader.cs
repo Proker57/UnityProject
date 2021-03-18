@@ -125,11 +125,9 @@ namespace BOYAREngine
                 GameController.HasPlayer = false;
                 GameController.HasCamera = false;
 
-                if (_sceneLoadTaskAsync.progress >= .9f && _sceneLoadTaskAsync.allowSceneActivation == false)
-                {
-                    _loadingCircleSprite.GetComponent<Animation>().Stop();
-                    _sceneLoadTaskAsync.allowSceneActivation = true;
-                }
+                if (!(_sceneLoadTaskAsync.progress >= .9f) || _sceneLoadTaskAsync.allowSceneActivation) return;
+                _loadingCircleSprite.GetComponent<Animation>().Stop();
+                _sceneLoadTaskAsync.allowSceneActivation = true;
             }
         }
 
@@ -156,6 +154,7 @@ namespace BOYAREngine
         private void UpdateSceneReady()
         {
             System.GC.Collect();
+            LoadLevelEvents.LevelLoaded(CurrentSceneName);
             _sceneState = SceneState.Run;
         }
 

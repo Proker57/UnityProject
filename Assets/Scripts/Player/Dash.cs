@@ -32,8 +32,9 @@ namespace BOYAREngine
 
         private void Dash_started()
         {
-            if (IsDashable != true) return;
+            if (!IsDashable) return;
 
+            PlayerEvents.Dash();
             _player.Movement.IsMaxSpeedLimiterOn = false;
 
             IsDashable = false;
@@ -53,7 +54,7 @@ namespace BOYAREngine
 
         private void DashCountdown()
         {
-            if (IsDashable != false) return;
+            if (IsDashable) return;
             if (DashTimerCounter > 0)
             {
                 DashTimerCounter -= Time.deltaTime;
@@ -61,13 +62,14 @@ namespace BOYAREngine
             else
             {
                 DashTimerCounter = _dashTimer;
+                PlayerEvents.DashReady();
                 IsDashable = true;
             }
         }
 
         private void SpeedLimiterCountdown()
         {
-            if (IsSpeedLimited != false) return;
+            if (IsSpeedLimited) return;
             if (SpeedLimiterTimerCounter > 0)
             {
                 SpeedLimiterTimerCounter -= Time.deltaTime;

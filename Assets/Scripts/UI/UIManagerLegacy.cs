@@ -29,7 +29,7 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (_sceneLoader.CurrentSceneName.Equals("Main") || _sceneLoader.CurrentSceneName.Equals("MainMenu"))
+            /*if (_sceneLoader.CurrentSceneName.Equals("Main") || _sceneLoader.CurrentSceneName.Equals("MainMenu"))
             {
                 _canvas.enabled = false;
             }
@@ -47,7 +47,7 @@ namespace BOYAREngine
             else
             {
                 LevelUpPoints.gameObject.SetActive(false);
-            }
+            }*/
         }
 
         private void LevelUp()
@@ -57,8 +57,8 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            HUDEvents.DashCheckIsActive += CheckDashIsActive;
-            HUDEvents.JumpCheckIsActive += CheckJumpIsActive;
+//            HUDEvents.DashCheckIsActive += CheckDashIsActive;
+//            HUDEvents.JumpCheckIsActive += CheckJumpIsActive;
 
             Events.PlayerOnScene += AssignPlayer;
             PlayerEvents.LevelUp += LevelUp;
@@ -66,22 +66,22 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
-            HUDEvents.DashCheckIsActive -= CheckDashIsActive;
-            HUDEvents.JumpCheckIsActive -= CheckJumpIsActive;
+//            HUDEvents.DashCheckIsActive -= CheckDashIsActive;
+//            HUDEvents.JumpCheckIsActive -= CheckJumpIsActive;
 
             Events.PlayerOnScene -= AssignPlayer;
             PlayerEvents.LevelUp -= LevelUp;
         }
 
-        private void CheckDashIsActive(bool dashIsActive)
-        {
-            _dashUI.SetActive(dashIsActive);
-        }
-
-        private void CheckJumpIsActive(bool jumpIsActive)
-        {
-            _DoubleJumpUI.SetActive(jumpIsActive);
-        }
+//        private void CheckDashIsActive(bool dashIsActive)
+//        {
+//            _dashUI.SetActive(dashIsActive);
+//        }
+//
+//        private void CheckJumpIsActive(bool jumpIsActive)
+//        {
+//            _DoubleJumpUI.SetActive(jumpIsActive);
+//        }
 
         private void AssignPlayer(bool isActive)
         {
