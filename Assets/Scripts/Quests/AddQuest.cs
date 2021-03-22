@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace BOYAREngine
 {
-    public class AddQuest : MonoBehaviour
+    public class AddQuest : MonoBehaviour, ISaveable
     {
         public string QuestName = "QuestName";
 
@@ -34,10 +34,30 @@ namespace BOYAREngine
 
             foreach (var task in QuestManager.Instance.Tasks.ToArray())
             {
-                Debug.Log(task.Id + " == " + _id);
                 if (task.Id != _id) continue;
                 if (task.IsFinished) task.Finish();
             }
         }
+
+        public object CaptureState()
+        {
+            return new AddQuestData
+            {
+                IsUsed = _isUsed
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var data = (AddQuestData) state;
+
+            _isUsed = data.IsUsed;
+        }
+    }
+
+    [System.Serializable]
+    public class AddQuestData
+    {
+        public bool IsUsed;
     }
 }

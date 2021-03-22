@@ -84,7 +84,7 @@ namespace BOYAREngine
                     case TabType.Weapons:
                         if (i < WeaponManager.Instance.Weapons.Count)
                         {
-                            cell.GetComponent<Image>().sprite = WeaponManager.Instance.Weapons[i].SpriteUi;
+                            cell.GetComponent<Image>().sprite = Resources.Load<Sprite>(WeaponManager.Instance.Weapons[i].SpriteUi);
                             i++;
                         }
                         else
@@ -96,7 +96,8 @@ namespace BOYAREngine
                     case TabType.Items:
                         if (i < ItemManager.Instance.Items.Count)
                         {
-                            cell.GetComponent<Image>().sprite = ItemManager.Instance.Items[i].SpriteUi;
+                            cell.GetComponent<Image>().sprite =
+                                Resources.Load<Sprite>(ItemManager.Instance.Items[i].SpriteUi);
                             i++;
                         }
                         else

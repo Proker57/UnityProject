@@ -1,4 +1,5 @@
 using System.Collections;
+using BOYAREngine.Sound;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -147,12 +148,12 @@ namespace BOYAREngine
 
         private void MusicSlider()
         {
-            AudioMixerVolume.Instance.MasterMixer.SetFloat("Music", _musicSlider.value);
+            AudioMixer.Instance.MasterMixer.SetFloat("Music", _musicSlider.value);
         }
 
         private void SoundSlider()
         {
-            AudioMixerVolume.Instance.MasterMixer.SetFloat("SFX", _soundSlider.value);
+            AudioMixer.Instance.MasterMixer.SetFloat("SFX", _soundSlider.value);
         }
 
 

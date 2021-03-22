@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BOYAREngine
 {
@@ -9,12 +10,19 @@ namespace BOYAREngine
     {
         private string SavePath => $"{Application.persistentDataPath}/save.sosi";
 
+        public Text SaveText;
+        public Text LoadText;
+
         [ContextMenu("Save")]
         public void Save()
         {
             var state = LoadFile();
             CaptureState(state);
             SaveFile(state);
+
+            Events.Save?.Invoke();
+
+            ShowSaveText();
         }
 
         [ContextMenu("Load")]
@@ -23,6 +31,32 @@ namespace BOYAREngine
             var state = LoadFile();
             GameController.IsNewGame = false;
             RestoreState(state);
+
+            Events.Load?.Invoke();
+
+            ShowLoadText();
+        }
+
+        private void ShowSaveText()
+        {
+            SaveText.enabled = true;
+            Invoke("SaveTextDisable", 2f);
+        }
+
+        private void SaveTextDisable()
+        {
+            SaveText.enabled = false;
+        }
+
+        private void ShowLoadText()
+        {
+            LoadText.enabled = true;
+            Invoke("LoadTextDisable", 2f);
+        }
+
+        private void LoadTextDisable()
+        {
+            LoadText.enabled = false;
         }
 
         private Dictionary<string, object> LoadFile()

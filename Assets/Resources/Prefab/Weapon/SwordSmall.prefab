@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8560759934556249539}
   - component: {fileID: 8560759934556249536}
   - component: {fileID: 8560759934556249537}
+  - component: {fileID: 3877296422826831235}
   m_Layer: 0
   m_Name: SwordSmall
   m_TagString: Untagged
@@ -145,3 +146,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+--- !u!114 &3877296422826831235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8560759934556249543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da080cb57d7e7624296e8de9265ee279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: cba6da39-5cc1-418d-bb88-94f5277ed349

@@ -29,6 +29,18 @@ namespace BOYAREngine.Quests
             }
         }
 
+        public void UpdateQuestList(string id)
+        {
+            foreach (var task in Tasks)
+            {
+                if (task.Id != id) continue;
+                Tasks.Remove(task);
+                break;
+            }
+
+            UpdateCells();
+        }
+
         public void UpdateCells()
         {
             for (var i = 0; i < Cells.Length; i++)
@@ -46,18 +58,6 @@ namespace BOYAREngine.Quests
                 Descriptions[i].text = Tasks[i].Description;
                 Toggles[i].isOn = Tasks[i].IsFinished;
             }
-        }
-
-        public void UpdateQuestList(string id)
-        {
-            foreach (var task in Tasks)
-            {
-                if (task.Id != id) continue;
-                Tasks.Remove(task);
-                break;
-            }
-
-            UpdateCells();
         }
 
         private void OnNewQuest(Task task)
@@ -103,6 +103,8 @@ namespace BOYAREngine.Quests
             var questManagerData = (QuestManagerData) state;
 
             Tasks = questManagerData.Tasks;
+
+            UpdateCells();
         }
     }
 

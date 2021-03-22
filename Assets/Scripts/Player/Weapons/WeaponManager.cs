@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -7,7 +8,7 @@ namespace BOYAREngine
 {
     public class WeaponManager : MonoBehaviour, ISaveable
     {
-        public static WeaponManager Instance = null;
+        public static WeaponManager Instance;
 
         public int CurrentWeapon = -1;
         public bool IsAbleToAttack = true;
@@ -18,7 +19,7 @@ namespace BOYAREngine
         public Transform AttackPoint;
         public LayerMask DamageLayers;
 
-        [SerializeField] private SpriteRenderer _weaponSprite;
+        [SerializeField] private SpriteRenderer _weaponSprite = null;
 
         private Player _player;
 
@@ -61,7 +62,8 @@ namespace BOYAREngine
                 _weaponSprite.sprite = null;
                 return;
             }
-            _weaponSprite.sprite = Weapons[CurrentWeapon].Sprite;
+
+            _weaponSprite.sprite = Resources.Load<Sprite>(Weapons[CurrentWeapon].Sprite);
         }
 
         private void MeleePick_started()
@@ -80,8 +82,6 @@ namespace BOYAREngine
             if (Weapons.Count <= 0 || CurrentWeapon < 0) return;
             if (Weapons[CurrentWeapon].CurrentComboNumber < Weapons[CurrentWeapon].MaxComboNumber)
             {
-                // TODO Add animation
-                //Animator.SetTrigger(animations[CurrentComboNumber]);
                 Animator.SetTrigger("PrimaryAttackSword");
                 Weapons[CurrentWeapon].CurrentComboNumber++;
                 Weapons[CurrentWeapon].Reset = 0f;
@@ -90,7 +90,8 @@ namespace BOYAREngine
             if (Weapons[CurrentWeapon].CurrentComboNumber <= 0) return;
             if (Weapons[CurrentWeapon].CurrentComboNumber == Weapons[CurrentWeapon].MaxComboNumber)
             {
-                Weapons[CurrentWeapon].ThirdAttack();
+                //Weapons[CurrentWeapon].ThirdAttack();
+                AttackOverlap(Weapons[CurrentWeapon].ThirdAttack());
 
                 Weapons[CurrentWeapon].NextAttackCheck = 3f;
                 Weapons[CurrentWeapon].CurrentComboNumber = 0;
@@ -103,11 +104,30 @@ namespace BOYAREngine
             switch (Weapons[CurrentWeapon].CurrentComboNumber)
             {
                 case 1:
-                    Weapons[CurrentWeapon].FirstAttack();
+                    AttackOverlap(Weapons[CurrentWeapon].FirstAttack());
+                    //Weapons[CurrentWeapon].FirstAttack();
                     return;
                 case 2:
-                    Weapons[CurrentWeapon].SecondAttack();
+                    AttackOverlap(Weapons[CurrentWeapon].SecondAttack());
+                    //Weapons[CurrentWeapon].SecondAttack();
                     return;
+            }
+        }
+
+        private void AttackOverlap(int damage)
+        {
+            var hit = Physics2D.OverlapCircleAll(AttackPoint.transform.position, Weapons[CurrentWeapon].Radius, DamageLayers);
+            foreach (var enemies in hit)
+            {
+                try
+                {
+                    enemies.GetComponent<IDamageable>().GetDamage(damage);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
         }
 
@@ -170,14 +190,11 @@ namespace BOYAREngine
             CurrentWeapon = weaponManagerData.CurrentWeapon;
             IsAbleToAttack = weaponManagerData.IsAbleToAttack;
             Weapons = weaponManagerData.MeleeWeapons;
-        }
 
-#if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
-        {
-            //Gizmos.DrawWireSphere(AttackPoint.transform.position, Weapons[CurrentWeapon].Radius);
+            SetWeapon(CurrentWeapon);
+            InventoryOptions.HighlightChosenWeapon();
+            Inventory.Instance.UpdateSprites(Inventory.Instance.CurrentTab);
         }
-#endif
     }
 
     [System.Serializable]
@@ -189,3 +206,5 @@ namespace BOYAREngine
         public List<Melee> MeleeWeapons;
     }
 }
+
+

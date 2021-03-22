@@ -8,12 +8,12 @@ namespace BOYAREngine
     [System.Serializable]
     public class WeaponSwordBroken : Melee
     {
-        private WeaponManager _weaponManager;
+        //private readonly WeaponManager _weaponManager;
 
         public WeaponSwordBroken()
         {
-            SpriteUi = Resources.Load<Sprite>("Images/Weapons/UI/BrokenSwordUI");
-            Sprite = Resources.Load<Sprite>("Images/Weapons/OnPlayer/BrokenSword");
+            Sprite = "Images/Weapons/OnPlayer/BrokenSword";
+            SpriteUi = "Images/Weapons/UI/BrokenSwordUI";
 
             Type = "Sword";
             Name = "Sword Broken";
@@ -26,42 +26,45 @@ namespace BOYAREngine
 
             MaxComboNumber = 3;
 
-            _weaponManager = WeaponManager.Instance;
+            //_weaponManager = WeaponManager.Instance;
 
             LoadStrings();
         }
 
-        internal override void FirstAttack()
+        internal override int FirstAttack()
         {
-            Debug.Log("First attack");
+            Debug.Log("First attack: " + Damage);
+            return Damage;
 
-            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
-            foreach (var enemies in hit)
-            {
-                enemies.GetComponent<IDamageable>().GetDamage(Damage);
-            }
+//            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
+//            foreach (var enemies in hit)
+//            {
+//                enemies.GetComponent<IDamageable>().GetDamage(Damage);
+//            }
         }
 
-        internal override void SecondAttack()
+        internal override int SecondAttack()
         {
-            Debug.Log("Second attack");
+            Debug.Log("Second attack: " + Damage);
+            return Damage;
 
-            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
-            foreach (var enemies in hit)
-            {
-                enemies.GetComponent<IDamageable>().GetDamage(Damage);
-            }
+//            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
+//            foreach (var enemies in hit)
+//            {
+//                enemies.GetComponent<IDamageable>().GetDamage(Damage);
+//            }
         }
 
-        internal override void ThirdAttack()
+        internal override int ThirdAttack()
         {
-            Debug.Log("Third attack");
+            Debug.Log("Third attack: " + (Damage + 40));
+            return (Damage + 40);
 
-            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
-            foreach (var enemies in hit)
-            {
-                enemies.GetComponent<IDamageable>().GetDamage(Damage + 40);
-            }
+//            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
+//            foreach (var enemies in hit)
+//            {
+//                enemies.GetComponent<IDamageable>().GetDamage(Damage + 40);
+//            }
         }
 
         internal override void SecondaryAttack()

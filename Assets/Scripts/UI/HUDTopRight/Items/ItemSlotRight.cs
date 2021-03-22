@@ -41,7 +41,9 @@ namespace BOYAREngine
             {
                 foreach (var t in ItemManager.Instance.Items)
                 {
-                    _itemImage.sprite = ItemManager.Instance.Items[ItemManager.Instance.CurrentItem].Sprite;
+                    //_itemImage.sprite = ItemManager.Instance.Items[ItemManager.Instance.CurrentItem].Sprite;
+                    _itemImage.sprite = Resources.Load<Sprite>(ItemManager.Instance.Items[ItemManager.Instance.CurrentItem].Sprite);
+
                     _itemName.text = ItemManager.Instance.Items[ItemManager.Instance.CurrentItem].Name;
                 }
             }

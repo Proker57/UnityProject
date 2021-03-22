@@ -25,9 +25,9 @@ namespace BOYAREngine.Quests
 
         internal override void Finish()
         {
-            OnDisable();
             PlayerEvents.GiveCurrency(100);
             QuestManager.Instance.UpdateQuestList(Id);
+            OnDisable();
         }
 
         private void OnKillEnemy()

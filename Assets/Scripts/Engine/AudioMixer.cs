@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.Audio;
 
-namespace BOYAREngine
+namespace BOYAREngine.Sound
 {
-    public class AudioMixerVolume : MonoBehaviour
+    public class AudioMixer : MonoBehaviour
     {
-        public static AudioMixerVolume Instance = null;
+        public static AudioMixer Instance = null;
 
-        public AudioMixer MasterMixer;
+        public UnityEngine.Audio.AudioMixer MasterMixer;
 
         private void Awake()
         {

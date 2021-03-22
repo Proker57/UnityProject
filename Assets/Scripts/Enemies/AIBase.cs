@@ -15,6 +15,7 @@ namespace BOYAREngine.Enemies.AI
         public float MoveForce = 400f;
         public float JumpForce = 200f;
         public float SlowLerpDistance = .3f;
+        public float SlowLerpTime = 1f;
         public bool IsLimitedVelocity = true;
         [Space]
         public float Distance;
@@ -107,27 +108,23 @@ namespace BOYAREngine.Enemies.AI
             var force = new Vector2(FaceDirection() * MoveForce, transform.position.y);
             _main.Rigidbody2D.AddForce(force, ForceMode2D.Force);
 
-            if (IsLimitedVelocity)
+            if (!IsLimitedVelocity) return;
+            if (Distance <= NearRadius + SlowLerpDistance && Distance > NearRadius)
             {
-                if (Distance <= NearRadius + SlowLerpDistance && Distance > NearRadius)
-                {
-                    _main.Rigidbody2D.velocity = new Vector2(Mathf.Lerp(_main.Rigidbody2D.velocity.x, 0, 2f), _main.Rigidbody2D.velocity.y);
-                }
-                else
-                {
-                    _main.Rigidbody2D.velocity = new Vector2(Mathf.Clamp(_main.Rigidbody2D.velocity.x, -_main.MaxSpeed, _main.MaxSpeed), _main.Rigidbody2D.velocity.y);
-                }
+                _main.Rigidbody2D.velocity = new Vector2(Mathf.Lerp(_main.Rigidbody2D.velocity.x, 0, SlowLerpTime), _main.Rigidbody2D.velocity.y);
+            }
+            else
+            {
+                _main.Rigidbody2D.velocity = new Vector2(Mathf.Clamp(_main.Rigidbody2D.velocity.x, -_main.MaxSpeed, _main.MaxSpeed), _main.Rigidbody2D.velocity.y);
             }
         }
 
         public void Catch()
         {
             CatchActionCountdown();
-            if (_canDoCatchAction)
-            {
-                CatchEvent.Invoke();
-                _nextCatchActionTimer = _nextCatchActionBase;
-            }
+            if (!_canDoCatchAction) return;
+            CatchEvent.Invoke();
+            _nextCatchActionTimer = _nextCatchActionBase;
         }
 
         private void CheckForJump()
@@ -137,16 +134,9 @@ namespace BOYAREngine.Enemies.AI
             JumpCountdown();
 
             var xDistance = Mathf.Abs(transform.position.x - Target.position.x);
-            if (!HasCatchedTarget)
-            {
-                if (xDistance < 2f && VerticalRange() && IsGrounded || CheckForWall() && IsGrounded)
-                {
-                    if (_canJump)
-                    {
-                        Jump(JumpForce);
-                    }
-                }
-            }
+            if (HasCatchedTarget) return;
+            if ((!(xDistance < 2f) || !VerticalRange() || !IsGrounded) && (!CheckForWall() || !IsGrounded)) return; // if no walls and is not grounded
+            if (_canJump) Jump(JumpForce);
         }
 
         public void Jump(float jumpForce)
@@ -242,16 +232,14 @@ namespace BOYAREngine.Enemies.AI
 
         public void FlipX()
         {
-            if (CanFlip)
+            if (!CanFlip) return;
+            if (_main.Rigidbody2D.velocity.x < -0.01f)
             {
-                if (_main.Rigidbody2D.velocity.x < -0.01f)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                }
-                else if (_main.Rigidbody2D.velocity.x > 0.01f)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                }
+                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            }
+            else if (_main.Rigidbody2D.velocity.x > 0.01f)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
         }
     }

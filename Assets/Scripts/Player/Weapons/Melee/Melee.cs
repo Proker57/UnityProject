@@ -8,10 +8,11 @@ namespace BOYAREngine
     {
         internal const string StringTableCollectionName = "Weapon_names";
 
-        [SerializeField] internal List<string> animations;
-        [SerializeField] internal Animator Animator;
-        [SerializeField] internal Sprite SpriteUi;
-        [SerializeField] internal Sprite Sprite;
+        //[SerializeField] internal Sprite SpriteUi;
+        //[SerializeField] internal Sprite Sprite;
+
+        internal string Sprite;
+        internal string SpriteUi;
 
         [SerializeField] internal string Type;
         [SerializeField] internal string Name;
@@ -34,18 +35,13 @@ namespace BOYAREngine
             NextAttackCheck = 1.4f;
         }
 
-        internal virtual void SetAnimations()
-        {
-            animations = new List<string>();
-        }
-
         internal void PrimaryAttack() { }
 
-        internal virtual void FirstAttack() { }
+        internal virtual int FirstAttack() { return Damage; }
 
-        internal virtual void SecondAttack() { }
+        internal virtual int SecondAttack() { return Damage; }
 
-        internal virtual void ThirdAttack() { }
+        internal virtual int ThirdAttack() { return Damage; }
 
         internal virtual void SecondaryAttack() { }
 

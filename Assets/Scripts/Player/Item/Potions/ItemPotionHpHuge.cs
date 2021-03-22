@@ -12,8 +12,11 @@ namespace BOYAREngine
 
         public ItemPotionHpHuge()
         {
-            SpriteUi = Resources.Load<Sprite>("Images/Items/Potions/Huge");
-            Sprite = Resources.Load<Sprite>("Images/Items/Potions/Huge");
+            //SpriteUi = Resources.Load<Sprite>("Images/Items/Potions/Huge");
+            //Sprite = Resources.Load<Sprite>("Images/Items/Potions/Huge");
+
+            SpriteUi = "Images/Items/Potions/Huge";
+            Sprite = "Images/Items/Potions/Huge";
 
             Name = "Huge potion";
             Type = "Potion";

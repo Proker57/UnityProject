@@ -30,20 +30,23 @@ namespace BOYAREngine.Enemies
 
         [Header("Properties")]
         public int AttackDamage = 1;
-        public int EXP = 1;
+        public int EXP = 100;
 
         public float MaxSpeed = 1;
         [HideInInspector] public float MaxSpeedBase;
 
         public bool HasDrop = false;
-        //public Drop Drop;
         public List<GameObject> SpawnList = new List<GameObject>();
 
         [Header("Serialization")]
         public int Health = 100;
 
+        public float XPosition;
+        public float YPosition;
+
         public bool IsFighting = false;
         public bool IsActive = true;
+
 
         private void Awake()
         {
@@ -97,14 +100,14 @@ namespace BOYAREngine.Enemies
 
         public void GetDamage(int amount)
         {
+            Health -= amount;
+
             if (Health <= 0)
             {
+                KillEvents.KIllEnemy?.Invoke();
                 Dead();
-                KillEvents.KIllEnemy();
                 return;
             }
-
-            Health -= amount;
 
             _aiBaseActions.GetHit();
 
@@ -152,6 +155,8 @@ namespace BOYAREngine.Enemies
             return new EnemyData
             {
                 Health = Health,
+                XPosition = transform.position.x,
+                YPosition = transform.position.y,
                 IsActive = IsActive,
                 IsFighting = IsFighting
             };
@@ -162,6 +167,10 @@ namespace BOYAREngine.Enemies
             var enemyData = (EnemyData) state;
 
             Health = enemyData.Health;
+
+            XPosition = enemyData.XPosition;
+            YPosition = enemyData.YPosition;
+            transform.position = new Vector2(XPosition, YPosition);
 
             IsActive = enemyData.IsActive;
             IsFighting = enemyData.IsFighting;
@@ -180,6 +189,10 @@ namespace BOYAREngine.Enemies
     public class EnemyData
     {
         public int Health;
+
+        public float XPosition;
+        public float YPosition;
+
         public bool IsActive;
         public bool IsFighting;
     }

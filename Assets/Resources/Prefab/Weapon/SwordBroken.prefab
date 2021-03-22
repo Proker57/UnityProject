@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7317921829778089185}
   - component: {fileID: 7317921829778089184}
   - component: {fileID: 7317921829778089187}
+  - component: {fileID: 4928467714893521358}
   m_Layer: 0
   m_Name: SwordBroken
   m_TagString: Untagged
@@ -145,3 +146,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+--- !u!114 &4928467714893521358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7317921829778089190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da080cb57d7e7624296e8de9265ee279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 600badd1-8175-49d6-857c-888c9ad14e65

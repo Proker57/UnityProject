@@ -120,6 +120,8 @@ namespace BOYAREngine
 
             Items = saveData.Items;
             CurrentItem = saveData.ItemIndex;
+
+            Inventory.Instance.UpdateSprites(Inventory.Instance.CurrentTab);
         }
 
         private void OnSelectedLocaleChanged(Locale obj)

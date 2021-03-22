@@ -9,7 +9,7 @@ namespace BOYAREngine
         [SerializeField] private Text _text;
         private Player _player;
 
-        private void UpdateHPBar()
+        private void UpdateHpBar()
         {
             if (_player == null) return;
 
@@ -21,16 +21,22 @@ namespace BOYAREngine
             _text.text = currentHealth + "/" + maxHealth;
         }
 
+        private void OnLoad()
+        {
+            UpdateHpBar();
+        }
+
         private void OnEnable()
         {
-            PlayerEvents.UpdateHPBar += UpdateHPBar;
+            PlayerEvents.UpdateHPBar += UpdateHpBar;
 
+            Events.Load += OnLoad;
             Events.PlayerOnScene += AssignPlayer;
         }
 
         private void OnDisable()
         {
-            PlayerEvents.UpdateHPBar -= UpdateHPBar;
+            PlayerEvents.UpdateHPBar -= UpdateHpBar;
 
             Events.PlayerOnScene -= AssignPlayer;
         }
@@ -38,6 +44,7 @@ namespace BOYAREngine
         private void AssignPlayer(bool isActive)
         {
             _player = Player.Instance;
+            UpdateHpBar();
         }
     }
 }
