@@ -17,6 +17,7 @@ namespace BOYAREngine.Enemies
         [HideInInspector] public Rigidbody2D Rigidbody2D;
         [HideInInspector] public BoxCollider2D BoxCollider2D;
         [HideInInspector] public Animator Animator;
+        [SerializeField] private float _deactivateTime = 2f;
 
         [Header("AI")]
         [HideInInspector] public AIBase _aiBase;
@@ -140,7 +141,7 @@ namespace BOYAREngine.Enemies
                 }
             }
 
-            Invoke(("Deactivate"), 2f);
+            Invoke(("Deactivate"), _deactivateTime);
         }
 
         private void Deactivate()

@@ -90,7 +90,6 @@ namespace BOYAREngine
             if (Weapons[CurrentWeapon].CurrentComboNumber <= 0) return;
             if (Weapons[CurrentWeapon].CurrentComboNumber == Weapons[CurrentWeapon].MaxComboNumber)
             {
-                //Weapons[CurrentWeapon].ThirdAttack();
                 AttackOverlap(Weapons[CurrentWeapon].ThirdAttack());
 
                 Weapons[CurrentWeapon].NextAttackCheck = 3f;
@@ -105,11 +104,9 @@ namespace BOYAREngine
             {
                 case 1:
                     AttackOverlap(Weapons[CurrentWeapon].FirstAttack());
-                    //Weapons[CurrentWeapon].FirstAttack();
                     return;
                 case 2:
                     AttackOverlap(Weapons[CurrentWeapon].SecondAttack());
-                    //Weapons[CurrentWeapon].SecondAttack();
                     return;
             }
         }

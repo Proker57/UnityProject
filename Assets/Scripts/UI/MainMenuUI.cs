@@ -154,6 +154,7 @@ namespace BOYAREngine
         private void SoundSlider()
         {
             AudioMixer.Instance.MasterMixer.SetFloat("SFX", _soundSlider.value);
+            AudioMixer.Instance.MasterMixer.SetFloat("BGSound", _soundSlider.value);
         }
 
 
