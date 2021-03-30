@@ -66,16 +66,6 @@ namespace BOYAREngine
             _weaponSprite.sprite = Resources.Load<Sprite>(Weapons[CurrentWeapon].Sprite);
         }
 
-        private void MeleePick_started()
-        {
-            Debug.Log("Melee pick");
-        }
-
-        private void RangePick_started()
-        {
-            Debug.Log("Range pick");
-        }
-
         private void PrimaryAttack_started()
         {
             if (!IsAbleToAttack) return;
@@ -139,9 +129,6 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _player.Input.PlayerInGame.MeleePick.started += _ => MeleePick_started();
-            _player.Input.PlayerInGame.RangePick.started += _ => RangePick_started();
-
             _player.Input.PlayerInGame.PrimaryAttack.started += _ => PrimaryAttack_started();
             _player.Input.PlayerInGame.SecondaryAttack.started += _ => SecondaryAttack_started();
 
@@ -152,9 +139,6 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
-            _player.Input.PlayerInGame.MeleePick.started -= _ => MeleePick_started();
-            _player.Input.PlayerInGame.RangePick.started -= _ => RangePick_started();
-
             _player.Input.PlayerInGame.PrimaryAttack.started -= _ => PrimaryAttack_started();
             _player.Input.PlayerInGame.SecondaryAttack.started -= _ => SecondaryAttack_started();
 

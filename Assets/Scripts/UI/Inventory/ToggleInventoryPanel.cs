@@ -2,13 +2,11 @@
 
 namespace BOYAREngine
 {
-    public class ToggleHUDPanel : MonoBehaviour
+    public class ToggleInventoryPanel : MonoBehaviour
     {
         public bool _isActive;
 
         public GameObject _panel;
-
-        private Player _player;
 
         public void TogglePanel()
         {
@@ -17,7 +15,17 @@ namespace BOYAREngine
             _panel.SetActive(_isActive);
         }
 
-        private void MeleePick_started()
+        public void EnterPointer()
+        {
+            WeaponManager.Instance.IsAbleToAttack = false;
+        }
+
+        public void ExitPointer()
+        {
+            WeaponManager.Instance.IsAbleToAttack = true;
+        }
+
+        private void Inventory_started()
         {
             TogglePanel();
         }
@@ -31,23 +39,13 @@ namespace BOYAREngine
         {
             Events.PlayerOnScene -= AssignPlayer;
 
-            if (_player != null) _player.Input.PlayerInGame.MeleePick.started -= _ => MeleePick_started();
+            Inputs.Instance.Input.HUD.Inventory.started -= _ => Inventory_started();
         }
 
         private void AssignPlayer(bool isActive)
         {
-            _player = Player.Instance;
-            _player.Input.PlayerInGame.MeleePick.started += _ => MeleePick_started();
+            Inputs.Instance.Input.HUD.Inventory.started += _ => Inventory_started();
         }
 
-        public void EnterPointer()
-        {
-            WeaponManager.Instance.IsAbleToAttack = false;
-        }
-
-        public void ExitPointer()
-        {
-            WeaponManager.Instance.IsAbleToAttack = true;
-        }
     }
 }

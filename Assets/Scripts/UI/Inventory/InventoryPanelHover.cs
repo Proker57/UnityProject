@@ -42,7 +42,7 @@ namespace BOYAREngine
 
         private void Start()
         {
-            StartCoroutine(LoadStrings());
+            LoadStrings();
         }
 
         public void ShowPanel()
@@ -101,13 +101,13 @@ namespace BOYAREngine
 
         private void OnSelectedLocaleChanged(Locale obj)
         {
-            StartCoroutine(LoadStrings());
+            LoadStrings();
         }
 
-        private IEnumerator LoadStrings()
+        private async void LoadStrings()
         {
             var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(StringTableCollectionName);
-            yield return loadingOperation;
+            await loadingOperation.Task;
 
             if (loadingOperation.Status == AsyncOperationStatus.Succeeded)
             {

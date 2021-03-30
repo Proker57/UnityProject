@@ -7,6 +7,7 @@ TagManager:
   - PlayerSpawner
   - UI
   - DialogueManager
+  - Cinemachine
   layers:
   - Default
   - TransparentFX

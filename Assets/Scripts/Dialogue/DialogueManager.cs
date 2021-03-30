@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +28,10 @@ namespace BOYAREngine
         [SerializeField] private GameObject _answerWindow;
         private List<DialogueNode> _dialogueNodes;
 
+        [Header("Cinemachine")]
+        public CinemachineVirtualCamera Camera;
+        public float ZoomInSize = 2.3f;
+
         private int _pageIndex = 0;
 
         private void Awake()
@@ -44,6 +51,8 @@ namespace BOYAREngine
             _nextButton.gameObject.SetActive(true);
             _answerWindow.SetActive(false);
             IsDialogueStarted = true;
+
+            CameraZoom(true);
 
             _dialogueNodes = listNodes;
 
@@ -84,6 +93,8 @@ namespace BOYAREngine
             QuestionNumber = 0;
             IsDialogueStarted = false;
             _dialogueWindow.SetActive(false);
+
+            CameraZoom(false);
 
             InputToggles.DialogueInputs(false);
         }
@@ -158,6 +169,13 @@ namespace BOYAREngine
         private void Third_pressed()
         {
             if (IsQuestionNode) ChooseEvent(3, QuestionNumber);
+        }
+
+        private void CameraZoom(bool zoomIn)
+        {
+            Camera = GameObject.FindGameObjectWithTag("Cinemachine").GetComponent<CinemachineVirtualCamera>();
+
+            Camera.m_Lens.OrthographicSize = zoomIn ? ZoomInSize : 3f;
         }
 
         private void OnEnable()

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -36,7 +37,7 @@ namespace BOYAREngine
 
             _player = Player.Instance;
 
-            StartCoroutine(LoadStrings());
+            LoadStrings();
         }
 
         private void OnTriggerEnter2D(Component objectCollider)
@@ -92,30 +93,30 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            //Player.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             _dialogueManager.ChooseEvent += AnswerAction;
+
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
             
         }
 
         private void OnDisable()
         {
-            //Player.Instance.Input.PlayerInGame.Use.started -= _ => Use_started();
             Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             _dialogueManager.ChooseEvent -= AnswerAction;
+
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }
 
         private void OnSelectedLocaleChanged(Locale obj)
         {
-            StartCoroutine(LoadStrings());
+            LoadStrings();
         }
 
-        private IEnumerator LoadStrings()
+        private async void LoadStrings()
         {
             var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(StringTableCollectionName);
-            yield return loadingOperation;
+            await loadingOperation.Task;
 
             if (loadingOperation.Status == AsyncOperationStatus.Succeeded)
             {

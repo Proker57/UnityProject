@@ -38,7 +38,7 @@ namespace BOYAREngine
 
         private void OnLoad()
         {
-            StartCoroutine(UpdateExp());
+            if (_player != null) StartCoroutine(UpdateExp());
         }
 
         private void OnEnable()

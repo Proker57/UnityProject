@@ -13,6 +13,8 @@ namespace BOYAREngine
             Instance = this;
 
             Input = new PlayerInput();
+
+            Input.Dialogue.Disable();
         }
 
         private void OnEnable()

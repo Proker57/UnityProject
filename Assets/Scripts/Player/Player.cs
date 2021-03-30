@@ -58,6 +58,7 @@ namespace BOYAREngine
             ItemManager.enabled = true;
 
             Input.PlayerInGame.Enable();
+            Input.HUD.Enable();
         }
 
         private void OnDisable()
@@ -76,6 +77,7 @@ namespace BOYAREngine
             ItemManager.enabled = false;
 
             Input.PlayerInGame.Disable();
+            Input.HUD.Disable();
         }
 
         private void OnDestroy()

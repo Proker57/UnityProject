@@ -422,6 +422,52 @@ namespace BOYAREngine
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""HUD"",
+            ""id"": ""e142c713-c96f-4f96-a61c-cfed8288d7ec"",
+            ""actions"": [
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e0cade0-58bc-4d58-81f2-3473222989d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Quests"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a9b2f49-5ef9-4d20-8933-76833fecdcce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""75adc238-3054-467b-8e3f-0f185d132217"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""96768945-30d5-405a-b350-41349f4af980"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quests"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -451,6 +497,10 @@ namespace BOYAREngine
             m_Dialogue_First = m_Dialogue.FindAction("First", throwIfNotFound: true);
             m_Dialogue_Second = m_Dialogue.FindAction("Second", throwIfNotFound: true);
             m_Dialogue_Third = m_Dialogue.FindAction("Third", throwIfNotFound: true);
+            // HUD
+            m_HUD = asset.FindActionMap("HUD", throwIfNotFound: true);
+            m_HUD_Inventory = m_HUD.FindAction("Inventory", throwIfNotFound: true);
+            m_HUD_Quests = m_HUD.FindAction("Quests", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -723,6 +773,47 @@ namespace BOYAREngine
             }
         }
         public DialogueActions @Dialogue => new DialogueActions(this);
+
+        // HUD
+        private readonly InputActionMap m_HUD;
+        private IHUDActions m_HUDActionsCallbackInterface;
+        private readonly InputAction m_HUD_Inventory;
+        private readonly InputAction m_HUD_Quests;
+        public struct HUDActions
+        {
+            private @PlayerInput m_Wrapper;
+            public HUDActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Inventory => m_Wrapper.m_HUD_Inventory;
+            public InputAction @Quests => m_Wrapper.m_HUD_Quests;
+            public InputActionMap Get() { return m_Wrapper.m_HUD; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(HUDActions set) { return set.Get(); }
+            public void SetCallbacks(IHUDActions instance)
+            {
+                if (m_Wrapper.m_HUDActionsCallbackInterface != null)
+                {
+                    @Inventory.started -= m_Wrapper.m_HUDActionsCallbackInterface.OnInventory;
+                    @Inventory.performed -= m_Wrapper.m_HUDActionsCallbackInterface.OnInventory;
+                    @Inventory.canceled -= m_Wrapper.m_HUDActionsCallbackInterface.OnInventory;
+                    @Quests.started -= m_Wrapper.m_HUDActionsCallbackInterface.OnQuests;
+                    @Quests.performed -= m_Wrapper.m_HUDActionsCallbackInterface.OnQuests;
+                    @Quests.canceled -= m_Wrapper.m_HUDActionsCallbackInterface.OnQuests;
+                }
+                m_Wrapper.m_HUDActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Inventory.started += instance.OnInventory;
+                    @Inventory.performed += instance.OnInventory;
+                    @Inventory.canceled += instance.OnInventory;
+                    @Quests.started += instance.OnQuests;
+                    @Quests.performed += instance.OnQuests;
+                    @Quests.canceled += instance.OnQuests;
+                }
+            }
+        }
+        public HUDActions @HUD => new HUDActions(this);
         public interface IPlayerInGameActions
         {
             void OnMovement(InputAction.CallbackContext context);
@@ -750,6 +841,11 @@ namespace BOYAREngine
             void OnFirst(InputAction.CallbackContext context);
             void OnSecond(InputAction.CallbackContext context);
             void OnThird(InputAction.CallbackContext context);
+        }
+        public interface IHUDActions
+        {
+            void OnInventory(InputAction.CallbackContext context);
+            void OnQuests(InputAction.CallbackContext context);
         }
     }
 }

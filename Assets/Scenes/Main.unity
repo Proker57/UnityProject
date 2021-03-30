@@ -4016,6 +4016,7 @@ GameObject:
   - component: {fileID: 451248703}
   - component: {fileID: 451248704}
   - component: {fileID: 451248702}
+  - component: {fileID: 451248705}
   m_Layer: 5
   m_Name: ButtonNext
   m_TagString: Untagged
@@ -4136,6 +4137,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &451248705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451248700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecc5a82a2060854caa392e2c684630c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 451248704}
 --- !u!1 &500516313
 GameObject:
   m_ObjectHideFlags: 0
@@ -15817,6 +15831,8 @@ MonoBehaviour:
   _nextButton: {fileID: 451248704}
   _dialogueWindow: {fileID: 789878209}
   _answerWindow: {fileID: 136983327}
+  Camera: {fileID: 0}
+  ZoomInSize: 2.3
 --- !u!224 &1710539752
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15961,7 +15977,7 @@ GameObject:
   - component: {fileID: 1715603128}
   - component: {fileID: 1715603127}
   - component: {fileID: 1715603126}
-  - component: {fileID: 1715603131}
+  - component: {fileID: 1715603129}
   m_Layer: 5
   m_Name: OpenButton
   m_TagString: Untagged
@@ -16005,8 +16021,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1715603131}
-          m_TargetAssemblyTypeName: BOYAREngine.ToggleHUDPanel, Assembly-CSharp
+        - m_Target: {fileID: 1715603129}
+          m_TargetAssemblyTypeName: BOYAREngine.ToggleQuestsPanel, Assembly-CSharp
           m_MethodName: EnterPointer
           m_Mode: 1
           m_Arguments:
@@ -16021,8 +16037,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1715603131}
-          m_TargetAssemblyTypeName: BOYAREngine.ToggleHUDPanel, Assembly-CSharp
+        - m_Target: {fileID: 1715603129}
+          m_TargetAssemblyTypeName: BOYAREngine.ToggleQuestsPanel, Assembly-CSharp
           m_MethodName: ExitPointer
           m_Mode: 1
           m_Arguments:
@@ -16077,8 +16093,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1715603131}
-        m_TargetAssemblyTypeName: BOYAREngine.ToggleHUDPanel, Assembly-CSharp
+      - m_Target: {fileID: 1715603129}
+        m_TargetAssemblyTypeName: BOYAREngine.ToggleQuestsPanel, Assembly-CSharp
         m_MethodName: TogglePanel
         m_Mode: 1
         m_Arguments:
@@ -16119,15 +16135,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &1715603130
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1715603124}
-  m_CullTransparentMesh: 0
---- !u!114 &1715603131
+--- !u!114 &1715603129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16136,11 +16144,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1715603124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82fdb3ecd43d83f42b581b7173044bd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ee3405e56f8e684fa83ea6c209a272b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isActive: 0
-  _panel: {fileID: 64069149}
+  Panel: {fileID: 64069149}
+  IsActive: 0
+--- !u!222 &1715603130
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715603124}
+  m_CullTransparentMesh: 0
 --- !u!1 &1716039116
 GameObject:
   m_ObjectHideFlags: 0
@@ -16774,8 +16790,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -318.4, y: 33.899963}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -323.48788, y: 84.16165}
+  m_SizeDelta: {x: 339.0904, y: 65.1652}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1824162847
 CanvasRenderer:
@@ -16798,7 +16814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46274513, g: 0.63529414, b: 0.8862746, a: 1}
+  m_Color: {r: 0.5647059, g: 0.8627451, b: 0.9647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -16809,14 +16825,14 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 0494cfd9892ef2144b5a0994ea593014, type: 3}
     m_FontSize: 25
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 1
+    m_MaxSize: 25
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Kefka Palazzo
 --- !u!114 &1824162849
