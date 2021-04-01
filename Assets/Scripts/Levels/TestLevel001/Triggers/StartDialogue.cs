@@ -35,7 +35,7 @@ namespace BOYAREngine
             _dialogueManager = DialogueManager.Instance;
             _dialogueNodes = new List<DialogueNode>();
 
-            _player = Player.Instance;
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             LoadStrings();
         }

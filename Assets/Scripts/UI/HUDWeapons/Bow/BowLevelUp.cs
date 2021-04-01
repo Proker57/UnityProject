@@ -21,7 +21,7 @@ namespace BOYAREngine
         {
             if (_player == null)
             {
-                _player = Player.Instance;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             }
 
             if (_player.Stats.LevelUpPoints <= 0) return;
@@ -37,7 +37,6 @@ namespace BOYAREngine
         private void Update()
         {
             if (!_isUpdateable) return;
-            //_bowHover.LevelValue.text = Bow.Level + "<color=#9AEE49>" + "+1" + "</color>";
             _bowHover.DamageValue.text = Bow.Damage + "<color=#9AEE49>" + "+" + DamageBooster + "</color>";
         }
 

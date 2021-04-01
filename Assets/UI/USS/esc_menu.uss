@@ -1,0 +1,19 @@
+.pause-button {
+    padding-top: 0;
+    margin-top: 1%;
+    align-items: center;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    margin-bottom: 1%;
+    width: 70%;
+    height: 10%;
+}
+
+.pause-button:hover {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 75%;
+}

@@ -203,7 +203,7 @@ MonoBehaviour:
   - {x: -0.09832497, y: 0.36668724, z: 0}
   m_ShapePathHash: 1003831357
   m_Mesh: {fileID: 0}
-  m_InstanceId: 253076
+  m_InstanceId: 187926
 --- !u!1 &7179260046310399425
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,8 +419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f8bf2eac155ee42b3f21412beed478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 3
-  _jumpTime: 0.3
+  _jumpForce: 3.7
+  _jumpTime: 0.2
   JumpExtraCounts: 1
   JumpExtraCountDefault: 0
   _ground:

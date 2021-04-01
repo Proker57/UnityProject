@@ -22,7 +22,7 @@ namespace BOYAREngine
         {
             if (_player == null)
             {
-                _player = Player.Instance;
+                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             }
 
             if (_player.Stats.LevelUpPoints <= 0) return;
@@ -38,7 +38,6 @@ namespace BOYAREngine
         private void Update()
         {
             if (!_isUpdateable) return;
-            //_meleeHover.LevelValue.text = Sword.Level + "<color=#9AEE49>+1</color>";
             _inventoryPanelHover.WeaponDamage.text = Sword.Damage + "<color=#9AEE49>+" + DamageBooster + "</color>";
         }
 

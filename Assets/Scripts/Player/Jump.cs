@@ -34,10 +34,7 @@ namespace BOYAREngine
 
         private void Awake()
         {
-            if (_player == null)
-            {
-                _player = GetComponent<Player>();
-            }
+            _player = GetComponent<Player>();
         }
 
         private void Start()
@@ -96,7 +93,15 @@ namespace BOYAREngine
         {
             JumpExtraCounts--;
             IsJumping = true;
-            _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
+            if (_player.Rigidbody2D == null)
+            {
+                Debug.Log("RB2D is null: " + _player.Rigidbody2D);
+                Destroy(this);
+            }
+            else
+            {
+                _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
+            }
             IsStoppedJumping = false;
         }
 
@@ -156,6 +161,7 @@ namespace BOYAREngine
         {
             _player.Input.PlayerInGame.Jump.started -= _ => Jump_started();
             _player.Input.PlayerInGame.Jump.canceled -= _ => Jump_canceled();
+            _player.Input.PlayerInGame.Jump.Dispose();
 
             HUDEvents.JumpCheckIsActive(false);
         }

@@ -10,6 +10,9 @@ namespace BOYAREngine
 
         public delegate void PlayerOnSceneDelegate(bool isActive);
         public static PlayerOnSceneDelegate PlayerOnScene;
+
+        public delegate void NewGameDelegate();
+        public static NewGameDelegate NewGame;
     }
 }
 

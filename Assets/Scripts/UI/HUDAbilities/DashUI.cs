@@ -65,7 +65,7 @@ namespace BOYAREngine
 
         private void AssignPlayer(bool isActive)
         {
-            _player = isActive ? Player.Instance : null;
+            _player = isActive ? GameObject.FindGameObjectWithTag("Player").GetComponent<Player>() : null;
         }
 
     }

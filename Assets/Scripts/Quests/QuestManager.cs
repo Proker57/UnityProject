@@ -8,7 +8,7 @@ namespace BOYAREngine.Quests
 {
     public class QuestManager : MonoBehaviour, ISaveable
     {
-        public static QuestManager Instance = null;
+        public static QuestManager Instance;
 
         public List<Task> Tasks = new List<Task>();
 
@@ -67,10 +67,16 @@ namespace BOYAREngine.Quests
             UpdateCells();
         }
 
+        private void OnNewGame()
+        {
+            Tasks = new List<Task>();
+            UpdateCells();
+        }
 
         private void OnEnable()
         {
             QuestEvents.NewQuest += OnNewQuest;
+            Events.NewGame += OnNewGame;
 
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
@@ -78,6 +84,7 @@ namespace BOYAREngine.Quests
         private void OnDisable()
         {
             QuestEvents.NewQuest -= OnNewQuest;
+            Events.NewGame -= OnNewGame;
 
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }

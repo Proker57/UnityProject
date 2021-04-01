@@ -17,7 +17,7 @@ namespace BOYAREngine
                 }
                 else
                 {
-                    Destroy(GameObject.FindGameObjectWithTag("Player"));
+                    //Destroy(GameObject.FindGameObjectWithTag("Player"));
                     _player = Instantiate(_prefab, transform.position, Quaternion.identity);
                 }
 
@@ -25,16 +25,19 @@ namespace BOYAREngine
             }
             else
             {
+                Debug.Log("Else");
                 //Destroy(_player);
 
                 if (GameController.IsNewGame)
                 {
+                    Debug.Log("New Game");
                     Destroy(_player);
                     _player = Instantiate(_prefab, transform.position, Quaternion.identity);
                     _player.transform.position = transform.position;
                 }
                 else
                 {
+                    Debug.Log("Not new game");
                     _player = GameObject.FindGameObjectWithTag("Player");
                 }
             }

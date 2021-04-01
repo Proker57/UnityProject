@@ -95,6 +95,7 @@ namespace BOYAREngine
             SceneLoader.SwitchScene(NewGameSceneName);
             GameController.IsNewGame = true;
             _uiDocument.enabled = false;
+            Events.NewGame?.Invoke();
         }
 
         private static void Load()

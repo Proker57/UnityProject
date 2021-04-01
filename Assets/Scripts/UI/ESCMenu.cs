@@ -85,7 +85,7 @@ namespace BOYAREngine
 
         private void DestroyPlayer()
         {
-            Destroy(Player.Instance.gameObject);
+            Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
         }
 
         private void OnEnable()
