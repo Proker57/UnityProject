@@ -23,23 +23,23 @@ namespace BOYAREngine
             _player = GetComponent<Player>();
         }
 
-        public void GetExp(int expValue)
+        public void OnGetExp(int expValue)
         {
             MaxExp = (int)(Level * 100 * 1.2f);
             Exp += expValue;
 
             if (Exp >= MaxExp)
             {
-                PlayerEvents.LevelUp();
+                PlayerEvents.LevelUp?.Invoke();
             }
         }
 
-        public void GetCurrency(int amount)
+        public void OnGiveCurrency(int amount)
         {
             Currency += amount;
         }
 
-        private void LevelUp()
+        private void OnLevelUp()
         {
 
             while (Exp >= MaxExp)
@@ -54,13 +54,13 @@ namespace BOYAREngine
                 Exp += balance;
             }
 
-            HUDEvents.LevelUpPointsToggle(true);
-            HUDEvents.LevelUpdate(Level);
+            HUDEvents.LevelUpPointsToggle?.Invoke(true);
+            HUDEvents.LevelUpdate?.Invoke(Level);
 
             MaxHealth = (int)(MaxHealth * 1.2f);
         }
 
-        private void SpendLevelUpPoints()
+        private void OnSpendLevelUpPoints()
         {
             LevelUpPoints--;
 
@@ -70,37 +70,37 @@ namespace BOYAREngine
             }
         }
 
-        private void RestoreHealth(int amount)
+        private void OnRestoreHealth(int amount)
         {
             Health += amount;
             if (Health > MaxHealth) Health = MaxHealth;
         }
 
-        private void Damage(int damage)
+        private void OnDamage(int damage)
         {
             Health -= damage;
 
-            PlayerEvents.UpdateHPBar();
+            PlayerEvents.UpdateHPBar?.Invoke();
         }
 
         private void OnEnable()
         {
-            PlayerEvents.GiveExp += GetExp;
-            PlayerEvents.LevelUp += LevelUp;
-            PlayerEvents.GiveCurrency += GetCurrency;
-            PlayerEvents.RestoreHealth += RestoreHealth;
-            PlayerEvents.Damage += Damage;
-            PlayerEvents.SpendLevelUpPoints += SpendLevelUpPoints;
+            PlayerEvents.GiveExp += OnGetExp;
+            PlayerEvents.LevelUp += OnLevelUp;
+            PlayerEvents.GiveCurrency += OnGiveCurrency;
+            PlayerEvents.RestoreHealth += OnRestoreHealth;
+            PlayerEvents.Damage += OnDamage;
+            PlayerEvents.SpendLevelUpPoints += OnSpendLevelUpPoints;
         }
 
         private void OnDisable()
         {
-            PlayerEvents.GiveExp -= GetExp;
-            PlayerEvents.LevelUp -= LevelUp;
-            PlayerEvents.GiveCurrency -= GetCurrency;
-            PlayerEvents.RestoreHealth -= RestoreHealth;
-            PlayerEvents.Damage -= Damage;
-            PlayerEvents.SpendLevelUpPoints -= SpendLevelUpPoints;
+            PlayerEvents.GiveExp -= OnGetExp;
+            PlayerEvents.LevelUp -= OnLevelUp;
+            PlayerEvents.GiveCurrency -= OnGiveCurrency;
+            PlayerEvents.RestoreHealth -= OnRestoreHealth;
+            PlayerEvents.Damage -= OnDamage;
+            PlayerEvents.SpendLevelUpPoints -= OnSpendLevelUpPoints;
         }
 
         public object CaptureState()

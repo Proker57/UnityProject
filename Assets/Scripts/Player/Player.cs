@@ -1,3 +1,4 @@
+using BOYAREngine.Narrative;
 using UnityEngine;
 
 namespace BOYAREngine
@@ -16,6 +17,7 @@ namespace BOYAREngine
         public Stats Stats;
         public WeaponManager WeaponManager;
         public ItemManager ItemManager;
+        public MonologueManager MonologueManager;
 
         private void Awake()
         {
@@ -31,6 +33,7 @@ namespace BOYAREngine
             Stats = GetComponent<Stats>();
             WeaponManager = GetComponent<WeaponManager>();
             ItemManager = GetComponent<ItemManager>();
+            MonologueManager = GetComponentInChildren<MonologueManager>();
 
             GameController.HasPlayer = true;
         }
@@ -49,6 +52,7 @@ namespace BOYAREngine
             Stats.enabled = true;
             WeaponManager.enabled = true;
             ItemManager.enabled = true;
+            MonologueManager.enabled = true;
 
             Input.PlayerInGame.Enable();
             Input.HUD.Enable();
@@ -68,6 +72,7 @@ namespace BOYAREngine
             Stats.enabled = false;
             WeaponManager.enabled = false;
             ItemManager.enabled = false;
+            MonologueManager.enabled = false;
 
             Input.PlayerInGame.Disable();
             Input.HUD.Disable();

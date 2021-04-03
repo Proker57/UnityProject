@@ -59,6 +59,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: ea1fedc15416bfc4b86add24b7a452eb
+    m_Address: Notes Shared Data
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 8100d6abc18a5a143aba345c26dccb60, type: 2}
   m_SchemaSet:

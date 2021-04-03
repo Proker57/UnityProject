@@ -29,7 +29,8 @@ namespace BOYAREngine
         {
             if (collision.collider.name != "Low Collider") return;
 
-            collision.gameObject.GetComponent<Stats>().GetCurrency(Amount);
+            //collision.gameObject.GetComponent<Stats>().GetCurrency(Amount);
+            PlayerEvents.GiveCurrency?.Invoke(Amount);
 
             IsActive = false;
 

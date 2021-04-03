@@ -24,7 +24,8 @@ namespace BOYAREngine
         {
             if (collision.collider.name != "Low Collider") return;
 
-            collision.gameObject.GetComponent<Stats>().GetExp(_expCount);
+            //collision.gameObject.GetComponent<Stats>().GetExp(_expCount);
+            PlayerEvents.GiveExp?.Invoke(_expCount);
 
             IsActive = false;
 
