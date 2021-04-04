@@ -22,6 +22,7 @@ namespace BOYAREngine
         private void Awake()
         {
             Input = new PlayerInput();
+            //Input = Inputs.Instance.Input;
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Jump = GetComponent<Jump>();
             Crouch = GetComponent<Crouch>();

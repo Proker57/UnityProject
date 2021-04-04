@@ -204,6 +204,8 @@ MonoBehaviour:
   _index: 0
   Note:
     Text: []
+    WaitTimer: []
+    Count: 0
 --- !u!1 &5590273858644805896
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2512514304812219638}
   - component: {fileID: 6536492647590299697}
+  - component: {fileID: 8088279830519298493}
   m_Layer: 0
   m_Name: Shadow Caster
   m_TagString: Untagged
@@ -398,16 +401,29 @@ MonoBehaviour:
   - {x: 0.109913155, y: 0.36995858, z: 0}
   - {x: 0.13498889, y: 0.37431812, z: 0}
   - {x: 0.13716923, y: 0.75590587, z: 0}
-  - {x: 0.09515521, y: 0.7910048, z: 0}
-  - {x: 0.090166956, y: 1.0231626, z: 0}
-  - {x: -0.11261457, y: 1.0254272, z: 0}
-  - {x: -0.11281467, y: 0.773731, z: 0}
+  - {x: 0.08447518, y: 0.7910048, z: 0}
+  - {x: 0.08660696, y: 1.0231626, z: 0}
+  - {x: -0.09956121, y: 1.0242406, z: 0}
+  - {x: -0.09976131, y: 0.78322434, z: 0}
   - {x: -0.1397546, y: 0.74936604, z: 0}
   - {x: -0.13430338, y: 0.36886775, z: 0}
   - {x: -0.09832497, y: 0.36668724, z: 0}
-  m_ShapePathHash: 1003831357
+  m_ShapePathHash: -1976147235
   m_Mesh: {fileID: 0}
-  m_InstanceId: 64746
+  m_InstanceId: 89292
+--- !u!114 &8088279830519298493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951120048950019545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f48a8d66b2adc46887f23a3a88ac01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
 --- !u!1 &7179260046310399425
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +509,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.44}
+  m_Size: {x: 0.22, y: 0.4}
   m_EdgeRadius: 0.03
 --- !u!1 &7179260047226401967
 GameObject:
