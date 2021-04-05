@@ -30,5 +30,13 @@ MonoBehaviour:
     m_Localized: Third
     m_Metadata:
       m_Items: []
+  - m_Id: 716825166409728
+    m_Localized: This is a monologue of other object
+    m_Metadata:
+      m_Items: []
+  - m_Id: 716918376427520
+    m_Localized: Lights off
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

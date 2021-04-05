@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: TestLevel001_test_2
     m_Metadata:
       m_Items: []
+  - m_Id: 716825166409728
+    m_Key: TestLevel001_other_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 716918376427520
+    m_Key: TestLevel001_other_1
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

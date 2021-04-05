@@ -93,15 +93,8 @@ namespace BOYAREngine
         {
             JumpExtraCounts--;
             IsJumping = true;
-            if (_player.Rigidbody2D == null)
-            {
-                Debug.Log("RB2D is null: " + _player.Rigidbody2D);
-                Destroy(this);
-            }
-            else
-            {
-                _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
-            }
+            _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
+            _player.ParticleSystem.Play();
             IsStoppedJumping = false;
         }
 

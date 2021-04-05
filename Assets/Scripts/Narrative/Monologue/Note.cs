@@ -13,6 +13,7 @@ namespace BOYAREngine.Narrative
         public string[] Text;
         public float[] WaitTimer;
         public int Count;
+        public bool IsLoaded;
         private string _id;
 
         public Note(string id, int count)
@@ -25,7 +26,7 @@ namespace BOYAREngine.Narrative
             LoadStrings();
         }
 
-        internal async void LoadStrings()
+        private async void LoadStrings()
         {
             var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(StringTableCollectionName);
             await loadingOperation.Task;
@@ -40,7 +41,8 @@ namespace BOYAREngine.Narrative
                     WaitTimer[i] = Text[i].Length * 0.2f;
                 }
 
-                MonologueEvents.LoadedMonologue?.Invoke();
+                //MonologueEvents.LoadedMonologue?.Invoke();
+                IsLoaded = true;
             }
             else
             {

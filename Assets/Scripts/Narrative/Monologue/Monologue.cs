@@ -4,10 +4,22 @@ namespace BOYAREngine.Narrative
 {
     public class Monologue : MonoBehaviour
     {
+        public MonologueManager MonologueManager;
+        public bool IsPlayerMonologue;
+        [Space]
         public string Id;
         public int Count;
         public bool IsOnce;
-        private bool _isReady = true;
+
+        private bool _isOnce = true;
+
+        private void Awake()
+        {
+            if (IsPlayerMonologue)
+            {
+                MonologueManager = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().MonologueManager;
+            }
+        }
 
         private void OnTriggerEnter2D(Object other)
         {
@@ -15,13 +27,22 @@ namespace BOYAREngine.Narrative
 
             if (IsOnce)
             {
-                if (_isReady) MonologueEvents.AddMonologue?.Invoke(new Note(Id, Count));
-                _isReady = false;
+                if (_isOnce)
+                {
+                    StartMonologue();
+                }
+
+                _isOnce = false;
             }
             else
             {
-                MonologueEvents.AddMonologue?.Invoke(new Note(Id, Count));
+                StartMonologue();
             }
+        }
+
+        private void StartMonologue()
+        {
+            MonologueManager.StartMonologue(new Note(Id, Count));
         }
     }
 }

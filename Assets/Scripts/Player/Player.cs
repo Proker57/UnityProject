@@ -18,6 +18,7 @@ namespace BOYAREngine
         public WeaponManager WeaponManager;
         public ItemManager ItemManager;
         public MonologueManager MonologueManager;
+        public ParticleSystem ParticleSystem;
 
         private void Awake()
         {
@@ -35,6 +36,7 @@ namespace BOYAREngine
             WeaponManager = GetComponent<WeaponManager>();
             ItemManager = GetComponent<ItemManager>();
             MonologueManager = GetComponentInChildren<MonologueManager>();
+            ParticleSystem = GetComponentInChildren<ParticleSystem>();
 
             GameController.HasPlayer = true;
         }

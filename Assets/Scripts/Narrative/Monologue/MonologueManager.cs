@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace BOYAREngine.Narrative
@@ -9,36 +10,30 @@ namespace BOYAREngine.Narrative
         [SerializeField] private GameObject _narrativeObject;
         [SerializeField] private Text _text;
 
+        public UnityEvent OnFinishEvent;
+
         [SerializeField] private int _index;
         private bool _isLoaded;
         private bool _isReady;
 
         public Note Note;
 
-        private void OnAddMonologue(Note note)
-        {
-            Note = note;
-            _isReady = true;
-        }
-
-        private void OnLoadedMonologue()
-        {
-            _isLoaded = true;
-        }
-
         private void Update()
         {
+            if (Note == null) return;
+            _isLoaded = Note.IsLoaded;
             if (!_isLoaded || !_isReady) return;
-            StartMonologue();
+            StartCoroutine(NextPage(Note.WaitTimer[_index]));
             _isReady = false;
         }
 
-        public void StartMonologue()
+        public void StartMonologue(Note note)
         {
+            Note = note;
+            _isReady = true;
+
             _index = 0;
             _narrativeObject.SetActive(true);
-
-            StartCoroutine(NextPage(Note.WaitTimer[_index]));
         }
 
         private IEnumerator NextPage(float waitTime)
@@ -65,19 +60,8 @@ namespace BOYAREngine.Narrative
             _isReady = false;
             _index = 0;
             StopAllCoroutines();
+            OnFinishEvent?.Invoke();
             _narrativeObject.SetActive(false);
-        }
-
-        private void OnEnable()
-        {
-            MonologueEvents.AddMonologue += OnAddMonologue;
-            MonologueEvents.LoadedMonologue += OnLoadedMonologue;
-        }
-
-        private void OnDisable()
-        {
-            MonologueEvents.AddMonologue -= OnAddMonologue;
-            MonologueEvents.LoadedMonologue -= OnLoadedMonologue;
         }
     }
 }
