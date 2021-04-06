@@ -93,7 +93,7 @@ namespace BOYAREngine
         {
             _playerInput.PlayerInGame.Dash.started -= _ => Dash_started();
             _playerInput.Disable();
-            HUDEvents.DashCheckIsActive(false);
+            HUDEvents.DashCheckIsActive?.Invoke(false);
         }
     }
 }

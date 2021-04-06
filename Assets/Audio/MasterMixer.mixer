@@ -93,6 +93,8 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: 5f161648d79e6ac44a9f39fe08f20191
+    name: BGSound
   - guid: 93f091c54669c1a4d80d3be5f2e64601
     name: Music
   - guid: 78d2cc24d91cb8c48850b8eb684df4a0

@@ -1,104 +1,74 @@
 using System.Collections;
+using System.Globalization;
 using BOYAREngine.Sound;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
-namespace BOYAREngine
+namespace BOYAREngine.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
         private const string StringTableCollectionName = "Main Menu";
 
-        [SerializeField] private const string NewGameSceneName = "TestLevel001";
+        [SerializeField] private string NewGameSceneName = "TestLevel001";
 
-        private UIDocument _uiDocument;
+        [Header("Current Selected Objects")]
+        [SerializeField] private GameObject _newGameButtonGameObject;
+        [SerializeField] private GameObject _optionsButtonGameObject;
 
-        private Button _newGameButton;
-        private Button _loadButton;
-        private Button _optionsButton;
-        private Button _exitButton;
+        [Header("Main Menu")]
+        [SerializeField] private Text _newGameButton;
+        [SerializeField] private Text _loadButton;
+        [SerializeField] private Text _optionsButton;
+        [SerializeField] private Text _exitButton;
 
-        private VisualElement _optionsBlock;
-        private Label _languageLabel;
-        private Button _ruButton;
-        private Button _enButton;
-
-        private Label _videoLabel;
-        private Toggle _toggleFullscreen;
-        private Label _resolutionLabel;
-        private Button _lhdButton;
-        private Button _hdButton;
-        private Button _fhdButton;
-
-        private Label _soundLabel;
-        private Slider _musicSlider;
-        private Slider _soundSlider;
-
-        private Button _backSettingsButton;
-        private Button _saveSettingsButton;
+        [Header("Options")]
+        [SerializeField] private GameObject _optionsBlock;
+        [SerializeField] private Text _languageLabel;
+        [SerializeField] private Button _ruButton;
+        [SerializeField] private Button _enButton;
+        [Space]
+        [SerializeField] private Text _videoLabel;
+        [SerializeField] private Toggle _toggleFullscreen;
+        [SerializeField] private Text _toggleFullscreenText;
+        [SerializeField] private Text _resolutionLabel;
+        [SerializeField] private Button _lhdButton;
+        [SerializeField] private Button _hdButton;
+        [SerializeField] private Button _fhdButton;
+        [Space]
+        [SerializeField] private Text _soundLabel;
+        [SerializeField] private Slider _musicSlider;
+        [SerializeField] private Text _musicSliderText;
+        [SerializeField] private Text _musicValue;
+        [SerializeField] private Slider _soundSlider;
+        [SerializeField] private Text _soundSliderText;
+        [SerializeField] private Text _soundValue;
+        [Space]
+        [SerializeField] private Button _backSettingsButton;
+        [SerializeField] private Text _backSettingsButtonText;
+        [SerializeField] private Button _saveSettingsButton;
+        [SerializeField] private Text _saveSettingsButtonText;
 
         private void Awake()
         {
-            _uiDocument = GetComponent<UIDocument>();
-
-            var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
-
-            _newGameButton = rootVisualElement.Q<Button>("new_game-button");
-            _loadButton = rootVisualElement.Q<Button>("load-button");
-            _optionsButton = rootVisualElement.Q<Button>("options-button");
-            _exitButton = rootVisualElement.Q<Button>("exit-button");
-
-            _optionsBlock = rootVisualElement.Q<VisualElement>("options-block");
-            _videoLabel = rootVisualElement.Q<Label>("video-label");
-            _languageLabel = rootVisualElement.Q<Label>("language-label");
-            _ruButton = rootVisualElement.Q<Button>("ru-button");
-            _enButton = rootVisualElement.Q<Button>("en-button");
-
-            _toggleFullscreen = rootVisualElement.Q<Toggle>("fullscreen-toggle");
-            _resolutionLabel = rootVisualElement.Q<Label>("resolution-label");
-            _lhdButton = rootVisualElement.Q<Button>("lhd-button");
-            _hdButton = rootVisualElement.Q<Button>("hd-button");
-            _fhdButton = rootVisualElement.Q<Button>("fhd-button");
-
-            _soundLabel = rootVisualElement.Q<Label>("sound-label");
-            _musicSlider = rootVisualElement.Q<Slider>("music-slider");
-            _soundSlider = rootVisualElement.Q<Slider>("sound-slider");
-
-            _backSettingsButton = rootVisualElement.Q<Button>("back_settings-button");
-            _saveSettingsButton = rootVisualElement.Q<Button>("save_settings-button");
-
-            _newGameButton.RegisterCallback<ClickEvent>(ev => NewGame());
-            _loadButton.RegisterCallback<ClickEvent>(ev => Load());
-            _optionsButton.RegisterCallback<ClickEvent>(ev => FlexOptionsBlock(), TrickleDown.TrickleDown);
-            _exitButton.RegisterCallback<ClickEvent>(ev => ExitApplication());
-            _ruButton.RegisterCallback<ClickEvent>(ev => ChangeLocale("ru"));
-            _enButton.RegisterCallback<ClickEvent>(ev => ChangeLocale("en"));
-            _toggleFullscreen.RegisterCallback<ClickEvent>(ev => FullscreenToggle());
-            _lhdButton.RegisterCallback<ClickEvent>(ev => LowHDResolutionButton());
-            _hdButton.RegisterCallback<ClickEvent>(ev => HDResolutionButton());
-            _fhdButton.RegisterCallback<ClickEvent>(ev => FullHDResolutionButton());
-            _musicSlider.RegisterValueChangedCallback(x => MusicSlider());
-            _soundSlider.RegisterValueChangedCallback(x => SoundSlider());
-
-            _backSettingsButton.RegisterCallback<ClickEvent>(ev => BackSettingsButton());
-            _saveSettingsButton.RegisterCallback<ClickEvent>(ev => SaveSettingsButton());
-
             LoadPlayerPrefs();
+
+            EventSystem.current.firstSelectedGameObject = _newGameButtonGameObject;
         }
 
-        private void NewGame()
+        public void NewGame()
         {
             SceneLoader.SwitchScene(NewGameSceneName);
             GameController.IsNewGame = true;
-            _uiDocument.enabled = false;
             Events.NewGame?.Invoke();
         }
 
-        private static void Load()
+        public void Load()
         {
             GameController.Instance.GetComponent<SaveLoad>().Load();
             GameController.IsNewGame = false;
@@ -106,20 +76,31 @@ namespace BOYAREngine
             SceneLoader.SwitchScene(GameController.Instance.SceneName);
         }
 
-        private void FlexOptionsBlock()
+        public void FlexOptionsBlock()
         {
-            _optionsBlock.style.display = DisplayStyle.Flex;
+            _optionsBlock.SetActive(true);
         }
 
-        private static void ChangeLocale(string locale)
+        public static void ExitApplication()
         {
-            PlayerPrefs.SetString("Locale", locale);
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(locale);
+            Application.Quit(0);
         }
 
-        private void FullscreenToggle()
+        public static void ChangeRULocale()
         {
-            if (_toggleFullscreen.value)
+            PlayerPrefs.SetString("Locale", "ru");
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("ru");
+        }
+
+        public static void ChangeENLocale()
+        {
+            PlayerPrefs.SetString("Locale", "en");
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
+        }
+
+        public void FullscreenToggle()
+        {
+            if (_toggleFullscreen.isOn)
             {
                 Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
             }
@@ -129,56 +110,49 @@ namespace BOYAREngine
             }
         }
 
-        // ReSharper disable once InconsistentNaming
-        private void LowHDResolutionButton()
+        public void LowHDResolutionButton()
         {
-            Screen.SetResolution(848, 480, _toggleFullscreen.value);
+            Screen.SetResolution(848, 480, _toggleFullscreen.isOn);
         }
 
-        // ReSharper disable once InconsistentNaming
-        private void HDResolutionButton()
+        public void HDResolutionButton()
         {
-            Screen.SetResolution(1280, 720, _toggleFullscreen.value);
+            Screen.SetResolution(1280, 720, _toggleFullscreen.isOn);
         }
 
-        // ReSharper disable once InconsistentNaming
-        private void FullHDResolutionButton()
+        public void FullHDResolutionButton()
         {
-            Screen.SetResolution(1980, 1080, _toggleFullscreen.value);
+            Screen.SetResolution(1980, 1080, _toggleFullscreen.isOn);
         }
 
-        private void MusicSlider()
+        public void MusicSlider()
         {
             AudioMixer.Instance.MasterMixer.SetFloat("Music", _musicSlider.value);
+            _musicValue.text = _musicSlider.value.ToString("F1");
         }
 
-        private void SoundSlider()
+        public void SoundSlider()
         {
             AudioMixer.Instance.MasterMixer.SetFloat("SFX", _soundSlider.value);
             AudioMixer.Instance.MasterMixer.SetFloat("BGSound", _soundSlider.value);
+            _soundValue.text = _soundSlider.value.ToString("F1");
         }
 
 
-
-        private void BackSettingsButton()
+        public void BackSettingsButton()
         {
-            _optionsBlock.style.display = DisplayStyle.None;
+            _optionsBlock.SetActive(false);
+
+            EventSystem.current.SetSelectedGameObject(_optionsButtonGameObject);
         }
 
-        private void SaveSettingsButton()
+        public void SaveSettingsButton()
         {
             PlayerPrefs.SetString("Locale", LocalizationSettings.SelectedLocale.Identifier.Code);
             PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
             PlayerPrefs.SetFloat("SoundVolume", _soundSlider.value);
             PlayerPrefs.Save();
         }
-
-        private static void ExitApplication()
-        {
-            Application.Quit(0);
-        }
-
-        // ***************************************************************************************************
 
         private void LoadPlayerPrefs()
         {
@@ -196,8 +170,6 @@ namespace BOYAREngine
                 _soundSlider.value = PlayerPrefs.GetFloat("SoundVolume");
             }
         }
-
-        // ***************************************************************************************************
 
         private void OnEnable()
         {
@@ -227,15 +199,17 @@ namespace BOYAREngine
                 _loadButton.text = GetLocalizedString(stringTable, "load");
                 _optionsButton.text = GetLocalizedString(stringTable, "options");
                 _exitButton.text = GetLocalizedString(stringTable, "exit");
+
                 _languageLabel.text = GetLocalizedString(stringTable, "language");
                 _videoLabel.text = GetLocalizedString(stringTable, "video");
-                _toggleFullscreen.label = GetLocalizedString(stringTable, "fullscreen");
+                _toggleFullscreenText.text = GetLocalizedString(stringTable, "fullscreen");
                 _resolutionLabel.text = GetLocalizedString(stringTable, "resolution");
                 _soundLabel.text = GetLocalizedString(stringTable, "sound_volume");
-                _musicSlider.label = GetLocalizedString(stringTable, "music");
-                _soundSlider.label = GetLocalizedString(stringTable, "sound");
-                _backSettingsButton.text = GetLocalizedString(stringTable, "back_settings");
-                _saveSettingsButton.text = GetLocalizedString(stringTable, "save_settings");
+                _musicSliderText.text = GetLocalizedString(stringTable, "music");
+                _soundSliderText.text = GetLocalizedString(stringTable, "sound");
+
+                _backSettingsButtonText.text = GetLocalizedString(stringTable, "back_settings");
+                _saveSettingsButtonText.text = GetLocalizedString(stringTable, "save_settings");
             }
             else
             {
@@ -250,3 +224,4 @@ namespace BOYAREngine
         }
     }
 }
+

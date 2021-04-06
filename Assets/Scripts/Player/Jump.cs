@@ -156,7 +156,7 @@ namespace BOYAREngine
             _player.Input.PlayerInGame.Jump.canceled -= _ => Jump_canceled();
             _player.Input.PlayerInGame.Jump.Dispose();
 
-            HUDEvents.JumpCheckIsActive(false);
+            HUDEvents.JumpCheckIsActive?.Invoke(false);
         }
     }
 }
