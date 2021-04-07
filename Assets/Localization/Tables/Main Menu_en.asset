@@ -47,7 +47,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 13081575560900608
-    m_Localized: 'Sound volume:'
+    m_Localized: 'Volume:'
     m_Metadata:
       m_Items: []
   - m_Id: 13081643714146304
@@ -68,6 +68,50 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 14470563798511616
     m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57909285361348608
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916881614991360
+    m_Localized: Quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916860937072640
+    m_Localized: Inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916847003594752
+    m_Localized: Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916824425656320
+    m_Localized: Crouch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916808789291008
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916793408778240
+    m_Localized: Action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916777428480000
+    m_Localized: Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916759200034816
+    m_Localized: Movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916745891508224
+    m_Localized: Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57924339330772992
+    m_Localized: Default
     m_Metadata:
       m_Items: []
   references:

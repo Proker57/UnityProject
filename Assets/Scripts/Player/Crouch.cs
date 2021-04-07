@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
@@ -14,11 +15,22 @@ namespace BOYAREngine
 
         [SerializeField] private bool _isButtonPressed;
         private Player _player;
+        [Space]
+        [SerializeField] private InputAction _crouch;
+        [SerializeField] private InputActionAsset _controls;
 #pragma warning restore 649
 
         private void Awake()
         {
             _player = GetComponent<Player>();
+        }
+
+        private void Start()
+        {
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _crouch = iam.FindAction("Crouch");
+            _crouch.performed += Crouch_started;
+            _crouch.canceled += Crouch_canceled;
         }
 
         private void Update()
@@ -52,14 +64,14 @@ namespace BOYAREngine
             }
         }
 
-        private void Crouch_started()
+        private void Crouch_started(InputAction.CallbackContext ctx)
         {
             _isButtonPressed = true;
 
             StartCrouch();
         }
 
-        private void Crouch_canceled()
+        private void Crouch_canceled(InputAction.CallbackContext ctx)
         {
             _isButtonPressed = false;
 
@@ -87,14 +99,14 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _player.Input.PlayerInGame.Crouch.started += _ => Crouch_started();
-            _player.Input.PlayerInGame.Crouch.canceled += _ => Crouch_canceled();
+            //_player.Input.PlayerInGame.Crouch.started += _ => Crouch_started();
+            //_player.Input.PlayerInGame.Crouch.canceled += _ => Crouch_canceled();
         }
 
         private void OnDisable()
         {
-            _player.Input.PlayerInGame.Crouch.started -= _ => Crouch_started();
-            _player.Input.PlayerInGame.Crouch.canceled -= _ => Crouch_canceled();
+            //_player.Input.PlayerInGame.Crouch.started -= _ => Crouch_started();
+            //_player.Input.PlayerInGame.Crouch.canceled -= _ => Crouch_canceled();
         }
     }
 }

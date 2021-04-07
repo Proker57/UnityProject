@@ -7,12 +7,14 @@ namespace BOYAREngine
         public static Inputs Instance;
 
         public PlayerInput Input;
+        public UnityEngine.InputSystem.PlayerInput PlayerInput;
 
         private void Awake()
         {
             Instance = this;
 
             Input = new PlayerInput();
+            PlayerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
 
             Input.Dialogue.Disable();
         }

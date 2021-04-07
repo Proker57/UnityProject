@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
@@ -28,6 +29,11 @@ namespace BOYAREngine
         private Player _player;
         private Vector2 _direction;
 
+        [Space]
+        [SerializeField] private InputAction _movement;
+        [SerializeField] private InputActionAsset _controls;
+        private float _movementValue;
+
         private void Awake()
         {
             _player = GetComponent<Player>();
@@ -39,6 +45,10 @@ namespace BOYAREngine
             _speedCrouch = _speed * _crouchSpeedMultiplier;
             _maxVelocityRun = _maxVelocity;
             _maxVelocityCrouch = _maxVelocity * _crouchSpeedMultiplier;
+
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _movement = iam.FindAction("Movement");
+            _movement.started += Movement_started;
         }
 
         private void Update()
@@ -47,11 +57,17 @@ namespace BOYAREngine
             _isRunning = Math.Abs(_movementDirection) > Tolerance;
             _direction = new Vector2(_movementDirection * _speed, 0);
 
+            Debug.Log(_movementDirection);
+
             CrouchSpeedCheck();
             FlipSprite();
             ChangeAnimation();
         }
 
+        public void Movement_started(InputAction.CallbackContext ctx)
+        {
+
+        }
 
         private void FixedUpdate()
         {

@@ -67,6 +67,50 @@ MonoBehaviour:
     m_Key: back_settings
     m_Metadata:
       m_Items: []
+  - m_Id: 57909285361348608
+    m_Key: controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916745891508224
+    m_Key: left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916759200034816
+    m_Key: movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916777428480000
+    m_Key: attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916793408778240
+    m_Key: action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916808789291008
+    m_Key: jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916824425656320
+    m_Key: crouch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916847003594752
+    m_Key: dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916860937072640
+    m_Key: inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57916881614991360
+    m_Key: quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57924339330772992
+    m_Key: keybindings_default
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

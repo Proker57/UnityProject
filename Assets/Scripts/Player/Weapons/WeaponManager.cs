@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
@@ -23,6 +24,9 @@ namespace BOYAREngine
 
         private Player _player;
 
+        [SerializeField] private InputAction _primaryAttack;
+        [SerializeField] private InputActionAsset _controls;
+
         private void Awake()
         {
             if (Instance == null)
@@ -35,6 +39,13 @@ namespace BOYAREngine
             }
 
             _player = GetComponent<Player>();
+        }
+
+        private void Start()
+        {
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _primaryAttack = iam.FindAction("PrimaryAttack");
+            _primaryAttack.performed += PrimaryAttack_started;
         }
 
         private void Update()
@@ -66,7 +77,7 @@ namespace BOYAREngine
             _weaponSprite.sprite = Resources.Load<Sprite>(Weapons[CurrentWeapon].Sprite);
         }
 
-        private void PrimaryAttack_started()
+        private void PrimaryAttack_started(InputAction.CallbackContext ctx)
         {
             if (!IsAbleToAttack) return;
             if (Weapons.Count <= 0 || CurrentWeapon < 0) return;
@@ -118,7 +129,7 @@ namespace BOYAREngine
             }
         }
 
-        private void SecondaryAttack_started()
+        private void SecondaryAttack_started(InputAction.CallbackContext ctx)
         {
             if (!IsAbleToAttack) return;
             if (Weapons.Count > 0 && CurrentWeapon >= 0)
@@ -129,8 +140,8 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _player.Input.PlayerInGame.PrimaryAttack.started += _ => PrimaryAttack_started();
-            _player.Input.PlayerInGame.SecondaryAttack.started += _ => SecondaryAttack_started();
+            //_player.Input.PlayerInGame.PrimaryAttack.started += _ => PrimaryAttack_started();
+            //_player.Input.PlayerInGame.SecondaryAttack.started += _ => SecondaryAttack_started();
 
             WeaponEvents.WeaponPickUp += MeleePickUp;
 
@@ -139,8 +150,8 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
-            _player.Input.PlayerInGame.PrimaryAttack.started -= _ => PrimaryAttack_started();
-            _player.Input.PlayerInGame.SecondaryAttack.started -= _ => SecondaryAttack_started();
+            //_player.Input.PlayerInGame.PrimaryAttack.started -= _ => PrimaryAttack_started();
+            //_player.Input.PlayerInGame.SecondaryAttack.started -= _ => SecondaryAttack_started();
 
             WeaponEvents.WeaponPickUp -= MeleePickUp;
 

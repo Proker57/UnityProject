@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
@@ -16,10 +17,13 @@ namespace BOYAREngine
         [SerializeField] private float _dashTimer = 1f;
         public float DashTimerCounter;
 
-
         private Player _player;
-        private PlayerInput _playerInput;
+
         private Vector2 _dashVector;
+
+        [Space]
+        [SerializeField] private InputAction _dash;
+        [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
         {
@@ -27,10 +31,16 @@ namespace BOYAREngine
             SpeedLimiterTimerCounter = _speedLimiterTimer;
 
             _player = GetComponent<Player>();
-            _playerInput = new PlayerInput();
         }
 
-        private void Dash_started()
+        private void Start()
+        {
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _dash = iam.FindAction("Dash");
+            _dash.started += Dash_started;
+        }
+
+        private void Dash_started(InputAction.CallbackContext ctx)
         {
             if (!IsDashable) return;
 
@@ -84,15 +94,15 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _playerInput.Enable();
-            _playerInput.PlayerInGame.Dash.started += _ => Dash_started();
+            //_playerInput.Enable();
+            //_playerInput.PlayerInGame.Dash.started += _ => Dash_started();
             HUDEvents.DashCheckIsActive(true);
         }
 
         private void OnDisable()
         {
-            _playerInput.PlayerInGame.Dash.started -= _ => Dash_started();
-            _playerInput.Disable();
+            //_playerInput.PlayerInGame.Dash.started -= _ => Dash_started();
+            //_playerInput.Disable();
             HUDEvents.DashCheckIsActive?.Invoke(false);
         }
     }

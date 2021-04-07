@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
@@ -30,6 +31,10 @@ namespace BOYAREngine
         private bool _isEnter;
         private bool _isDialogueStarted = false;
 
+        [Space]
+        [SerializeField] private InputAction _use;
+        [SerializeField] private InputActionAsset _controls;
+
         private void Awake()
         {
             _dialogueManager = DialogueManager.Instance;
@@ -38,6 +43,13 @@ namespace BOYAREngine
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             LoadStrings();
+        }
+
+        private void Start()
+        {
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _use = iam.FindAction("Use");
+            _use.started += Use_started;
         }
 
         private void OnTriggerEnter2D(Component objectCollider)
@@ -83,7 +95,7 @@ namespace BOYAREngine
             }
         }
 
-        private void Use_started()
+        private void Use_started(InputAction.CallbackContext ctx)
         {
             if (!_isEnter || _isDialogueStarted != false) return;
             _pressE.SetActive(false);
@@ -93,7 +105,7 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
+            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             _dialogueManager.ChooseEvent += AnswerAction;
 
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
@@ -102,7 +114,7 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
-            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
+            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
             _dialogueManager.ChooseEvent -= AnswerAction;
 
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;

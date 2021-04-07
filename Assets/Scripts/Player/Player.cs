@@ -44,6 +44,7 @@ namespace BOYAREngine
         private void OnEnable()
         {
             Events.PlayerOnScene(true);
+            GameController.Instance.PlayerInput.SwitchCurrentActionMap("PlayerInGame");
 
             Jump.enabled = true;
             Crouch.enabled = true;

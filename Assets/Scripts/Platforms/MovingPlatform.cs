@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
@@ -25,10 +26,21 @@ namespace BOYAREngine
         }
         [SerializeField] private Type _type;
 
+        [Space]
+        [SerializeField] private InputAction _use;
+        [SerializeField] private InputActionAsset _controls;
+
         private void Awake()
         {
             _startPosition = _platform.transform.position;
             _endPosition = _target.transform.position;
+        }
+
+        private void Start()
+        {
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _use = iam.FindAction("Use");
+            _use.started += Use_started;
         }
 
         private void OnTriggerEnter2D(Object collider)
@@ -74,7 +86,7 @@ namespace BOYAREngine
             _panel.SetActive(isActive);
         }
 
-        private void Use_started()
+        private void Use_started(InputAction.CallbackContext ctx)
         {
             if (_type != Type.Manual || !_isEnter) return;
             _panel.SetActive(false);
@@ -83,12 +95,12 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
+            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
         }
 
         private void OnDisable()
         {
-            Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
+            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
         }
     }
 }

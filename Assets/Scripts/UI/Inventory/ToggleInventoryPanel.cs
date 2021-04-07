@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
@@ -7,6 +8,16 @@ namespace BOYAREngine
         public bool _isActive;
 
         public GameObject _panel;
+        [Space]
+        [SerializeField] private InputAction _inventory;
+        [SerializeField] private InputActionAsset _controls;
+
+        private void Start()
+        {
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _inventory = iam.FindAction("Inventory");
+            _inventory.performed += Inventory_started;
+        }
 
         public void TogglePanel()
         {
@@ -25,27 +36,9 @@ namespace BOYAREngine
             WeaponManager.Instance.IsAbleToAttack = true;
         }
 
-        private void Inventory_started()
+        private void Inventory_started(InputAction.CallbackContext ctx)
         {
             TogglePanel();
         }
-
-        private void OnEnable()
-        {
-            Events.PlayerOnScene += AssignPlayer;
-        }
-
-        private void OnDisable()
-        {
-            Events.PlayerOnScene -= AssignPlayer;
-
-            Inputs.Instance.Input.HUD.Inventory.started -= _ => Inventory_started();
-        }
-
-        private void AssignPlayer(bool isActive)
-        {
-            Inputs.Instance.Input.HUD.Inventory.started += _ => Inventory_started();
-        }
-
     }
 }

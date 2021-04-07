@@ -1,10 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 namespace BOYAREngine
 {
@@ -13,31 +12,22 @@ namespace BOYAREngine
         [SerializeField] private SaveLoad _saveLoad;
         [SerializeField] private PlayerInput _inputs;
         [SerializeField] private SceneLoader _sceneLoader;
-
-        private VisualElement _screen;
-        private Button _resume;
-        private Button _save;
-        private Button _load;
-        private Button _mainMenu;
+        [Space]
+        [SerializeField] private GameObject _pauseBlock;
+        [SerializeField] private Text _resume;
+        [SerializeField] private Text _save;
+        [SerializeField] private Text _load;
+        [SerializeField] private Text _options;
+        [SerializeField] private Text _mainMenu;
 
         private const string StringTableCollectionName = "ESCMenu";
 
         private void Awake()
         {
+
             _inputs = new PlayerInput();
 
-            var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
-
-            _screen = rootVisualElement.Q<VisualElement>("screen-block");
-            _resume = rootVisualElement.Q<Button>("menu_resume-button");
-            _save = rootVisualElement.Q<Button>("menu_save-button");
-            _load = rootVisualElement.Q<Button>("menu_load-button");
-            _mainMenu = rootVisualElement.Q<Button>("menu_main_menu-button");
-
-            _resume.RegisterCallback<ClickEvent>(ev => Resume());
-            _save.RegisterCallback<ClickEvent>(ev => Save());
-            _load.RegisterCallback<ClickEvent>(ev => Load());
-            _mainMenu.RegisterCallback<ClickEvent>(ev => MainMenu());
+            LoadStrings();
         }
 
         private void Escape_started()
@@ -48,39 +38,44 @@ namespace BOYAREngine
             }
             else
             {
-                if (_screen.style.display == DisplayStyle.Flex)
-                {
-                    _screen.style.display = DisplayStyle.None;
-                }
-                else
-                {
-                    _screen.style.display = DisplayStyle.Flex;
-                }
+                _pauseBlock.SetActive(!_pauseBlock.activeSelf);
+                InputToggles.Pause();
             }
         }
 
-        private void Resume()
+        public void Resume()
         {
-            _screen.style.display = DisplayStyle.None;
+            ResumePause();
         }
 
-        private void Save()
+        public void Save()
         {
-            _screen.style.display = DisplayStyle.None;
+            ResumePause();
             _saveLoad.Save();
         }
 
-        private void Load()
+        public void Load()
         {
-            _screen.style.display = DisplayStyle.None;
+            ResumePause();
             _saveLoad.Load();
         }
 
-        private void MainMenu()
+        public void Options()
         {
-            _screen.style.display = DisplayStyle.None;
+            // TODO Options
+        }
+
+        public void Exit()
+        {
+            ResumePause();
             DestroyPlayer();
             SceneLoader.SwitchScene("MainMenu");
+        }
+
+        private void ResumePause()
+        {
+            _pauseBlock.SetActive(false);
+            InputToggles.Game();
         }
 
         private void DestroyPlayer()
@@ -90,28 +85,29 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _inputs.Enable();
-            StartCoroutine(LoadStrings());
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
+
+            _inputs.Enable();
             _inputs.Global.Escape.started += _ => Escape_started();
         }
 
         private void OnDisable()
         {
-            _inputs.Disable();
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
+
+            _inputs.Disable();
             _inputs.Global.Escape.started -= _ => Escape_started();
         }
 
         private void OnSelectedLocaleChanged(Locale obj)
         {
-            StartCoroutine(LoadStrings());
+            LoadStrings();
         }
 
-        private IEnumerator LoadStrings()
+        private async void LoadStrings()
         {
             var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(StringTableCollectionName);
-            yield return loadingOperation;
+            await loadingOperation.Task;
 
             if (loadingOperation.Status == AsyncOperationStatus.Succeeded)
             {
@@ -119,6 +115,7 @@ namespace BOYAREngine
                 _resume.text = GetLocalizedString(stringTable, "resume");
                 _save.text = GetLocalizedString(stringTable, "save");
                 _load.text = GetLocalizedString(stringTable, "load");
+                _options.text = GetLocalizedString(stringTable, "options");
                 _mainMenu.text = GetLocalizedString(stringTable, "main_menu");
             }
             else

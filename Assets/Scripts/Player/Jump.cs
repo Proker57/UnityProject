@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
@@ -30,6 +31,10 @@ namespace BOYAREngine
         [SerializeField] private bool _isOnPlatform;
 
         private Player _player;
+
+        [Space]
+        [SerializeField] private InputAction _jump;
+        [SerializeField] private InputActionAsset _controls;
 #pragma warning restore 649
 
         private void Awake()
@@ -43,6 +48,11 @@ namespace BOYAREngine
             JumpExtraCountDefault = JumpExtraCounts;
 
             HUDEvents.JumpCheckIsActive(JumpExtraCounts > 0);
+
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _jump = iam.FindAction("Jump");
+            _jump.started += Jump_started;
+            _jump.canceled += Jump_canceled;
         }
 
         private void Update()
@@ -70,7 +80,7 @@ namespace BOYAREngine
             }
         }
 
-        private void Jump_started()
+        private void Jump_started(InputAction.CallbackContext ctx)
         {
             if (_player.Crouch.IsCrouched && _isOnPlatform)
             {
@@ -98,7 +108,7 @@ namespace BOYAREngine
             IsStoppedJumping = false;
         }
 
-        private void Jump_canceled()
+        private void Jump_canceled(InputAction.CallbackContext ctx)
         {
             _jumpTimeCounter = 0;
             IsStoppedJumping = true;
@@ -144,16 +154,16 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            _player.Input.PlayerInGame.Jump.started += _ => Jump_started();
-            _player.Input.PlayerInGame.Jump.canceled += _ => Jump_canceled();
+            //_player.Input.PlayerInGame.Jump.started += _ => Jump_started();
+            //_player.Input.PlayerInGame.Jump.canceled += _ => Jump_canceled();
 
             HUDEvents.JumpCheckIsActive(true);
         }
 
         private void OnDisable()
         {
-            _player.Input.PlayerInGame.Jump.started -= _ => Jump_started();
-            _player.Input.PlayerInGame.Jump.canceled -= _ => Jump_canceled();
+            //_player.Input.PlayerInGame.Jump.started -= _ => Jump_started();
+            //_player.Input.PlayerInGame.Jump.canceled -= _ => Jump_canceled();
             _player.Input.PlayerInGame.Jump.Dispose();
 
             HUDEvents.JumpCheckIsActive?.Invoke(false);

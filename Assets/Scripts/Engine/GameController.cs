@@ -7,7 +7,9 @@ namespace BOYAREngine
 {
     public class GameController : MonoBehaviour, ISaveable
     {
-        public static GameController Instance = null;
+        public static GameController Instance;
+
+        public UnityEngine.InputSystem.PlayerInput PlayerInput;
 
         public static bool HasPlayer = false;
         public static bool HasCamera = false;
@@ -27,7 +29,10 @@ namespace BOYAREngine
                 Destroy(gameObject);
             }
 
-            DOTween.Init();
+            PlayerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+
+
+        DOTween.Init();
 
             CreatePlayerPrefs();
         }

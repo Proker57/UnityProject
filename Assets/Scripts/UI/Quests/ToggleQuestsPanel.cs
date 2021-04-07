@@ -1,12 +1,23 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BOYAREngine
 {
     public class ToggleQuestsPanel : MonoBehaviour
     {
         public GameObject Panel;
+        [Space]
+        [SerializeField] private InputAction _quests;
+        [SerializeField] private InputActionAsset _controls;
 
         public bool IsActive;
+
+        private void Start()
+        {
+            var iam = _controls.FindActionMap("PlayerInGame");
+            _quests = iam.FindAction("Quest");
+            _quests.performed += Quests_started;
+        }
 
         public void TogglePanel()
         {
@@ -25,27 +36,9 @@ namespace BOYAREngine
             WeaponManager.Instance.IsAbleToAttack = true;
         }
 
-        private void Quests_started()
+        public void Quests_started(InputAction.CallbackContext ctx)
         {
             TogglePanel();
         }
-
-        private void OnEnable()
-        {
-            Events.PlayerOnScene += AssignPlayer;
-        }
-
-        private void OnDisable()
-        {
-            Events.PlayerOnScene -= AssignPlayer;
-
-            Inputs.Instance.Input.HUD.Quests.started -= _ => Quests_started();
-        }
-
-        private void AssignPlayer(bool isActive)
-        {
-            Inputs.Instance.Input.HUD.Quests.started += _ => Quests_started();
-        }
-
     }
 }
