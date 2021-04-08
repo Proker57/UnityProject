@@ -78,7 +78,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 7422f62e05c0a90418908b787a783b95
-    m_Address: DialogueTest_ru
+    m_Address: Dialogue_ru
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru
@@ -86,7 +86,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: a984a9e48d96bca41abba3a51cdb7aba
-    m_Address: DialogueTest_en
+    m_Address: Dialogue_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

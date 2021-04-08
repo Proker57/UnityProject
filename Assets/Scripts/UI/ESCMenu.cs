@@ -120,7 +120,7 @@ namespace BOYAREngine
             }
             else
             {
-                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException.ToString());
+                Debug.LogError("Could not load String Table\n" + loadingOperation.OperationException);
             }
         }
 

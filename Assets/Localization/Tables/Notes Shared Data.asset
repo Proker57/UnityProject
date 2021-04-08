@@ -16,23 +16,11 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: ea1fedc15416bfc4b86add24b7a452eb
   m_Entries:
   - m_Id: 19833352192
-    m_Key: TestLevel001_test_0
-    m_Metadata:
-      m_Items: []
-  - m_Id: 102461140992
-    m_Key: TestLevel001_test_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 105673977856
-    m_Key: TestLevel001_test_2
+    m_Key: TestLevel001_player_test
     m_Metadata:
       m_Items: []
   - m_Id: 716825166409728
-    m_Key: TestLevel001_other_0
-    m_Metadata:
-      m_Items: []
-  - m_Id: 716918376427520
-    m_Key: TestLevel001_other_1
+    m_Key: TestLevel001_other_test
     m_Metadata:
       m_Items: []
   m_Metadata:

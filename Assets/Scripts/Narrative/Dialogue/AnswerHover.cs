@@ -33,7 +33,7 @@ namespace BOYAREngine
         public void OnPointerClick(PointerEventData eventData)
         {
             _text.color = _exitColor;
-            _dialogueManager.ChooseEvent(int.Parse(name), _dialogueManager.QuestionNumber);
+            _dialogueManager.ChooseEvent?.Invoke(int.Parse(name), _dialogueManager.QuestionNumber, _dialogueManager.DialogueId);
         }
     }
 }

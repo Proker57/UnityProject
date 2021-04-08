@@ -8,14 +8,14 @@ namespace BOYAREngine
     {
         public bool IsLookingRight;
 
-        [SerializeField] private float _speed;          // 700
+        [SerializeField] private float _speed;                          // 700
         [SerializeField] private float _crouchSpeedMultiplier = 0.8f;   // 0.8f
-        private float _speedRun;                        // _speed
-        private float _speedCrouch;                     // _speed * _crouchSpeedMultiplier
-        [SerializeField] private float _maxVelocity;    // 2f
-        private float _maxVelocityRun;                  // _maxVelocity
-        private float _maxVelocityCrouch;               // _maxVelocity * _crouchSpeedMultiplier
-        [SerializeField] private float _lerp;           // 0.2f
+        private float _speedRun;                                        // _speed
+        private float _speedCrouch;                                     // _speed * _crouchSpeedMultiplier
+        [SerializeField] private float _maxVelocity;                    // 2f
+        private float _maxVelocityRun;                                  // _maxVelocity
+        private float _maxVelocityCrouch;                               // _maxVelocity * _crouchSpeedMultiplier
+        [SerializeField] private float _lerp;                           // 0.2f
         private float _movementDirection;
         private bool _isRunning;
 
@@ -56,8 +56,6 @@ namespace BOYAREngine
             _movementDirection = _player.Input.PlayerInGame.Movement.ReadValue<float>();
             _isRunning = Math.Abs(_movementDirection) > Tolerance;
             _direction = new Vector2(_movementDirection * _speed, 0);
-
-            Debug.Log(_movementDirection);
 
             CrouchSpeedCheck();
             FlipSprite();

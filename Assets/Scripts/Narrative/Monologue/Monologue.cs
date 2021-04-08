@@ -42,7 +42,7 @@ namespace BOYAREngine.Narrative
 
         private void StartMonologue()
         {
-            MonologueManager.StartMonologue(new Note(Id, Count));
+            MonologueManager.StartMonologue(new Note(Id));
         }
     }
 }

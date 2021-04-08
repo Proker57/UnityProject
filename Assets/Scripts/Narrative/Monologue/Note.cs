@@ -11,16 +11,16 @@ namespace BOYAREngine.Narrative
         internal const string StringTableCollectionName = "Notes";
 
         public string[] Text;
-        public float[] WaitTimer;
         public int Count;
+        public float[] WaitTimer;
+        public float WaitMultiplier = 0.2f;
+
         public bool IsLoaded;
+
         private string _id;
 
-        public Note(string id, int count)
+        public Note(string id)
         {
-            Text = new string[count];
-            WaitTimer = new float[count];
-            Count = count;
             _id = id;
 
             LoadStrings();
@@ -35,13 +35,15 @@ namespace BOYAREngine.Narrative
             {
                 var stringTable = loadingOperation.Result;
 
+                Text = GetLocalizedString(stringTable, _id).Split('\n');
+                WaitTimer = new float[Text.Length];
+                Count = Text.Length;
+
                 for (var i = 0; i < Text.Length; i++)
                 {
-                    Text[i] = GetLocalizedString(stringTable, _id + "_" + i);
-                    WaitTimer[i] = Text[i].Length * 0.2f;
+                    WaitTimer[i] = Text[i].Length * WaitMultiplier;
                 }
 
-                //MonologueEvents.LoadedMonologue?.Invoke();
                 IsLoaded = true;
             }
             else

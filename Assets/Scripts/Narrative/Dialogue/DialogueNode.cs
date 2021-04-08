@@ -1,5 +1,6 @@
 ﻿namespace BOYAREngine
 {
+    [System.Serializable]
     public class DialogueNode
     {
         public string Name;
@@ -21,6 +22,12 @@
             Narrative = narrative;
             IsQuestion = true;
             AnswerNode = answer;
+        }
+
+        public void LoadStrings(string name, string narrative)
+        {
+            Name = name;
+            Narrative = narrative;
         }
     }
 }

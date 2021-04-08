@@ -12,39 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: DialogueTest Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: DialogueTest
+  m_TableCollectionName: Dialogue
   m_TableCollectionNameGuidString: e127b62aed81e444da1e98aa94becbfe
   m_Entries:
-  - m_Id: 7489515520
-    m_Key: name
+  - m_Id: 49603938079010816
+    m_Key: TestLevel001_test
     m_Metadata:
       m_Items: []
-  - m_Id: 130911105024
-    m_Key: narrative
+  - m_Id: 49604685613035520
+    m_Key: common
     m_Metadata:
       m_Items: []
-  - m_Id: 265548263424
-    m_Key: narrative2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 430318975250432
-    m_Key: narrative3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 430550282727424
-    m_Key: narrative4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 430803316699136
-    m_Key: narrative5
-    m_Metadata:
-      m_Items: []
-  - m_Id: 431089770885120
-    m_Key: narrative_yes
-    m_Metadata:
-      m_Items: []
-  - m_Id: 431365349240832
-    m_Key: narrative_no
+  - m_Id: 49734018579099648
+    m_Key: TestLevel001_test1
     m_Metadata:
       m_Items: []
   m_Metadata:

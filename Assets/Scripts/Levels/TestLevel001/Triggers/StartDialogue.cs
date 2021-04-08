@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using Cinemachine;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Text.RegularExpressions;
+using BOYAREngine.Engine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization;
@@ -12,21 +15,17 @@ namespace BOYAREngine
 {
     public class StartDialogue : MonoBehaviour
     {
-        private const string StringTableCollectionName = "DialogueTest";
+        private const string StringTableCollectionName = "Dialogue";
 
-        [SerializeField] private GameObject _pressE;
+        public string DialogueID;
+
+        [Header("s0...n: splitString[n] - String from Narrative Table")]
+        [Header("c0...n: common[n] - String from Common Answers")]
+        [SerializeField] private List<DialogueNode> _dialogueNodes;
+        [SerializeField] private List<DialogueNode> _dialogueNodesOrigin;
+
         private DialogueManager _dialogueManager;
-        private List<DialogueNode> _dialogueNodes;
         private Player _player;
-
-        private string _name = "Dialogue Test--";
-        private string _narrative = "Narrative 1--";
-        private string _narrative2 = "narrative 2--";
-        private string _narrative3 = "Question one?--";
-        private string _narrative4 = "Question two?--";
-        private string _narrative5 = "Question three?--";
-        private string _narrativeYes = "Yes--";
-        private string _narrativeNo = "No--";
 
         private bool _isEnter;
         private bool _isDialogueStarted = false;
@@ -34,15 +33,19 @@ namespace BOYAREngine
         [Space]
         [SerializeField] private InputAction _use;
         [SerializeField] private InputActionAsset _controls;
+        [Space]
+        [SerializeField] private GameObject _panel;
 
         private void Awake()
         {
             _dialogueManager = DialogueManager.Instance;
-            _dialogueNodes = new List<DialogueNode>();
+            _dialogueNodesOrigin = CloneList.DeepCopy(_dialogueNodes);
 
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             LoadStrings();
+
+            gameObject.AddComponent(Type.GetType("BOYAREngine.Narrative." + DialogueID));
         }
 
         private void Start()
@@ -55,7 +58,7 @@ namespace BOYAREngine
         private void OnTriggerEnter2D(Component objectCollider)
         {
             if (objectCollider.tag != "Player") return;
-            _pressE.SetActive(true);
+            _panel.SetActive(true);
             _isEnter = true;
         }
 
@@ -63,60 +66,26 @@ namespace BOYAREngine
         {
             if (objectCollider.tag != "Player") return;
             _isEnter = false;
-            _pressE.SetActive(false);
+            _panel.SetActive(false);
             _isDialogueStarted = false;
             _dialogueManager.FinishDialogue();
-        }
-
-        private void AnswerAction(int index, int questionNumber)
-        {
-            switch (questionNumber)
-            {
-                case 1:
-                    switch (index)
-                    {
-                        case 1:
-                            PlayerEvents.GiveExp(100);
-                            break;
-                        case 2:
-                            PlayerEvents.GiveExp(200);
-                            break;
-                        case 3:
-                            PlayerEvents.GiveExp(_player.Stats.MaxExp - _player.Stats.Exp);
-                            break;
-                    }
-                    break;
-                case 2:
-                    if (index == 2) _dialogueManager.FinishDialogue();
-                    break;
-                case 3:
-                    if (index == 1) SceneLoader.SwitchScene("TestLevel002");
-                    break;
-            }
         }
 
         private void Use_started(InputAction.CallbackContext ctx)
         {
             if (!_isEnter || _isDialogueStarted != false) return;
-            _pressE.SetActive(false);
+            _panel.SetActive(false);
             _isDialogueStarted = true;
-            _dialogueManager.StartDialogue(_dialogueNodes);
+            _dialogueManager.StartDialogue(_dialogueNodes, DialogueID);
         }
 
         private void OnEnable()
         {
-            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
-            _dialogueManager.ChooseEvent += AnswerAction;
-
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
-            
         }
 
         private void OnDisable()
         {
-            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
-            _dialogueManager.ChooseEvent -= AnswerAction;
-
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }
 
@@ -132,23 +101,34 @@ namespace BOYAREngine
 
             if (loadingOperation.Status == AsyncOperationStatus.Succeeded)
             {
-                _dialogueNodes.Clear();
+                //_dialogueNodes.Clear();
 
                 var stringTable = loadingOperation.Result;
-                _name = GetLocalizedString(stringTable, "name");
-                _narrative = GetLocalizedString(stringTable, "narrative");
-                _narrative2 = GetLocalizedString(stringTable, "narrative2");
-                _narrative3 = GetLocalizedString(stringTable, "narrative3");
-                _narrative4 = GetLocalizedString(stringTable, "narrative4");
-                _narrative5 = GetLocalizedString(stringTable, "narrative5");
-                _narrativeYes = GetLocalizedString(stringTable, "narrative_yes");
-                _narrativeNo = GetLocalizedString(stringTable, "narrative_no");
 
-                _dialogueNodes.Add(new DialogueNode(_name, _narrative));
-                _dialogueNodes.Add(new DialogueNode(_name, _narrative2));
-                _dialogueNodes.Add(new DialogueNode(_name, _narrative3, new AnswerNode("100", "200", "Level UP")));
-                _dialogueNodes.Add(new DialogueNode(_name, _narrative4, new AnswerNode(_narrativeYes, _narrativeNo)));
-                _dialogueNodes.Add(new DialogueNode(_name, _narrative5, new AnswerNode(_narrativeYes, _narrativeNo)));
+                var splitString = GetLocalizedString(stringTable, DialogueID).Split('\n');
+                var common = GetLocalizedString(stringTable, "common").Split('\n');
+
+                _dialogueNodes = CloneList.DeepCopy(_dialogueNodesOrigin);
+
+                foreach (var dialogueNode in _dialogueNodes)
+                {
+                    dialogueNode.LoadStrings(splitString[int.Parse(dialogueNode.Name)], splitString[int.Parse(dialogueNode.Narrative)]);
+
+                    if (!dialogueNode.IsQuestion) continue;
+
+                    for (var i = 0; i < dialogueNode.AnswerNode.Answers.Length; i++)
+                    {
+                        if (Regex.IsMatch(dialogueNode.AnswerNode.Answers[i], @"^c[0-9]$") && dialogueNode.AnswerNode.Answers[i] != null)                    // c = common
+                        {
+                            dialogueNode.AnswerNode.Answers[i] = (common[int.Parse(new string(dialogueNode.AnswerNode.Answers[i].Where(char.IsDigit).ToArray()))]);
+                        }
+                        else if (Regex.IsMatch(dialogueNode.AnswerNode.Answers[i], @"^s[0-100]$"))                                                          // s = split
+                        {
+                            //dialogueNode.AnswerNode.LoadStrings(splitString[int.Parse(new string(dialogueNode.AnswerNode.Answers[i].Where(char.IsDigit).ToArray()))]);
+                            dialogueNode.AnswerNode.Answers[i] = (splitString[int.Parse(new string(dialogueNode.AnswerNode.Answers[i].Where(char.IsDigit).ToArray()))]);
+                        }
+                    }
+                }
             }
             else
             {

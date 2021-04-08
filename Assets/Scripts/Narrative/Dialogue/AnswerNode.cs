@@ -1,34 +1,25 @@
-﻿namespace BOYAREngine
+﻿using UnityEngine;
+using UnityEngine.Events;
+
+namespace BOYAREngine
 {
+    [System.Serializable]
     public class AnswerNode
     {
-        public string Answer1 = null;
-        public string Answer2 = null;
-        public string Answer3 = null;
-        public int AnswerCount;
-
-        public AnswerNode(string answer1)
-        {
-            Answer1 = answer1;
-
-            AnswerCount = 1;
-        }
-
-        public AnswerNode(string answer1, string answer2)
-        {
-            Answer1 = answer1;
-            Answer2 = answer2;
-
-            AnswerCount = 2;
-        }
+        public string[] Answers = new string[3];
 
         public AnswerNode(string answer1, string answer2, string answer3)
         {
-            Answer1 = answer1;
-            Answer2 = answer2;
-            Answer3 = answer3;
+            Answers[0] = answer1;
+            Answers[1] = answer2;
+            Answers[2] = answer3;
+        }
 
-            AnswerCount = 3;
+        public void LoadStrings(string answer)
+        {
+            Answers[0] = answer;
+            Answers[1] = answer;
+            Answers[2] = answer;
         }
     }
 }

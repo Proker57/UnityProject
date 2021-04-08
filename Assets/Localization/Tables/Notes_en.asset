@@ -19,23 +19,17 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 19833352192
-    m_Localized: First
-    m_Metadata:
-      m_Items: []
-  - m_Id: 102461140992
-    m_Localized: Second
-    m_Metadata:
-      m_Items: []
-  - m_Id: 105673977856
-    m_Localized: Third
+    m_Localized: 'First
+
+      Second
+
+      Third'
     m_Metadata:
       m_Items: []
   - m_Id: 716825166409728
-    m_Localized: This is a monologue of other object
-    m_Metadata:
-      m_Items: []
-  - m_Id: 716918376427520
-    m_Localized: Lights off
+    m_Localized: 'This is a monologue of other object
+
+      Lights off'
     m_Metadata:
       m_Items: []
   references:
