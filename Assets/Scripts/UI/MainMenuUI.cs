@@ -18,7 +18,6 @@ namespace BOYAREngine.UI
         [SerializeField] private string NewGameSceneName = "TestLevel001";
         [SerializeField] private InputActionReference _leftAction;
         [SerializeField] private InputActionReference _actionActionReference;
-        [SerializeField] private InputAction _actionAction;
         private InputActionRebindingExtensions.RebindingOperation _rebindingOperation;
         private UnityEngine.InputSystem.PlayerInput _playerInput;
 
@@ -82,7 +81,6 @@ namespace BOYAREngine.UI
 
             EventSystem.current.firstSelectedGameObject = _newGameGameObject;
             _playerInput = GameController.Instance.PlayerInput;
-            _actionAction = _actionActionReference;
         }
 
         public void NewGame()

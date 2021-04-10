@@ -126,11 +126,13 @@ namespace BOYAREngine
                 IsDashable = _player.Dash.IsDashable,
                 IsSpeedLimited = _player.Dash.IsSpeedLimited,
                 // jump
-                JumpExtraCounts = _player.Jump.JumpExtraCounts,
-                JumpExtraCountDefault = _player.Jump.JumpExtraCountDefault,
+//                JumpExtraCounts = _player.JumpOld.JumpExtraCounts,
+//                JumpExtraCountDefault = _player.JumpOld.JumpExtraCountDefault,
+//                IsJumping = _player.JumpOld.IsJumping,
+//                IsDoubleJumping = _player.JumpOld.IsDoubleJumping,
+//                IsStoppedJumping = _player.JumpOld.IsStoppedJumping,
+
                 IsJumping = _player.Jump.IsJumping,
-                IsDoubleJumping = _player.Jump.IsDoubleJumping,
-                IsStoppedJumping = _player.Jump.IsStoppedJumping,
                 //Crouch
                 IsCrouched = _player.Crouch.IsCrouched,
                 HasCeiling = _player.Crouch.HasCeiling
@@ -162,11 +164,13 @@ namespace BOYAREngine
             _player.Dash.IsDashable = playerData.IsDashable;
             _player.Dash.IsSpeedLimited = playerData.IsSpeedLimited;
             // Jump - jumping logic
-            _player.Jump.JumpExtraCounts = playerData.JumpExtraCounts;
-            _player.Jump.JumpExtraCountDefault = playerData.JumpExtraCountDefault;
+//            _player.JumpOld.JumpExtraCounts = playerData.JumpExtraCounts;
+//            _player.JumpOld.JumpExtraCountDefault = playerData.JumpExtraCountDefault;
+//            _player.JumpOld.IsJumping = playerData.IsJumping;
+//            _player.JumpOld.IsDoubleJumping = playerData.IsDoubleJumping;
+//            _player.JumpOld.IsStoppedJumping = playerData.IsStoppedJumping;
+
             _player.Jump.IsJumping = playerData.IsJumping;
-            _player.Jump.IsDoubleJumping = playerData.IsDoubleJumping;
-            _player.Jump.IsStoppedJumping = playerData.IsStoppedJumping;
             // Crouch
             _player.Crouch.IsCrouched = playerData.IsCrouched;
             _player.Crouch.HasCeiling = playerData.HasCeiling;

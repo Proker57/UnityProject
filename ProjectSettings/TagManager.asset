@@ -9,6 +9,8 @@ TagManager:
   - DialogueManager
   - Cinemachine
   - EventSystem
+  - DialogueNextButton
+  - DialogueFirstAnswer
   layers:
   - Default
   - TransparentFX

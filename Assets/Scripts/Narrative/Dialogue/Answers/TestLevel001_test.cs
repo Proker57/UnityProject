@@ -2,18 +2,17 @@ using UnityEngine;
 
 namespace BOYAREngine.Narrative
 {
-    public class TestLevel001_test : MonoBehaviour
+    public class TestLevel001_test : QuestEventBase
     {
-        private DialogueManager _dialogueManager;
         private Player _player;
 
-        private void Awake()
+        internal override void Awake()
         {
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-            _dialogueManager = DialogueManager.Instance; 
+            base.Awake();
+            _player = GameController.Instance.Player;
         }
 
-        private void AnswerAction(int index, int questionNumber, string dialogueId)
+        internal override void AnswerAction(int index, int questionNumber, string dialogueId)
         {
             if (_dialogueManager.DialogueId != GetType().Name) return;
             switch (questionNumber)
@@ -31,7 +30,6 @@ namespace BOYAREngine.Narrative
                             PlayerEvents.GiveExp(_player.Stats.MaxExp - _player.Stats.Exp);
                             break;
                     }
-
                     break;
                 case 2:
                     if (index == 2) _dialogueManager.FinishDialogue();
@@ -40,17 +38,6 @@ namespace BOYAREngine.Narrative
                     if (index == 1) SceneLoader.SwitchScene("TestLevel002");
                     break;
             }
-        }
-
-        private void OnEnable()
-        {
-            _dialogueManager.ChooseEvent += AnswerAction;
-        }
-
-
-        private void OnDisable()
-        {
-            _dialogueManager.ChooseEvent -= AnswerAction;
         }
     }
 }

@@ -31,9 +31,9 @@ namespace BOYAREngine
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""b2d808f7-8206-4ccd-8481-2953f062d301"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -99,7 +99,7 @@ namespace BOYAREngine
                     ""id"": ""5a03c11a-d1b1-4549-86c0-6770bbc6a57e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
+                    ""interactions"": ""Press(pressPoint=0.7,behavior=2)""
                 },
                 {
                     ""name"": ""ItemUse"",
@@ -177,6 +177,39 @@ namespace BOYAREngine
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""7ad2fe09-5723-4b91-80ca-8555cc2ec0d3"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""baecb2a0-addd-4232-8995-67f0794de589"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""0ab26280-52fe-4cf5-aa7f-db8b6d361bc5"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""d3b8a5f6-7e0d-4e51-aee0-7c87b0e364a6"",
                     ""path"": ""<Keyboard>/space"",
@@ -214,7 +247,7 @@ namespace BOYAREngine
                     ""id"": ""e5e62ec6-598d-4736-b1c5-4caf35297971"",
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
                     ""action"": ""Crouch"",
                     ""isComposite"": false,

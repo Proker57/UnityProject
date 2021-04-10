@@ -22,8 +22,8 @@ namespace BOYAREngine
 
         private void Awake()
         {
-            Input = new PlayerInput();
-            //Input = Inputs.Instance.Input;
+            //Input = new PlayerInput();
+            Input = Inputs.Instance.Input;
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Jump = GetComponent<Jump>();
             Crouch = GetComponent<Crouch>();
@@ -58,7 +58,7 @@ namespace BOYAREngine
             ItemManager.enabled = true;
             MonologueManager.enabled = true;
 
-            Input.PlayerInGame.Enable();
+            //Input.PlayerInGame.Enable();
             Input.HUD.Enable();
         }
 

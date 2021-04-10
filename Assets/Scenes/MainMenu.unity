@@ -3128,14 +3128,6 @@ MonoBehaviour:
   NewGameSceneName: TestLevel001
   _leftAction: {fileID: 2928524534963617614, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
   _actionActionReference: {fileID: 1407556009239005092, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
-  _actionAction:
-    m_Name: Action
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: f85dac16-a93d-485c-9f86-15d29b46d07b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
   _newGameGameObject: {fileID: 864139454}
   _1280X720GameObject: {fileID: 995854507}
   _optionsGameObject: {fileID: 1048935258}
@@ -9748,7 +9740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1664620436
 MonoBehaviour:
   m_ObjectHideFlags: 0

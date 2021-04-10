@@ -1,9 +1,7 @@
-using System;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BOYAREngine
+namespace BOYAREngine.Narrative
 {
     public class DialogueButtonNext : MonoBehaviour
     {
@@ -15,7 +13,7 @@ namespace BOYAREngine
         {
             if (_isActive)
             {
-                _button.image.color = new Color(255f, 255f, 255f, Mathf.PingPong(Time.time * 0.7f, 1f));
+                _button.image.color = new Color(255f, 255f, 255f, Mathf.PingPong(Time.time * 0.4f, 1f));
             }
         }
 

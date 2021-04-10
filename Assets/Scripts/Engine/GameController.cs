@@ -11,6 +11,7 @@ namespace BOYAREngine
 
         public UnityEngine.InputSystem.PlayerInput PlayerInput;
 
+        public Player Player;
         public static bool HasPlayer = false;
         public static bool HasCamera = false;
 
@@ -77,6 +78,28 @@ namespace BOYAREngine
                 .GetComponent<CinemachineVirtualCamera>();
             var player = GameObject.FindGameObjectWithTag("Player").transform;
             cinemachineCamera.Follow = player;
+        }
+
+        private void GetPlayer(bool playerIsOnScene)
+        {
+            if (playerIsOnScene)
+            {
+                Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            }
+            else
+            {
+                Player = null;
+            }
+        }
+
+        private void OnEnable()
+        {
+            Events.PlayerOnScene += GetPlayer;
+        }
+
+        private void OnDisable()
+        {
+            Events.PlayerOnScene -= GetPlayer;
         }
     }
 

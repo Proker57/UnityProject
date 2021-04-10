@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace BOYAREngine
@@ -20,20 +19,27 @@ namespace BOYAREngine
 
         [SerializeField] private Text _name;
         [SerializeField] private Text _narrative;
-        [SerializeField] private Text _answer1;
-        [SerializeField] private Text _answer2;
-        [SerializeField] private Text _answer3;
+        [Space]
+        [SerializeField] private Button[] _buttons;
+        private Text[] _answers;
+
+        [Space]
         [SerializeField] private Button _nextButton;
         [SerializeField] private GameObject _dialogueWindow;
         [SerializeField] private GameObject _answerWindow;
-        private List<DialogueNode> _dialogueNodes;
+        [SerializeField] private List<DialogueNode> _dialogueNodes;
 
         [Header("Cinemachine")]
         public CinemachineVirtualCamera Camera;
         public float ZoomInSize = 2.3f;
 
-        [HideInInspector] public string DialogueId;
+        public string DialogueId;
         private int _pageIndex = 0;
+
+        [Header("Active buttons")]
+        [SerializeField] private GameObject _nextButtonGameObject;
+        [SerializeField] private GameObject _firstAnswerGameObject;
+        private EventSystem _eventSystem;
 
         private void Awake()
         {
@@ -42,13 +48,24 @@ namespace BOYAREngine
                 Instance = this;
             }
 
+            _answers = new Text[_buttons.Length];
+            for (var i = 0; i < _buttons.Length; i++)
+            {
+                _answers[i] = _buttons[i].transform.GetChild(0).GetComponent<Text>();
+            }
+
+            EventSystem.current.firstSelectedGameObject = _nextButtonGameObject;
+
             _dialogueNodes = new List<DialogueNode>();
         }
 
         public void StartDialogue(List<DialogueNode> listNodes, string dialogueId)
         {
-            //_dialogueNodes = new List<DialogueNode>();
-            //IsQuestionNode = false;
+            EnableEvents();
+
+            EventSystem.current.SetSelectedGameObject(_nextButtonGameObject);
+
+            _dialogueNodes = listNodes;
             DialogueId = dialogueId;
             _dialogueWindow.SetActive(true);
             IsQuestionNode = listNodes[0].IsQuestion;
@@ -58,11 +75,10 @@ namespace BOYAREngine
 
             CameraZoom(true);
 
-            _dialogueNodes = listNodes;
-
             InputToggles.DialogueInputs(true);
 
             SetStrings();
+            QuestionNode();
         }
 
         public void NextNode()
@@ -70,7 +86,6 @@ namespace BOYAREngine
             _pageIndex++;
 
             IsQuestionNode = false;
-
             _answerWindow.SetActive(false);
             _nextButton.gameObject.SetActive(true);
 
@@ -95,56 +110,43 @@ namespace BOYAREngine
         {
             _pageIndex = 0;
             QuestionNumber = 0;
+            DialogueId = null;
             IsDialogueStarted = false;
             _dialogueWindow.SetActive(false);
             IsQuestionNode = false;
+            _dialogueNodes = new List<DialogueNode>();
+
+            foreach (var answer in _answers)
+            {
+                answer.text = null;
+            }
 
             CameraZoom(false);
 
             InputToggles.DialogueInputs(false);
+
+            DisableEvents();
         }
 
         private void QuestionNode()
         {
             if (!_dialogueNodes[_pageIndex].IsQuestion) return;
-            
             IsQuestionNode = true;
+
+            EventSystem.current.SetSelectedGameObject(_firstAnswerGameObject);
 
             _nextButton.gameObject.SetActive(false);
             _answerWindow.SetActive(true);
 
-            //switch (_dialogueNodes[_pageIndex].AnswerNode.AnswerCount)
-            switch (_dialogueNodes[_pageIndex].AnswerNode.Answers.Length)
+            foreach (var button in _buttons)
             {
-                case 1:
-                    _answer1.gameObject.SetActive(true);
-                    _answer2.gameObject.SetActive(false);
-                    _answer3.gameObject.SetActive(false);
+                button.gameObject.SetActive(false);
+            }
 
-                    _answer1.text = _dialogueNodes[_pageIndex].AnswerNode.Answers[0];
-                    break;
-                case 2:
-                    _answer1.gameObject.SetActive(true);
-                    _answer2.gameObject.SetActive(true);
-                    _answer3.gameObject.SetActive(false);
-
-                    _answer1.text = _dialogueNodes[_pageIndex].AnswerNode.Answers[0];
-                    _answer2.text = _dialogueNodes[_pageIndex].AnswerNode.Answers[1];
-                    break;
-                case 3:
-                    _answer1.gameObject.SetActive(true);
-                    _answer2.gameObject.SetActive(true);
-                    _answer3.gameObject.SetActive(true);
-
-                    _answer1.text = _dialogueNodes[_pageIndex].AnswerNode.Answers[0];
-                    _answer2.text = _dialogueNodes[_pageIndex].AnswerNode.Answers[1];
-                    _answer3.text = _dialogueNodes[_pageIndex].AnswerNode.Answers[2];
-                    break;
-                default:
-                    _answer1.gameObject.SetActive(false);
-                    _answer2.gameObject.SetActive(false);
-                    _answer3.gameObject.SetActive(false);
-                    break;
+            for (var i = 0; i < _dialogueNodes[_pageIndex].AnswerNode.Answers.Length; i++)
+            {
+                _buttons[i].gameObject.SetActive(true);
+                _answers[i].text = _dialogueNodes[_pageIndex].AnswerNode.Answers[i];
             }
 
             QuestionNumber++;
@@ -163,18 +165,18 @@ namespace BOYAREngine
 
         private void First_pressed()
         {
-            if (IsQuestionNode) ChooseEvent(1, QuestionNumber, DialogueId);
+            if (IsQuestionNode) ChooseEvent?.Invoke(1, QuestionNumber, DialogueId);
 
         }
 
         private void Second_pressed()
         {
-            if (IsQuestionNode) ChooseEvent(2, QuestionNumber, DialogueId);
+            if (IsQuestionNode) ChooseEvent?.Invoke(2, QuestionNumber, DialogueId);
         }
 
         private void Third_pressed()
         {
-            if (IsQuestionNode) ChooseEvent(3, QuestionNumber, DialogueId);
+            if (IsQuestionNode) ChooseEvent?.Invoke(3, QuestionNumber, DialogueId);
         }
 
         private void CameraZoom(bool zoomIn)
@@ -184,7 +186,7 @@ namespace BOYAREngine
             Camera.m_Lens.OrthographicSize = zoomIn ? ZoomInSize : 3f;
         }
 
-        private void OnEnable()
+        private void EnableEvents()
         {
             Inputs.Instance.Input.Dialogue.Next.performed += _ => Next_pressed();
             Inputs.Instance.Input.Dialogue.First.performed += _ => First_pressed();
@@ -194,7 +196,7 @@ namespace BOYAREngine
             ChooseEvent += ChooseAnswer;
         }
 
-        private void OnDisable()
+        private void DisableEvents()
         {
             Inputs.Instance.Input.Dialogue.Next.performed -= _ => Next_pressed();
             Inputs.Instance.Input.Dialogue.First.performed -= _ => First_pressed();

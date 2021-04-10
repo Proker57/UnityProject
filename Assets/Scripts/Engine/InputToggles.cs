@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace BOYAREngine
 {
     public class InputToggles
@@ -6,17 +8,22 @@ namespace BOYAREngine
         {
             if (isOn)
             {
-                Inputs.Instance.Input.PlayerInGame.Disable();
-                Inputs.Instance.Input.Global.Disable();
-                Inputs.Instance.Input.HUD.Disable();
-                Inputs.Instance.Input.Dialogue.Enable();
+//                Inputs.Instance.Input.PlayerInGame.Disable();
+//                Inputs.Instance.Input.Global.Disable();
+//                Inputs.Instance.Input.HUD.Disable();
+//                Inputs.Instance.Input.Dialogue.Enable();
+
+                //Inputs.Instance.PlayerInput.SwitchCurrentActionMap("Dialogue");
+
             }
             else
             {
-                Inputs.Instance.Input.PlayerInGame.Enable();
-                Inputs.Instance.Input.Global.Enable();
-                Inputs.Instance.Input.HUD.Enable();
-                Inputs.Instance.Input.Dialogue.Disable();
+//                Inputs.Instance.Input.PlayerInGame.Enable();
+//                Inputs.Instance.Input.Global.Enable();
+//                Inputs.Instance.Input.HUD.Enable();
+//                Inputs.Instance.Input.Dialogue.Disable();
+
+                //Inputs.Instance.PlayerInput.SwitchCurrentActionMap("PlayerInGame");
             }
         }
 

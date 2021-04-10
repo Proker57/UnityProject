@@ -22,13 +22,12 @@ namespace BOYAREngine
         [Header("s0...n: splitString[n] - String from Narrative Table")]
         [Header("c0...n: common[n] - String from Common Answers")]
         [SerializeField] private List<DialogueNode> _dialogueNodes;
-        [SerializeField] private List<DialogueNode> _dialogueNodesOrigin;
+        private List<DialogueNode> _dialogueNodesOrigin;
 
         private DialogueManager _dialogueManager;
-        private Player _player;
 
         private bool _isEnter;
-        private bool _isDialogueStarted = false;
+        private bool _isDialogueStarted;
 
         [Space]
         [SerializeField] private InputAction _use;
@@ -40,8 +39,6 @@ namespace BOYAREngine
         {
             _dialogueManager = DialogueManager.Instance;
             _dialogueNodesOrigin = CloneList.DeepCopy(_dialogueNodes);
-
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             LoadStrings();
 
@@ -101,8 +98,6 @@ namespace BOYAREngine
 
             if (loadingOperation.Status == AsyncOperationStatus.Succeeded)
             {
-                //_dialogueNodes.Clear();
-
                 var stringTable = loadingOperation.Result;
 
                 var splitString = GetLocalizedString(stringTable, DialogueID).Split('\n');
@@ -124,7 +119,6 @@ namespace BOYAREngine
                         }
                         else if (Regex.IsMatch(dialogueNode.AnswerNode.Answers[i], @"^s[0-100]$"))                                                          // s = split
                         {
-                            //dialogueNode.AnswerNode.LoadStrings(splitString[int.Parse(new string(dialogueNode.AnswerNode.Answers[i].Where(char.IsDigit).ToArray()))]);
                             dialogueNode.AnswerNode.Answers[i] = (splitString[int.Parse(new string(dialogueNode.AnswerNode.Answers[i].Where(char.IsDigit).ToArray()))]);
                         }
                     }
