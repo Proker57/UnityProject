@@ -22,9 +22,6 @@ namespace BOYAREngine
 
         [SerializeField] private SpriteRenderer _weaponSprite = null;
 
-        private Player _player;
-
-        [SerializeField] private InputAction _primaryAttack;
         [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
@@ -37,15 +34,11 @@ namespace BOYAREngine
             {
                 Destroy(gameObject);
             }
-
-            _player = GetComponent<Player>();
         }
 
         private void Start()
         {
-            var iam = _controls.FindActionMap("PlayerInGame");
-            _primaryAttack = iam.FindAction("PrimaryAttack");
-            _primaryAttack.performed += PrimaryAttack_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("PrimaryAttack").started += PrimaryAttack_started;
         }
 
         private void Update()
@@ -140,9 +133,6 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            //_player.Input.PlayerInGame.PrimaryAttack.started += _ => PrimaryAttack_started();
-            //_player.Input.PlayerInGame.SecondaryAttack.started += _ => SecondaryAttack_started();
-
             WeaponEvents.WeaponPickUp += MeleePickUp;
 
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
@@ -150,9 +140,6 @@ namespace BOYAREngine
 
         private void OnDisable()
         {
-            //_player.Input.PlayerInGame.PrimaryAttack.started -= _ => PrimaryAttack_started();
-            //_player.Input.PlayerInGame.SecondaryAttack.started -= _ => SecondaryAttack_started();
-
             WeaponEvents.WeaponPickUp -= MeleePickUp;
 
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;

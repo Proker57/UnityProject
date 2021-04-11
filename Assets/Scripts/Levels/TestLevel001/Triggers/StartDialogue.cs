@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text.RegularExpressions;
 using BOYAREngine.Engine;
@@ -17,7 +16,7 @@ namespace BOYAREngine
     {
         private const string StringTableCollectionName = "Dialogue";
 
-        public string DialogueID;
+        public string DialogueId;
 
         [Header("s0...n: splitString[n] - String from Narrative Table")]
         [Header("c0...n: common[n] - String from Common Answers")]
@@ -26,11 +25,10 @@ namespace BOYAREngine
 
         private DialogueManager _dialogueManager;
 
-        private bool _isEnter;
+        private bool _isEnterOnTrigger;
         private bool _isDialogueStarted;
 
         [Space]
-        [SerializeField] private InputAction _use;
         [SerializeField] private InputActionAsset _controls;
         [Space]
         [SerializeField] private GameObject _panel;
@@ -42,27 +40,25 @@ namespace BOYAREngine
 
             LoadStrings();
 
-            gameObject.AddComponent(Type.GetType("BOYAREngine.Narrative." + DialogueID));
+            gameObject.AddComponent(Type.GetType("BOYAREngine.Narrative." + DialogueId));
         }
 
         private void Start()
         {
-            var iam = _controls.FindActionMap("PlayerInGame");
-            _use = iam.FindAction("Use");
-            _use.started += Use_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("use").started += Use_started;
         }
 
-        private void OnTriggerEnter2D(Component objectCollider)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (objectCollider.tag != "Player") return;
+            if (other.name != "Low Collider") return;
             _panel.SetActive(true);
-            _isEnter = true;
+            _isEnterOnTrigger = true;
         }
 
-        private void OnTriggerExit2D(Component objectCollider)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            if (objectCollider.tag != "Player") return;
-            _isEnter = false;
+            if (other.name != "Low Collider") return;
+            _isEnterOnTrigger = false;
             _panel.SetActive(false);
             _isDialogueStarted = false;
             _dialogueManager.FinishDialogue();
@@ -70,10 +66,10 @@ namespace BOYAREngine
 
         private void Use_started(InputAction.CallbackContext ctx)
         {
-            if (!_isEnter || _isDialogueStarted != false) return;
+            if (!_isEnterOnTrigger || _isDialogueStarted != false) return;
             _panel.SetActive(false);
             _isDialogueStarted = true;
-            _dialogueManager.StartDialogue(_dialogueNodes, DialogueID);
+            _dialogueManager.StartDialogue(_dialogueNodes, DialogueId);
         }
 
         private void OnEnable()
@@ -100,7 +96,7 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
-                var splitString = GetLocalizedString(stringTable, DialogueID).Split('\n');
+                var splitString = GetLocalizedString(stringTable, DialogueId).Split('\n');
                 var common = GetLocalizedString(stringTable, "common").Split('\n');
 
                 _dialogueNodes = CloneList.DeepCopy(_dialogueNodesOrigin);

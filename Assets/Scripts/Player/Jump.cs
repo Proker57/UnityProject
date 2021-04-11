@@ -13,17 +13,14 @@ namespace BOYAREngine
 
         [SerializeField] private float _jumpForce;
 
-        [SerializeField] private bool _isGrounded;
-        [SerializeField] private bool _isOnPlatform;
         public bool IsJumping;
+        private bool _isGrounded;
         private bool _hasStarted;
 
         [SerializeField] private float _jumpTime;
         private float _jumpTimeCounter;
 
-        private bool _hasParticleFxPlayed;
         [Space]
-        [SerializeField] private InputAction _jump;
         [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
@@ -33,21 +30,17 @@ namespace BOYAREngine
 
         private void Start()
         {
-            var iam = _controls.FindActionMap("PlayerInGame");
-            _jump = iam.FindAction("Jump");
-            _jump.started += Jump_started;
-            _jump.canceled += Jump_canceled;
+            _controls.FindActionMap("PlayerInGame").FindAction("Jump").started += Jump_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("Jump").canceled += Jump_canceled;
         }
 
         private void Update()
         {
             CheckGround();
-            CheckPlatform();
 
             if (_isGrounded && _hasStarted)
             {
-                IsJumping = true;
-                _jumpTimeCounter = _jumpTime;
+                AbilityToJump();
 
                 PlayParticleFx();
 
@@ -66,7 +59,12 @@ namespace BOYAREngine
                     IsJumping = false;
                 }
             }
+        }
 
+        public void AbilityToJump()
+        {
+            IsJumping = true;
+            _jumpTimeCounter = _jumpTime;
         }
 
         private void CheckGround()
@@ -76,11 +74,11 @@ namespace BOYAREngine
             _isGrounded = hitLeft.collider || hitRight.collider != null;
         }
 
-        private void CheckPlatform()
+        private bool CheckPlatform()
         {
             var hitLeft = Physics2D.Raycast(_originOfLeftRaycast.position, Vector2.down, 0.1f, LayerMask.GetMask("Platform"));
             var hitRight = Physics2D.Raycast(_originOfRightRaycast.position, Vector2.down, 0.1f, LayerMask.GetMask("Platform"));
-            _isOnPlatform = hitLeft.collider || hitRight.collider != null;
+            return hitLeft.collider && hitRight.collider != null;
         }
 
         private void PlayParticleFx()
@@ -95,7 +93,9 @@ namespace BOYAREngine
         {
             _hasStarted = true;
 
-            if (_player.Crouch.IsCrouched && _isOnPlatform)
+            Debug.Log("Jump.cs: jump");
+
+            if (_player.Crouch.IsCrouched && CheckPlatform())
             {
                 PlayerEvents.JumpDownPlatform();
             }

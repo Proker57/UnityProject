@@ -30,7 +30,6 @@ namespace BOYAREngine
         private Vector2 _direction;
 
         [Space]
-        [SerializeField] private InputAction _movement;
         [SerializeField] private InputActionAsset _controls;
         private float _movementValue;
 
@@ -46,9 +45,7 @@ namespace BOYAREngine
             _maxVelocityRun = _maxVelocity;
             _maxVelocityCrouch = _maxVelocity * _crouchSpeedMultiplier;
 
-            var iam = _controls.FindActionMap("PlayerInGame");
-            _movement = iam.FindAction("Movement");
-            _movement.started += Movement_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("Movement").started += Movement_started;
         }
 
         private void Update()
@@ -78,6 +75,7 @@ namespace BOYAREngine
             {
                 MaxVelocityLimiter();
             }
+
             StopMovementLerp();
         }
 

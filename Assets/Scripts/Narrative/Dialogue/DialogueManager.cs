@@ -2,6 +2,7 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace BOYAREngine
@@ -41,6 +42,9 @@ namespace BOYAREngine
         [SerializeField] private GameObject _firstAnswerGameObject;
         private EventSystem _eventSystem;
 
+        [Space]
+        [SerializeField] private InputActionAsset _controls;
+
         private void Awake()
         {
             if (Instance == null)
@@ -57,6 +61,14 @@ namespace BOYAREngine
             EventSystem.current.firstSelectedGameObject = _nextButtonGameObject;
 
             _dialogueNodes = new List<DialogueNode>();
+        }
+
+        private void Start()
+        {
+            _controls.FindActionMap("Dialogue").FindAction("Next").started += Next_pressed;
+            _controls.FindActionMap("Dialogue").FindAction("First").started += First_pressed;
+            _controls.FindActionMap("Dialogue").FindAction("Second").started += Second_pressed;
+            _controls.FindActionMap("Dialogue").FindAction("Third").started += Third_pressed;
         }
 
         public void StartDialogue(List<DialogueNode> listNodes, string dialogueId)
@@ -158,23 +170,24 @@ namespace BOYAREngine
             _narrative.text = _dialogueNodes[_pageIndex].Narrative;
         }
 
-        private void Next_pressed()
+        private void Next_pressed(InputAction.CallbackContext ctx)
         {
+            Debug.Log("DialogueManager.cs: Next");
             if (!IsQuestionNode) NextNode();
         }
 
-        private void First_pressed()
+        private void First_pressed(InputAction.CallbackContext ctx)
         {
             if (IsQuestionNode) ChooseEvent?.Invoke(1, QuestionNumber, DialogueId);
 
         }
 
-        private void Second_pressed()
+        private void Second_pressed(InputAction.CallbackContext ctx)
         {
             if (IsQuestionNode) ChooseEvent?.Invoke(2, QuestionNumber, DialogueId);
         }
 
-        private void Third_pressed()
+        private void Third_pressed(InputAction.CallbackContext ctx)
         {
             if (IsQuestionNode) ChooseEvent?.Invoke(3, QuestionNumber, DialogueId);
         }
@@ -188,21 +201,11 @@ namespace BOYAREngine
 
         private void EnableEvents()
         {
-            Inputs.Instance.Input.Dialogue.Next.performed += _ => Next_pressed();
-            Inputs.Instance.Input.Dialogue.First.performed += _ => First_pressed();
-            Inputs.Instance.Input.Dialogue.Second.performed += _ => Second_pressed();
-            Inputs.Instance.Input.Dialogue.Third.performed += _ => Third_pressed();
-
             ChooseEvent += ChooseAnswer;
         }
 
         private void DisableEvents()
         {
-            Inputs.Instance.Input.Dialogue.Next.performed -= _ => Next_pressed();
-            Inputs.Instance.Input.Dialogue.First.performed -= _ => First_pressed();
-            Inputs.Instance.Input.Dialogue.Second.performed -= _ => Second_pressed();
-            Inputs.Instance.Input.Dialogue.Third.performed -= _ => Third_pressed();
-
             ChooseEvent -= ChooseAnswer;
         }
     }

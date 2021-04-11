@@ -5,7 +5,6 @@ namespace BOYAREngine
 {
     public class Crouch : MonoBehaviour
     {
-#pragma warning disable 649
         public bool IsCrouched;
         public bool HasCeiling;
         [SerializeField] private float _distance;   // 0.05f
@@ -16,9 +15,7 @@ namespace BOYAREngine
         [SerializeField] private bool _isButtonPressed;
         private Player _player;
         [Space]
-        [SerializeField] private InputAction _crouch;
         [SerializeField] private InputActionAsset _controls;
-#pragma warning restore 649
 
         private void Awake()
         {
@@ -27,15 +24,13 @@ namespace BOYAREngine
 
         private void Start()
         {
-            var iam = _controls.FindActionMap("PlayerInGame");
-            _crouch = iam.FindAction("Crouch");
-            _crouch.performed += Crouch_started;
-            _crouch.canceled += Crouch_canceled;
+            _controls.FindActionMap("PlayerInGame").FindAction("Crouch").started += Crouch_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("Crouch").canceled += Crouch_canceled;
         }
 
         private void Update()
         {
-            if (IsCrouched && _isButtonPressed == false)
+            if (IsCrouched && !_isButtonPressed)
             {
                 StartCrouch();
             }
@@ -43,9 +38,19 @@ namespace BOYAREngine
 
         private void FixedUpdate()
         {
+            CheckForCeiling();
+
+            if (!HasCeiling && !_isButtonPressed)
+            {
+                StopCrouch();
+            }
+        }
+
+        private void CheckForCeiling()
+        {
             var leftCeilingOrigin = LeftCeilingChecker.position;
             var rightCeilingOrigin = RightCeilingChecker.position;
-            var direction = new Vector2(0, _distance);
+            var direction = Vector2.up * _distance;
 
             var leftCeilingHit = Physics2D.Raycast(leftCeilingOrigin, direction, _distance, Ground);
             var rightCeilingHit = Physics2D.Raycast(rightCeilingOrigin, direction, _distance, Ground);
@@ -56,11 +61,6 @@ namespace BOYAREngine
             else
             {
                 HasCeiling = false;
-            }
-
-            if (HasCeiling == false && _isButtonPressed == false)
-            {
-                StopCrouch();
             }
         }
 
@@ -95,18 +95,6 @@ namespace BOYAREngine
             _player.HighCollider.enabled = true;
             IsCrouched = false;
             _player.Animator.SetBool("isCrouch", false);
-        }
-
-        private void OnEnable()
-        {
-            //_player.Input.PlayerInGame.Crouch.started += _ => Crouch_started();
-            //_player.Input.PlayerInGame.Crouch.canceled += _ => Crouch_canceled();
-        }
-
-        private void OnDisable()
-        {
-            //_player.Input.PlayerInGame.Crouch.started -= _ => Crouch_started();
-            //_player.Input.PlayerInGame.Crouch.canceled -= _ => Crouch_canceled();
         }
     }
 }

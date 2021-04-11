@@ -19,10 +19,7 @@ namespace BOYAREngine
 
         private Player _player;
 
-        private Vector2 _dashVector;
-
         [Space]
-        [SerializeField] private InputAction _dash;
         [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
@@ -35,9 +32,7 @@ namespace BOYAREngine
 
         private void Start()
         {
-            var iam = _controls.FindActionMap("PlayerInGame");
-            _dash = iam.FindAction("Dash");
-            _dash.started += Dash_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("Dash").started += Dash_started;
         }
 
         private void Dash_started(InputAction.CallbackContext ctx)
@@ -50,10 +45,10 @@ namespace BOYAREngine
             IsDashable = false;
             IsSpeedLimited = false;
 
-            _dashVector = _player.Movement.IsLookingRight
+            var dashVector = _player.Movement.IsLookingRight
                 ? new Vector2(_xVectorMultiply, _yVector)
                 : new Vector2(-_xVectorMultiply, _yVector);
-            _player.Rigidbody2D.AddForce(_dashVector, ForceMode2D.Impulse);
+            _player.Rigidbody2D.AddForce(dashVector, ForceMode2D.Impulse);
         }
 
         private void Update()
@@ -94,15 +89,11 @@ namespace BOYAREngine
 
         private void OnEnable()
         {
-            //_playerInput.Enable();
-            //_playerInput.PlayerInGame.Dash.started += _ => Dash_started();
             HUDEvents.DashCheckIsActive(true);
         }
 
         private void OnDisable()
         {
-            //_playerInput.PlayerInGame.Dash.started -= _ => Dash_started();
-            //_playerInput.Disable();
             HUDEvents.DashCheckIsActive?.Invoke(false);
         }
     }

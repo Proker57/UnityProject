@@ -927,7 +927,7 @@ PrefabInstance:
       objectReference: {fileID: 2928524534963617614, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
     - target: {fileID: 8420824140916637861, guid: f2a4315472d2ca843a31c6a794fd80f1, type: 3}
       propertyPath: m_BindingId
-      value: d58ab766-da11-4f2a-b3ad-faec9fb52916
+      value: 7ad2fe09-5723-4b91-80ca-8555cc2ec0d3
       objectReference: {fileID: 0}
     - target: {fileID: 8420824140916637861, guid: f2a4315472d2ca843a31c6a794fd80f1, type: 3}
       propertyPath: m_ActionLabel

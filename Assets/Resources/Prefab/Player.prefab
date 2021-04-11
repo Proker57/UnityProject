@@ -5219,7 +5219,7 @@ MonoBehaviour:
   - {x: -0.09832497, y: 0.36668724, z: 0}
   m_ShapePathHash: -1976147235
   m_Mesh: {fileID: 0}
-  m_InstanceId: 140804
+  m_InstanceId: 117490
 --- !u!114 &8088279830519298493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5440,14 +5440,6 @@ MonoBehaviour:
   _lerp: 0.2
   <IsMaxSpeedLimiterOn>k__BackingField: 1
   _spriteTransform: {fileID: 5905901938380743204}
-  _movement:
-    m_Name: Movement
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 48e7830f-78db-4acd-9ae5-4a2e1437b215
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &4257814954769852030
 MonoBehaviour:
@@ -5467,18 +5459,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4736
   _jumpForce: 3
-  _isGrounded: 0
-  _isOnPlatform: 0
   IsJumping: 0
   _jumpTime: 0.3
-  _jump:
-    m_Name: Jump
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 7c99e34e-f10f-429c-969d-2e18cc54e54d
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &7179260047226401872
 MonoBehaviour:
@@ -5501,14 +5483,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _isButtonPressed: 0
-  _crouch:
-    m_Name: Crouch
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e0c0bdca-547a-42f6-b4a0-a61ebddf9a6c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &7179260047226401875
 MonoBehaviour:
@@ -5530,14 +5504,6 @@ MonoBehaviour:
   SpeedLimiterTimerCounter: 0
   _dashTimer: 1
   DashTimerCounter: 0
-  _dash:
-    m_Name: Dash
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: f866d782-017d-4c8f-8e34-f0fba807ce6f
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &116414065044774608
 MonoBehaviour:
@@ -5560,14 +5526,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1152
   _weaponSprite: {fileID: 3441850269470288902}
-  _primaryAttack:
-    m_Name: Primary Attack
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 6307ac42-c48a-41ab-a961-dbed6adc3282
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &1770231497439941727
 MonoBehaviour:

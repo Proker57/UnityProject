@@ -1710,8 +1710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eab4d332b8b2a7489530bf11edf136e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _saveLoad: {fileID: 973263933}
-  _sceneLoader: {fileID: 973263927}
+  _saveLoad: {fileID: 0}
+  _sceneLoader: {fileID: 0}
   _pauseBlock: {fileID: 0}
   _resume: {fileID: 0}
   _save: {fileID: 0}
@@ -17915,6 +17915,7 @@ MonoBehaviour:
   DialogueId: 
   _nextButtonGameObject: {fileID: 451248700}
   _firstAnswerGameObject: {fileID: 467758876}
+  _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!224 &1710539752
 RectTransform:
   m_ObjectHideFlags: 0
