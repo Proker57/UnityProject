@@ -29,7 +29,7 @@ namespace BOYAREngine
         {
             Items.Add(item);
 
-            ItemEvents.ItemAddInInventory();
+            ItemEvents.ItemAddInInventory?.Invoke();
         }
 
         public void SetItem(int itemIndex)

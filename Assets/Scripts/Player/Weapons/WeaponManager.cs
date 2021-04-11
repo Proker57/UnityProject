@@ -55,7 +55,7 @@ namespace BOYAREngine
         {
             Weapons.Add(weapon);
 
-            WeaponEvents.WeaponAddInInventory();
+            WeaponEvents.WeaponAddInInventory?.Invoke();
         }
 
         public void SetWeapon(int weaponIndex)

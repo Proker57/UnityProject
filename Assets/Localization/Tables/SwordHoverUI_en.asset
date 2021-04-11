@@ -38,5 +38,13 @@ MonoBehaviour:
     m_Localized: 'Attack speed:'
     m_Metadata:
       m_Items: []
+  - m_Id: 51775865296056320
+    m_Localized: 'Damage:
+
+      Attack speed:
+
+      Description:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

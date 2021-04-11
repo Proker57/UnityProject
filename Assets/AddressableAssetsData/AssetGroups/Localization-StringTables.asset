@@ -48,7 +48,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: cd27dd67d1fc75142a04e492709669b4
-    m_Address: MeleeHoverUI_ru
+    m_Address: InventoryHoverPanel_ru
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru
@@ -56,7 +56,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 09d398317bd96d6468a83ef79dccb958
-    m_Address: MeleeHoverUI_en
+    m_Address: InventoryHoverPanel_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

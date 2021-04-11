@@ -74,6 +74,8 @@ namespace BOYAREngine
         {
             Health += amount;
             if (Health > MaxHealth) Health = MaxHealth;
+
+            PlayerEvents.UpdateHPBar?.Invoke();
         }
 
         private void OnDamage(int damage)
