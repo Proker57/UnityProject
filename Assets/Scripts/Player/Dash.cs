@@ -5,27 +5,17 @@ namespace BOYAREngine
 {
     public class Dash : MonoBehaviour
     {
+        public float SpeedMultiplier;
         public bool IsDashable;
-        public bool IsSpeedLimited;
-
-        [SerializeField] private int _xVectorMultiply = 800;
-        [SerializeField] private int _yVector = 0;
-
-        [SerializeField] private float _speedLimiterTimer = 0.1f;
-        public float SpeedLimiterTimerCounter;
-
+        [HideInInspector] public float DashTimerCounter;
         [SerializeField] private float _dashTimer = 1f;
-        public float DashTimerCounter;
-
-        private Player _player;
-
         [Space]
+        private Player _player;
         [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
         {
             DashTimerCounter = _dashTimer;
-            SpeedLimiterTimerCounter = _speedLimiterTimer;
 
             _player = GetComponent<Player>();
         }
@@ -38,23 +28,17 @@ namespace BOYAREngine
         private void Dash_started(InputAction.CallbackContext ctx)
         {
             if (!IsDashable) return;
-
             PlayerEvents.Dash();
-            _player.Movement.IsMaxSpeedLimiterOn = false;
-
+            _player.Movement.CurrentSpeed += SpeedMultiplier;
             IsDashable = false;
-            IsSpeedLimited = false;
-
-            var dashVector = _player.Movement.IsLookingRight
-                ? new Vector2(_xVectorMultiply, _yVector)
-                : new Vector2(-_xVectorMultiply, _yVector);
-            _player.Rigidbody2D.AddForce(dashVector, ForceMode2D.Impulse);
         }
 
         private void Update()
         {
-            DashCountdown();
-            SpeedLimiterCountdown();
+            if (!IsDashable)
+            {
+                DashCountdown();
+            }
         }
 
         private void DashCountdown()
@@ -69,21 +53,8 @@ namespace BOYAREngine
                 DashTimerCounter = _dashTimer;
                 PlayerEvents.DashReady();
                 IsDashable = true;
-            }
-        }
+                _player.Movement.ReturnBaseSpeed();
 
-        private void SpeedLimiterCountdown()
-        {
-            if (IsSpeedLimited) return;
-            if (SpeedLimiterTimerCounter > 0)
-            {
-                SpeedLimiterTimerCounter -= Time.deltaTime;
-            }
-            else
-            {
-                _player.Movement.IsMaxSpeedLimiterOn = true;
-                SpeedLimiterTimerCounter = _speedLimiterTimer;
-                IsSpeedLimited = true;
             }
         }
 

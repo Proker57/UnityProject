@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,23 +6,26 @@ namespace BOYAREngine
 {
     public class Jump : MonoBehaviour
     {
-        private Player _player;
-
         [SerializeField] private Transform _originOfLeftRaycast;
         [SerializeField] private Transform _originOfRightRaycast;
         [SerializeField] private LayerMask _groundLayer;
 
+        [Header("Jump Vars")]
         [SerializeField] private float _jumpForce;
-
-        public bool IsJumping;
-        private bool _isGrounded;
-        private bool _hasStarted;
-
         [SerializeField] private float _jumpTime;
         private float _jumpTimeCounter;
 
+        [Header("Jump Off Platform")]
+        [SerializeField] private LayerMask _playerLayer;
+        [SerializeField] private LayerMask _platformLayer;
+
+        [Header("Logic")]
+        public bool CanJump = true;
+        public bool IsJumping;
+        private bool _buttonPressed;
         [Space]
         [SerializeField] private InputActionAsset _controls;
+        private Player _player;
 
         private void Awake()
         {
@@ -36,9 +40,33 @@ namespace BOYAREngine
 
         private void Update()
         {
-            CheckGround();
+            if (CanJump && !_player.Crouch.HasCeiling)
+            {
+                if (_buttonPressed)
+                {
+                    JumpAction();
+                    HeightControl();
+                }
+            }
+        }
 
-            if (_isGrounded && _hasStarted)
+        private void Jump_started(InputAction.CallbackContext ctx)
+        {
+            _buttonPressed = true;
+
+            JumpOffPlatform();
+        }
+
+
+        private void Jump_canceled(InputAction.CallbackContext ctx)
+        {
+            _buttonPressed = false;
+            _jumpTimeCounter = 0;
+        }
+
+        private void JumpAction()
+        {
+            if (IsOnGround() && _buttonPressed && !(CheckPlatform() && _player.Crouch.IsCrouched))
             {
                 AbilityToJump();
 
@@ -46,8 +74,11 @@ namespace BOYAREngine
 
                 _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _jumpForce);
             }
+        }
 
-            if (_hasStarted && IsJumping)
+        private void HeightControl()
+        {
+            if (_buttonPressed && IsJumping)
             {
                 if (_jumpTimeCounter > 0)
                 {
@@ -61,17 +92,25 @@ namespace BOYAREngine
             }
         }
 
+        private void JumpOffPlatform()
+        {
+            if (_player.Crouch.IsCrouched && CheckPlatform())
+            {
+                PlayerEvents.JumpDownPlatform();
+            }
+        }
+
         public void AbilityToJump()
         {
             IsJumping = true;
             _jumpTimeCounter = _jumpTime;
         }
 
-        private void CheckGround()
+        private bool IsOnGround()
         {
             var hitLeft = Physics2D.Raycast(_originOfLeftRaycast.position, Vector2.down, 0.1f, _groundLayer);
             var hitRight = Physics2D.Raycast(_originOfRightRaycast.position, Vector2.down, 0.1f, _groundLayer);
-            _isGrounded = hitLeft.collider || hitRight.collider != null;
+            return hitLeft.collider || hitRight.collider != null;
         }
 
         private bool CheckPlatform()
@@ -83,28 +122,10 @@ namespace BOYAREngine
 
         private void PlayParticleFx()
         {
-            if (_isGrounded)
+            if (IsOnGround())
             {
                 _player.ParticleSystem.Play();
             }
-        }
-
-        private void Jump_started(InputAction.CallbackContext ctx)
-        {
-            _hasStarted = true;
-
-            Debug.Log("Jump.cs: jump");
-
-            if (_player.Crouch.IsCrouched && CheckPlatform())
-            {
-                PlayerEvents.JumpDownPlatform();
-            }
-        }
-
-        private void Jump_canceled(InputAction.CallbackContext ctx)
-        {
-            _hasStarted = false;
-            _jumpTimeCounter = 0;
         }
 
         private void OnEnable()

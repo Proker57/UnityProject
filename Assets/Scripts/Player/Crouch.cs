@@ -5,16 +5,16 @@ namespace BOYAREngine
 {
     public class Crouch : MonoBehaviour
     {
-        public bool IsCrouched;
-        public bool HasCeiling;
-        [SerializeField] private float _distance;   // 0.05f
         public Transform LeftCeilingChecker;
         public Transform RightCeilingChecker;
         public LayerMask Ground;
+        public bool IsCrouched;
+        public bool HasCeiling;
+        [SerializeField] private float _distance;   // 0.05f
 
-        [SerializeField] private bool _isButtonPressed;
-        private Player _player;
+        private bool _isButtonPressed;
         [Space]
+        private Player _player;
         [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
@@ -30,19 +30,53 @@ namespace BOYAREngine
 
         private void Update()
         {
-            if (IsCrouched && !_isButtonPressed)
+            if (IsCrouched)
             {
-                StartCrouch();
+                CheckForCeiling();
+            }
+
+            if (IsCrouched && !HasCeiling && !_isButtonPressed)
+            {
+                StopCrouch();
             }
         }
 
-        private void FixedUpdate()
-        {
-            CheckForCeiling();
 
-            if (!HasCeiling && !_isButtonPressed)
+        private void Crouch_started(InputAction.CallbackContext ctx)
+        {
+            _isButtonPressed = true;
+
+            StartCrouch();
+        }
+
+        private void Crouch_canceled(InputAction.CallbackContext ctx)
+        {
+            _isButtonPressed = false;
+
+            if (HasCeiling == false)
             {
                 StopCrouch();
+            }
+
+            IsCrouched = HasCeiling;
+        }
+
+        private void StartCrouch()
+        {
+            _player.HighCollider.enabled = false;
+            IsCrouched = true;
+            _player.Movement.CurrentSpeed *= 0.8f;
+            _player.Animator.SetBool("isCrouch", true);
+        }
+
+        private void StopCrouch()
+        {
+            if (!HasCeiling && !_isButtonPressed)
+            {
+                _player.HighCollider.enabled = true;
+                IsCrouched = false;
+                _player.Movement.ReturnBaseSpeed();
+                _player.Animator.SetBool("isCrouch", false);
             }
         }
 
@@ -62,39 +96,6 @@ namespace BOYAREngine
             {
                 HasCeiling = false;
             }
-        }
-
-        private void Crouch_started(InputAction.CallbackContext ctx)
-        {
-            _isButtonPressed = true;
-
-            StartCrouch();
-        }
-
-        private void Crouch_canceled(InputAction.CallbackContext ctx)
-        {
-            _isButtonPressed = false;
-
-            if (HasCeiling == false)
-            {
-                StopCrouch();
-            }
-
-            IsCrouched = HasCeiling == true;
-        }
-
-        private void StartCrouch()
-        {
-            _player.HighCollider.enabled = false;
-            IsCrouched = true;
-            _player.Animator.SetBool("isCrouch", true);
-        }
-
-        private void StopCrouch()
-        {
-            _player.HighCollider.enabled = true;
-            IsCrouched = false;
-            _player.Animator.SetBool("isCrouch", false);
         }
     }
 }

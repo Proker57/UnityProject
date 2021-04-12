@@ -19,7 +19,7 @@
                     "id": "4956d367-40bd-44af-9bbb-e78e2cdf6e1a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 },
                 {
                     "name": "Crouch",
@@ -561,6 +561,44 @@
             "id": "e142c713-c96f-4f96-a61c-cfed8288d7ec",
             "actions": [],
             "bindings": []
+        },
+        {
+            "name": "Inventory",
+            "id": "2f17f0b9-bfae-44c5-b3de-bc929bc15b77",
+            "actions": [
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "f538b560-aa55-4824-bafa-0641ff55d8d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d94de351-fc26-41da-8b6c-59c03d626e34",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5d99fb8-32a9-4fdd-9eaf-cbeb666f9000",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

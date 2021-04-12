@@ -43,7 +43,7 @@ namespace BOYAREngine
                     ""id"": ""4956d367-40bd-44af-9bbb-e78e2cdf6e1a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Crouch"",
@@ -585,6 +585,44 @@ namespace BOYAREngine
             ""id"": ""e142c713-c96f-4f96-a61c-cfed8288d7ec"",
             ""actions"": [],
             ""bindings"": []
+        },
+        {
+            ""name"": ""Inventory"",
+            ""id"": ""2f17f0b9-bfae-44c5-b3de-bc929bc15b77"",
+            ""actions"": [
+                {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""f538b560-aa55-4824-bafa-0641ff55d8d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d94de351-fc26-41da-8b6c-59c03d626e34"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5d99fb8-32a9-4fdd-9eaf-cbeb666f9000"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -618,6 +656,9 @@ namespace BOYAREngine
             m_Dialogue_Third = m_Dialogue.FindAction("Third", throwIfNotFound: true);
             // HUD
             m_HUD = asset.FindActionMap("HUD", throwIfNotFound: true);
+            // Inventory
+            m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
+            m_Inventory_Close = m_Inventory.FindAction("Close", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -941,6 +982,39 @@ namespace BOYAREngine
             }
         }
         public HUDActions @HUD => new HUDActions(this);
+
+        // Inventory
+        private readonly InputActionMap m_Inventory;
+        private IInventoryActions m_InventoryActionsCallbackInterface;
+        private readonly InputAction m_Inventory_Close;
+        public struct InventoryActions
+        {
+            private @PlayerInput m_Wrapper;
+            public InventoryActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Close => m_Wrapper.m_Inventory_Close;
+            public InputActionMap Get() { return m_Wrapper.m_Inventory; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
+            public void SetCallbacks(IInventoryActions instance)
+            {
+                if (m_Wrapper.m_InventoryActionsCallbackInterface != null)
+                {
+                    @Close.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnClose;
+                    @Close.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnClose;
+                    @Close.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnClose;
+                }
+                m_Wrapper.m_InventoryActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Close.started += instance.OnClose;
+                    @Close.performed += instance.OnClose;
+                    @Close.canceled += instance.OnClose;
+                }
+            }
+        }
+        public InventoryActions @Inventory => new InventoryActions(this);
         public interface IPlayerInGameActions
         {
             void OnMovement(InputAction.CallbackContext context);
@@ -973,6 +1047,10 @@ namespace BOYAREngine
         }
         public interface IHUDActions
         {
+        }
+        public interface IInventoryActions
+        {
+            void OnClose(InputAction.CallbackContext context);
         }
     }
 }

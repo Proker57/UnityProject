@@ -5219,7 +5219,7 @@ MonoBehaviour:
   - {x: -0.09832497, y: 0.36668724, z: 0}
   m_ShapePathHash: -1976147235
   m_Mesh: {fileID: 0}
-  m_InstanceId: 117490
+  m_InstanceId: 454538
 --- !u!114 &8088279830519298493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5433,13 +5433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd5f8342c4b6c64fac42965c1e4f430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLookingRight: 0
-  _speed: 700
-  _crouchSpeedMultiplier: 0.8
-  _maxVelocity: 2
-  _lerp: 0.2
-  <IsMaxSpeedLimiterOn>k__BackingField: 1
+  CurrentSpeed: 2
   _spriteTransform: {fileID: 5905901938380743204}
+  BaseSpeed: 0
+  IsLookingRight: 0
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &4257814954769852030
 MonoBehaviour:
@@ -5459,8 +5456,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4736
   _jumpForce: 3
-  IsJumping: 0
   _jumpTime: 0.3
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _platformLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  CanJump: 1
+  IsJumping: 0
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &7179260047226401872
 MonoBehaviour:
@@ -5474,15 +5478,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a370ad4706b70e429871088c1c9a2f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCrouched: 0
-  HasCeiling: 0
-  _distance: 0.05
   LeftCeilingChecker: {fileID: 7179260047765904182}
   RightCeilingChecker: {fileID: 7179260048116653879}
   Ground:
     serializedVersion: 2
     m_Bits: 512
-  _isButtonPressed: 0
+  IsCrouched: 0
+  HasCeiling: 0
+  _distance: 0.05
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &7179260047226401875
 MonoBehaviour:
@@ -5496,14 +5499,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ce28e5ef67c9541afea492cbcf0666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpeedMultiplier: 5
   IsDashable: 0
-  IsSpeedLimited: 0
-  _xVectorMultiply: 800
-  _yVector: 0
-  _speedLimiterTimer: 0.1
-  SpeedLimiterTimerCounter: 0
-  _dashTimer: 1
   DashTimerCounter: 0
+  _dashTimer: 0.2
   _controls: {fileID: -944628639613478452, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
 --- !u!114 &116414065044774608
 MonoBehaviour:
@@ -5630,7 +5629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7179260047765904181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 1, z: 0}
+  m_LocalPosition: {x: -0.12, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7179260047226401960}
@@ -5690,7 +5689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7179260048116653878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 1, z: 0}
+  m_LocalPosition: {x: 0.12, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7179260047226401960}

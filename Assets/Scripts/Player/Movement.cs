@@ -6,32 +6,22 @@ namespace BOYAREngine
 {
     public class Movement : MonoBehaviour
     {
-        public bool IsLookingRight;
-
-        [SerializeField] private float _speed;                          // 700
-        [SerializeField] private float _crouchSpeedMultiplier = 0.8f;   // 0.8f
-        private float _speedRun;                                        // _speed
-        private float _speedCrouch;                                     // _speed * _crouchSpeedMultiplier
-        [SerializeField] private float _maxVelocity;                    // 2f
-        private float _maxVelocityRun;                                  // _maxVelocity
-        private float _maxVelocityCrouch;                               // _maxVelocity * _crouchSpeedMultiplier
-        [SerializeField] private float _lerp;                           // 0.2f
-        private float _movementDirection;
-        private bool _isRunning;
-
-        [field: SerializeField]
-        public bool IsMaxSpeedLimiterOn { get; set; } = true;
-
         private const float Tolerance = 0;
 
+        public float CurrentSpeed;
+        [Space]
         [Space, Header("Player sprite with bones")]
         [SerializeField] private Transform _spriteTransform;
-        private Player _player;
-        private Vector2 _direction;
 
+        [HideInInspector] public float BaseSpeed;
+        [HideInInspector] public bool IsLookingRight;
+        private Vector2 _direction;
+        private float _movementDirection;
+        private bool _isRunning;
+        private bool _isButtonPressed;
         [Space]
+        private Player _player;
         [SerializeField] private InputActionAsset _controls;
-        private float _movementValue;
 
         private void Awake()
         {
@@ -40,127 +30,68 @@ namespace BOYAREngine
 
         private void Start()
         {
-            _speedRun = _speed;
-            _speedCrouch = _speed * _crouchSpeedMultiplier;
-            _maxVelocityRun = _maxVelocity;
-            _maxVelocityCrouch = _maxVelocity * _crouchSpeedMultiplier;
+            BaseSpeed = CurrentSpeed;
 
             _controls.FindActionMap("PlayerInGame").FindAction("Movement").started += Movement_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("Movement").canceled += Movement_canceled;
         }
 
         private void Update()
         {
             _movementDirection = _player.Input.PlayerInGame.Movement.ReadValue<float>();
             _isRunning = Math.Abs(_movementDirection) > Tolerance;
-            _direction = new Vector2(_movementDirection * _speed, 0);
-
-            CrouchSpeedCheck();
-            FlipSprite();
-            ChangeAnimation();
+            _direction = new Vector2(_movementDirection * CurrentSpeed, _player.Rigidbody2D.velocity.y);
         }
 
         public void Movement_started(InputAction.CallbackContext ctx)
         {
+            _isButtonPressed = true;
+            Flip(ctx.ReadValue<float>());
+            Animation(true);
+        }
 
+        public void Movement_canceled(InputAction.CallbackContext ctx)
+        {
+            _movementDirection = 0;
+            Animation(false);
+            _isButtonPressed = false;
         }
 
         private void FixedUpdate()
         {
-            if (_isRunning == true)
+            if (_isRunning && _isButtonPressed)
             {
-                _player.Rigidbody2D.AddForce(_direction, ForceMode2D.Force);
+                _player.Rigidbody2D.velocity = _direction;
             }
-
-            if (IsMaxSpeedLimiterOn == true)
+            else
             {
-                MaxVelocityLimiter();
-            }
-
-            StopMovementLerp();
-        }
-
-
-        private void MaxVelocityLimiter()
-        {
-            if (_player.Rigidbody2D.velocity.x >= _maxVelocity)
-            {
-                _player.Rigidbody2D.velocity = new Vector2(_maxVelocity, _player.Rigidbody2D.velocity.y);
-            }
-            if (_player.Rigidbody2D.velocity.x <= _maxVelocity * -1)
-            {
-                _player.Rigidbody2D.velocity = new Vector2(_maxVelocity * -1, _player.Rigidbody2D.velocity.y);
+                _player.Rigidbody2D.velocity = new Vector2(0, _player.Rigidbody2D.velocity.y);
             }
         }
 
-        private void StopMovementLerp()
+        public void ReturnBaseSpeed()
         {
-            if (_isRunning == false)
-            {
-                _player.Rigidbody2D.velocity =
-                new Vector2(Mathf.Lerp(_player.Rigidbody2D.velocity.x, 0, _lerp),
-                    _player.Rigidbody2D.velocity.y);
-            }
+            _player.Rigidbody2D.velocity = new Vector2(0, _player.Rigidbody2D.velocity.y);
+            CurrentSpeed = BaseSpeed;
         }
 
-        private void FlipSprite()
+        private void Flip(float ctxValue)
         {
-            if (_movementDirection > 0)
+            if (ctxValue > 0)
             {
                 IsLookingRight = true;
-
-            }
-            if (_movementDirection < 0)
-            {
-                IsLookingRight = false;
-
-            }
-
-            if (IsLookingRight)
-            {
                 _spriteTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
+                IsLookingRight = false;
                 _spriteTransform.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
         }
 
-        private void ChangeAnimation()
+        private void Animation(bool isRunning)
         {
-            if (_isRunning == true)
-            {
-                _player.Animator.SetBool("isRun", true);
-            }
-            else
-            {
-                _player.Animator.SetBool("isRun", false);
-            }
-        }
-
-        private void CrouchSpeedCheck()
-        {
-            if (_player.Crouch.IsCrouched)
-            {
-                _speed = _speedCrouch;
-                _maxVelocity = _maxVelocityCrouch;
-            }
-            else
-            {
-                _speed = _speedRun;
-                _maxVelocity = _maxVelocityRun;
-            }
-        }
-
-        public void MobileMove(float direction)
-        {
-            _isRunning = true;
-            _movementDirection = direction;
-        }
-
-        public void MobileStopMovement()
-        {
-            _isRunning = false;
-            _movementDirection = 0f;
+            _player.Animator.SetBool("isRun", isRunning);
         }
     }
 }

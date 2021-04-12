@@ -124,9 +124,7 @@ namespace BOYAREngine
                 Currency = Currency,
                 // Dash
                 DashTimerCounter = _player.Dash.DashTimerCounter,
-                SpeedLimiterTimerCounter = _player.Dash.SpeedLimiterTimerCounter,
                 IsDashable = _player.Dash.IsDashable,
-                IsSpeedLimited = _player.Dash.IsSpeedLimited,
                 // jump
 //                JumpExtraCounts = _player.JumpOld.JumpExtraCounts,
 //                JumpExtraCountDefault = _player.JumpOld.JumpExtraCountDefault,
@@ -162,9 +160,7 @@ namespace BOYAREngine
             Currency = playerData.Currency;
             // Dash - dash logic
             _player.Dash.DashTimerCounter = playerData.DashTimerCounter;
-            _player.Dash.SpeedLimiterTimerCounter = playerData.SpeedLimiterTimerCounter;
             _player.Dash.IsDashable = playerData.IsDashable;
-            _player.Dash.IsSpeedLimited = playerData.IsSpeedLimited;
             // Jump - jumping logic
 //            _player.JumpOld.JumpExtraCounts = playerData.JumpExtraCounts;
 //            _player.JumpOld.JumpExtraCountDefault = playerData.JumpExtraCountDefault;
@@ -197,15 +193,9 @@ namespace BOYAREngine
         public int Currency;
         // Dash
         public float DashTimerCounter;
-        public float SpeedLimiterTimerCounter;
         public bool IsDashable;
-        public bool IsSpeedLimited;
         // Jump
-        public int JumpExtraCounts;
-        public int JumpExtraCountDefault;
         public bool IsJumping;
-        public bool IsDoubleJumping;
-        public bool IsStoppedJumping;
         // Crouch
         public bool IsCrouched;
         public bool HasCeiling;

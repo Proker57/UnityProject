@@ -18,10 +18,20 @@ namespace BOYAREngine.UI
                 PlayerEvents.GiveCurrency?.Invoke(WeaponManager.Instance.Weapons[WeaponManager.Instance.CurrentWeapon].SellCost);
 
                 WeaponManager.Instance.Weapons.RemoveAt(WeaponManager.Instance.CurrentWeapon);
-                WeaponManager.Instance.CurrentWeapon = -1;
+                WeaponManager.Instance.SetWeapon(-1);
 
+                UpdateSprites();
+            }
+        }
+
+        private void UpdateSprites()
+        {
+            for (var i = 0; i < WeaponManager.Instance.Weapons.Count; i++)
+            {
+                _weaponsTab.Cells[i].sprite = Resources.Load<Sprite>(WeaponManager.Instance.Weapons[i].SpriteUi);
             }
 
+            _weaponsTab.Cells[WeaponManager.Instance.Weapons.Count].sprite = Resources.Load<Sprite>(EmptySlotSpritePath);
         }
     }
 }

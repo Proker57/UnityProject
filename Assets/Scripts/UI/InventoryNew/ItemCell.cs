@@ -24,14 +24,20 @@ namespace BOYAREngine.UI
             {
                 ItemManager.Instance.Items[CellIndex].Use();
 
-                _itemsTab.Cells[CellIndex].sprite =
-                    Resources.Load<Sprite>(EmptySlotSpritePath);
-
-                _itemsTab.Cells[CellIndex].sprite = Resources.Load<Sprite>(EmptySlotSpritePath);
-
                 ItemManager.Instance.Items.RemoveAt(CellIndex);
 
+                UpdateSprites();
             }
+        }
+
+        private void UpdateSprites()
+        {
+            for (var i = 0; i < ItemManager.Instance.Items.Count; i++)
+            {
+                _itemsTab.Cells[i].sprite = Resources.Load<Sprite>(ItemManager.Instance.Items[i].SpriteUi);
+            }
+
+            _itemsTab.Cells[ItemManager.Instance.Items.Count].sprite = Resources.Load<Sprite>(EmptySlotSpritePath);
         }
 
         public void HoverPanel(bool isOn)

@@ -58,7 +58,7 @@ namespace BOYAREngine
                 _answers[i] = _buttons[i].transform.GetChild(0).GetComponent<Text>();
             }
 
-            EventSystem.current.firstSelectedGameObject = _nextButtonGameObject;
+            //EventSystem.current.firstSelectedGameObject = _nextButtonGameObject;
 
             _dialogueNodes = new List<DialogueNode>();
         }
@@ -172,7 +172,6 @@ namespace BOYAREngine
 
         private void Next_pressed(InputAction.CallbackContext ctx)
         {
-            Debug.Log("DialogueManager.cs: Next");
             if (!IsQuestionNode) NextNode();
         }
 
