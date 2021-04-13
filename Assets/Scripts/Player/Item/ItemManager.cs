@@ -37,24 +37,6 @@ namespace BOYAREngine
             CurrentItem = itemIndex;
         }
 
-        private void ItemUse_started()
-        {
-            if (Items.Count <= 0 || CurrentItem <= -1) return;
-            Items[CurrentItem].Use();
-            Items.Remove(Items[CurrentItem]);
-            CurrentItem--;
-        }
-
-        private void NextItem_started()
-        {
-            NextItem();
-        }
-
-        private void PreviousItem_started()
-        {
-            PreviousItem();
-        }
-
         private void NextItem()
         {
             if (Items != null && CurrentItem >= Items.Count - 1)
@@ -85,10 +67,6 @@ namespace BOYAREngine
             ItemEvents.ItemPrevious += PreviousItem;
             ItemEvents.ItemPickUp += ItemPickUp;
 
-            _playerInput.PlayerInGame.ItemUse.started += _ => ItemUse_started();
-            _playerInput.PlayerInGame.NextItem.started += _ => NextItem_started();
-            _playerInput.PlayerInGame.PreviousItem.started += _ => PreviousItem_started();
-
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
         }
 
@@ -97,10 +75,6 @@ namespace BOYAREngine
             ItemEvents.ItemNext -= NextItem;
             ItemEvents.ItemPrevious -= PreviousItem;
             ItemEvents.ItemPickUp -= ItemPickUp;
-
-            _playerInput.PlayerInGame.ItemUse.started -= _ => ItemUse_started();
-            _playerInput.PlayerInGame.NextItem.started -= _ => NextItem_started();
-            _playerInput.PlayerInGame.PreviousItem.started -= _ => PreviousItem_started();
 
             LocalizationSettings.SelectedLocaleChanged -= OnSelectedLocaleChanged;
         }

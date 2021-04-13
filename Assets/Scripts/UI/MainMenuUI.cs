@@ -79,7 +79,7 @@ namespace BOYAREngine.UI
         {
             LoadPlayerPrefs();
 
-            EventSystem.current.firstSelectedGameObject = _newGameGameObject;
+            EventSystem.current.SetSelectedGameObject(_newGameGameObject);
             _playerInput = GameController.Instance.PlayerInput;
         }
 

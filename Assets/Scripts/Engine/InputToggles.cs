@@ -14,10 +14,7 @@ namespace BOYAREngine
 
         public static void Game()
         {
-//            Inputs.Instance.Input.PlayerInGame.Enable();
-//            Inputs.Instance.Input.Global.Enable();
-//            Inputs.Instance.Input.HUD.Disable();
-//            Inputs.Instance.Input.Dialogue.Disable();
+            Inputs.Instance.PlayerInput.SwitchCurrentActionMap("PlayerInGame");
         }
 
         public static void Pause()

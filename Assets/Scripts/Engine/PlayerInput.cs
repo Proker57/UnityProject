@@ -78,52 +78,12 @@ namespace BOYAREngine
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
-                    ""name"": ""MeleePick"",
-                    ""type"": ""Button"",
-                    ""id"": ""902c35d1-3f67-4abc-b87b-fb6b5f5dbc2d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
-                },
-                {
-                    ""name"": ""RangePick"",
-                    ""type"": ""Button"",
-                    ""id"": ""f5641a42-7f9d-425c-bf24-5d80aa2bb575"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
-                },
-                {
                     ""name"": ""Use"",
                     ""type"": ""Button"",
                     ""id"": ""5a03c11a-d1b1-4549-86c0-6770bbc6a57e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(pressPoint=0.7,behavior=2)""
-                },
-                {
-                    ""name"": ""ItemUse"",
-                    ""type"": ""Button"",
-                    ""id"": ""bcdc1fdb-a80d-4c38-af0d-65223917ddbb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
-                },
-                {
-                    ""name"": ""NextItem"",
-                    ""type"": ""Button"",
-                    ""id"": ""7a9f5daa-2963-41a4-9f15-db2e3e6f19d2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
-                },
-                {
-                    ""name"": ""PreviousItem"",
-                    ""type"": ""Button"",
-                    ""id"": ""c4404f44-60d3-4fac-8e82-73455b2a9e70"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Inventory"",
@@ -181,7 +141,7 @@ namespace BOYAREngine
                     ""id"": ""7ad2fe09-5723-4b91-80ca-8555cc2ec0d3"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": true,
@@ -247,7 +207,7 @@ namespace BOYAREngine
                     ""id"": ""e5e62ec6-598d-4736-b1c5-4caf35297971"",
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
-                    ""processors"": ""AxisDeadzone"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
@@ -299,28 +259,6 @@ namespace BOYAREngine
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4df365c1-70e6-4f27-8076-a05138ef6901"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MeleePick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4c007fd8-cdc4-4ec2-9b77-ac5b6824f4d4"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RangePick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""f28f4577-a4ac-4977-a970-12dd11fc4125"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -338,39 +276,6 @@ namespace BOYAREngine
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Use"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""67b3aaea-0190-46c9-ba6a-0dbe7498b8c6"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ItemUse"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ce5f7f32-4a3a-49e9-ba18-5de406c5e97a"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NextItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2380f6e9-e560-4b91-b792-6f123dc0e4bc"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PreviousItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -487,6 +392,17 @@ namespace BOYAREngine
                     ""name"": """",
                     ""id"": ""40a8c164-d5f1-4eb4-b028-09dfb1204989"",
                     ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""871a90d5-05da-41e0-b862-bae136c60c7c"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -623,6 +539,12 @@ namespace BOYAREngine
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Pause"",
+            ""id"": ""6d69691f-1648-4ed5-bce1-9c6a833ffd0f"",
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": []
@@ -635,12 +557,7 @@ namespace BOYAREngine
             m_PlayerInGame_Dash = m_PlayerInGame.FindAction("Dash", throwIfNotFound: true);
             m_PlayerInGame_PrimaryAttack = m_PlayerInGame.FindAction("PrimaryAttack", throwIfNotFound: true);
             m_PlayerInGame_SecondaryAttack = m_PlayerInGame.FindAction("SecondaryAttack", throwIfNotFound: true);
-            m_PlayerInGame_MeleePick = m_PlayerInGame.FindAction("MeleePick", throwIfNotFound: true);
-            m_PlayerInGame_RangePick = m_PlayerInGame.FindAction("RangePick", throwIfNotFound: true);
             m_PlayerInGame_Use = m_PlayerInGame.FindAction("Use", throwIfNotFound: true);
-            m_PlayerInGame_ItemUse = m_PlayerInGame.FindAction("ItemUse", throwIfNotFound: true);
-            m_PlayerInGame_NextItem = m_PlayerInGame.FindAction("NextItem", throwIfNotFound: true);
-            m_PlayerInGame_PreviousItem = m_PlayerInGame.FindAction("PreviousItem", throwIfNotFound: true);
             m_PlayerInGame_Inventory = m_PlayerInGame.FindAction("Inventory", throwIfNotFound: true);
             m_PlayerInGame_Quest = m_PlayerInGame.FindAction("Quest", throwIfNotFound: true);
             // Global
@@ -659,6 +576,8 @@ namespace BOYAREngine
             // Inventory
             m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
             m_Inventory_Close = m_Inventory.FindAction("Close", throwIfNotFound: true);
+            // Pause
+            m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -724,12 +643,7 @@ namespace BOYAREngine
         private readonly InputAction m_PlayerInGame_Dash;
         private readonly InputAction m_PlayerInGame_PrimaryAttack;
         private readonly InputAction m_PlayerInGame_SecondaryAttack;
-        private readonly InputAction m_PlayerInGame_MeleePick;
-        private readonly InputAction m_PlayerInGame_RangePick;
         private readonly InputAction m_PlayerInGame_Use;
-        private readonly InputAction m_PlayerInGame_ItemUse;
-        private readonly InputAction m_PlayerInGame_NextItem;
-        private readonly InputAction m_PlayerInGame_PreviousItem;
         private readonly InputAction m_PlayerInGame_Inventory;
         private readonly InputAction m_PlayerInGame_Quest;
         public struct PlayerInGameActions
@@ -742,12 +656,7 @@ namespace BOYAREngine
             public InputAction @Dash => m_Wrapper.m_PlayerInGame_Dash;
             public InputAction @PrimaryAttack => m_Wrapper.m_PlayerInGame_PrimaryAttack;
             public InputAction @SecondaryAttack => m_Wrapper.m_PlayerInGame_SecondaryAttack;
-            public InputAction @MeleePick => m_Wrapper.m_PlayerInGame_MeleePick;
-            public InputAction @RangePick => m_Wrapper.m_PlayerInGame_RangePick;
             public InputAction @Use => m_Wrapper.m_PlayerInGame_Use;
-            public InputAction @ItemUse => m_Wrapper.m_PlayerInGame_ItemUse;
-            public InputAction @NextItem => m_Wrapper.m_PlayerInGame_NextItem;
-            public InputAction @PreviousItem => m_Wrapper.m_PlayerInGame_PreviousItem;
             public InputAction @Inventory => m_Wrapper.m_PlayerInGame_Inventory;
             public InputAction @Quest => m_Wrapper.m_PlayerInGame_Quest;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInGame; }
@@ -777,24 +686,9 @@ namespace BOYAREngine
                     @SecondaryAttack.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSecondaryAttack;
                     @SecondaryAttack.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSecondaryAttack;
                     @SecondaryAttack.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnSecondaryAttack;
-                    @MeleePick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMeleePick;
-                    @MeleePick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMeleePick;
-                    @MeleePick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnMeleePick;
-                    @RangePick.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnRangePick;
-                    @RangePick.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnRangePick;
-                    @RangePick.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnRangePick;
                     @Use.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
                     @Use.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
                     @Use.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnUse;
-                    @ItemUse.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
-                    @ItemUse.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
-                    @ItemUse.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnItemUse;
-                    @NextItem.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnNextItem;
-                    @NextItem.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnNextItem;
-                    @NextItem.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnNextItem;
-                    @PreviousItem.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPreviousItem;
-                    @PreviousItem.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPreviousItem;
-                    @PreviousItem.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnPreviousItem;
                     @Inventory.started -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnInventory;
                     @Inventory.performed -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnInventory;
                     @Inventory.canceled -= m_Wrapper.m_PlayerInGameActionsCallbackInterface.OnInventory;
@@ -823,24 +717,9 @@ namespace BOYAREngine
                     @SecondaryAttack.started += instance.OnSecondaryAttack;
                     @SecondaryAttack.performed += instance.OnSecondaryAttack;
                     @SecondaryAttack.canceled += instance.OnSecondaryAttack;
-                    @MeleePick.started += instance.OnMeleePick;
-                    @MeleePick.performed += instance.OnMeleePick;
-                    @MeleePick.canceled += instance.OnMeleePick;
-                    @RangePick.started += instance.OnRangePick;
-                    @RangePick.performed += instance.OnRangePick;
-                    @RangePick.canceled += instance.OnRangePick;
                     @Use.started += instance.OnUse;
                     @Use.performed += instance.OnUse;
                     @Use.canceled += instance.OnUse;
-                    @ItemUse.started += instance.OnItemUse;
-                    @ItemUse.performed += instance.OnItemUse;
-                    @ItemUse.canceled += instance.OnItemUse;
-                    @NextItem.started += instance.OnNextItem;
-                    @NextItem.performed += instance.OnNextItem;
-                    @NextItem.canceled += instance.OnNextItem;
-                    @PreviousItem.started += instance.OnPreviousItem;
-                    @PreviousItem.performed += instance.OnPreviousItem;
-                    @PreviousItem.canceled += instance.OnPreviousItem;
                     @Inventory.started += instance.OnInventory;
                     @Inventory.performed += instance.OnInventory;
                     @Inventory.canceled += instance.OnInventory;
@@ -1015,6 +894,31 @@ namespace BOYAREngine
             }
         }
         public InventoryActions @Inventory => new InventoryActions(this);
+
+        // Pause
+        private readonly InputActionMap m_Pause;
+        private IPauseActions m_PauseActionsCallbackInterface;
+        public struct PauseActions
+        {
+            private @PlayerInput m_Wrapper;
+            public PauseActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputActionMap Get() { return m_Wrapper.m_Pause; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PauseActions set) { return set.Get(); }
+            public void SetCallbacks(IPauseActions instance)
+            {
+                if (m_Wrapper.m_PauseActionsCallbackInterface != null)
+                {
+                }
+                m_Wrapper.m_PauseActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                }
+            }
+        }
+        public PauseActions @Pause => new PauseActions(this);
         public interface IPlayerInGameActions
         {
             void OnMovement(InputAction.CallbackContext context);
@@ -1023,12 +927,7 @@ namespace BOYAREngine
             void OnDash(InputAction.CallbackContext context);
             void OnPrimaryAttack(InputAction.CallbackContext context);
             void OnSecondaryAttack(InputAction.CallbackContext context);
-            void OnMeleePick(InputAction.CallbackContext context);
-            void OnRangePick(InputAction.CallbackContext context);
             void OnUse(InputAction.CallbackContext context);
-            void OnItemUse(InputAction.CallbackContext context);
-            void OnNextItem(InputAction.CallbackContext context);
-            void OnPreviousItem(InputAction.CallbackContext context);
             void OnInventory(InputAction.CallbackContext context);
             void OnQuest(InputAction.CallbackContext context);
         }
@@ -1051,6 +950,9 @@ namespace BOYAREngine
         public interface IInventoryActions
         {
             void OnClose(InputAction.CallbackContext context);
+        }
+        public interface IPauseActions
+        {
         }
     }
 }

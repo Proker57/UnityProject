@@ -54,52 +54,12 @@
                     "interactions": "Press(behavior=2)"
                 },
                 {
-                    "name": "MeleePick",
-                    "type": "Button",
-                    "id": "902c35d1-3f67-4abc-b87b-fb6b5f5dbc2d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
-                },
-                {
-                    "name": "RangePick",
-                    "type": "Button",
-                    "id": "f5641a42-7f9d-425c-bf24-5d80aa2bb575",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
-                },
-                {
                     "name": "Use",
                     "type": "Button",
                     "id": "5a03c11a-d1b1-4549-86c0-6770bbc6a57e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(pressPoint=0.7,behavior=2)"
-                },
-                {
-                    "name": "ItemUse",
-                    "type": "Button",
-                    "id": "bcdc1fdb-a80d-4c38-af0d-65223917ddbb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
-                },
-                {
-                    "name": "NextItem",
-                    "type": "Button",
-                    "id": "7a9f5daa-2963-41a4-9f15-db2e3e6f19d2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
-                },
-                {
-                    "name": "PreviousItem",
-                    "type": "Button",
-                    "id": "c4404f44-60d3-4fac-8e82-73455b2a9e70",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": ""
                 },
                 {
                     "name": "Inventory",
@@ -157,7 +117,7 @@
                     "id": "7ad2fe09-5723-4b91-80ca-8555cc2ec0d3",
                     "path": "1DAxis",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "AxisDeadzone",
                     "groups": "",
                     "action": "Movement",
                     "isComposite": true,
@@ -223,7 +183,7 @@
                     "id": "e5e62ec6-598d-4736-b1c5-4caf35297971",
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
-                    "processors": "AxisDeadzone",
+                    "processors": "",
                     "groups": "",
                     "action": "Crouch",
                     "isComposite": false,
@@ -275,28 +235,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4df365c1-70e6-4f27-8076-a05138ef6901",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MeleePick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4c007fd8-cdc4-4ec2-9b77-ac5b6824f4d4",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RangePick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f28f4577-a4ac-4977-a970-12dd11fc4125",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -314,39 +252,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Use",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "67b3aaea-0190-46c9-ba6a-0dbe7498b8c6",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ItemUse",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ce5f7f32-4a3a-49e9-ba18-5de406c5e97a",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "NextItem",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2380f6e9-e560-4b91-b792-6f123dc0e4bc",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PreviousItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -463,6 +368,17 @@
                     "name": "",
                     "id": "40a8c164-d5f1-4eb4-b028-09dfb1204989",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "871a90d5-05da-41e0-b862-bae136c60c7c",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -599,6 +515,12 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Pause",
+            "id": "6d69691f-1648-4ed5-bce1-9c6a833ffd0f",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

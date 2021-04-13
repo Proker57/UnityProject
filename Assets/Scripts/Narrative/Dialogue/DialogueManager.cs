@@ -26,6 +26,7 @@ namespace BOYAREngine
 
         [Space]
         [SerializeField] private Button _nextButton;
+        [SerializeField] private Text _textButton;
         [SerializeField] private GameObject _dialogueWindow;
         [SerializeField] private GameObject _answerWindow;
         [SerializeField] private List<DialogueNode> _dialogueNodes;
@@ -58,8 +59,6 @@ namespace BOYAREngine
                 _answers[i] = _buttons[i].transform.GetChild(0).GetComponent<Text>();
             }
 
-            //EventSystem.current.firstSelectedGameObject = _nextButtonGameObject;
-
             _dialogueNodes = new List<DialogueNode>();
         }
 
@@ -73,6 +72,8 @@ namespace BOYAREngine
 
         public void StartDialogue(List<DialogueNode> listNodes, string dialogueId)
         {
+            InputToggles.DialogueInputs(true);
+
             EnableEvents();
 
             EventSystem.current.SetSelectedGameObject(_nextButtonGameObject);
@@ -82,12 +83,12 @@ namespace BOYAREngine
             _dialogueWindow.SetActive(true);
             IsQuestionNode = listNodes[0].IsQuestion;
             _nextButton.gameObject.SetActive(!IsQuestionNode);
+            _textButton.gameObject.SetActive(!IsQuestionNode);
             _answerWindow.SetActive(IsQuestionNode);
             IsDialogueStarted = true;
 
             CameraZoom(true);
 
-            InputToggles.DialogueInputs(true);
 
             SetStrings();
             QuestionNode();
@@ -100,6 +101,7 @@ namespace BOYAREngine
             IsQuestionNode = false;
             _answerWindow.SetActive(false);
             _nextButton.gameObject.SetActive(true);
+            _textButton.gameObject.SetActive(true);
 
             if (_pageIndex < _dialogueNodes.Count)
             {
@@ -148,6 +150,7 @@ namespace BOYAREngine
             EventSystem.current.SetSelectedGameObject(_firstAnswerGameObject);
 
             _nextButton.gameObject.SetActive(false);
+            _textButton.gameObject.SetActive(false);
             _answerWindow.SetActive(true);
 
             foreach (var button in _buttons)

@@ -53,7 +53,7 @@ namespace BOYAREngine
         {
             _isButtonPressed = false;
 
-            if (HasCeiling == false)
+            if (!HasCeiling)
             {
                 StopCrouch();
             }
@@ -80,7 +80,7 @@ namespace BOYAREngine
             }
         }
 
-        private void CheckForCeiling()
+        public void CheckForCeiling()
         {
             var leftCeilingOrigin = LeftCeilingChecker.position;
             var rightCeilingOrigin = RightCeilingChecker.position;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
@@ -19,6 +20,8 @@ namespace BOYAREngine
         [SerializeField] private Text _load;
         [SerializeField] private Text _options;
         [SerializeField] private Text _mainMenu;
+        [Space]
+        [SerializeField] private GameObject _selectedObject;
 
         private const string StringTableCollectionName = "ESCMenu";
 
@@ -40,6 +43,8 @@ namespace BOYAREngine
             {
                 _pauseBlock.SetActive(!_pauseBlock.activeSelf);
                 InputToggles.Pause();
+                EventSystem.current.SetSelectedGameObject(_selectedObject);
+                Inputs.Instance.PlayerInput.SwitchCurrentActionMap("Pause");
             }
         }
 
