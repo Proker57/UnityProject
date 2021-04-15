@@ -1,57 +1,44 @@
-using System.Globalization;
 using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace BOYAREngine.UI
 {
-    public class WeaponsHover : MonoBehaviour
+    public class ItemsHover : MonoBehaviour
     {
-        private const string StringTableCollectionName = "InventoryHoverPanel";
+        //private const string StringTableCollectionName = "InventoryHoverPanel";
 
         [SerializeField] private GameObject _hoverPanel;
-        private WeaponCell _weaponCell;
-
-        [Header("Text")]
-        [SerializeField] private Text _weaponDamage;
-        [SerializeField] private Text _weaponAttackSpeed;
-        [SerializeField] private Text _weaponDescription;
+        private ItemCell _itemCell;
 
         [Header("Values")]
 
-        public Text Type;
-        public Text Name;
-        public Text Damage;
-        public Text AttackSpeed;
-        public Text Description;
-        public Text Price;
+        public Text ItemType;
+        public Text ItemName;
+        public Text ItemDescriptionValue;
+        public Text ItemPrice;
 
         private void Awake()
         {
-            _weaponCell = GetComponent<WeaponCell>();
+            _itemCell = GetComponent<ItemCell>();
 
-            LoadStrings();
+            /*LoadStrings()*/;
         }
 
         public void ShowPanel(bool isOn)
         {
-            WeaponManager.Instance.IsAbleToAttack = !isOn;
+            Attack.Instance.IsAbleToAttack = !isOn;
 
             _hoverPanel.SetActive(isOn);
 
-            var weaponManager = WeaponManager.Instance;
-            Type.text = weaponManager.Weapons[_weaponCell.CellIndex].Type;
-            Name.text = "<color=#9AEE49>" + weaponManager.Weapons[_weaponCell.CellIndex].Name + "</color>";
-            Damage.text = weaponManager.Weapons[_weaponCell.CellIndex].Damage.ToString();
-            AttackSpeed.text = weaponManager.Weapons[_weaponCell.CellIndex].AttackSpeed.ToString(CultureInfo.InvariantCulture);
-            Description.text = weaponManager.Weapons[_weaponCell.CellIndex].Description;
-            Price.text = weaponManager.Weapons[_weaponCell.CellIndex].SellCost + "G";
+            var itemManager = ItemManager.Instance;
+            if (itemManager.Items.Count <= _itemCell.CellIndex) return;
+            ItemType.text = itemManager.Items[_itemCell.CellIndex].Type;
+            ItemName.text = "<color=#9AEE49>" + itemManager.Items[_itemCell.CellIndex].Name + "</color>";
+            ItemDescriptionValue.text = itemManager.Items[_itemCell.CellIndex].Description;
+            ItemPrice.text = itemManager.Items[_itemCell.CellIndex].SellCost + "G";
         }
 
-        private void OnEnable()
+        /*private void OnEnable()
         {
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
 
@@ -93,7 +80,7 @@ namespace BOYAREngine.UI
         {
             var entry = table.GetEntry(entryName);
             return entry.GetLocalizedString();
-        }
+        }*/
     }
 }
 

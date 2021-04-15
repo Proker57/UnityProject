@@ -32,7 +32,7 @@ namespace BOYAREngine
         private void CooldownSlider()
         {
             if (_player.Dash.IsDashable) return;
-            _fill.fillAmount = _player.Dash.DashTimerCounter;
+            _fill.fillAmount = _player.Dash.DashTimerCurrent;
         }
 
         private void Dashed()

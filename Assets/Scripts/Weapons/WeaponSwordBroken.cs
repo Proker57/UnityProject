@@ -8,8 +8,6 @@ namespace BOYAREngine
     [System.Serializable]
     public class WeaponSwordBroken : Melee
     {
-        //private readonly WeaponManager _weaponManager;
-
         public WeaponSwordBroken()
         {
             Sprite = "Images/Weapons/OnPlayer/BrokenSword";
@@ -24,47 +22,32 @@ namespace BOYAREngine
             Radius = 0.8f;
             SellCost = 30;
 
-            MaxComboNumber = 3;
+            PushForce = 20f;
 
-            //_weaponManager = WeaponManager.Instance;
+            AttackSpeedBase = AttackSpeed;
 
             LoadStrings();
         }
 
         internal override int FirstAttack()
         {
-            Debug.Log("First attack: " + Damage);
+            Debug.Log("First attack: " + Damage + "_ Attack Speed: " + AttackSpeed);
+            AttackSpeed = 1f;
             return Damage;
-
-//            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
-//            foreach (var enemies in hit)
-//            {
-//                enemies.GetComponent<IDamageable>().GetDamage(Damage);
-//            }
         }
 
         internal override int SecondAttack()
         {
-            Debug.Log("Second attack: " + Damage);
+            Debug.Log("Second attack: " + Damage + "_ Attack Speed: " + AttackSpeed);
+            AttackSpeed = 2f;
             return Damage;
-
-//            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
-//            foreach (var enemies in hit)
-//            {
-//                enemies.GetComponent<IDamageable>().GetDamage(Damage);
-//            }
         }
 
         internal override int ThirdAttack()
         {
-            Debug.Log("Third attack: " + (Damage + 40));
+            Debug.Log("Third attack: " + (Damage + 40) + "_ Attack Speed: " + AttackSpeed);
+            AttackSpeed = 0.8f;
             return (Damage + 40);
-
-//            var hit = Physics2D.OverlapCircleAll(_weaponManager.AttackPoint.transform.position, Radius, _weaponManager.DamageLayers);
-//            foreach (var enemies in hit)
-//            {
-//                enemies.GetComponent<IDamageable>().GetDamage(Damage + 40);
-//            }
         }
 
         internal override void SecondaryAttack()

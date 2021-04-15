@@ -2,7 +2,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Object = UnityEngine.Object;
 
 namespace BOYAREngine
 {
@@ -37,7 +36,6 @@ namespace BOYAREngine
         [SerializeField] private Direction _direction;
 
         [Space]
-        [SerializeField] private InputAction _use;
         [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
@@ -47,14 +45,12 @@ namespace BOYAREngine
 
         private void Start()
         {
-            var iam = _controls.FindActionMap("PlayerInGame");
-            _use = iam.FindAction("Use");
-            _use.started += Use_started;
+            _controls.FindActionMap("PlayerInGame").FindAction("Use").started += Use_started;
         }
 
-        private void OnTriggerEnter2D(Object collider)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!collider.name.Equals("Low Collider")) return;
+            if (!other.name.Equals("Low Collider")) return;
             _isEnter = true;
 
             switch (_type)
@@ -70,9 +66,9 @@ namespace BOYAREngine
             }
         }
 
-        private void OnTriggerExit2D(Object collider)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            if (!collider.name.Equals("Low Collider")) return;
+            if (!other.name.Equals("Low Collider")) return;
             _isEnter = false;
 
             switch (_type)
@@ -133,16 +129,6 @@ namespace BOYAREngine
                 _panel.SetActive(false);
                 OpenDoor(true, _direction);
             }
-        }
-
-        private void OnEnable()
-        {
-            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
-        }
-
-        private void OnDisable()
-        {
-            //Inputs.Instance.Input.PlayerInGame.Use.started += _ => Use_started();
         }
     }
 }

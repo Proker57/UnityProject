@@ -58,6 +58,8 @@ namespace BOYAREngine
             HUDEvents.LevelUpdate?.Invoke(Level);
 
             MaxHealth = (int)(MaxHealth * 1.2f);
+
+            PlayerEvents.UpdateHPBar?.Invoke();
         }
 
         private void OnSpendLevelUpPoints()
@@ -66,7 +68,7 @@ namespace BOYAREngine
 
             if (LevelUpPoints <= 0)
             {
-                HUDEvents.LevelUpPointsToggle(false);
+                HUDEvents.LevelUpPointsToggle?.Invoke(false);
             }
         }
 
@@ -123,7 +125,7 @@ namespace BOYAREngine
                 LevelUpPoints = LevelUpPoints,
                 Currency = Currency,
                 // Dash
-                DashTimerCounter = _player.Dash.DashTimerCounter,
+                DashTimerCounter = _player.Dash.DashTimerCurrent,
                 IsDashable = _player.Dash.IsDashable,
                 // jump
 //                JumpExtraCounts = _player.JumpOld.JumpExtraCounts,
@@ -159,7 +161,7 @@ namespace BOYAREngine
             LevelUpPoints = playerData.LevelUpPoints;
             Currency = playerData.Currency;
             // Dash - dash logic
-            _player.Dash.DashTimerCounter = playerData.DashTimerCounter;
+            _player.Dash.DashTimerCurrent = playerData.DashTimerCounter;
             _player.Dash.IsDashable = playerData.IsDashable;
             // Jump - jumping logic
 //            _player.JumpOld.JumpExtraCounts = playerData.JumpExtraCounts;

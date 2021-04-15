@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,9 +10,9 @@ namespace BOYAREngine
         [SerializeField] private LayerMask _groundLayer;
 
         [Header("Jump Vars")]
-        [SerializeField] private float _jumpForce;
-        [SerializeField] private float _jumpTime;
-        private float _jumpTimeCounter;
+        [SerializeField] private float _force;
+        [SerializeField] private float _releaseTime;
+        private float _releaseTimeCounter;
 
         [Header("Jump Off Platform")]
         [SerializeField] private LayerMask _playerLayer;
@@ -22,7 +21,7 @@ namespace BOYAREngine
         [Header("Logic")]
         public bool CanJump = true;
         public bool IsJumping;
-        private bool _buttonPressed;
+        private bool _hasPressed;
         [Space]
         [SerializeField] private InputActionAsset _controls;
         private Player _player;
@@ -42,17 +41,17 @@ namespace BOYAREngine
         {
             if (CanJump && !_player.Crouch.HasCeiling)
             {
-                if (_buttonPressed)
+                if (_hasPressed)
                 {
                     JumpAction();
-                    HeightControl();
+                    ControlHeight();
                 }
             }
         }
 
         private void Jump_started(InputAction.CallbackContext ctx)
         {
-            _buttonPressed = true;
+            _hasPressed = true;
 
             JumpOffPlatform();
         }
@@ -60,30 +59,30 @@ namespace BOYAREngine
 
         private void Jump_canceled(InputAction.CallbackContext ctx)
         {
-            _buttonPressed = false;
-            _jumpTimeCounter = 0;
+            _hasPressed = false;
+            _releaseTimeCounter = 0;
         }
 
         private void JumpAction()
         {
-            if (IsOnGround() && _buttonPressed && !(CheckPlatform() && _player.Crouch.IsCrouched))
+            if (IsOnGround() && _hasPressed && !(IsOnPlatform() && _player.Crouch.IsCrouched))
             {
                 AbilityToJump();
 
                 PlayParticleFx();
 
-                _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _jumpForce);
+                _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _force);
             }
         }
 
-        private void HeightControl()
+        private void ControlHeight()
         {
-            if (_buttonPressed && IsJumping)
+            if (_hasPressed && IsJumping)
             {
-                if (_jumpTimeCounter > 0)
+                if (_releaseTimeCounter > 0)
                 {
-                    _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _jumpForce);
-                    _jumpTimeCounter -= Time.deltaTime;
+                    _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x, _force);
+                    _releaseTimeCounter -= Time.deltaTime;
                 }
                 else
                 {
@@ -94,7 +93,7 @@ namespace BOYAREngine
 
         private void JumpOffPlatform()
         {
-            if (_player.Crouch.IsCrouched && CheckPlatform())
+            if (_player.Crouch.IsCrouched && IsOnPlatform())
             {
                 PlayerEvents.JumpDownPlatform();
             }
@@ -103,7 +102,7 @@ namespace BOYAREngine
         public void AbilityToJump()
         {
             IsJumping = true;
-            _jumpTimeCounter = _jumpTime;
+            _releaseTimeCounter = _releaseTime;
         }
 
         private bool IsOnGround()
@@ -113,7 +112,7 @@ namespace BOYAREngine
             return hitLeft.collider || hitRight.collider != null;
         }
 
-        private bool CheckPlatform()
+        private bool IsOnPlatform()
         {
             var hitLeft = Physics2D.Raycast(_originOfLeftRaycast.position, Vector2.down, 0.1f, LayerMask.GetMask("Platform"));
             var hitRight = Physics2D.Raycast(_originOfRightRaycast.position, Vector2.down, 0.1f, LayerMask.GetMask("Platform"));
@@ -124,7 +123,7 @@ namespace BOYAREngine
         {
             if (IsOnGround())
             {
-                _player.ParticleSystem.Play();
+                _player.DustFx.Play();
             }
         }
 

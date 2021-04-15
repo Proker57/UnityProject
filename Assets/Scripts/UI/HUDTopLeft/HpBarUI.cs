@@ -7,7 +7,7 @@ namespace BOYAREngine
     {
         [SerializeField] private Image _image;
         [SerializeField] private Text _text;
-        private Player _player;
+        [SerializeField] private Player _player;
 
         private void UpdateHpBar()
         {
@@ -29,7 +29,6 @@ namespace BOYAREngine
         private void OnEnable()
         {
             PlayerEvents.UpdateHPBar += UpdateHpBar;
-
             Events.Load += OnLoad;
             Events.PlayerOnScene += AssignPlayer;
         }
@@ -37,13 +36,13 @@ namespace BOYAREngine
         private void OnDisable()
         {
             PlayerEvents.UpdateHPBar -= UpdateHpBar;
-
             Events.PlayerOnScene -= AssignPlayer;
         }
 
         private void AssignPlayer(bool isActive)
         {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
             UpdateHpBar();
         }
     }

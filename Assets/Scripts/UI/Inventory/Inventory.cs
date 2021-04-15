@@ -1,127 +1,38 @@
-﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-namespace BOYAREngine
+namespace BOYAREngine.UI
 {
     public class Inventory : MonoBehaviour
     {
-        public static Inventory Instance = null;
+        public static Inventory Instance;
 
-        [SerializeField] private const string EmptySlotSpritePath = "Images/UI/Inventory/Slot_Empty";
+        [SerializeField] private GameObject _panel;
 
-        public int ChosenSlot = -1;
+        [SerializeField] private GameObject _selectedObject;
 
-        public enum TabType
+        [Space]
+        [SerializeField] private InputActionAsset _controls;
+
+        private void Start()
         {
-            Weapons, Items
+            _controls.FindActionMap("PlayerInGame").FindAction("Inventory").started += Inventory_pressed;
+            _controls.FindActionMap("Inventory").FindAction("Close").started += Inventory_pressed;
         }
 
-        public TabType CurrentTab = TabType.Weapons;
-
-        [SerializeField] private GameObject _scrollView;
-        public GameObject[] Cells;
-
-        [SerializeField] private InventoryTabs _inventoryTabs;
-
-        private void Awake()
+        private void Inventory_pressed(InputAction.CallbackContext obj)
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            OpenInventory();
         }
 
-        private void WeaponAddInInventory()
+        public void OpenInventory()
         {
-            UpdateSprites(TabType.Weapons);
-        }
+            _panel.SetActive(!_panel.activeSelf);
 
-        private void ItemAddInInventory()
-        {
-            UpdateSprites(TabType.Items);
-        }
+            EventSystem.current.SetSelectedGameObject(_selectedObject);
 
-        public void Remove(TabType type)
-        {
-            switch (type)
-            {
-                case TabType.Weapons:
-                    WeaponManager.Instance.Weapons.RemoveAt(ChosenSlot);
-
-                    if (ChosenSlot <= WeaponManager.Instance.CurrentWeapon)
-                    {
-                        WeaponManager.Instance.CurrentWeapon--;
-                    }
-                    break;
-                case TabType.Items:
-                    ItemManager.Instance.Items.RemoveAt(ChosenSlot);
-
-                    if (ChosenSlot <= ItemManager.Instance.CurrentItem)
-                    {
-                        ItemManager.Instance.CurrentItem--;
-                    }
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-
-            UpdateSprites(type);
-        }
-
-        public void UpdateSprites(TabType type)
-        {
-            var i = 0;
-
-            CurrentTab = type;
-
-            _inventoryTabs.SetActiveTab(type);
-
-            foreach (var cell in Cells)
-            {
-                switch (type)
-                {
-                    case TabType.Weapons:
-                        if (i < WeaponManager.Instance.Weapons.Count)
-                        {
-                            cell.GetComponent<Image>().sprite = Resources.Load<Sprite>(WeaponManager.Instance.Weapons[i].SpriteUi);
-                            i++;
-                        }
-                        else
-                        {
-                            cell.GetComponent<Image>().sprite = Resources.Load<Sprite>(EmptySlotSpritePath);
-                            i++;
-                        }
-                        break;
-                    case TabType.Items:
-                        if (i < ItemManager.Instance.Items.Count)
-                        {
-                            cell.GetComponent<Image>().sprite =
-                                Resources.Load<Sprite>(ItemManager.Instance.Items[i].SpriteUi);
-                            i++;
-                        }
-                        else
-                        {
-                            cell.GetComponent<Image>().sprite = Resources.Load<Sprite>(EmptySlotSpritePath);
-                            i++;
-                        }
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
-                }
-            }
-        }
-
-        private void OnEnable()
-        {
-            WeaponEvents.WeaponAddInInventory += WeaponAddInInventory;
-            ItemEvents.ItemAddInInventory += ItemAddInInventory;
-        }
-
-        private void OnDisable()
-        {
-            WeaponEvents.WeaponAddInInventory -= WeaponAddInInventory;
-            ItemEvents.ItemAddInInventory -= ItemAddInInventory;
+            InputToggles.Inventory(_panel.activeSelf);
         }
     }
 }

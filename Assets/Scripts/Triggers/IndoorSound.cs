@@ -10,6 +10,8 @@ namespace BOYAREngine.Sound
         public AudioMixerSnapshot Default;
         public AudioMixerSnapshot Indoor;
 
+        [SerializeField] private float _transitionTime = 2f;
+
         private void Start()
         {
             _audioMixer = AudioMixer.Instance.MasterMixer;
@@ -19,16 +21,14 @@ namespace BOYAREngine.Sound
         {
             if (other.name != "Low Collider") return;
 
-            Indoor.TransitionTo(2f);
-            //_audioMixer.TransitionToSnapshots(_audioMixer.FindSnapshot("Indoor"), WeightedMode.In, );
+            Indoor.TransitionTo(_transitionTime);
         }
 
         private void OnTriggerExit2D(Object other)
         {
             if (other.name != "Low Collider") return;
 
-            Default.TransitionTo(2f);
-            //_audioMixer.TransitionToSnapshots(_audioMixer.FindSnapshot("Indoor"), WeightedMode.In, );
+            Default.TransitionTo(_transitionTime);
         }
     }
 }

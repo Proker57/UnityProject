@@ -53,6 +53,7 @@ namespace BOYAREngine
         public void Movement_canceled(InputAction.CallbackContext ctx)
         {
             _movementDirection = 0;
+            _player.Rigidbody2D.velocity = new Vector2(0, _player.Rigidbody2D.velocity.y);
             Animation(false);
             _isButtonPressed = false;
         }
@@ -62,10 +63,6 @@ namespace BOYAREngine
             if (_isRunning && _isButtonPressed)
             {
                 _player.Rigidbody2D.velocity = _direction;
-            }
-            else
-            {
-                _player.Rigidbody2D.velocity = new Vector2(0, _player.Rigidbody2D.velocity.y);
             }
         }
 

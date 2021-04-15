@@ -32,8 +32,7 @@ namespace BOYAREngine
 
             PlayerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
 
-
-        DOTween.Init();
+            DOTween.Init();
 
             CreatePlayerPrefs();
         }

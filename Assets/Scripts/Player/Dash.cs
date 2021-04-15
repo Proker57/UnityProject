@@ -7,15 +7,19 @@ namespace BOYAREngine
     {
         public float SpeedMultiplier;
         public bool IsDashable;
-        [HideInInspector] public float DashTimerCounter;
+        [HideInInspector] public float DashTimerCurrent;
         [SerializeField] private float _dashTimer = 1f;
+
+        [SerializeField] private float _nextDashTimer = 0.3f;
+        private float _nextDashTimerCurrent;
+        private bool _isDashFinished;
         [Space]
         private Player _player;
         [SerializeField] private InputActionAsset _controls;
 
         private void Awake()
         {
-            DashTimerCounter = _dashTimer;
+            DashTimerCurrent = _dashTimer;
 
             _player = GetComponent<Player>();
         }
@@ -31,36 +35,55 @@ namespace BOYAREngine
             PlayerEvents.Dash();
             _player.Movement.CurrentSpeed += SpeedMultiplier;
             IsDashable = false;
+            _isDashFinished = false;
         }
 
         private void Update()
         {
             if (!IsDashable)
             {
-                DashCountdown();
+                Cooldown();
+            }
+
+            if (!_isDashFinished)
+            {
+                DashingTime();
             }
         }
 
-        private void DashCountdown()
+        private void Cooldown()
         {
             if (IsDashable) return;
-            if (DashTimerCounter > 0)
+            if (DashTimerCurrent > 0)
             {
-                DashTimerCounter -= Time.deltaTime;
+                DashTimerCurrent -= Time.deltaTime;
             }
             else
             {
-                DashTimerCounter = _dashTimer;
+                DashTimerCurrent = _dashTimer;
                 PlayerEvents.DashReady();
                 IsDashable = true;
-                _player.Movement.ReturnBaseSpeed();
+            }
+        }
 
+        private void DashingTime()
+        {
+            if (_isDashFinished && IsDashable) return;
+            if (_nextDashTimerCurrent > 0)
+            {
+                _nextDashTimerCurrent -= Time.deltaTime;
+            }
+            else
+            {
+                _nextDashTimerCurrent = _nextDashTimer;
+                _isDashFinished = true;
+                _player.Movement.ReturnBaseSpeed();
             }
         }
 
         private void OnEnable()
         {
-            HUDEvents.DashCheckIsActive(true);
+            HUDEvents.DashCheckIsActive?.Invoke(true);
         }
 
         private void OnDisable()

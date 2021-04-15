@@ -12,7 +12,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace BOYAREngine
 {
-    public class StartDialogue : MonoBehaviour
+    public class Dialogue : MonoBehaviour
     {
         private const string StringTableCollectionName = "Dialogue";
 

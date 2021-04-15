@@ -119,7 +119,7 @@ namespace BOYAREngine
             JumpExtraCounts--;
             IsJumping = true;
             _player.Rigidbody2D.velocity = new Vector2(_player.Rigidbody2D.velocity.x * 2f, _jumpForce);
-            _player.ParticleSystem.Play();
+            //_player.DustFx.Play();
             IsStoppedJumping = false;
         }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BOYAREngine
 {
@@ -7,9 +6,6 @@ namespace BOYAREngine
     public class Melee
     {
         internal const string StringTableCollectionName = "Weapon_names";
-
-        //[SerializeField] internal Sprite SpriteUi;
-        //[SerializeField] internal Sprite Sprite;
 
         internal string Sprite;
         internal string SpriteUi;
@@ -20,22 +16,17 @@ namespace BOYAREngine
 
         [SerializeField] internal int Damage;
         [SerializeField] internal int SellCost;
-        [SerializeField] internal int CurrentComboNumber;
-        [SerializeField] internal int MaxComboNumber;
 
         [SerializeField] internal float AttackSpeed;
+        [SerializeField] protected float AttackSpeedBase;
         [SerializeField] internal float Radius;
-        
-        internal float Reset;
-        internal float NextAttackCheck;
 
-        private void Awake()
+        [SerializeField] internal float PushForce;
+
+        public void Reset()
         {
-            Reset = 0;
-            NextAttackCheck = 1.4f;
+            AttackSpeed = AttackSpeedBase;
         }
-
-        internal void PrimaryAttack() { }
 
         internal virtual int FirstAttack() { return Damage; }
 

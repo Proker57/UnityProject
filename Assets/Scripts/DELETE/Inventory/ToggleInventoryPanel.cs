@@ -28,12 +28,12 @@ namespace BOYAREngine
 
         public void EnterPointer()
         {
-            WeaponManager.Instance.IsAbleToAttack = false;
+            Attack.Instance.IsAbleToAttack = false;
         }
 
         public void ExitPointer()
         {
-            WeaponManager.Instance.IsAbleToAttack = true;
+            Attack.Instance.IsAbleToAttack = true;
         }
 
         private void Inventory_started(InputAction.CallbackContext ctx)

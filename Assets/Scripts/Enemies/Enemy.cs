@@ -63,7 +63,7 @@ namespace BOYAREngine.Enemies
             MaxSpeedBase = MaxSpeed;
         }
 
-    private void OnTriggerEnter2D(Object other)
+    private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.name != "Low Collider") return;
             IsFighting = true;
@@ -73,10 +73,11 @@ namespace BOYAREngine.Enemies
                 PlaySound(IdleSound);
             }
 
-            _aiBase.Target = GameObject.FindGameObjectWithTag("Player").transform;
+            //_aiBase.Target = GameObject.FindGameObjectWithTag("Player").transform;
+            _aiBase.Target = GameController.Instance.Player.transform;
         }
 
-        private void OnTriggerExit2D(Object other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             if (other.name != "Low Collider") return;
             IsFighting = false;
