@@ -10,10 +10,9 @@ namespace BOYAREngine
         public static WeaponManager Instance;
 
         public int CurrentWeapon = -1;
-
         public List<Melee> Weapons = new List<Melee>();
+        [SerializeField] private SpriteRenderer _weaponSprite;
 
-        private SpriteRenderer _weaponSprite;
 
         private void Awake()
         {
@@ -43,6 +42,7 @@ namespace BOYAREngine
                 return;
             }
 
+            Debug.Log(Resources.Load<Sprite>(Weapons[CurrentWeapon].Sprite));
             _weaponSprite.sprite = Resources.Load<Sprite>(Weapons[CurrentWeapon].Sprite);
         }
 

@@ -32,5 +32,9 @@ MonoBehaviour:
       Lights off'
     m_Metadata:
       m_Items: []
+  - m_Id: 4845851749445632
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

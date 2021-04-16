@@ -26,6 +26,9 @@ namespace BOYAREngine
         [SerializeField] private InputActionAsset _controls;
         private Player _player;
 
+        [SerializeField]
+        private bool _isOnGround;
+
         private void Awake()
         {
             _player = GetComponent<Player>();
@@ -39,6 +42,7 @@ namespace BOYAREngine
 
         private void Update()
         {
+            _isOnGround = IsOnGround();
             if (CanJump && !_player.Crouch.HasCeiling)
             {
                 if (_hasPressed)

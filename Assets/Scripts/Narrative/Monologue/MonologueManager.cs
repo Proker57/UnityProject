@@ -63,5 +63,15 @@ namespace BOYAREngine.Narrative
             OnFinishEvent?.Invoke();
             _narrativeObject.SetActive(false);
         }
+
+        private void OnEnable()
+        {
+            MonologueEvents.Stop += FinishMonologue;
+        }
+
+        private void OnDisable()
+        {
+            MonologueEvents.Stop -= FinishMonologue;
+        }
     }
 }

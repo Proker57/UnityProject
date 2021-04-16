@@ -2294,7 +2294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 458.3707, y: -127.12}
+  m_AnchoredPosition: {x: 458.3706, y: -127.12012}
   m_SizeDelta: {x: 816.7414, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331561903
@@ -3125,7 +3125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b857588138bb98b41b084deb241f67c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewGameSceneName: TestLevel001
+  NewGameSceneName: 001-Start-WakeUpPlace
   _leftAction: {fileID: 2928524534963617614, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
   _actionActionReference: {fileID: 1407556009239005092, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
   _newGameGameObject: {fileID: 864139454}
@@ -6336,7 +6336,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 28
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -10372,10 +10372,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

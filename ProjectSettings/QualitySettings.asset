@@ -79,6 +79,7 @@ QualitySettings:
     customRenderPipeline: {fileID: 11400000, guid: 5d999f68fb885c34b8fea1a1b3d1dd1f, type: 2}
     excludedTargetPlatforms:
     - Android
+    - Standalone
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -116,6 +117,7 @@ QualitySettings:
     customRenderPipeline: {fileID: 11400000, guid: 5d999f68fb885c34b8fea1a1b3d1dd1f, type: 2}
     excludedTargetPlatforms:
     - Android
+    - Standalone
   m_PerPlatformDefaultQuality:
     Android: 0
     Standalone: 0

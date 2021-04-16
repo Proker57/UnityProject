@@ -10,6 +10,9 @@ namespace BOYAREngine
 
         public delegate void LoadedMonologueDelegate();
         public static LoadedMonologueDelegate LoadedMonologue;
+
+        public delegate void StopDelegate();
+        public static StopDelegate Stop;
     }
 }
 

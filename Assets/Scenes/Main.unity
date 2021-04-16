@@ -15415,6 +15415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 844295045}
   _text: {fileID: 1713991932}
+  _player: {fileID: 0}
 --- !u!1 &912319500 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7607474235896794094, guid: 97bf0cbb5223c4a4d8d1349643c8901b, type: 3}
