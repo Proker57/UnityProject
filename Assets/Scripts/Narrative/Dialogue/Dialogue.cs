@@ -61,7 +61,10 @@ namespace BOYAREngine
             _isEnterOnTrigger = false;
             _panel.SetActive(false);
             _isDialogueStarted = false;
-            _dialogueManager.FinishDialogue();
+            if (_dialogueManager.IsDialogueStarted)
+            {
+                _dialogueManager.FinishDialogue();
+            }
         }
 
         private void Use_started(InputAction.CallbackContext ctx)

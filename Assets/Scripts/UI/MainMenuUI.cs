@@ -15,6 +15,7 @@ namespace BOYAREngine.UI
     {
         private const string StringTableCollectionName = "Main Menu";
 
+        [SerializeField] private bool _isTesting;
         [SerializeField] private string NewGameSceneName = "TestLevel001";
         [SerializeField] private InputActionReference _leftAction;
         [SerializeField] private InputActionReference _actionActionReference;
@@ -85,7 +86,14 @@ namespace BOYAREngine.UI
 
         public void NewGame()
         {
-            SceneLoader.SwitchScene(NewGameSceneName);
+            if (!_isTesting)
+            {
+                SceneLoader.SwitchScene(NewGameSceneName);
+            }
+            else
+            {
+                SceneLoader.SwitchScene("TestLevel001");
+            }
             GameController.IsNewGame = true;
             Events.NewGame?.Invoke();
         }

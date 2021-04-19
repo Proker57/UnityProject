@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace BOYAREngine.Narrative
 {
-    public class Monologue : MonoBehaviour
+    public class Monologue : MonoBehaviour, ISaveable
     {
+        [HideInInspector] public bool IsActive;
         public MonologueManager MonologueManager;
         public bool IsPlayerMonologue;
         [Space]
@@ -30,6 +31,11 @@ namespace BOYAREngine.Narrative
         [SerializeField] private RichText _richText;
 
         private bool _isOncePlayed = true;
+
+        private void Awake()
+        {
+            IsActive = gameObject.activeSelf;
+        }
 
         private void Start()
         {
@@ -95,6 +101,29 @@ namespace BOYAREngine.Narrative
         {
             _cooldown.IsReady = true;
         }
+
+        public object CaptureState()
+        {
+            return new MonologueData()
+            {
+                IsReady = _cooldown.IsReady,
+                IsOncePlayed = _isOncePlayed
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var data = (MonologueData) state;
+            _cooldown.IsReady = data.IsReady;
+            _isOncePlayed = data.IsOncePlayed;
+        }
+    }
+
+    [System.Serializable]
+    public class MonologueData
+    {
+        public bool IsReady;
+        public bool IsOncePlayed;
     }
 }
 

@@ -3125,6 +3125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b857588138bb98b41b084deb241f67c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isTesting: 0
   NewGameSceneName: 001-Start-WakeUpPlace
   _leftAction: {fileID: 2928524534963617614, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}
   _actionActionReference: {fileID: 1407556009239005092, guid: 37d7c0b0b15b5b941be67c68a3a1b637, type: 3}

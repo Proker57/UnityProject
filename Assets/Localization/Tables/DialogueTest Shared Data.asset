@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: TestLevel001_test1
     m_Metadata:
       m_Items: []
+  - m_Id: 52902272684322816
+    m_Key: Jail_bar
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

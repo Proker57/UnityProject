@@ -5,7 +5,7 @@ namespace BOYAREngine
     [System.Serializable]
     public class Melee
     {
-        internal const string StringTableCollectionName = "Weapon_names";
+        internal const string StringTableCollectionName = "Weapons";
 
         [SerializeField] internal string Sprite;
         internal string SpriteUi;

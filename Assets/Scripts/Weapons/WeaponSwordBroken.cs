@@ -64,9 +64,11 @@ namespace BOYAREngine
             {
                 var stringTable = loadingOperation.Result;
 
-                Type = GetLocalizedString(stringTable, "type_sword");
-                Name = GetLocalizedString(stringTable, "sword_broken_name");
-                Description = GetLocalizedString(stringTable, "sword_broken_description");
+                var splitString = GetLocalizedString(stringTable, "broken_sword").Split('\n');
+
+                Name = splitString[0];
+                Description = splitString[1];
+                Type = splitString[2];
             }
             else
             {
